@@ -1,2 +1,3 @@
-# EESaga
-EESDC7
+# 螺母战记 / EESaga
+
+第七届软设参赛作品
