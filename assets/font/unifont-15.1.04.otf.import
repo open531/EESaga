@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://c0a5kxaol5r04"
-path="res://.godot/imported/unifont-15.1.04.otf-a5988475523633e8abb003ea548dba29.fontdata"
+path="res://.godot/imported/unifont-15.1.04.otf-15cab38a204ebc9c4374f6b6e6e1df7d.fontdata"
 
 [deps]
 
-source_file="res://assets/font/unifont-15.1.04.otf"
-dest_files=["res://.godot/imported/unifont-15.1.04.otf-a5988475523633e8abb003ea548dba29.fontdata"]
+source_file="res://Assets/font/unifont-15.1.04.otf"
+dest_files=["res://.godot/imported/unifont-15.1.04.otf-15cab38a204ebc9c4374f6b6e6e1df7d.fontdata"]
 
 [params]
 
