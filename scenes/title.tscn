@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d07gweo0fyfui"]
 
-[ext_resource type="FontFile" uid="uid://c0a5kxaol5r04" path="res://assets/font/unifont-15.1.04.otf" id="1_ur7si"]
-[ext_resource type="Script" path="res://scripts/Title.cs" id="1_w5ot7"]
+[ext_resource type="Script" path="res://Scripts/Title/Title.cs" id="1_frake"]
+[ext_resource type="FontFile" uid="uid://c0a5kxaol5r04" path="res://Assets/font/unifont-15.1.04.otf" id="2_rqmtq"]
 
 [sub_resource type="Gradient" id="Gradient_2ie2n"]
 colors = PackedColorArray(0.192157, 0.427451, 0.764706, 1, 0.482353, 0.980392, 0.941176, 1)
@@ -14,7 +14,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_w5ot7")
+script = ExtResource("1_frake")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
@@ -28,7 +28,7 @@ offset_left = 132.0
 offset_top = 37.0
 offset_right = 181.0
 offset_bottom = 60.0
-theme_override_fonts/font = ExtResource("1_ur7si")
+theme_override_fonts/font = ExtResource("2_rqmtq")
 text = "EESaga"
 
 [node name="PlayButton" type="Button" parent="."]
@@ -37,7 +37,7 @@ offset_left = 119.0
 offset_top = 84.0
 offset_right = 191.0
 offset_bottom = 108.0
-theme_override_fonts/font = ExtResource("1_ur7si")
+theme_override_fonts/font = ExtResource("2_rqmtq")
 text = "开始游戏"
 
 [connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_pressed"]
