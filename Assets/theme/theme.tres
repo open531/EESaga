@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dr55kv16k1tmv"]
+
+[ext_resource type="FontFile" uid="uid://bhf1uopqxlex1" path="res://Assets/font/unifont.tres" id="1_rj7t0"]
+
+[resource]
+default_font = ExtResource("1_rj7t0")
+default_font_size = 16

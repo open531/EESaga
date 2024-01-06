@@ -11,18 +11,18 @@ config_version=5
 [application]
 
 config/name="EESaga"
-run/main_scene="res://Scenes/title.tscn"
+run/main_scene="res://Scenes/title_menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=320
-window/size/viewport_height=180
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/resizable=false
 window/size/window_width_override=1280
 window/size/window_height_override=720
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [dotnet]
 

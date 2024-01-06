@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5mm4eu50dcgl"]
+
+[ext_resource type="Theme" uid="uid://dr55kv16k1tmv" path="res://Assets/theme/theme.tres" id="1_gtx4h"]
+[ext_resource type="Script" path="res://Scripts/OptionMenu/OptionMenu.cs" id="2_jelo8"]
+
+[node name="OptionMenu" type="Popup"]
+size = Vector2i(400, 300)
+visible = true
+theme = ExtResource("1_gtx4h")
+script = ExtResource("2_jelo8")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+offset_right = 576.0
+offset_bottom = 324.0
+
+[node name="Video" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Video"]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 324.0
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Video/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="DisplayModeLabel" type="Label" parent="TabContainer/Video/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "显示模式"
+
+[node name="DisplayModeButton" type="OptionButton" parent="TabContainer/Video/MarginContainer/GridContainer"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "窗口化"
+popup/item_0/id = 0
+popup/item_1/text = "无边框"
+popup/item_1/id = 1
+popup/item_2/text = "全屏"
+popup/item_2/id = 2
+
+[node name="ResolutionLabel" type="Label" parent="TabContainer/Video/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "分辨率"
+
+[node name="ResolutionButton" type="OptionButton" parent="TabContainer/Video/MarginContainer/GridContainer"]
+layout_mode = 2
+item_count = 6
+selected = 1
+popup/item_0/text = "640x360"
+popup/item_0/id = 0
+popup/item_1/text = "1280x720"
+popup/item_1/id = 1
+popup/item_2/text = "1366x768"
+popup/item_2/id = 2
+popup/item_3/text = "1600x900"
+popup/item_3/id = 3
+popup/item_4/text = "1920x1080"
+popup/item_4/id = 4
+popup/item_5/text = "2560x1440"
+popup/item_5/id = 5
+
+[node name="VSyncLabel" type="Label" parent="TabContainer/Video/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "垂直同步"
+
+[node name="VSyncButton" type="CheckButton" parent="TabContainer/Video/MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Audio" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Gameplay" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2

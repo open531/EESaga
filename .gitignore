@@ -1,5 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
+.vs/
+.vscode/
+.idea/
 
 # User-specific files
 *.rsuser
