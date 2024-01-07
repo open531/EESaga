@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccnn5i3th8bsd"]
+
+[ext_resource type="Theme" uid="uid://dr55kv16k1tmv" path="res://Assets/theme/theme.tres" id="1_a0i40"]
+[ext_resource type="Script" path="res://Scripts/DebugInfo/DebugInfo.cs" id="1_at0os"]
+
+[node name="DebugInfo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_a0i40")
+script = ExtResource("1_at0os")
+
+[node name="FPSLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 16.0
+text = "FPS: 60"

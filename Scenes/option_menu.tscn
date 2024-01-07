@@ -69,7 +69,14 @@ popup/item_8/id = 8
 layout_mode = 2
 text = "垂直同步"
 
-[node name="VSyncButton" type="CheckButton" parent="TabContainer/Video/MarginContainer/GridContainer"]
+[node name="VSyncButton" type="CheckBox" parent="TabContainer/Video/MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="DisplayFPSLabel" type="Label" parent="TabContainer/Video/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "显示帧数"
+
+[node name="DisplayFPSButton" type="CheckBox" parent="TabContainer/Video/MarginContainer/GridContainer"]
 layout_mode = 2
 
 [node name="Audio" type="TabBar" parent="TabContainer"]

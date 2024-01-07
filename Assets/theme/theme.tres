@@ -5,3 +5,9 @@
 [resource]
 default_font = ExtResource("1_rj7t0")
 default_font_size = 16
+GridContainer/constants/h_separation = 16
+GridContainer/constants/v_separation = 8
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 8
+MarginContainer/constants/margin_top = 8

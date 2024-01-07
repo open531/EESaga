@@ -1,75 +1,36 @@
 namespace EESaga.Scripts.OptionMenu;
 
+using Autoload.Options;
 using Godot;
 
 public partial class OptionMenu : Popup
 {
+    private GameOptions _gameOptions;
+
     private OptionButton _displayModeButton;
     private OptionButton _resolutionButton;
-    private CheckButton _vSyncButton;
+    private CheckBox _vSyncButton;
+    private CheckBox _displayFpsButton;
+
 
     public override void _Ready()
     {
+        _gameOptions = GetNode<GameOptions>("/root/GameOptions");
+
         _displayModeButton = GetNode<OptionButton>("TabContainer/Video/MarginContainer/GridContainer/DisplayModeButton");
         _resolutionButton = GetNode<OptionButton>("TabContainer/Video/MarginContainer/GridContainer/ResolutionButton");
-        _vSyncButton = GetNode<CheckButton>("TabContainer/Video/MarginContainer/GridContainer/VSyncButton");
+        _vSyncButton = GetNode<CheckBox>("TabContainer/Video/MarginContainer/GridContainer/VSyncButton");
+        _displayFpsButton = GetNode<CheckBox>("TabContainer/Video/MarginContainer/GridContainer/DisplayFPSButton");
 
-        switch (DisplayServer.WindowGetMode())
-        {
-            case DisplayServer.WindowMode.Fullscreen:
-            case DisplayServer.WindowMode.ExclusiveFullscreen:
-                _displayModeButton.Selected = (int)OptionData.DisplayMode.Fullscreen;
-                break;
-            default:
-                if (DisplayServer.WindowGetFlag(DisplayServer.WindowFlags.Borderless))
-                {
-                    _displayModeButton.Selected = (int)OptionData.DisplayMode.Borderless;
-                }
-                else
-                {
-                    _displayModeButton.Selected = (int)OptionData.DisplayMode.Windowed;
-                }
-                break;
-        }
-        switch (DisplayServer.WindowGetSize())
-        {
-            case var size when size == new Vector2I(640, 360):
-                _resolutionButton.Selected = (int)OptionData.Resolution._640x360;
-                break;
-            case var size when size == new Vector2I(854, 480):
-                _resolutionButton.Selected = (int)OptionData.Resolution._854x480;
-                break;
-            case var size when size == new Vector2I(960, 540):
-                _resolutionButton.Selected = (int)OptionData.Resolution._960x540;
-                break;
-            case var size when size == new Vector2I(1024, 576):
-                _resolutionButton.Selected = (int)OptionData.Resolution._1024x576;
-                break;
-            case var size when size == new Vector2I(1280, 720):
-                _resolutionButton.Selected = (int)OptionData.Resolution._1280x720;
-                break;
-            case var size when size == new Vector2I(1366, 768):
-                _resolutionButton.Selected = (int)OptionData.Resolution._1366x768;
-                break;
-            case var size when size == new Vector2I(1600, 900):
-                _resolutionButton.Selected = (int)OptionData.Resolution._1600x900;
-                break;
-            case var size when size == new Vector2I(1920, 1080):
-                _resolutionButton.Selected = (int)OptionData.Resolution._1920x1080;
-                break;
-            case var size when size == new Vector2I(2560, 1440):
-                _resolutionButton.Selected = (int)OptionData.Resolution._2560x1440;
-                break;
-            default:
-                _resolutionButton.Selected = (int)OptionData.Resolution._1280x720;
-                OnDisplayModeButtonItemSelected(_displayModeButton.Selected);
-                break;
-        }
-        _vSyncButton.ToggleMode = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled;
+        _displayModeButton.Selected = (int)_gameOptions.VideoDisplayMode;
+        _resolutionButton.Selected = (int)_gameOptions.VideoResolution;
+        _vSyncButton.ButtonPressed = _gameOptions.VideoVSync;
+        _displayFpsButton.ButtonPressed = _gameOptions.VideoDisplayFps;
 
         _displayModeButton.ItemSelected += OnDisplayModeButtonItemSelected;
         _resolutionButton.ItemSelected += OnResolutionButtonItemSelected;
         _vSyncButton.Pressed += OnVSyncButtonPressed;
+        _displayFpsButton.Pressed += OnDisplayFpsButtonPressed;
     }
 
     private void OnDisplayModeButtonItemSelected(long id)
@@ -91,6 +52,7 @@ public partial class OptionMenu : Popup
                 OnResolutionButtonItemSelected(_resolutionButton.Selected);
                 break;
         }
+        _gameOptions.VideoDisplayMode = (OptionData.DisplayMode)_displayModeButton.Selected;
     }
 
     private void OnResolutionButtonItemSelected(long id)
@@ -125,10 +87,17 @@ public partial class OptionMenu : Popup
                 DisplayServer.WindowSetSize(new Vector2I(2560, 1440));
                 break;
         }
+        _gameOptions.VideoResolution = (OptionData.Resolution)_resolutionButton.Selected;
     }
 
     private void OnVSyncButtonPressed()
     {
-        DisplayServer.WindowSetVsyncMode(_vSyncButton.ToggleMode ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
+        DisplayServer.WindowSetVsyncMode(_vSyncButton.ButtonPressed ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
+        _gameOptions.VideoVSync = _vSyncButton.ButtonPressed;
+    }
+
+    private void OnDisplayFpsButtonPressed()
+    {
+        _gameOptions.VideoDisplayFps = _displayFpsButton.ButtonPressed;
     }
 }

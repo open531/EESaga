@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d07gweo0fyfui"]
+[gd_scene load_steps=7 format=3 uid="uid://d07gweo0fyfui"]
 
 [ext_resource type="Script" path="res://Scripts/TitleMenu/TitleMenu.cs" id="1_rpgna"]
 [ext_resource type="Theme" uid="uid://dr55kv16k1tmv" path="res://Assets/theme/theme.tres" id="2_cv8i3"]
 [ext_resource type="PackedScene" uid="uid://b5mm4eu50dcgl" path="res://Scenes/option_menu.tscn" id="3_g1v6j"]
+[ext_resource type="PackedScene" uid="uid://ccnn5i3th8bsd" path="res://Scenes/debug_info.tscn" id="4_5bs21"]
 
 [sub_resource type="Gradient" id="Gradient_2ie2n"]
 colors = PackedColorArray(0.192157, 0.427451, 0.764706, 1, 0.482353, 0.980392, 0.941176, 1)
@@ -13,6 +14,8 @@ gradient = SubResource("Gradient_2ie2n")
 [node name="TitleMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
 theme = ExtResource("2_cv8i3")
 script = ExtResource("1_rpgna")
 
@@ -24,15 +27,17 @@ texture = SubResource("GradientTexture2D_dktdn")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_right = 72.0
-offset_bottom = 100.0
+offset_right = 208.0
+offset_bottom = 176.0
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/GridContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 64
 text = "EESaga"
+horizontal_alignment = 1
 
 [node name="PlayButton" type="Button" parent="MarginContainer/GridContainer"]
 layout_mode = 2
@@ -48,3 +53,6 @@ text = "退出游戏"
 
 [node name="OptionMenu" parent="." instance=ExtResource("3_g1v6j")]
 visible = false
+
+[node name="DebugInfo" parent="." instance=ExtResource("4_5bs21")]
+layout_mode = 1
