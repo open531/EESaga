@@ -1,7 +1,7 @@
 namespace EESaga.Scripts.DebugInfo;
 
-using Autoload.Options;
 using Godot;
+using Options;
 
 public partial class DebugInfo : Control
 {

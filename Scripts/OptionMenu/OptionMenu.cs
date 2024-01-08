@@ -1,14 +1,16 @@
 namespace EESaga.Scripts.OptionMenu;
 
-using Autoload.Options;
 using Godot;
+using Options;
 
 public partial class OptionMenu : Popup
 {
     private GameOptions _gameOptions;
 
+    private OptionButton _languageButton;
     private OptionButton _displayModeButton;
     private OptionButton _resolutionButton;
+    private OptionButton _frameRateButton;
     private CheckBox _vSyncButton;
     private CheckBox _displayFpsButton;
 
@@ -17,87 +19,69 @@ public partial class OptionMenu : Popup
     {
         _gameOptions = GetNode<GameOptions>("/root/GameOptions");
 
-        _displayModeButton = GetNode<OptionButton>("TabContainer/Video/MarginContainer/GridContainer/DisplayModeButton");
-        _resolutionButton = GetNode<OptionButton>("TabContainer/Video/MarginContainer/GridContainer/ResolutionButton");
-        _vSyncButton = GetNode<CheckBox>("TabContainer/Video/MarginContainer/GridContainer/VSyncButton");
-        _displayFpsButton = GetNode<CheckBox>("TabContainer/Video/MarginContainer/GridContainer/DisplayFPSButton");
+        _languageButton = GetNode<OptionButton>("TabContainer/OP_GAME/MarginContainer/GridContainer/LanguageButton");
+        _displayModeButton = GetNode<OptionButton>("TabContainer/OP_VIDEO/MarginContainer/GridContainer/DisplayModeButton");
+        _resolutionButton = GetNode<OptionButton>("TabContainer/OP_VIDEO/MarginContainer/GridContainer/ResolutionButton");
+        _frameRateButton = GetNode<OptionButton>("TabContainer/OP_VIDEO/MarginContainer/GridContainer/FrameRateButton");
+        _vSyncButton = GetNode<CheckBox>("TabContainer/OP_VIDEO/MarginContainer/GridContainer/VSyncButton");
+        _displayFpsButton = GetNode<CheckBox>("TabContainer/OP_VIDEO/MarginContainer/GridContainer/DisplayFPSButton");
 
+        _languageButton.Selected = (int)_gameOptions.Language;
         _displayModeButton.Selected = (int)_gameOptions.VideoDisplayMode;
         _resolutionButton.Selected = (int)_gameOptions.VideoResolution;
+        _frameRateButton.Selected = (int)_gameOptions.VideoFrameRate;
         _vSyncButton.ButtonPressed = _gameOptions.VideoVSync;
         _displayFpsButton.ButtonPressed = _gameOptions.VideoDisplayFps;
 
+        _languageButton.ItemSelected += OnLanguageButtonItemSelected;
         _displayModeButton.ItemSelected += OnDisplayModeButtonItemSelected;
         _resolutionButton.ItemSelected += OnResolutionButtonItemSelected;
+        _frameRateButton.ItemSelected += OnFrameRateButtonItemSelected;
         _vSyncButton.Pressed += OnVSyncButtonPressed;
         _displayFpsButton.Pressed += OnDisplayFpsButtonPressed;
+
+        _frameRateButton.Disabled = true;
+    }
+
+    private void OnLanguageButtonItemSelected(long id)
+    {
+        _gameOptions.Language = (OptionData.Language)_languageButton.Selected;
+        _gameOptions.ApplyOptions();
+        _gameOptions.SaveOptions();
     }
 
     private void OnDisplayModeButtonItemSelected(long id)
     {
-        switch (id)
-        {
-            case (long)OptionData.DisplayMode.Windowed:
-                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
-                DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, false);
-                OnResolutionButtonItemSelected(_resolutionButton.Selected);
-                break;
-            case (long)OptionData.DisplayMode.Borderless:
-                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
-                DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true);
-                OnResolutionButtonItemSelected(_resolutionButton.Selected);
-                break;
-            case (long)OptionData.DisplayMode.Fullscreen:
-                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
-                OnResolutionButtonItemSelected(_resolutionButton.Selected);
-                break;
-        }
         _gameOptions.VideoDisplayMode = (OptionData.DisplayMode)_displayModeButton.Selected;
+        _gameOptions.ApplyOptions();
+        _gameOptions.SaveOptions();
     }
 
     private void OnResolutionButtonItemSelected(long id)
     {
-        switch (id)
-        {
-            case (long)OptionData.Resolution._640x360:
-                DisplayServer.WindowSetSize(new Vector2I(640, 360));
-                break;
-            case (long)OptionData.Resolution._854x480:
-                DisplayServer.WindowSetSize(new Vector2I(854, 480));
-                break;
-            case (long)OptionData.Resolution._960x540:
-                DisplayServer.WindowSetSize(new Vector2I(960, 540));
-                break;
-            case (long)OptionData.Resolution._1024x576:
-                DisplayServer.WindowSetSize(new Vector2I(1024, 576));
-                break;
-            case (long)OptionData.Resolution._1280x720:
-                DisplayServer.WindowSetSize(new Vector2I(1280, 720));
-                break;
-            case (long)OptionData.Resolution._1366x768:
-                DisplayServer.WindowSetSize(new Vector2I(1366, 768));
-                break;
-            case (long)OptionData.Resolution._1600x900:
-                DisplayServer.WindowSetSize(new Vector2I(1600, 900));
-                break;
-            case (long)OptionData.Resolution._1920x1080:
-                DisplayServer.WindowSetSize(new Vector2I(1920, 1080));
-                break;
-            case (long)OptionData.Resolution._2560x1440:
-                DisplayServer.WindowSetSize(new Vector2I(2560, 1440));
-                break;
-        }
         _gameOptions.VideoResolution = (OptionData.Resolution)_resolutionButton.Selected;
+        _gameOptions.ApplyOptions();
+        _gameOptions.SaveOptions();
+    }
+
+    private void OnFrameRateButtonItemSelected(long id)
+    {
+        _gameOptions.VideoFrameRate = (OptionData.FrameRate)_frameRateButton.Selected;
+        _gameOptions.ApplyOptions();
+        _gameOptions.SaveOptions();
     }
 
     private void OnVSyncButtonPressed()
     {
-        DisplayServer.WindowSetVsyncMode(_vSyncButton.ButtonPressed ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
         _gameOptions.VideoVSync = _vSyncButton.ButtonPressed;
+        _gameOptions.ApplyOptions();
+        _gameOptions.SaveOptions();
     }
 
     private void OnDisplayFpsButtonPressed()
     {
         _gameOptions.VideoDisplayFps = _displayFpsButton.ButtonPressed;
+        _gameOptions.ApplyOptions();
+        _gameOptions.SaveOptions();
     }
 }

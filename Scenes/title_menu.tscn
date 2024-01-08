@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://d07gweo0fyfui"]
+[gd_scene load_steps=6 format=3 uid="uid://d07gweo0fyfui"]
 
 [ext_resource type="Script" path="res://Scripts/TitleMenu/TitleMenu.cs" id="1_rpgna"]
-[ext_resource type="Theme" uid="uid://dr55kv16k1tmv" path="res://Assets/theme/theme.tres" id="2_cv8i3"]
 [ext_resource type="PackedScene" uid="uid://b5mm4eu50dcgl" path="res://Scenes/option_menu.tscn" id="3_g1v6j"]
 [ext_resource type="PackedScene" uid="uid://ccnn5i3th8bsd" path="res://Scenes/debug_info.tscn" id="4_5bs21"]
 
@@ -16,7 +15,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 640.0
 offset_bottom = 360.0
-theme = ExtResource("2_cv8i3")
 script = ExtResource("1_rpgna")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -36,20 +34,20 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-text = "EESaga"
+text = "TITLE"
 horizontal_alignment = 1
 
 [node name="PlayButton" type="Button" parent="MarginContainer/GridContainer"]
 layout_mode = 2
-text = "开始游戏"
+text = "UI_START"
 
 [node name="OptionButton" type="Button" parent="MarginContainer/GridContainer"]
 layout_mode = 2
-text = "游戏选项"
+text = "UI_OPTION"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/GridContainer"]
 layout_mode = 2
-text = "退出游戏"
+text = "UI_QUIT"
 
 [node name="OptionMenu" parent="." instance=ExtResource("3_g1v6j")]
 visible = false

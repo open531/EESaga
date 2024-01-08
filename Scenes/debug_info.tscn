@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccnn5i3th8bsd"]
+[gd_scene load_steps=2 format=3 uid="uid://ccnn5i3th8bsd"]
 
-[ext_resource type="Theme" uid="uid://dr55kv16k1tmv" path="res://Assets/theme/theme.tres" id="1_a0i40"]
 [ext_resource type="Script" path="res://Scripts/DebugInfo/DebugInfo.cs" id="1_at0os"]
 
 [node name="DebugInfo" type="Control"]
@@ -12,7 +11,7 @@ offset_right = -640.0
 offset_bottom = -360.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_a0i40")
+mouse_filter = 2
 script = ExtResource("1_at0os")
 
 [node name="FPSLabel" type="Label" parent="."]

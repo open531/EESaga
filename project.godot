@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameOptions="*res://Scripts/Autoload/Options/GameOptions.cs"
+GameOptions="*res://Scripts/Options/GameOptions.cs"
 
 [display]
 
@@ -31,6 +31,14 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="EESaga"
+
+[gui]
+
+theme/custom="res://Assets/Themes/default.tres"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://Assets/Localizations/ui.en.translation", "res://Assets/Localizations/ui.ja.translation", "res://Assets/Localizations/ui.zh_CN.translation", "res://Assets/Localizations/ui.zh_TW.translation", "res://Assets/Localizations/option.en.translation", "res://Assets/Localizations/option.ja.translation", "res://Assets/Localizations/option.zh_CN.translation", "res://Assets/Localizations/option.zh_TW.translation")
 
 [rendering]
 
