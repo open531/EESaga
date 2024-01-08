@@ -1,13 +1,13 @@
-namespace EESaga.Scripts.DebugInfo;
+namespace EESaga.Scripts.UI;
 
 using Godot;
-using Options;
+using Utilities;
 
 public partial class DebugInfo : Control
 {
-    GameOptions _gameOptions;
+    private GameOptions _gameOptions;
 
-    Label _fpsLabel;
+    private Label _fpsLabel;
 
     public override void _Ready()
     {

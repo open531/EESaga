@@ -1,4 +1,4 @@
-namespace EESaga.Scripts.TitleMenu;
+namespace EESaga.Scripts.UI;
 
 using Godot;
 

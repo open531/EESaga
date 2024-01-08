@@ -1,7 +1,4 @@
-﻿using EESaga.Scripts.Utilities;
-using Godot.Collections;
-
-namespace EESaga.Scripts.Options;
+﻿namespace EESaga.Scripts.Utilities;
 
 public static class OptionData
 {

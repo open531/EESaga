@@ -1,4 +1,4 @@
-namespace EESaga.Scripts.Options;
+namespace EESaga.Scripts.Utilities;
 
 using Godot;
 
@@ -7,12 +7,16 @@ public partial class GameOptions : Node
     public Theme DefaultTheme { get; set; }
     public Font UniFont { get; set; }
     public Font UniFontJp { get; set; }
-    public OptionData.Language Language { get; set; }
+    public OptionData.Language GameLanguage { get; set; }
     public OptionData.DisplayMode VideoDisplayMode { get; set; }
     public OptionData.Resolution VideoResolution { get; set; }
     public OptionData.FrameRate VideoFrameRate { get; set; }
     public bool VideoVSync { get; set; }
     public bool VideoDisplayFps { get; set; }
+    public int AudioVolume { get; set; }
+    public int AudioMusic { get; set; }
+    public int AudioSound { get; set; }
+    public int AudioVoice { get; set; }
 
     public override void _Ready()
     {
@@ -28,7 +32,7 @@ public partial class GameOptions : Node
 
     public void ApplyOptions()
     {
-        TranslationServer.SetLocale(Language switch
+        TranslationServer.SetLocale(GameLanguage switch
         {
             OptionData.Language.En => "en",
             OptionData.Language.Ja => "ja",
@@ -36,7 +40,7 @@ public partial class GameOptions : Node
             OptionData.Language.ZhTw => "zh_TW",
             _ => "en",
         });
-        DefaultTheme.DefaultFont = Language switch
+        DefaultTheme.DefaultFont = GameLanguage switch
         {
             OptionData.Language.En => UniFont,
             OptionData.Language.Ja => UniFontJp,
@@ -84,12 +88,16 @@ public partial class GameOptions : Node
     public void SaveOptions()
     {
         var optionsFile = new ConfigFile();
-        optionsFile.SetValue("Game", "Language", (int)Language);
+        optionsFile.SetValue("Game", "Language", (int)GameLanguage);
         optionsFile.SetValue("Video", "DisplayMode", (int)VideoDisplayMode);
         optionsFile.SetValue("Video", "Resolution", (int)VideoResolution);
         optionsFile.SetValue("Video", "FrameRate", (int)VideoFrameRate);
         optionsFile.SetValue("Video", "VSync", VideoVSync);
         optionsFile.SetValue("Video", "DisplayFps", VideoDisplayFps);
+        optionsFile.SetValue("Audio", "Volume", AudioVolume);
+        optionsFile.SetValue("Audio", "Music", AudioMusic);
+        optionsFile.SetValue("Audio", "Sound", AudioSound);
+        optionsFile.SetValue("Audio", "Voice", AudioVoice);
         var error = optionsFile.Save("user://options.cfg");
         if (error != Error.Ok)
         {
@@ -107,19 +115,23 @@ public partial class GameOptions : Node
             return false;
         }
 
-        Language = (OptionData.Language)optionsFile.GetValue("Game", "Language", (int)Language).AsInt32();
+        GameLanguage = (OptionData.Language)optionsFile.GetValue("Game", "Language", (int)GameLanguage).AsInt32();
         VideoDisplayMode = (OptionData.DisplayMode)optionsFile.GetValue("Video", "DisplayMode", (int)VideoDisplayMode).AsInt32();
         VideoResolution = (OptionData.Resolution)optionsFile.GetValue("Video", "Resolution", (int)VideoResolution).AsInt32();
         VideoFrameRate = (OptionData.FrameRate)optionsFile.GetValue("Video", "FrameRate", (int)VideoFrameRate).AsInt32();
         VideoVSync = optionsFile.GetValue("Video", "VSync", VideoVSync).AsBool();
         VideoDisplayFps = optionsFile.GetValue("Video", "DisplayFps", VideoDisplayFps).AsBool();
+        AudioVolume = optionsFile.GetValue("Audio", "Volume", AudioVolume).AsInt32();
+        AudioMusic = optionsFile.GetValue("Audio", "Music", AudioMusic).AsInt32();
+        AudioSound = optionsFile.GetValue("Audio", "Sound", AudioSound).AsInt32();
+        AudioVoice = optionsFile.GetValue("Audio", "Voice", AudioVoice).AsInt32();
 
         return true;
     }
 
     public void GenerateOptions()
     {
-        Language = OS.GetLocale() switch
+        GameLanguage = OS.GetLocale() switch
         {
             "en" => OptionData.Language.En,
             "ja" => OptionData.Language.Ja,
@@ -161,5 +173,9 @@ public partial class GameOptions : Node
         };
         VideoVSync = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled;
         VideoDisplayFps = false;
+        AudioVolume = 80;
+        AudioMusic = 80;
+        AudioSound = 80;
+        AudioVoice = 80;
     }
 }

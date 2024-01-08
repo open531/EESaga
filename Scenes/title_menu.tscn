@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://d07gweo0fyfui"]
 
-[ext_resource type="Script" path="res://Scripts/TitleMenu/TitleMenu.cs" id="1_rpgna"]
+[ext_resource type="Script" path="res://Scripts/UI/TitleMenu.cs" id="1_rpgna"]
 [ext_resource type="PackedScene" uid="uid://b5mm4eu50dcgl" path="res://Scenes/option_menu.tscn" id="3_g1v6j"]
 [ext_resource type="PackedScene" uid="uid://ccnn5i3th8bsd" path="res://Scenes/debug_info.tscn" id="4_5bs21"]
 
@@ -33,6 +33,7 @@ layout_mode = 2
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/GridContainer"]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "TITLE"
 horizontal_alignment = 1
