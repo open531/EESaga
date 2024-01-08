@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://btntes6xkw3ct"]
+[gd_scene load_steps=13 format=3 uid="uid://btntes6xkw3ct"]
 
-[ext_resource type="Texture2D" uid="uid://co1ac2kjyowrb" path="res://Assets/texture/tiny_battle.png" id="1_buvh0"]
+[ext_resource type="Texture2D" uid="uid://co1ac2kjyowrb" path="res://Assets/Textures/tiny_battle.png" id="1_buvh0"]
 [ext_resource type="Script" path="res://Scripts/OpenWorld/OpenWorld.cs" id="1_tk6sj"]
-[ext_resource type="Texture2D" uid="uid://sfj7v442xor3" path="res://Assets/texture/tiny_dungeon.png" id="2_ysvs4"]
-[ext_resource type="Texture2D" uid="uid://w1anhphkelxp" path="res://Assets/texture/tiny_ski.png" id="3_lm5fe"]
-[ext_resource type="Texture2D" uid="uid://d4nypx6v78oc3" path="res://Assets/texture/tiny_town.png" id="4_slgaj"]
+[ext_resource type="Texture2D" uid="uid://sfj7v442xor3" path="res://Assets/Textures/tiny_dungeon.png" id="2_ysvs4"]
+[ext_resource type="Texture2D" uid="uid://w1anhphkelxp" path="res://Assets/Textures/tiny_ski.png" id="3_lm5fe"]
+[ext_resource type="Texture2D" uid="uid://d4nypx6v78oc3" path="res://Assets/Textures/tiny_town.png" id="4_slgaj"]
 [ext_resource type="PackedScene" uid="uid://82cc6u4d2nd7" path="res://Scenes/player.tscn" id="5_1ytqh"]
+[ext_resource type="PackedScene" uid="uid://ccnn5i3th8bsd" path="res://Scenes/debug_info.tscn" id="7_1d213"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_168ic"]
 texture = ExtResource("1_buvh0")
@@ -631,3 +632,9 @@ layer_0/tile_data = PackedInt32Array(0, 3, 1, 1, 65539, 1, 2, 65539, 1, 3, 65539
 position = Vector2(37, 36)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="DebugInfo" parent="Player/Camera2D" instance=ExtResource("7_1d213")]
+offset_left = -320.0
+offset_top = -180.0
+offset_right = -320.0
+offset_bottom = -180.0

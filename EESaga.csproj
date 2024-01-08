@@ -3,9 +3,4 @@
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="scripts\OpenWorld\" />
-    <Folder Include="scripts\Player\" />
-    <Folder Include="scripts\Title\" />
-  </ItemGroup>
 </Project>
