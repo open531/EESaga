@@ -4,6 +4,7 @@ using Godot;
 
 public partial class TitleMenu : Control
 {
+    private TextureRect _textureRect;
     private MarginContainer _marginContainer;
     private Button _playButton;
     private Button _optionButton;
@@ -13,6 +14,7 @@ public partial class TitleMenu : Control
 
     public override void _Ready()
     {
+        _textureRect = GetNode<TextureRect>("TextureRect");
         _marginContainer = GetNode<MarginContainer>("MarginContainer");
         _playButton = GetNode<Button>("MarginContainer/GridContainer/PlayButton");
         _optionButton = GetNode<Button>("MarginContainer/GridContainer/OptionButton");
@@ -26,10 +28,19 @@ public partial class TitleMenu : Control
 
         _optionMenu.Hide();
 
-        _marginContainer.Position = new Vector2(
-            GetViewportRect().Size.X / 2 - _marginContainer.Size.X / 2,
-            GetViewportRect().Size.Y / 2 - _marginContainer.Size.Y / 2
-        );
+        _marginContainer.Position = (GetViewportRect().Size - GetViewportRect().Size) / 2;
+    }
+
+    public override void _Process(double delta)
+    {
+        var viewport = GetViewport();
+        var viewportRect = GetViewportRect();
+        var mousePosition = viewport.GetMousePosition();
+        var textureRectSize = new Vector2(704, 396);
+        if (viewportRect.HasPoint(mousePosition))
+        {
+            _textureRect.Position = (mousePosition / viewportRect.Size) * (textureRectSize - viewportRect.Size) * -1;
+        }
     }
 
     private void OnPlayButtonPressed()

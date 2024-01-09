@@ -1,9 +1,9 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://dr55kv16k1tmv"]
 
-[ext_resource type="FontFile" uid="uid://bhf1uopqxlex1" path="res://Assets/Fonts/unifont.tres" id="1_rj7t0"]
+[ext_resource type="FontFile" uid="uid://qqmej6jrh1to" path="res://Assets/Fonts/unifont.otf" id="1_dvgkp"]
 
 [resource]
-default_font = ExtResource("1_rj7t0")
+default_font = ExtResource("1_dvgkp")
 default_font_size = 16
 GridContainer/constants/h_separation = 16
 GridContainer/constants/v_separation = 8

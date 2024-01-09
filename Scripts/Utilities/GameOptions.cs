@@ -5,8 +5,8 @@ using Godot;
 public partial class GameOptions : Node
 {
     public Theme DefaultTheme { get; set; }
-    public Font UniFont { get; set; }
-    public Font UniFontJp { get; set; }
+    public FontFile UniFont { get; set; }
+    public FontFile UniFontJp { get; set; }
     public OptionData.Language GameLanguage { get; set; }
     public OptionData.DisplayMode VideoDisplayMode { get; set; }
     public OptionData.Resolution VideoResolution { get; set; }
@@ -21,8 +21,8 @@ public partial class GameOptions : Node
     public override void _Ready()
     {
         DefaultTheme = ResourceLoader.Load<Theme>("res://Assets/Themes/default.tres");
-        UniFont = ResourceLoader.Load<Font>("res://Assets/Fonts/unifont.tres");
-        UniFontJp = ResourceLoader.Load<Font>("res://Assets/Fonts/unifont_jp.tres");
+        UniFont = ResourceLoader.Load<FontFile>("res://Assets/Fonts/unifont.otf");
+        UniFontJp = ResourceLoader.Load<FontFile>("res://Assets/Fonts/unifont_jp.otf");
         if (!LoadOptions())
         {
             GenerateOptions();
