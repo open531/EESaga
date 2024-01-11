@@ -2,37 +2,45 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/OptionMenu.cs" id="2_jelo8"]
 
-[node name="OptionMenu" type="Popup"]
-size = Vector2i(400, 300)
+[node name="OptionMenu" type="PopupPanel"]
+title = "UI_OPTION"
+size = Vector2i(368, 248)
 visible = true
+borderless = false
+transparent = true
 script = ExtResource("2_jelo8")
 
-[node name="TabContainer" type="TabContainer" parent="."]
-offset_right = 400.0
-offset_bottom = 300.0
+[node name="T" type="TabContainer" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 364.0
+offset_bottom = 244.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 drag_to_rearrange_enabled = true
 
-[node name="OP_GAME" type="TabBar" parent="TabContainer"]
+[node name="OP_GAME" type="TabBar" parent="T"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/OP_GAME"]
+[node name="M" type="MarginContainer" parent="T/OP_GAME"]
 layout_mode = 0
 offset_right = 576.0
 offset_bottom = 324.0
 
-[node name="GridContainer" type="GridContainer" parent="TabContainer/OP_GAME/MarginContainer"]
+[node name="S" type="ScrollContainer" parent="T/OP_GAME/M"]
+layout_mode = 2
+
+[node name="G" type="GridContainer" parent="T/OP_GAME/M/S"]
 layout_mode = 2
 columns = 2
 
-[node name="LanguageLabel" type="Label" parent="TabContainer/OP_GAME/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="LanguageLabel" type="Label" parent="T/OP_GAME/M/S/G"]
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_G_LANGUAGE"
 
-[node name="LanguageButton" type="OptionButton" parent="TabContainer/OP_GAME/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="LanguageButton" type="OptionButton" parent="T/OP_GAME/M/S/G"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 item_count = 4
 popup/item_0/text = "English"
@@ -44,26 +52,29 @@ popup/item_2/id = 2
 popup/item_3/text = "繁體中文"
 popup/item_3/id = 3
 
-[node name="OP_VIDEO" type="TabBar" parent="TabContainer"]
+[node name="OP_VIDEO" type="TabBar" parent="T"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/OP_VIDEO"]
+[node name="M" type="MarginContainer" parent="T/OP_VIDEO"]
 layout_mode = 0
 offset_right = 576.0
 offset_bottom = 324.0
 
-[node name="GridContainer" type="GridContainer" parent="TabContainer/OP_VIDEO/MarginContainer"]
+[node name="S" type="ScrollContainer" parent="T/OP_VIDEO/M"]
+layout_mode = 2
+
+[node name="G" type="GridContainer" parent="T/OP_VIDEO/M/S"]
 layout_mode = 2
 columns = 2
 
-[node name="DisplayModeLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="DisplayModeLabel" type="Label" parent="T/OP_VIDEO/M/S/G"]
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_V_DISPLAY"
 
-[node name="DisplayModeButton" type="OptionButton" parent="TabContainer/OP_VIDEO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="DisplayModeButton" type="OptionButton" parent="T/OP_VIDEO/M/S/G"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 item_count = 3
 popup/item_0/text = "OP_V_D_WINDOWED"
@@ -73,13 +84,13 @@ popup/item_1/id = 1
 popup/item_2/text = "OP_V_D_FULLSCREEN"
 popup/item_2/id = 2
 
-[node name="ResolutionLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="ResolutionLabel" type="Label" parent="T/OP_VIDEO/M/S/G"]
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_V_RESOLUTION"
 
-[node name="ResolutionButton" type="OptionButton" parent="TabContainer/OP_VIDEO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="ResolutionButton" type="OptionButton" parent="T/OP_VIDEO/M/S/G"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 item_count = 9
 popup/item_0/text = "640x360"
@@ -101,13 +112,13 @@ popup/item_7/id = 7
 popup/item_8/text = "2560x1440"
 popup/item_8/id = 8
 
-[node name="FrameRateLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="FrameRateLabel" type="Label" parent="T/OP_VIDEO/M/S/G"]
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_V_FRAMERATE"
 
-[node name="FrameRateButton" type="OptionButton" parent="TabContainer/OP_VIDEO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="FrameRateButton" type="OptionButton" parent="T/OP_VIDEO/M/S/G"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 item_count = 9
 popup/item_0/text = "24 FPS"
@@ -129,83 +140,86 @@ popup/item_7/id = 7
 popup/item_8/text = "360 FPS"
 popup/item_8/id = 8
 
-[node name="VSyncLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="VSyncLabel" type="Label" parent="T/OP_VIDEO/M/S/G"]
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_V_VSYNC"
 
-[node name="VSyncButton" type="CheckBox" parent="TabContainer/OP_VIDEO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="VSyncButton" type="CheckBox" parent="T/OP_VIDEO/M/S/G"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 
-[node name="DisplayFPSLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="DisplayFPSLabel" type="Label" parent="T/OP_VIDEO/M/S/G"]
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_V_DISPLAYFPS"
 
-[node name="DisplayFPSButton" type="CheckBox" parent="TabContainer/OP_VIDEO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="DisplayFPSButton" type="CheckBox" parent="T/OP_VIDEO/M/S/G"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 
-[node name="OP_AUDIO" type="TabBar" parent="TabContainer"]
+[node name="OP_AUDIO" type="TabBar" parent="T"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/OP_AUDIO"]
+[node name="M" type="MarginContainer" parent="T/OP_AUDIO"]
 layout_mode = 0
 offset_right = 576.0
 offset_bottom = 324.0
 
-[node name="GridContainer" type="GridContainer" parent="TabContainer/OP_AUDIO/MarginContainer"]
+[node name="S" type="ScrollContainer" parent="T/OP_AUDIO/M"]
+layout_mode = 2
+
+[node name="G" type="GridContainer" parent="T/OP_AUDIO/M/S"]
 layout_mode = 2
 columns = 2
 
-[node name="VolumeLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="VolumeLabel" type="Label" parent="T/OP_AUDIO/M/S/G"]
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_A_VOLUME"
 
-[node name="VolumeSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="VolumeSlider" type="HSlider" parent="T/OP_AUDIO/M/S/G"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 step = 10.0
 value = 80.0
 rounded = true
 tick_count = 11
 
-[node name="MusicLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="MusicLabel" type="Label" parent="T/OP_AUDIO/M/S/G"]
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_A_MUSIC"
 
-[node name="MusicSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="MusicSlider" type="HSlider" parent="T/OP_AUDIO/M/S/G"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 step = 10.0
 value = 80.0
 rounded = true
 tick_count = 11
 
-[node name="SoundLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="SoundLabel" type="Label" parent="T/OP_AUDIO/M/S/G"]
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_A_SOUND"
 
-[node name="SoundSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="SoundSlider" type="HSlider" parent="T/OP_AUDIO/M/S/G"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 step = 10.0
 value = 80.0
 rounded = true
 tick_count = 11
 
-[node name="VoiceLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="VoiceLabel" type="Label" parent="T/OP_AUDIO/M/S/G"]
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_A_VOICE"
 
-[node name="VoiceSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="VoiceSlider" type="HSlider" parent="T/OP_AUDIO/M/S/G"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 step = 10.0
 value = 80.0

@@ -3,7 +3,7 @@ namespace EESaga.Scripts.UI;
 using Godot;
 using Utilities;
 
-public partial class OptionMenu : Popup
+public partial class OptionMenu : PopupPanel
 {
     private GameOptions _gameOptions;
 
@@ -25,18 +25,18 @@ public partial class OptionMenu : Popup
     {
         _gameOptions = GetNode<GameOptions>("/root/GameOptions");
 
-        _tabContainer = GetNode<TabContainer>("TabContainer");
+        _tabContainer = GetNode<TabContainer>("T");
 
-        _languageButton = GetNode<OptionButton>("TabContainer/OP_GAME/MarginContainer/GridContainer/LanguageButton");
-        _displayModeButton = GetNode<OptionButton>("TabContainer/OP_VIDEO/MarginContainer/GridContainer/DisplayModeButton");
-        _resolutionButton = GetNode<OptionButton>("TabContainer/OP_VIDEO/MarginContainer/GridContainer/ResolutionButton");
-        _frameRateButton = GetNode<OptionButton>("TabContainer/OP_VIDEO/MarginContainer/GridContainer/FrameRateButton");
-        _vSyncButton = GetNode<CheckBox>("TabContainer/OP_VIDEO/MarginContainer/GridContainer/VSyncButton");
-        _displayFpsButton = GetNode<CheckBox>("TabContainer/OP_VIDEO/MarginContainer/GridContainer/DisplayFPSButton");
-        _volumeSlider = GetNode<Slider>("TabContainer/OP_AUDIO/MarginContainer/GridContainer/VolumeSlider");
-        _musicSlider = GetNode<Slider>("TabContainer/OP_AUDIO/MarginContainer/GridContainer/MusicSlider");
-        _soundSlider = GetNode<Slider>("TabContainer/OP_AUDIO/MarginContainer/GridContainer/SoundSlider");
-        _voiceSlider = GetNode<Slider>("TabContainer/OP_AUDIO/MarginContainer/GridContainer/VoiceSlider");
+        _languageButton = GetNode<OptionButton>("T/OP_GAME/M/S/G/LanguageButton");
+        _displayModeButton = GetNode<OptionButton>("T/OP_VIDEO/M/S/G/DisplayModeButton");
+        _resolutionButton = GetNode<OptionButton>("T/OP_VIDEO/M/S/G/ResolutionButton");
+        _frameRateButton = GetNode<OptionButton>("T/OP_VIDEO/M/S/G/FrameRateButton");
+        _vSyncButton = GetNode<CheckBox>("T/OP_VIDEO/M/S/G/VSyncButton");
+        _displayFpsButton = GetNode<CheckBox>("T/OP_VIDEO/M/S/G/DisplayFPSButton");
+        _volumeSlider = GetNode<Slider>("T/OP_AUDIO/M/S/G/VolumeSlider");
+        _musicSlider = GetNode<Slider>("T/OP_AUDIO/M/S/G/MusicSlider");
+        _soundSlider = GetNode<Slider>("T/OP_AUDIO/M/S/G/SoundSlider");
+        _voiceSlider = GetNode<Slider>("T/OP_AUDIO/M/S/G/VoiceSlider");
 
         _tabContainer.CurrentTab = 0;
 

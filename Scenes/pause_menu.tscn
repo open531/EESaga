@@ -1,4 +1,15 @@
-[gd_scene format=3 uid="uid://dl77x3n82bjh0"]
+[gd_scene load_steps=5 format=3 uid="uid://dl77x3n82bjh0"]
+
+[ext_resource type="Script" path="res://Scripts/UI/PauseMenu.cs" id="1_lkjvu"]
+[ext_resource type="PackedScene" uid="uid://b5mm4eu50dcgl" path="res://Scenes/option_menu.tscn" id="2_am47h"]
+
+[sub_resource type="Gradient" id="Gradient_x7kgn"]
+offsets = PackedFloat32Array(0, 0.987013)
+colors = PackedColorArray(0, 0, 0, 0.752941, 0, 0, 0, 0.121569)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lt03d"]
+gradient = SubResource("Gradient_x7kgn")
+width = 216
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -7,9 +18,58 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_lkjvu")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 320.0
-offset_bottom = 180.0
-color = Color(0, 0, 0, 0.188235)
+offset_right = 640.0
+offset_bottom = 360.0
+texture = SubResource("GradientTexture1D_lt03d")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_top = 96.0
+offset_right = 216.0
+offset_bottom = 360.0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "TITLE"
+
+[node name="Label" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "TITLE_PAUSED"
+
+[node name="ResumeButton" type="Button" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "UI_START"
+alignment = 0
+
+[node name="LoadButton" type="Button" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "UI_LOAD"
+alignment = 0
+
+[node name="SaveButton" type="Button" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "UI_SAVE"
+alignment = 0
+
+[node name="OptionButton" type="Button" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "UI_OPTION"
+alignment = 0
+
+[node name="QuitButton" type="Button" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "UI_QUIT"
+alignment = 0
+
+[node name="OptionMenu" parent="." instance=ExtResource("2_am47h")]
+visible = false

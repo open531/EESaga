@@ -1,4 +1,4 @@
-﻿namespace EESaga.Scripts.Player;
+﻿namespace EESaga.Scripts.Managers;
 
 using Godot;
 

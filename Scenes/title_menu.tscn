@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://d07gweo0fyfui"]
+[gd_scene load_steps=7 format=3 uid="uid://d07gweo0fyfui"]
 
 [ext_resource type="Script" path="res://Scripts/UI/TitleMenu.cs" id="1_rpgna"]
-[ext_resource type="Texture2D" uid="uid://ct687tpsrikhu" path="res://Assets/Textures/title_bg.png" id="2_rs55i"]
+[ext_resource type="Texture2D" uid="uid://bbmb34jg84gpj" path="res://Assets/Images/gate.png" id="2_ehb1b"]
 [ext_resource type="PackedScene" uid="uid://b5mm4eu50dcgl" path="res://Scenes/option_menu.tscn" id="3_g1v6j"]
 [ext_resource type="PackedScene" uid="uid://ccnn5i3th8bsd" path="res://Scenes/debug_info.tscn" id="4_5bs21"]
+
+[sub_resource type="Gradient" id="Gradient_ibvh8"]
+colors = PackedColorArray(0, 0, 0, 0.752941, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m5fq7"]
+gradient = SubResource("Gradient_ibvh8")
+width = 216
 
 [node name="TitleMenu" type="Control"]
 layout_mode = 3
@@ -12,55 +19,52 @@ offset_right = 640.0
 offset_bottom = 360.0
 script = ExtResource("1_rpgna")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
-color = Color(0.12549, 0.227451, 0.156863, 1)
-
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -80.0
-offset_top = -110.0
-offset_right = 720.0
-offset_bottom = 470.0
-texture = ExtResource("2_rs55i")
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_ehb1b")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 2
+offset_right = 216.0
+offset_bottom = 360.0
+texture = SubResource("GradientTexture1D_m5fq7")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_right = 208.0
-offset_bottom = 176.0
-
-[node name="Background" type="ColorRect" parent="MarginContainer"]
-layout_mode = 2
-color = Color(0.12549, 0.227451, 0.156863, 1)
+offset_top = 168.0
+offset_right = 216.0
+offset_bottom = 360.0
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "TITLE"
-horizontal_alignment = 1
 
 [node name="PlayButton" type="Button" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 text = "UI_START"
+alignment = 0
 
-[node name="Button" type="Button" parent="MarginContainer/GridContainer"]
+[node name="LoadButton" type="Button" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 text = "UI_LOAD"
+alignment = 0
 
 [node name="OptionButton" type="Button" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 text = "UI_OPTION"
+alignment = 0
 
 [node name="QuitButton" type="Button" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 text = "UI_QUIT"
+alignment = 0
 
 [node name="OptionMenu" parent="." instance=ExtResource("3_g1v6j")]
 visible = false

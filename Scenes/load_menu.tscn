@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d0vbi4ip83v2m"]
+
+[node name="LoadMenu" type="PopupPanel"]
+size = Vector2i(400, 300)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 396.0
+offset_bottom = 296.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 2
