@@ -1,5 +1,6 @@
+namespace EESaga.Scripts.UI;
+
 using Godot;
-using System;
 
 public partial class PauseMenu : Control
 {
@@ -15,11 +16,11 @@ public partial class PauseMenu : Control
     public override void _Ready()
     {
         _marginContainer = GetNode<MarginContainer>("MarginContainer");
-        _resumeButton = GetNode<Button>("MarginContainer/GridContainer/ResumeButton");
-        _loadButton = GetNode<Button>("MarginContainer/GridContainer/LoadButton");
-        _saveButton = GetNode<Button>("MarginContainer/GridContainer/SaveButton");
-        _optionButton = GetNode<Button>("MarginContainer/GridContainer/OptionButton");
-        _quitButton = GetNode<Button>("MarginContainer/GridContainer/QuitButton");
+        _resumeButton = GetNode<Button>("%ResumeButton");
+        _loadButton = GetNode<Button>("%LoadButton");
+        _saveButton = GetNode<Button>("%SaveButton");
+        _optionButton = GetNode<Button>("%OptionButton");
+        _quitButton = GetNode<Button>("%QuitButton");
 
         _optionMenu = GetNode<PopupPanel>("OptionMenu");
 

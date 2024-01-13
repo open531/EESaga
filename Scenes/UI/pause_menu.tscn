@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dl77x3n82bjh0"]
 
 [ext_resource type="Script" path="res://Scripts/UI/PauseMenu.cs" id="1_lkjvu"]
-[ext_resource type="PackedScene" uid="uid://b5mm4eu50dcgl" path="res://Scenes/option_menu.tscn" id="2_am47h"]
+[ext_resource type="PackedScene" uid="uid://b5mm4eu50dcgl" path="res://Scenes/UI/option_menu.tscn" id="2_am47h"]
 
 [sub_resource type="Gradient" id="Gradient_x7kgn"]
 offsets = PackedFloat32Array(0, 0.987013)
@@ -47,26 +47,31 @@ theme_override_font_sizes/font_size = 32
 text = "TITLE_PAUSED"
 
 [node name="ResumeButton" type="Button" parent="MarginContainer/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "UI_START"
 alignment = 0
 
 [node name="LoadButton" type="Button" parent="MarginContainer/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "UI_LOAD"
 alignment = 0
 
 [node name="SaveButton" type="Button" parent="MarginContainer/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "UI_SAVE"
 alignment = 0
 
 [node name="OptionButton" type="Button" parent="MarginContainer/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "UI_OPTION"
 alignment = 0
 
 [node name="QuitButton" type="Button" parent="MarginContainer/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "UI_QUIT"
 alignment = 0

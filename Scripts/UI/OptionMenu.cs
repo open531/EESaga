@@ -25,18 +25,18 @@ public partial class OptionMenu : PopupPanel
     {
         _gameOptions = GetNode<GameOptions>("/root/GameOptions");
 
-        _tabContainer = GetNode<TabContainer>("T");
+        _tabContainer = GetNode<TabContainer>("TabContainer");
 
-        _languageButton = GetNode<OptionButton>("T/OP_GAME/M/S/G/LanguageButton");
-        _displayModeButton = GetNode<OptionButton>("T/OP_VIDEO/M/S/G/DisplayModeButton");
-        _resolutionButton = GetNode<OptionButton>("T/OP_VIDEO/M/S/G/ResolutionButton");
-        _frameRateButton = GetNode<OptionButton>("T/OP_VIDEO/M/S/G/FrameRateButton");
-        _vSyncButton = GetNode<CheckBox>("T/OP_VIDEO/M/S/G/VSyncButton");
-        _displayFpsButton = GetNode<CheckBox>("T/OP_VIDEO/M/S/G/DisplayFPSButton");
-        _volumeSlider = GetNode<Slider>("T/OP_AUDIO/M/S/G/VolumeSlider");
-        _musicSlider = GetNode<Slider>("T/OP_AUDIO/M/S/G/MusicSlider");
-        _soundSlider = GetNode<Slider>("T/OP_AUDIO/M/S/G/SoundSlider");
-        _voiceSlider = GetNode<Slider>("T/OP_AUDIO/M/S/G/VoiceSlider");
+        _languageButton = GetNode<OptionButton>("%LanguageButton");
+        _displayModeButton = GetNode<OptionButton>("%DisplayModeButton");
+        _resolutionButton = GetNode<OptionButton>("%ResolutionButton");
+        _frameRateButton = GetNode<OptionButton>("%FrameRateButton");
+        _vSyncButton = GetNode<CheckBox>("%VSyncButton");
+        _displayFpsButton = GetNode<CheckBox>("%DisplayFPSButton");
+        _volumeSlider = GetNode<Slider>("%VolumeSlider");
+        _musicSlider = GetNode<Slider>("%MusicSlider");
+        _soundSlider = GetNode<Slider>("%SoundSlider");
+        _voiceSlider = GetNode<Slider>("%VoiceSlider");
 
         _tabContainer.CurrentTab = 0;
 

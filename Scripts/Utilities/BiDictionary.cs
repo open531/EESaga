@@ -4,8 +4,8 @@ using Godot;
 
 public class BiDictionary<T1, T2>
 {
-    private readonly System.Collections.Generic.Dictionary<T1, T2> _forward = new();
-    private readonly System.Collections.Generic.Dictionary<T2, T1> _reverse = new();
+    private readonly System.Collections.Generic.Dictionary<T1, T2> _forward = [];
+    private readonly System.Collections.Generic.Dictionary<T2, T1> _reverse = [];
 
     public BiDictionary()
     {
@@ -134,8 +134,8 @@ public class BiDictionary<T1, T2>
 
 public class BiGodotDictionary
 {
-    private readonly Godot.Collections.Dictionary _forward = new();
-    private readonly Godot.Collections.Dictionary _reverse = new();
+    private readonly Godot.Collections.Dictionary _forward = [];
+    private readonly Godot.Collections.Dictionary _reverse = [];
 
     public BiGodotDictionary()
     {

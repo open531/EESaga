@@ -1,9 +1,12 @@
 namespace EESaga.Scripts.UI;
 
 using Godot;
+using System;
 
 public partial class TitleMenu : Control
 {
+    [Export] public PackedScene PlayScene { get; set; }
+
     private MarginContainer _marginContainer;
     private Button _playButton;
     private Button _loadButton;
@@ -15,10 +18,10 @@ public partial class TitleMenu : Control
     public override void _Ready()
     {
         _marginContainer = GetNode<MarginContainer>("MarginContainer");
-        _playButton = GetNode<Button>("MarginContainer/GridContainer/PlayButton");
-        _loadButton = GetNode<Button>("MarginContainer/GridContainer/LoadButton");
-        _optionButton = GetNode<Button>("MarginContainer/GridContainer/OptionButton");
-        _quitButton = GetNode<Button>("MarginContainer/GridContainer/QuitButton");
+        _playButton = GetNode<Button>("%PlayButton");
+        _loadButton = GetNode<Button>("%LoadButton");
+        _optionButton = GetNode<Button>("%OptionButton");
+        _quitButton = GetNode<Button>("%QuitButton");
 
         _optionMenu = GetNode<PopupPanel>("OptionMenu");
 
@@ -33,7 +36,10 @@ public partial class TitleMenu : Control
 
     private void OnPlayButtonPressed()
     {
-        GetTree().ChangeSceneToFile("res://Scenes/open_world.tscn");
+        if (PlayScene != null)
+        {
+            GetTree().ChangeSceneToPacked(PlayScene);
+        }
     }
 
     private void OnOptionButtonPressed()
