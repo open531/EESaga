@@ -34,13 +34,13 @@ layout_mode = 2
 layout_mode = 2
 columns = 2
 
-[node name="LanguageLabel" type="Label" parent="TabContainer/OP_GAME/MarginContainer/ScrollContainer/GridContainer"]
+[node name="LanguageLabel" type="Label" parent="TabContainer/OP_GAME/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_G_LANGUAGE"
 
-[node name="LanguageButton" type="OptionButton" parent="TabContainer/OP_GAME/MarginContainer/ScrollContainer/GridContainer"]
+[node name="LanguageButton" type="OptionButton" parent="TabContainer/OP_GAME/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
@@ -70,13 +70,13 @@ layout_mode = 2
 layout_mode = 2
 columns = 2
 
-[node name="DisplayModeLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="DisplayModeLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_V_DISPLAY"
 
-[node name="DisplayModeButton" type="OptionButton" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="DisplayModeButton" type="OptionButton" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
@@ -88,13 +88,13 @@ popup/item_1/id = 1
 popup/item_2/text = "OP_V_D_FULLSCREEN"
 popup/item_2/id = 2
 
-[node name="ResolutionLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="ResolutionLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_V_RESOLUTION"
 
-[node name="ResolutionButton" type="OptionButton" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="ResolutionButton" type="OptionButton" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
@@ -118,13 +118,13 @@ popup/item_7/id = 7
 popup/item_8/text = "2560x1440"
 popup/item_8/id = 8
 
-[node name="FrameRateLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="FrameRateLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_V_FRAMERATE"
 
-[node name="FrameRateButton" type="OptionButton" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="FrameRateButton" type="OptionButton" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
@@ -148,24 +148,24 @@ popup/item_7/id = 7
 popup/item_8/text = "360 FPS"
 popup/item_8/id = 8
 
-[node name="VSyncLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="VSyncLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_V_VSYNC"
 
-[node name="VSyncButton" type="CheckBox" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="VSyncButton" type="CheckBox" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 
-[node name="DisplayFPSLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="DisplayFPSLabel" type="Label" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_V_DISPLAYFPS"
 
-[node name="DisplayFPSButton" type="CheckBox" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="DisplayFPSButton" type="CheckBox" parent="TabContainer/OP_VIDEO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
@@ -186,13 +186,13 @@ layout_mode = 2
 layout_mode = 2
 columns = 2
 
-[node name="VolumeLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="VolumeLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_A_VOLUME"
 
-[node name="VolumeSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="VolumeSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
@@ -201,13 +201,13 @@ value = 80.0
 rounded = true
 tick_count = 11
 
-[node name="MusicLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="MusicLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_A_MUSIC"
 
-[node name="MusicSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="MusicSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
@@ -216,13 +216,13 @@ value = 80.0
 rounded = true
 tick_count = 11
 
-[node name="SoundLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="SoundLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_A_SOUND"
 
-[node name="SoundSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="SoundSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
@@ -231,13 +231,13 @@ value = 80.0
 rounded = true
 tick_count = 11
 
-[node name="VoiceLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="VoiceLabel" type="Label" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 text = "OP_A_VOICE"
 
-[node name="VoiceSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer"]
+[node name="VoiceSlider" type="HSlider" parent="TabContainer/OP_AUDIO/MarginContainer/ScrollContainer/GridContainer" groups=["Options"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2

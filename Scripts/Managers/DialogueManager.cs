@@ -4,6 +4,9 @@ using Godot;
 using System.Collections.Generic;
 using UI;
 
+/// <summary>
+/// Adapted from GDScript of https://worldeater-dev.itch.io/bittersweet-birthday/devlog/224241/howto-a-simple-dialogue-system-in-godot
+/// </summary>
 public partial class DialogueManager : Node
 {
     public PackedScene DialogueScene { get; set; } = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Dialogue.tscn");

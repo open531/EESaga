@@ -27,7 +27,8 @@ public partial class VirtualCamera2D : Node2D
     /// <summary>
     /// Left scroll limit in pixels. The camera stops moving when reaching this value.
     /// </summary>
-    [ExportGroup("Limit", "Limit")] [Export] public int LimitLeft { get; set; } = -10000000;
+    [ExportGroup("Limit", "Limit")]
+    [Export] public int LimitLeft { get; set; } = -10000000;
     /// <summary>
     /// Top scroll limit in pixels. The camera stops moving when reaching this value.
     /// </summary>
@@ -44,7 +45,8 @@ public partial class VirtualCamera2D : Node2D
     /// <summary>
     /// If true, draws the camera's limits rectangle in the editor.
     /// </summary>
-    [ExportGroup("Editor", "Editor")] [Export] public bool EditorDrawLimits { get; set; } = true;
+    [ExportGroup("Editor", "Editor")]
+    [Export] public bool EditorDrawLimits { get; set; } = true;
 
     public override void _Draw()
     {

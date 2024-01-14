@@ -3,6 +3,9 @@ namespace EESaga.Scripts.UI;
 using Godot;
 using Utilities;
 
+/// <summary>
+/// Adapted from GDScript of https://worldeater-dev.itch.io/bittersweet-birthday/devlog/224241/howto-a-simple-dialogue-system-in-godot
+/// </summary>
 public partial class Dialogue : Control
 {
     private Label _speakerLabel;

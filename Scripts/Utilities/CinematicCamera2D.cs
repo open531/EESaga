@@ -26,6 +26,9 @@ public partial class CinematicCamera2D : Camera2D
     /// </summary>
     [Export] public VirtualCamera2D VirtualCamera { get; set; } = null;
 
+    /// <summary>
+    /// The speed at which the transitions take place. Used by zoom and offset.
+    /// </summary>
     [Export] public float TransitionSpeed { get; set; } = 1.0f;
 
     public override void _Process(double delta)
