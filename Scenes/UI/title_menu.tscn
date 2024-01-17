@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://d07gweo0fyfui"]
+
+[ext_resource type="Script" path="res://Scripts/UI/TitleMenu.cs" id="1_rpgna"]
+[ext_resource type="Texture2D" uid="uid://bbmb34jg84gpj" path="res://Assets/Images/gate.png" id="2_ehb1b"]
+[ext_resource type="PackedScene" uid="uid://b5mm4eu50dcgl" path="res://Scenes/UI/option_menu.tscn" id="3_g1v6j"]
+[ext_resource type="PackedScene" uid="uid://ccnn5i3th8bsd" path="res://Scenes/UI/debug_info.tscn" id="4_5bs21"]
+
+[sub_resource type="Gradient" id="Gradient_ibvh8"]
+colors = PackedColorArray(0, 0, 0, 0.752941, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m5fq7"]
+gradient = SubResource("Gradient_ibvh8")
+width = 216
+
+[node name="TitleMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+script = ExtResource("1_rpgna")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_ehb1b")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 2
+offset_right = 216.0
+offset_bottom = 360.0
+texture = SubResource("GradientTexture1D_m5fq7")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_top = 168.0
+offset_right = 216.0
+offset_bottom = 375.0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "TITLE"
+
+[node name="PlayButton" type="Button" parent="MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "UI_START"
+alignment = 0
+
+[node name="LoadButton" type="Button" parent="MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "UI_LOAD"
+alignment = 0
+
+[node name="OptionButton" type="Button" parent="MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "UI_OPTION"
+alignment = 0
+
+[node name="QuitButton" type="Button" parent="MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "UI_QUIT"
+alignment = 0
+
+[node name="OptionMenu" parent="." instance=ExtResource("3_g1v6j")]
+visible = false
+
+[node name="DebugInfo" parent="." instance=ExtResource("4_5bs21")]
+layout_mode = 1
