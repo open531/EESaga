@@ -9,6 +9,10 @@ public partial class OptionMenu : PopupPanel
 
     private TabContainer _tabContainer;
 
+    private TabBar _gameTab;
+    private TabBar _videoTab;
+    private TabBar _audioTab;
+
     private OptionButton _languageButton;
     private OptionButton _displayModeButton;
     private OptionButton _resolutionButton;
@@ -26,6 +30,10 @@ public partial class OptionMenu : PopupPanel
         _gameOptions = GetNode<GameOptions>("/root/GameOptions");
 
         _tabContainer = GetNode<TabContainer>("TabContainer");
+
+        _gameTab = GetNode<TabBar>("TabContainer/OP_GAME");
+        _videoTab = GetNode<TabBar>("TabContainer/OP_VIDEO");
+        _audioTab = GetNode<TabBar>("TabContainer/OP_AUDIO");
 
         _languageButton = GetNode<OptionButton>("%LanguageButton");
         _displayModeButton = GetNode<OptionButton>("%DisplayModeButton");
@@ -63,6 +71,8 @@ public partial class OptionMenu : PopupPanel
         _voiceSlider.ValueChanged += OnVoiceSliderValueChanged;
 
         _frameRateButton.Disabled = true;
+
+        _gameTab.GrabFocus();
     }
 
     #region Game
@@ -78,6 +88,30 @@ public partial class OptionMenu : PopupPanel
     private void OnDisplayModeButtonItemSelected(long id)
     {
         _gameOptions.VideoDisplayMode = (OptionData.DisplayMode)_displayModeButton.Selected;
+        if (_gameOptions.VideoDisplayMode == OptionData.DisplayMode.Windowed)
+        {
+            _gameOptions.VideoResolution = OptionData.Resolution._1280x720;
+            _resolutionButton.Selected = (int)_gameOptions.VideoResolution;
+            _resolutionButton.Disabled = false;
+        }
+        else
+        {
+            _gameOptions.VideoResolution = DisplayServer.ScreenGetSize().X switch
+            {
+                var x when x >= 2560 => OptionData.Resolution._2560x1440,
+                var x when x >= 1920 => OptionData.Resolution._1920x1080,
+                var x when x >= 1600 => OptionData.Resolution._1600x900,
+                var x when x >= 1366 => OptionData.Resolution._1366x768,
+                var x when x >= 1280 => OptionData.Resolution._1280x720,
+                var x when x >= 1024 => OptionData.Resolution._1024x576,
+                var x when x >= 960 => OptionData.Resolution._960x540,
+                var x when x >= 854 => OptionData.Resolution._854x480,
+                var x when x >= 640 => OptionData.Resolution._640x360,
+                _ => OptionData.Resolution._640x360,
+            };
+            _resolutionButton.Selected = (int)_gameOptions.VideoResolution;
+            _resolutionButton.Disabled = true;
+        }
         _gameOptions.ApplyOptions();
         _gameOptions.SaveOptions();
     }

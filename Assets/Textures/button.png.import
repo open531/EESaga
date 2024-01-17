@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w1anhphkelxp"
-path="res://.godot/imported/tiny_ski.png-fe40649a05e7337a6fe13e05071952d4.ctex"
+uid="uid://t5lfm7o5xaxo"
+path="res://.godot/imported/button.png-5f7b2c58759b39e48818d402713a3009.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/tiny_ski.png"
-dest_files=["res://.godot/imported/tiny_ski.png-fe40649a05e7337a6fe13e05071952d4.ctex"]
+source_file="res://Assets/Textures/button.png"
+dest_files=["res://.godot/imported/button.png-5f7b2c58759b39e48818d402713a3009.ctex"]
 
 [params]
 

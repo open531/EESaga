@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4nypx6v78oc3"
-path="res://.godot/imported/tiny_town.png-b9227e1f7abce9ee4b4c7df58d10fd9d.ctex"
+uid="uid://bt6q6ai2h15du"
+path="res://.godot/imported/oled.png-a2743b8f91b41ac72ac741dbf79c9be6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/tiny_town.png"
-dest_files=["res://.godot/imported/tiny_town.png-b9227e1f7abce9ee4b4c7df58d10fd9d.ctex"]
+source_file="res://Assets/Textures/oled.png"
+dest_files=["res://.godot/imported/oled.png-a2743b8f91b41ac72ac741dbf79c9be6.ctex"]
 
 [params]
 

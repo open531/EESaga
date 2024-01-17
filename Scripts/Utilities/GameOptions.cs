@@ -147,29 +147,29 @@ public partial class GameOptions : Node
         };
         VideoResolution = DisplayServer.WindowGetSize() switch
         {
-            var size when size == new Vector2I(640, 360) => OptionData.Resolution._640x360,
-            var size when size == new Vector2I(854, 480) => OptionData.Resolution._854x480,
-            var size when size == new Vector2I(960, 540) => OptionData.Resolution._960x540,
-            var size when size == new Vector2I(1024, 576) => OptionData.Resolution._1024x576,
-            var size when size == new Vector2I(1280, 720) => OptionData.Resolution._1280x720,
-            var size when size == new Vector2I(1366, 768) => OptionData.Resolution._1366x768,
-            var size when size == new Vector2I(1600, 900) => OptionData.Resolution._1600x900,
-            var size when size == new Vector2I(1920, 1080) => OptionData.Resolution._1920x1080,
-            var size when size == new Vector2I(2560, 1440) => OptionData.Resolution._2560x1440,
-            _ => OptionData.Resolution._1280x720,
+            var size when size >= new Vector2I(2560, 1440) => OptionData.Resolution._2560x1440,
+            var size when size >= new Vector2I(1920, 1080) => OptionData.Resolution._1920x1080,
+            var size when size >= new Vector2I(1600, 900) => OptionData.Resolution._1600x900,
+            var size when size >= new Vector2I(1366, 768) => OptionData.Resolution._1366x768,
+            var size when size >= new Vector2I(1280, 720) => OptionData.Resolution._1280x720,
+            var size when size >= new Vector2I(1024, 576) => OptionData.Resolution._1024x576,
+            var size when size >= new Vector2I(960, 540) => OptionData.Resolution._960x540,
+            var size when size >= new Vector2I(854, 480) => OptionData.Resolution._854x480,
+            var size when size >= new Vector2I(640, 360) => OptionData.Resolution._640x360,
+            _ => OptionData.Resolution._640x360,
         };
         VideoFrameRate = Engine.PhysicsTicksPerSecond switch
         {
-            24 => OptionData.FrameRate._24fps,
-            30 => OptionData.FrameRate._30fps,
-            45 => OptionData.FrameRate._45fps,
-            60 => OptionData.FrameRate._60fps,
-            90 => OptionData.FrameRate._90fps,
-            120 => OptionData.FrameRate._120fps,
-            144 => OptionData.FrameRate._144fps,
-            240 => OptionData.FrameRate._240fps,
-            360 => OptionData.FrameRate._360fps,
-            _ => OptionData.FrameRate._60fps,
+            var fps when fps <= 24 => OptionData.FrameRate._24fps,
+            var fps when fps <= 30 => OptionData.FrameRate._30fps,
+            var fps when fps <= 45 => OptionData.FrameRate._45fps,
+            var fps when fps <= 60 => OptionData.FrameRate._60fps,
+            var fps when fps <= 90 => OptionData.FrameRate._90fps,
+            var fps when fps <= 120 => OptionData.FrameRate._120fps,
+            var fps when fps <= 144 => OptionData.FrameRate._144fps,
+            var fps when fps <= 240 => OptionData.FrameRate._240fps,
+            var fps when fps <= 360 => OptionData.FrameRate._360fps,
+            _ => OptionData.FrameRate._360fps,
         };
         VideoVSync = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled;
         VideoDisplayFps = false;
