@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://djtn7yfj76bmj"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Card.cs" id="1_m81qx"]
+[ext_resource type="Texture2D" uid="uid://de56x03orufu5" path="res://Assets/Textures/Cards/card_white.png" id="1_ucugj"]
+
+[node name="Card" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -583.0
+offset_bottom = -272.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m81qx")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_ucugj")
