@@ -45,3 +45,16 @@ offset_right = -2.0
 offset_bottom = -2.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="AddCardButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 10.0
+text = "Add Card"
+
+[node name="RemoveCardButton" type="Button" parent="."]
+layout_mode = 0
+offset_top = 28.0
+offset_right = 98.0
+offset_bottom = 54.0
+text = "Remove Card"
