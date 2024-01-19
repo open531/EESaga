@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://nr6wkkfm6sr6"]
+
+[ext_resource type="Script" path="res://Scripts/UI/CardDetail.cs" id="1_da3xc"]
+
+[node name="CardDetail" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 240.0
+offset_right = 208.0
+offset_bottom = 284.0
+mouse_filter = 2
+script = ExtResource("1_da3xc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 208.0
+offset_bottom = 36.0
+
+[node name="CardName" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Card Name"
+autowrap_mode = 3
+
+[node name="CardCost" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Card Cost"
+
+[node name="CardType" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Card Type"
+
+[node name="CardDescription" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Card Description"
+autowrap_mode = 3

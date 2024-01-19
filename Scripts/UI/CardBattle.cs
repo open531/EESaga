@@ -10,8 +10,22 @@ public partial class CardBattle : Control
     private Control _deck;
     private Control _discard;
 
+    private CardDetail _cardDetail;
+
     private Button _addCardButton;
     private Button _removeCardButton;
+
+    private Card _selectedCard;
+    private Card SelectedCard
+    {
+        get { return _selectedCard; }
+        set
+        {
+            _selectedCard = value;
+            _cardDetail.Update(_selectedCard);
+        }
+    }
+    private Card _operatingCard;
 
     private static readonly PackedScene cardScene = GD.Load<PackedScene>("res://Scenes/UI/card.tscn");
 
@@ -19,6 +33,8 @@ public partial class CardBattle : Control
     private const float _cardX = 64.0f;
     private const float _cardY = 72.0f;
     private const float _cardRotation = 0.1f;
+    private const float _cardWidth = 57.0f;
+    private const float _cardHeight = 88.0f;
 
     public override void _Ready()
     {
@@ -26,16 +42,59 @@ public partial class CardBattle : Control
         _deck = GetNode<Control>("Deck");
         _discard = GetNode<Control>("Discard");
 
+        _cardDetail = GetNode<CardDetail>("CardDetail");
+
+        _selectedCard = null;
+        _operatingCard = null;
+
         _addCardButton = GetNode<Button>("AddCardButton");
         _removeCardButton = GetNode<Button>("RemoveCardButton");
 
         _addCardButton.Pressed += OnAddCardButtonPressed;
         _removeCardButton.Pressed += OnRemoveCardButtonPressed;
 
-        AddCard(CardType.Attack, "Attack", "Attack", 1, CardTarget.Enemy);
-        AddCard(CardType.Defense, "Defense", "Defense", 1, CardTarget.Self);
-        AddCard(CardType.Special, "Special", "Special", 1, CardTarget.AllEnemies);
-        AddCard(CardType.Item, "Item", "Item", 1, CardTarget.AllAllies);
+        AddCard(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy);
+        AddCard(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self);
+        AddCard(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies);
+        AddCard(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies);
+    }
+
+    public override void _Process(double delta)
+    {
+        //GD.Print(SelectedCard?.CardName);
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton mouseEvent)
+        {
+            if (mouseEvent.ButtonIndex == MouseButton.Left)
+            {
+                if (mouseEvent.Pressed)
+                {
+                    GD.Print("Left mouse button pressed");
+                    var previewCard = GetNodeOrNull("PreviewCard") as Card;
+                    if (previewCard != null)
+                    {
+                        if (_operatingCard == null)
+                        {
+                            _operatingCard = previewCard;
+                            previewCard.MouseExited -= ExitPreviewCard;
+                        }
+                        else
+                        {
+                            _operatingCard.TakeEffect();
+                            ExitPreviewCard();
+                            _operatingCard = null;
+                        }
+                    }
+                }
+                if (mouseEvent.IsReleased())
+                {
+                    GD.Print("Left mouse button released");
+                }
+            }
+        }
     }
 
     private void UpdateCardPosition()
@@ -45,37 +104,37 @@ public partial class CardBattle : Control
         {
             for (var i = 0; i < cards.Count; i++)
             {
-                var R = (cards.Count * _cardX) / Math.Tan(cards.Count * _cardRotation / 2) / double.Pi;
+                var r = (cards.Count * _cardX) / Math.Tan(cards.Count * _cardRotation / 2) / double.Pi;
                 var card = cards[i] as Card;
                 var targetRotation = (i + 0.5f) * _cardRotation - cards.Count * _cardRotation / 2;
                 var targetPosition = new Vector2(
-                    (float)((i + 1) * _cardX - cards.Count * _cardX / 2 - 57.0f * Math.Cos(targetRotation)),
-                    (float)(-_cardY - 57.0f / 2 * Math.Sin(targetRotation) + R * (1 - Math.Cos(targetRotation)))
+                    (float)((i + 1) * _cardX - cards.Count * _cardX / 2 - _cardWidth * Math.Cos(targetRotation)),
+                    (float)(-_cardY - _cardWidth / 2 * Math.Sin(targetRotation) + r * (1 - Math.Cos(targetRotation)))
                 );
                 var tweenPosition = CreateTween();
                 var tweenRotation = CreateTween();
                 var tweenScale = CreateTween();
-                tweenPosition.TweenProperty(card, "position", targetPosition, 0.15f);
-                tweenRotation.TweenProperty(card, "rotation", targetRotation, 0.15f);
-                tweenScale.TweenProperty(card, "scale", Vector2.One, 0.2f);
+                tweenPosition.TweenProperty(card, "position", targetPosition, 0.15);
+                tweenRotation.TweenProperty(card, "rotation", targetRotation, 0.15);
+                tweenScale.TweenProperty(card, "scale", Vector2.One, 0.2);
             }
         }
         else
         {
             for (var i = 0; i < cards.Count; i++)
             {
-                var R = (_maxHandSize * _cardX) / Math.Tan(_maxHandSize * _cardRotation / 2) / double.Pi;
+                var r = (_maxHandSize * _cardX) / Math.Tan(_maxHandSize * _cardRotation / 2) / double.Pi;
                 var card = cards[i] as Card;
                 var targetRotation = (i + 0.5f) * _maxHandSize * _cardRotation / cards.Count - _maxHandSize * _cardRotation / 2;
                 var targetPosition = new Vector2(
-                     (float)((i + 0.5f) * _maxHandSize * _cardX / cards.Count - _maxHandSize * _cardX / 2 - 57.0f / 2 * Math.Cos(targetRotation)),
-                     (float)(-_cardY - 57.0f / 2 * Math.Sin(targetRotation) + R * (1 - Math.Cos(targetRotation)))
+                     (float)((i + 0.5f) * _maxHandSize * _cardX / cards.Count - _maxHandSize * _cardX / 2 - _cardWidth / 2 * Math.Cos(targetRotation)),
+                     (float)(-_cardY - _cardWidth / 2 * Math.Sin(targetRotation) + r * (1 - Math.Cos(targetRotation)))
                 );
                 var tweenPosition = CreateTween();
                 var tweenRotation = CreateTween();
                 var tweenScale = CreateTween();
-                tweenPosition.TweenProperty(card, "position", targetPosition, 0.15f);
-                tweenRotation.TweenProperty(card, "rotation", targetRotation, 0.15f);
+                tweenPosition.TweenProperty(card, "position", targetPosition, 0.15);
+                tweenRotation.TweenProperty(card, "rotation", targetRotation, 0.15);
                 tweenScale.TweenProperty(card, "scale", Vector2.One, 0.2f);
             }
         }
@@ -87,6 +146,12 @@ public partial class CardBattle : Control
         card.InitializeCard(cardType, cardName, cardDescription, cardCost, cardTarget);
         card.Position = _deck.Position - _hand.Position;
         card.Scale = Vector2.Zero;
+        card.MouseEntered += () =>
+        {
+            if (_operatingCard != null) return;
+            SelectedCard = card;
+            PreviewCard(card);
+        };
         _hand.AddChild(card);
         UpdateCardPosition();
     }
@@ -97,6 +162,12 @@ public partial class CardBattle : Control
         cardNode.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
         cardNode.Position = _deck.Position - _hand.Position;
         cardNode.Scale = Vector2.Zero;
+        cardNode.MouseEntered += () =>
+        {
+            if (_operatingCard != null) return;
+            SelectedCard = cardNode;
+            PreviewCard(cardNode);
+        };
         _hand.AddChild(cardNode);
         UpdateCardPosition();
     }
@@ -105,18 +176,19 @@ public partial class CardBattle : Control
     {
         if (!_hand.GetChildren().Contains(card)) return;
         var newCard = cardScene.Instantiate<Card>();
+        newCard.Name = "RemovedCard";
         newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
         AddChild(newCard);
         _hand.RemoveChild(card);
-        var tweenRotation = CreateTween();
         var tweenPosition = CreateTween();
+        var tweenRotation = CreateTween();
         var tweenScale = CreateTween();
-        tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.15f);
-        tweenPosition.TweenProperty(newCard, "position", _discard.Position, 0.15f);
-        tweenScale.TweenProperty(newCard, "scale", Vector2.Zero, 0.2f);
+        tweenPosition.TweenProperty(newCard, "position", _discard.Position, 0.15);
+        tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.15);
+        tweenScale.TweenProperty(newCard, "scale", Vector2.Zero, 0.2);
         tweenScale.TweenCallback(Callable.From(newCard.QueueFree));
         UpdateCardPosition();
     }
@@ -126,20 +198,62 @@ public partial class CardBattle : Control
         if (index < 0 || index >= _hand.GetChildCount()) return;
         var card = _hand.GetChild(index) as Card;
         var newCard = cardScene.Instantiate<Card>();
+        newCard.Name = "RemovedCard";
         newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
         AddChild(newCard);
         _hand.RemoveChild(card);
-        var tweenRotation = CreateTween();
         var tweenPosition = CreateTween();
+        var tweenRotation = CreateTween();
         var tweenScale = CreateTween();
-        tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.15f);
-        tweenPosition.TweenProperty(newCard, "position", _discard.Position, 0.15f);
-        tweenScale.TweenProperty(newCard, "scale", Vector2.Zero, 0.2f);
+        tweenPosition.TweenProperty(newCard, "position", _discard.Position, 0.15);
+        tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.15);
+        tweenScale.TweenProperty(newCard, "scale", Vector2.Zero, 0.2);
         tweenScale.TweenCallback(Callable.From(newCard.QueueFree));
         UpdateCardPosition();
+    }
+
+    private void PreviewCard(Card card)
+    {
+        if (card == null) return;
+        var previewCard = GetNodeOrNull("PreviewCard") as Card;
+        if (previewCard != null)
+        {
+            previewCard.Parent.Visible = true;
+            previewCard.Free();
+        }
+        var newCard = cardScene.Instantiate<Card>();
+        newCard.Name = "PreviewCard";
+        newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
+        newCard.Position = card.Position + _hand.Position;
+        newCard.Rotation = card.Rotation;
+        newCard.Scale = card.Scale;
+        newCard.Parent = card;
+        newCard.MouseExited += ExitPreviewCard;
+        AddChild(newCard);
+        var tweenPosition = CreateTween();
+        var tweenRotation = CreateTween();
+        var tweenScale = CreateTween();
+        tweenPosition.TweenProperty(newCard, "position", new Vector2(card.Position.X - 57.0f / 2, -176) + _hand.Position, 0.05);
+        tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.05);
+        tweenScale.TweenProperty(newCard, "scale", Vector2.One * 2, 0.05);
+        card.Visible = false;
+    }
+
+    private void ExitPreviewCard()
+    {
+        var newCard = GetNodeOrNull("PreviewCard") as Card;
+        SelectedCard = null;
+        var tweenPosition = CreateTween();
+        var tweenRotation = CreateTween();
+        var tweenScale = CreateTween();
+        tweenPosition.TweenProperty(newCard, "position", newCard.Parent.Position + _hand.Position, 0.05);
+        tweenRotation.TweenProperty(newCard, "rotation", newCard.Parent.Rotation, 0.05);
+        tweenScale.TweenProperty(newCard, "scale", newCard.Parent.Scale, 0.05);
+        tweenScale.TweenCallback(Callable.From(newCard.Free));
+        newCard.Parent.Visible = true;
     }
 
     private void OnAddCardButtonPressed()

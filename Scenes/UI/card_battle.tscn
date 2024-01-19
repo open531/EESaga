@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://har87ymot8rq"]
+[gd_scene load_steps=3 format=3 uid="uid://har87ymot8rq"]
 
 [ext_resource type="Script" path="res://Scripts/UI/CardBattle.cs" id="1_pg3r3"]
+[ext_resource type="PackedScene" uid="uid://nr6wkkfm6sr6" path="res://Scenes/UI/card_detail.tscn" id="2_avj3s"]
 
 [node name="CardBattle" type="Control"]
 layout_mode = 3
@@ -48,13 +49,17 @@ grow_vertical = 0
 
 [node name="AddCardButton" type="Button" parent="."]
 layout_mode = 0
-offset_right = 10.0
-offset_bottom = 10.0
+offset_top = 334.0
+offset_right = 74.0
+offset_bottom = 360.0
 text = "Add Card"
 
 [node name="RemoveCardButton" type="Button" parent="."]
 layout_mode = 0
-offset_top = 28.0
-offset_right = 98.0
-offset_bottom = 54.0
+offset_left = 542.0
+offset_top = 334.0
+offset_right = 640.0
+offset_bottom = 360.0
 text = "Remove Card"
+
+[node name="CardDetail" parent="." instance=ExtResource("2_avj3s")]
