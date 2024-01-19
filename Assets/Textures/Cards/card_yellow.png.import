@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4nypx6v78oc3"
-path="res://.godot/imported/tiny_town.png-b9227e1f7abce9ee4b4c7df58d10fd9d.ctex"
+uid="uid://83pmw0tynovp"
+path="res://.godot/imported/card_yellow.png-65b0465d5ed276f997fd7ede097fdb29.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/tiny_town.png"
-dest_files=["res://.godot/imported/tiny_town.png-b9227e1f7abce9ee4b4c7df58d10fd9d.ctex"]
+source_file="res://Assets/Textures/Cards/card_yellow.png"
+dest_files=["res://.godot/imported/card_yellow.png-65b0465d5ed276f997fd7ede097fdb29.ctex"]
 
 [params]
 

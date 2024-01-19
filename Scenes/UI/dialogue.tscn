@@ -1,13 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d6d4ps1ff6c1"]
+[gd_scene load_steps=5 format=3 uid="uid://d6d4ps1ff6c1"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Dialogue.cs" id="1_riw6f"]
+[ext_resource type="Texture2D" uid="uid://bt6q6ai2h15du" path="res://Assets/Textures/oled.png" id="2_6rp2b"]
 [ext_resource type="PackedScene" uid="uid://cjlqamqtykwql" path="res://Scenes/Utilities/dialogue_helper.tscn" id="2_nlek7"]
-
-[sub_resource type="Gradient" id="Gradient_620q0"]
-colors = PackedColorArray(0.2, 0.2, 0.2, 1, 0.2, 0.2, 0.2, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_0nial"]
-gradient = SubResource("Gradient_620q0")
 
 [sub_resource type="LabelSettings" id="LabelSettings_asysl"]
 font_size = 24
@@ -28,15 +23,15 @@ offset_left = 20.0
 offset_top = 240.0
 offset_right = 620.0
 offset_bottom = 340.0
-texture = SubResource("GradientTexture1D_0nial")
+texture = ExtResource("2_6rp2b")
 
 [node name="SpeakerLabel" type="Label" parent="Background"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 110.0
-offset_top = 4.0
+offset_top = -12.0
 offset_right = 590.0
-offset_bottom = 24.0
+offset_bottom = 12.0
 text = "Speaker"
 label_settings = SubResource("LabelSettings_asysl")
 
@@ -44,16 +39,17 @@ label_settings = SubResource("LabelSettings_asysl")
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 110.0
-offset_top = 36.0
+offset_top = 22.0
 offset_right = 590.0
-offset_bottom = 90.0
-theme_override_constants/line_separation = 2
+offset_bottom = 79.0
+theme_override_constants/line_separation = 3
 bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
 [node name="SpeakerImage" type="TextureRect" parent="Background"]
 unique_name_in_owner = true
 layout_mode = 0
+offset_top = -20.0
 offset_right = 100.0
 offset_bottom = 100.0
 

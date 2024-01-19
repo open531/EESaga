@@ -1,4 +1,4 @@
-﻿namespace EESaga.Scripts.Utilities;
+﻿namespace EESaga.Scripts.Data;
 
 public static class OptionData
 {

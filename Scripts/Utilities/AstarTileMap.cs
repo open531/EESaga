@@ -259,22 +259,22 @@ public partial class AstarTileMap : TileMap
         _ => SzudzikPairImproved((int)position.X, (int)position.Y),
     };
 
-    private int CantorPair(int x, int y) => (x + y) * (x + y + 1) / 2 + y;
+    private static int CantorPair(int x, int y) => (x + y) * (x + y + 1) / 2 + y;
 
-    private int CantorPairSigned(int x, int y) => CantorPair((x >= 0) ? (x * 2) : (x * -2 - 1), (y >= 0) ? (y * 2) : (y * -2 - 1));
+    private static int CantorPairSigned(int x, int y) => CantorPair((x >= 0) ? (x * 2) : (x * -2 - 1), (y >= 0) ? (y * 2) : (y * -2 - 1));
 
-    private int SzudzikPair(int x, int y) => (x >= y) ? (x * x + x + y) : (y * y + x);
+    private static int SzudzikPair(int x, int y) => (x >= y) ? (x * x + x + y) : (y * y + x);
 
-    private int SzudzikPairSigned(int x, int y) => SzudzikPair((x >= 0) ? (x * 2) : (x * -2 - 1), (y >= 0) ? (y * 2) : (y * -2 - 1));
+    private static int SzudzikPairSigned(int x, int y) => SzudzikPair((x >= 0) ? (x * 2) : (x * -2 - 1), (y >= 0) ? (y * 2) : (y * -2 - 1));
 
-    private int SzudzikPairImproved(int x, int y)
+    private static int SzudzikPairImproved(int x, int y)
     {
         int a, b;
         if (x >= 0) a = x * 2; else a = x * -2 - 1;
         if (y >= 0) b = y * 2; else b = y * -2 - 1;
         int c = SzudzikPair(a, b);
         if (a >= 0 && b < 0 || a < 0 && b >= 0) return c;
-        else return -c - 1;
+        return -c - 1;
     }
 
     private bool HasPoint(Vector2 position) => _astar.HasPoint(GetPoint(position));
@@ -303,7 +303,7 @@ public partial class AstarTileMap : TileMap
             var cardinalPoint = GetPoint(position + MapToLocal((Vector2I)direction));
             if (cardinalPoint != center && _astar.HasPoint(cardinalPoint))
             {
-                _astar.ConnectPoints(center, cardinalPoint, true);
+                _astar.ConnectPoints(center, cardinalPoint);
             }
         }
     }

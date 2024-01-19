@@ -38,7 +38,7 @@ theme/custom="res://Assets/Themes/default.tres"
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Assets/Localizations/ui.en.translation", "res://Assets/Localizations/ui.ja.translation", "res://Assets/Localizations/ui.zh_CN.translation", "res://Assets/Localizations/ui.zh_TW.translation", "res://Assets/Localizations/option.en.translation", "res://Assets/Localizations/option.ja.translation", "res://Assets/Localizations/option.zh_CN.translation", "res://Assets/Localizations/option.zh_TW.translation")
+locale/translations=PackedStringArray("res://Assets/Localizations/ui.en.translation", "res://Assets/Localizations/ui.ja.translation", "res://Assets/Localizations/ui.zh_CN.translation", "res://Assets/Localizations/ui.zh_TW.translation", "res://Assets/Localizations/option.en.translation", "res://Assets/Localizations/option.ja.translation", "res://Assets/Localizations/option.zh_CN.translation", "res://Assets/Localizations/option.zh_TW.translation", "res://Assets/Localizations/card.en.translation", "res://Assets/Localizations/card.ja.translation", "res://Assets/Localizations/card.zh_CN.translation", "res://Assets/Localizations/card.zh_TW.translation")
 
 [rendering]
 

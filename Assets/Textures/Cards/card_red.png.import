@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w1anhphkelxp"
-path="res://.godot/imported/tiny_ski.png-fe40649a05e7337a6fe13e05071952d4.ctex"
+uid="uid://opgke20asuqw"
+path="res://.godot/imported/card_red.png-32545c9d8be14035affb6980ec0d3e55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/tiny_ski.png"
-dest_files=["res://.godot/imported/tiny_ski.png-fe40649a05e7337a6fe13e05071952d4.ctex"]
+source_file="res://Assets/Textures/Cards/card_red.png"
+dest_files=["res://.godot/imported/card_red.png-32545c9d8be14035affb6980ec0d3e55.ctex"]
 
 [params]
 
