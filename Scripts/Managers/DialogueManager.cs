@@ -52,7 +52,7 @@ public partial class DialogueManager : Node
         _dialogueIndex = 0;
         var dialogue = DialogueScene.Instantiate<Dialogue>();
         dialogue.MessageCompleted += OnMessageCompleted;
-        GetTree().Root.AddChild(dialogue);
+        AddChild(dialogue);
         DialogueInstance = dialogue;
         ShowCurrent();
     }

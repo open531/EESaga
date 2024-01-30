@@ -13,7 +13,7 @@ public partial class TitleMenu : Control
     private Button _optionButton;
     private Button _quitButton;
 
-    private PopupPanel _optionMenu;
+    private OptionMenu _optionMenu;
 
     public override void _Ready()
     {
@@ -23,7 +23,7 @@ public partial class TitleMenu : Control
         _optionButton = GetNode<Button>("%OptionButton");
         _quitButton = GetNode<Button>("%QuitButton");
 
-        _optionMenu = GetNode<PopupPanel>("OptionMenu");
+        _optionMenu = GetNode<OptionMenu>("OptionMenu");
 
         _playButton.Pressed += OnPlayButtonPressed;
         _optionButton.Pressed += OnOptionButtonPressed;

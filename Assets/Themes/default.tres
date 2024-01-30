@@ -1,7 +1,8 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://dr55kv16k1tmv"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dr55kv16k1tmv"]
 
 [ext_resource type="FontFile" uid="uid://qqmej6jrh1to" path="res://Assets/Fonts/unifont.otf" id="1_dvgkp"]
 [ext_resource type="Texture2D" uid="uid://2yiml3dvw85a" path="res://Assets/Textures/button_disabled.png" id="1_f5e0x"]
+[ext_resource type="Texture2D" uid="uid://dumac02768dar" path="res://Assets/Textures/button_focus.png" id="2_af6sh"]
 [ext_resource type="Texture2D" uid="uid://dlgkvw4atwrfe" path="res://Assets/Textures/button_pressed.png" id="2_meywx"]
 [ext_resource type="Texture2D" uid="uid://big5smi7sf3nj" path="res://Assets/Textures/button_hover.png" id="3_23x7t"]
 [ext_resource type="Texture2D" uid="uid://t5lfm7o5xaxo" path="res://Assets/Textures/button.png" id="4_5om0b"]
@@ -14,7 +15,7 @@ texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qaikv"]
-texture = ExtResource("4_5om0b")
+texture = ExtResource("2_af6sh")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0

@@ -31,9 +31,6 @@ public partial class Dialogue : Control
         _typeTimer.Timeout += OnTypeTimerTimeout;
         _pauseTimer.Timeout += OnPauseTimerTimeout;
         _dialogueHelper.PauseRequested += OnDialogueHelperPauseRequested;
-
-        UpdateDialogue(new DialogueMessage("EESaga",
-            "你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。"));
     }
 
     public void UpdateDialogue(DialogueMessage dialogueMessage)
@@ -48,7 +45,7 @@ public partial class Dialogue : Control
     private void OnTypeTimerTimeout()
     {
         _dialogueHelper.CheckAtPosition(_dialogueLabel.VisibleCharacters);
-        if (_dialogueLabel.VisibleCharacters < _dialogueLabel.Text.Length)
+        if (_dialogueLabel.VisibleCharacters < Tr(_dialogueLabel.Text).Length)
         {
             _dialogueLabel.VisibleCharacters += 1;
         }

@@ -73,7 +73,40 @@ public partial class OptionMenu : PopupPanel
 
         _frameRateButton.Disabled = true;
 
-        _gameTab.GrabFocus();
+        AboutToPopup += UpdateFocus;
+        _tabContainer.TabChanged += (long tab) => UpdateFocus();
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (Input.IsActionPressed("ui_tab_next"))
+        {
+            _tabContainer.CurrentTab = (_tabContainer.CurrentTab + 1) % _tabContainer.GetChildCount();
+            UpdateFocus();
+        }
+        if (Input.IsActionPressed("ui_tab_prev"))
+        {
+            _tabContainer.CurrentTab = (_tabContainer.CurrentTab - 1 + _tabContainer.GetChildCount()) % _tabContainer.GetChildCount();
+            UpdateFocus();
+        }
+    }
+
+    public void UpdateFocus()
+    {
+        switch (_tabContainer.CurrentTab)
+        {
+            case 0:
+                _languageButton.GrabFocus();
+                break;
+            case 1:
+                _displayModeButton.GrabFocus();
+                break;
+            case 2:
+                _volumeSlider.GrabFocus();
+                break;
+            default:
+                break;
+        }
     }
 
     #region Game
