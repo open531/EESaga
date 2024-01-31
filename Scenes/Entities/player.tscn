@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/Entities/Player.cs" id="1_ek7y4"]
 [ext_resource type="Texture2D" uid="uid://bg66rcewqe0fp" path="res://Assets/Textures/hero_right_move.png" id="3_k6uhy"]
-[ext_resource type="PackedScene" uid="uid://bsdt2yajtmamr" path="res://Scenes/Utilities/virtual_camera_2d.tscn" id="4_3wb1e"]
 [ext_resource type="Texture2D" uid="uid://dfdkew1ovsrab" path="res://Assets/Textures/hero_right_still.png" id="4_ehh35"]
+[ext_resource type="PackedScene" uid="uid://6bchl2tclt34" path="res://Scenes/Utilities/Cameras/camera_host.tscn" id="4_r8ey4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_joq0c"]
 atlas = ExtResource("4_ehh35")
@@ -93,10 +93,8 @@ size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 14
+collision_mask = 6
 motion_mode = 1
-platform_floor_layers = 1
-platform_wall_layers = 14
 script = ExtResource("1_ek7y4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -107,4 +105,4 @@ animation = &"walk"
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_4u0np")
 
-[node name="VirtualCamera2D" parent="." instance=ExtResource("4_3wb1e")]
+[node name="CameraHost" parent="." instance=ExtResource("4_r8ey4")]

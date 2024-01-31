@@ -43,4 +43,24 @@ public partial class Room : Node2D, IRoom
         _doorDown = GetNode<Area2D>("%DoorDown");
         _doorLeft = GetNode<Area2D>("%DoorLeft");
     }
+
+    public void OpenDoors()
+    {
+        if (DoorUpExist)
+        {
+            DoorUpOpen = true;
+        }
+        if (DoorRightExist)
+        {
+            DoorRightOpen = true;
+        }
+        if (DoorDownExist)
+        {
+            DoorDownOpen = true;
+        }
+        if (DoorLeftExist)
+        {
+            DoorLeftOpen = true;
+        }
+    }
 }

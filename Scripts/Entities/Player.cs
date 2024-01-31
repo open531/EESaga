@@ -4,7 +4,7 @@ using Godot;
 
 public partial class Player : CharacterBody2D
 {
-    [Export] public float Speed { get; set; } = 160.0f;
+    [Export] public float Speed { get; set; } = 120.0f;
 
     private AnimatedSprite2D _sprite;
     private CollisionShape2D _collision;

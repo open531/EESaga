@@ -54,10 +54,10 @@ format = 2
 
 [node name="Walls" type="Node2D" parent="."]
 
-[node name="WallUp" type="Area2D" parent="Walls"]
+[node name="WallUp" type="StaticBody2D" parent="Walls"]
 unique_name_in_owner = true
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Walls/WallUp"]
 position = Vector2(320, 14)
@@ -67,10 +67,10 @@ texture = ExtResource("2_41ee4")
 position = Vector2(320, 14)
 shape = SubResource("RectangleShape2D_gxgpp")
 
-[node name="WallRight" type="Area2D" parent="Walls"]
+[node name="WallRight" type="StaticBody2D" parent="Walls"]
 unique_name_in_owner = true
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Walls/WallRight"]
 position = Vector2(628, 180)
@@ -80,10 +80,10 @@ texture = ExtResource("3_xg6gt")
 position = Vector2(628, 180)
 shape = SubResource("RectangleShape2D_kmdqq")
 
-[node name="WallDown" type="Area2D" parent="Walls"]
+[node name="WallDown" type="StaticBody2D" parent="Walls"]
 unique_name_in_owner = true
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Walls/WallDown"]
 position = Vector2(320, 346)
@@ -93,10 +93,10 @@ texture = ExtResource("4_nf7fe")
 position = Vector2(320, 346)
 shape = SubResource("RectangleShape2D_jgo31")
 
-[node name="WallLeft" type="Area2D" parent="Walls"]
+[node name="WallLeft" type="StaticBody2D" parent="Walls"]
 unique_name_in_owner = true
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Walls/WallLeft"]
 position = Vector2(12, 180)
@@ -109,7 +109,9 @@ shape = SubResource("RectangleShape2D_vqs7w")
 [node name="DoorUp" type="Area2D" parent="Walls"]
 unique_name_in_owner = true
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Walls/DoorUp"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DoorUp"]
 position = Vector2(320, 15)
@@ -119,7 +121,9 @@ shape = SubResource("RectangleShape2D_p8po1")
 unique_name_in_owner = true
 position = Vector2(628, 180)
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Walls/DoorRight"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DoorRight"]
 position = Vector2(-1, 0)
@@ -129,7 +133,9 @@ shape = SubResource("RectangleShape2D_ab657")
 unique_name_in_owner = true
 position = Vector2(320, 346)
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Walls/DoorDown"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DoorDown"]
 position = Vector2(0, -1)
@@ -139,7 +145,9 @@ shape = SubResource("RectangleShape2D_ys6of")
 unique_name_in_owner = true
 position = Vector2(12, 180)
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Walls/DoorLeft"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DoorLeft"]
 position = Vector2(1, 0)
