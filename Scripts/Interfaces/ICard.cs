@@ -1,7 +1,6 @@
 ﻿namespace EESaga.Scripts.Interfaces;
 
 using Godot;
-using System.Collections.Generic;
 
 public interface ICard
 {

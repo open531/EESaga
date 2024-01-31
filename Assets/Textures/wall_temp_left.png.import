@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh02827ohet5t"
-path="res://.godot/imported/hero_left_move.png-333ea97c0415b960f74c59572b4f7447.ctex"
+uid="uid://603vcjqt3ih2"
+path="res://.godot/imported/wall_temp_left.png-271b8693728732e83a803ef9dac4dd32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/hero_left_move.png"
-dest_files=["res://.godot/imported/hero_left_move.png-333ea97c0415b960f74c59572b4f7447.ctex"]
+source_file="res://Assets/Textures/wall_temp_left.png"
+dest_files=["res://.godot/imported/wall_temp_left.png-271b8693728732e83a803ef9dac4dd32.ctex"]
 
 [params]
 
