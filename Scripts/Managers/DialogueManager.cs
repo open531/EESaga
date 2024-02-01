@@ -9,8 +9,8 @@ using UI;
 /// </summary>
 public partial class DialogueManager : Node
 {
-    public PackedScene DialogueScene { get; set; } = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Dialogue.tscn");
-    public Dialogue DialogueInstance { get; set; }
+    private static readonly PackedScene _dialogueScene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Dialogue.tscn");
+    public Dialogue Dialogue { get; set; }
 
     private List<DialogueMessage> _dialogueMessages = [];
     private int _dialogueIndex = 0;
@@ -27,7 +27,7 @@ public partial class DialogueManager : Node
             @event is InputEventKey && 
             (@event as InputEventKey).GetKeycodeWithModifiers() == Key.Space &&
             _isActive &&
-            DialogueInstance.MessageIsFullyVisible)
+            Dialogue.MessageIsFullyVisible)
         {
             if (_dialogueIndex < _dialogueMessages.Count - 1)
             {
@@ -50,10 +50,10 @@ public partial class DialogueManager : Node
         _isActive = true;
         _dialogueMessages = dialogueMessages;
         _dialogueIndex = 0;
-        var dialogue = DialogueScene.Instantiate<Dialogue>();
+        var dialogue = _dialogueScene.Instantiate<Dialogue>();
         dialogue.MessageCompleted += OnMessageCompleted;
         AddChild(dialogue);
-        DialogueInstance = dialogue;
+        Dialogue = dialogue;
         ShowCurrent();
     }
 
@@ -61,7 +61,7 @@ public partial class DialogueManager : Node
     {
         EmitSignal(nameof(MessageRequested));
         var message = _dialogueMessages[_dialogueIndex];
-        DialogueInstance.UpdateDialogue(message);
+        Dialogue.UpdateDialogue(message);
     }
 
     private void OnMessageCompleted()
@@ -71,9 +71,9 @@ public partial class DialogueManager : Node
 
     private void Hide()
     {
-        DialogueInstance.MessageCompleted -= OnMessageCompleted;
-        DialogueInstance.QueueFree();
-        DialogueInstance = null;
+        Dialogue.MessageCompleted -= OnMessageCompleted;
+        Dialogue.QueueFree();
+        Dialogue = null;
         _isActive = false;
         EmitSignal(nameof(Finished));
     }

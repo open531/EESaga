@@ -3,17 +3,16 @@ namespace EESaga.Scripts.UI;
 using Godot;
 using Interfaces;
 using System;
+using System.Collections.Generic;
 
 public partial class CardBattle : Control
 {
     private Control _hand;
     private Control _deck;
     private Control _discard;
-
     private CardDetail _cardDetail;
 
-    private Button _addCardButton;
-    private Button _removeCardButton;
+    public BattleCards BattleCards { get; set; }
 
     private Card _selectedCard;
     private Card SelectedCard
@@ -46,12 +45,6 @@ public partial class CardBattle : Control
 
         _selectedCard = null;
         _operatingCard = null;
-
-        _addCardButton = GetNode<Button>("AddCardButton");
-        _removeCardButton = GetNode<Button>("RemoveCardButton");
-
-        _addCardButton.Pressed += OnAddCardButtonPressed;
-        _removeCardButton.Pressed += OnRemoveCardButtonPressed;
 
         AddCard(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy);
         AddCard(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self);
@@ -94,6 +87,19 @@ public partial class CardBattle : Control
                     GD.Print("Left mouse button released");
                 }
             }
+        }
+    }
+
+    private void UpdateHandCard()
+    {
+        var oldCards = _hand.GetChildren();
+        foreach (var card in oldCards)
+        {
+            card.QueueFree();
+        }
+        foreach (var card in BattleCards.HandCards)
+        {
+            AddCard(card);
         }
     }
 
@@ -156,7 +162,7 @@ public partial class CardBattle : Control
         UpdateCardPosition();
     }
 
-    private void AddCard(ICard card)
+    private void AddCard(Card card)
     {
         var cardNode = _cardScene.Instantiate<Card>();
         cardNode.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
@@ -236,7 +242,8 @@ public partial class CardBattle : Control
         var tweenPosition = CreateTween();
         var tweenRotation = CreateTween();
         var tweenScale = CreateTween();
-        tweenPosition.TweenProperty(newCard, "position", new Vector2(card.Position.X - 57.0f / 2, -176) + _hand.Position, 0.05);
+        tweenPosition.TweenProperty(newCard, "position", 
+            new Vector2(card.Position.X - _cardWidth / 2, _cardHeight * 2) + _hand.Position, 0.05);
         tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.05);
         tweenScale.TweenProperty(newCard, "scale", Vector2.One * 2, 0.05);
         card.Visible = false;
@@ -255,14 +262,11 @@ public partial class CardBattle : Control
         tweenScale.TweenCallback(Callable.From(newCard.Free));
         newCard.Parent.Visible = true;
     }
+}
 
-    private void OnAddCardButtonPressed()
-    {
-        AddCard(CardType.Attack, "Attack", "Attack", 1, CardTarget.Enemy);
-    }
-
-    private void OnRemoveCardButtonPressed()
-    {
-        RemoveCard(0);
-    }
+public struct BattleCards
+{
+    public List<Card> DeckCards { get; set; }
+    public List<Card> HandCards { get; set; }
+    public List<Card> DiscardCards { get; set; }
 }

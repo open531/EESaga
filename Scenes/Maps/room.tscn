@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ddcy17shbc6hn"]
+[gd_scene load_steps=19 format=3 uid="uid://ddcy17shbc6hn"]
 
 [ext_resource type="Texture2D" uid="uid://lqaxmedq6kuf" path="res://Assets/Textures/tile_temp.png" id="1_17r4o"]
 [ext_resource type="Script" path="res://Scripts/Maps/Room.cs" id="1_t5g0i"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b6dsb8a1pd51v" path="res://Assets/Textures/wall_temp_down.png" id="4_nf7fe"]
 [ext_resource type="Texture2D" uid="uid://603vcjqt3ih2" path="res://Assets/Textures/wall_temp_left.png" id="5_dpghd"]
 [ext_resource type="PackedScene" uid="uid://br25wulib3qx5" path="res://Scenes/Entities/player.tscn" id="7_qa6rm"]
+[ext_resource type="PackedScene" uid="uid://cya1cqeb2i8qv" path="res://Scenes/Utilities/Cameras/cinematic_camera_2d.tscn" id="8_cj3pr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkcmh"]
 texture = ExtResource("1_17r4o")
@@ -106,52 +107,61 @@ texture = ExtResource("5_dpghd")
 position = Vector2(12, 180)
 shape = SubResource("RectangleShape2D_vqs7w")
 
-[node name="DoorUp" type="Area2D" parent="Walls"]
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="DoorUp" type="Area2D" parent="Doors"]
 unique_name_in_owner = true
 collision_layer = 2
 collision_mask = 0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Walls/DoorUp"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Doors/DoorUp"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DoorUp"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/DoorUp"]
 position = Vector2(320, 15)
 shape = SubResource("RectangleShape2D_p8po1")
 
-[node name="DoorRight" type="Area2D" parent="Walls"]
+[node name="DoorRight" type="Area2D" parent="Doors"]
 unique_name_in_owner = true
 position = Vector2(628, 180)
 collision_layer = 2
 collision_mask = 0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Walls/DoorRight"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Doors/DoorRight"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DoorRight"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/DoorRight"]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_ab657")
 
-[node name="DoorDown" type="Area2D" parent="Walls"]
+[node name="DoorDown" type="Area2D" parent="Doors"]
 unique_name_in_owner = true
 position = Vector2(320, 346)
 collision_layer = 2
 collision_mask = 0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Walls/DoorDown"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Doors/DoorDown"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DoorDown"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/DoorDown"]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_ys6of")
 
-[node name="DoorLeft" type="Area2D" parent="Walls"]
+[node name="DoorLeft" type="Area2D" parent="Doors"]
 unique_name_in_owner = true
 position = Vector2(12, 180)
 collision_layer = 2
 collision_mask = 0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Walls/DoorLeft"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Doors/DoorLeft"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DoorLeft"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/DoorLeft"]
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_qrtdr")
 
+[node name="EnemySpawnPoints" type="Node2D" parent="."]
+
+[node name="PartySpawnPoints" type="Node2D" parent="."]
+
 [node name="Player" parent="." instance=ExtResource("7_qa6rm")]
-position = Vector2(192, 110)
+position = Vector2(192, 112)
+
+[node name="CinematicCamera2D" parent="." node_paths=PackedStringArray("CameraHost") instance=ExtResource("8_cj3pr")]
+CameraHost = NodePath("../Player/CameraHost")

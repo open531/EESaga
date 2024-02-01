@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://2knbl6nuc0ca"]
+
+[ext_resource type="Script" path="res://Scripts/Maps/PieceBattle.cs" id="1_dycyo"]
+
+[node name="PieceBattle" type="Node2D"]
+script = ExtResource("1_dycyo")

@@ -7,7 +7,7 @@ public partial class CinematicCamera2D : Camera2D
 {
     [Export] public Node2D FollowNode { get; set; } = null;
     [Export] public CameraHost CameraHost { get; set; } = null;
-    [Export] public float TweenSpeed { get; set; } = 2.0f;
+    [Export] public float TweenSpeed { get; set; } = 48.0f;
     public override void _Process(double delta)
     {
         if (IsInstanceValid(CameraHost))
@@ -27,6 +27,7 @@ public partial class CinematicCamera2D : Camera2D
             {
                 GlobalPosition = GlobalPosition.Clamp(topLeft, bottomRight);
             }
+            GlobalPosition = GlobalPosition.MoveToward(CameraHost.GlobalPosition, (float)delta * Math.Max(0.0f, TweenSpeed));
         }
         else if (IsInstanceValid(FollowNode))
         {
