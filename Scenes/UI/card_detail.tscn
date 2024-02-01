@@ -23,16 +23,6 @@ layout_mode = 2
 text = "Card Name"
 autowrap_mode = 3
 
-[node name="CardCost" type="Label" parent="VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Card Cost"
-
-[node name="CardType" type="Label" parent="VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Card Type"
-
 [node name="CardDescription" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)

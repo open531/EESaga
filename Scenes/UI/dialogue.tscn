@@ -27,6 +27,7 @@ texture = ExtResource("2_6rp2b")
 
 [node name="SpeakerLabel" type="Label" parent="Background"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(480, 24)
 layout_mode = 0
 offset_left = 110.0
 offset_top = -12.0
@@ -37,11 +38,12 @@ label_settings = SubResource("LabelSettings_asysl")
 
 [node name="DialogueLabel" type="RichTextLabel" parent="Background"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(480, 60)
 layout_mode = 0
 offset_left = 110.0
 offset_top = 22.0
 offset_right = 590.0
-offset_bottom = 79.0
+offset_bottom = 82.0
 theme_override_constants/line_separation = 3
 bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."

@@ -1,7 +1,6 @@
 ﻿namespace EESaga.Scripts.Interfaces;
 
 using Godot;
-using System.Collections.Generic;
 
 public interface ICard
 {
@@ -10,7 +9,7 @@ public interface ICard
     public string CardDescription { get; set; }
     public int CardCost { get; set; }
     public CardTarget CardTarget { get; set; }
-    public bool NeedTarget() => CardTarget == CardTarget.Enemy || CardTarget == CardTarget.Ally;
+    public bool NeedTarget => CardTarget == CardTarget.Enemy || CardTarget == CardTarget.Ally;
 }
 
 public enum CardType
