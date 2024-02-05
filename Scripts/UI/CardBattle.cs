@@ -12,12 +12,21 @@ public partial class CardBattle : Control
     private Control _discard;
     private CardDetail _cardDetail;
 
-    public BattleCards BattleCards { get; set; }
+    private BattleCards _battleCards;
+    public BattleCards BattleCards
+    {
+        get => _battleCards;
+        set
+        {
+            _battleCards = value;
+            UpdateHandCard();
+        }
+    }
 
     private Card _selectedCard;
-    private Card SelectedCard
+    public Card SelectedCard
     {
-        get { return _selectedCard; }
+        get => _selectedCard;
         set
         {
             _selectedCard = value;
@@ -46,10 +55,40 @@ public partial class CardBattle : Control
         _selectedCard = null;
         _operatingCard = null;
 
-        AddCard(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy);
-        AddCard(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self);
-        AddCard(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies);
-        AddCard(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies);
+        //AddCard(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy);
+        //AddCard(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self);
+        //AddCard(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies);
+        //AddCard(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies);
+
+        BattleCards = new BattleCards
+        {
+            DeckCards = new List<CardInfo>
+            {
+                new CardInfo(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy),
+                new CardInfo(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self),
+                new CardInfo(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies),
+                new CardInfo(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies),
+            },
+            HandCards = new List<CardInfo>
+            {
+                new CardInfo(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy),
+                new CardInfo(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self),
+                new CardInfo(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies),
+                new CardInfo(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies),
+                new CardInfo(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy),
+                new CardInfo(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self),
+                new CardInfo(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies),
+                new CardInfo(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies),
+
+            },
+            DiscardCards = new List<CardInfo>
+            {
+                new CardInfo(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy),
+                new CardInfo(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self),
+                new CardInfo(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies),
+                new CardInfo(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies),
+            },
+        };
     }
 
     public override void _Process(double delta)
@@ -162,7 +201,7 @@ public partial class CardBattle : Control
         UpdateCardPosition();
     }
 
-    private void AddCard(Card card)
+    private void AddCard(CardInfo card)
     {
         var cardNode = _cardScene.Instantiate<Card>();
         cardNode.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
@@ -242,8 +281,8 @@ public partial class CardBattle : Control
         var tweenPosition = CreateTween();
         var tweenRotation = CreateTween();
         var tweenScale = CreateTween();
-        tweenPosition.TweenProperty(newCard, "position", 
-            new Vector2(card.Position.X - _cardWidth / 2, _cardHeight * 2) + _hand.Position, 0.05);
+        tweenPosition.TweenProperty(newCard, "position",
+            new Vector2(card.Position.X - _cardWidth / 2, -_cardHeight * 2) + _hand.Position, 0.05);
         tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.05);
         tweenScale.TweenProperty(newCard, "scale", Vector2.One * 2, 0.05);
         card.Visible = false;
@@ -266,7 +305,7 @@ public partial class CardBattle : Control
 
 public struct BattleCards
 {
-    public List<Card> DeckCards { get; set; }
-    public List<Card> HandCards { get; set; }
-    public List<Card> DiscardCards { get; set; }
+    public List<CardInfo> DeckCards { get; set; }
+    public List<CardInfo> HandCards { get; set; }
+    public List<CardInfo> DiscardCards { get; set; }
 }

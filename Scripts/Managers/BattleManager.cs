@@ -1,5 +1,8 @@
 namespace EESaga.Scripts.Managers;
 
+using Entities;
+using Entities.BattleEnemies;
+using Entities.BattleParties;
 using Godot;
 using Maps;
 using System.Collections.Generic;
@@ -11,7 +14,26 @@ public partial class BattleManager : Node
     private static readonly PackedScene _cardBattleScene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/CardBattle.tscn");
     public PieceBattle PieceBattle { get; set; }
     public CardBattle CardBattle { get; set; }
+    public List<IBattlePiece> Pieces => PieceBattle.Pieces;
+    public List<IBattleParty> Parties => PieceBattle.Parties;
+    public List<IBattleEnemy> Enemies => PieceBattle.Enemies;
     public List<BattleCards> PartyBattleCards { get; set; }
+    public Card SelectedCard => CardBattle.SelectedCard;
+    public IBattlePiece CardTarget { get; set; }
+    public void Initialize(Room room)
+    {
+        PieceBattle = _pieceBattleScene.Instantiate<PieceBattle>();
+        PieceBattle.Room = room;
+        PieceBattle.Name = "PieceBattle";
+        AddChild(PieceBattle);
+        CardBattle = _cardBattleScene.Instantiate<CardBattle>();
+        CardBattle.Name = "CardBattle";
+        AddChild(CardBattle);
+    }
+    public void TurnTo(IBattlePiece battlePiece)
+    {
+
+    }
     public void PrepareCards(int partyIndex, int cardCount)
     {
         if (PartyBattleCards[partyIndex].DeckCards.Count < cardCount)

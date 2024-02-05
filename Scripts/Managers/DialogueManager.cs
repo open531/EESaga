@@ -22,21 +22,22 @@ public partial class DialogueManager : Node
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsPressed() && 
-            !@event.IsEcho() && 
-            @event is InputEventKey && 
-            (@event as InputEventKey).GetKeycodeWithModifiers() == Key.Space &&
-            _isActive &&
-            Dialogue.MessageIsFullyVisible)
+        if (@event is InputEventKey keyEvent)
         {
-            if (_dialogueIndex < _dialogueMessages.Count - 1)
+            if (keyEvent.Keycode == Key.Space)
             {
-                _dialogueIndex += 1;
-                ShowCurrent();
-            }
-            else
-            {
-                Hide();
+                if (_isActive && Dialogue.MessageIsFullyVisible)
+                {
+                    if (_dialogueIndex < _dialogueMessages.Count - 1)
+                    {
+                        _dialogueIndex += 1;
+                        ShowCurrent();
+                    }
+                    else
+                    {
+                        Hide();
+                    }
+                }
             }
         }
     }
@@ -51,7 +52,7 @@ public partial class DialogueManager : Node
         _dialogueMessages = dialogueMessages;
         _dialogueIndex = 0;
         var dialogue = _dialogueScene.Instantiate<Dialogue>();
-        dialogue.MessageCompleted += OnMessageCompleted;
+        dialogue.MessageCompleted += OnDialogueMessageCompleted;
         AddChild(dialogue);
         Dialogue = dialogue;
         ShowCurrent();
@@ -64,14 +65,14 @@ public partial class DialogueManager : Node
         Dialogue.UpdateDialogue(message);
     }
 
-    private void OnMessageCompleted()
+    private void OnDialogueMessageCompleted()
     {
         EmitSignal(nameof(MessageCompleted));
     }
 
     private void Hide()
     {
-        Dialogue.MessageCompleted -= OnMessageCompleted;
+        Dialogue.MessageCompleted -= OnDialogueMessageCompleted;
         Dialogue.QueueFree();
         Dialogue = null;
         _isActive = false;

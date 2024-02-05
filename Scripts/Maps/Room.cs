@@ -30,6 +30,8 @@ public partial class Room : Node2D, IRoom
     private Area2D _doorRight;
     private Area2D _doorDown;
     private Area2D _doorLeft;
+    public Node2D Enemies;
+    public Node2D Parties;
     private Player _player;
 
     public override void _Ready()
@@ -44,6 +46,8 @@ public partial class Room : Node2D, IRoom
         _doorRight = GetNode<Area2D>("%DoorRight");
         _doorDown = GetNode<Area2D>("%DoorDown");
         _doorLeft = GetNode<Area2D>("%DoorLeft");
+        Enemies = GetNode<Node2D>("Enemies");
+        Parties = GetNode<Node2D>("Parties");
         _player = GetNode<Player>("Player");
     }
 

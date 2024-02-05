@@ -1,10 +1,19 @@
 ﻿namespace EESaga.Scripts.Entities;
 
 using Godot;
+using UI;
+using Utilities;
 
 public partial class Player : CharacterBody2D
 {
-    [Export] public float Speed { get; set; } = 120.0f;
+    public string PlayerName { get; set; }
+    public float Speed { get; set; } = 120.0f;
+    public int Level { get; set; }
+    public RangedInt Health { get; set; }
+    public int Shield { get; set; }
+    public RangedInt Energy { get; set; }
+    public int Agility { get; set; }
+    public BattleCards BattleCards { get; set; }
 
     private AnimatedSprite2D _sprite;
     private CollisionShape2D _collision;
