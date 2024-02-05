@@ -15,8 +15,8 @@ public partial class PieceBattle : Node2D
     public List<IBattleEnemy> Enemies { get; set; }
 
     private GameData _gameData;
-    private static readonly PackedScene _battlePartyScene = ResourceLoader.Load<PackedScene>("res://Scenes/Entities/battle_party.tscn");
-    private static readonly PackedScene _battleEnemyScene = ResourceLoader.Load<PackedScene>("res://Scenes/Entities/battle_enemy.tscn");
+    private static readonly PackedScene _battlePartyScene = GD.Load<PackedScene>("res://Scenes/Entities/battle_party.tscn");
+    private static readonly PackedScene _battleEnemyScene = GD.Load<PackedScene>("res://Scenes/Entities/battle_enemy.tscn");
     public override void _Ready()
     {
         _gameData = GD.Load<GameData>("/root/GameData");

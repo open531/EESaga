@@ -10,7 +10,16 @@ public partial class CardBattle : Control
     private Control _hand;
     private Control _deck;
     private Control _discard;
+
     private CardDetail _cardDetail;
+
+    private TextureButton _deckButton;
+    private Label _deckCardNum;
+    private TextureButton _discardButton;
+    private Label _discardCardNum;
+
+    private CardViewer _deckCardViewer;
+    private CardViewer _discardCardViewer;
 
     private BattleCards _battleCards;
     public BattleCards BattleCards
@@ -52,81 +61,26 @@ public partial class CardBattle : Control
 
         _cardDetail = GetNode<CardDetail>("CardDetail");
 
+        _deckButton = GetNode<TextureButton>("Deck/TextureButton");
+        _deckCardNum = GetNode<Label>("Deck/Label");
+        _discardButton = GetNode<TextureButton>("Discard/TextureButton");
+        _discardCardNum = GetNode<Label>("Discard/Label");
+
+        _deckCardViewer = GetNode<CardViewer>("DeckCardViewer");
+        _discardCardViewer = GetNode<CardViewer>("DiscardCardViewer");
+
         _selectedCard = null;
         _operatingCard = null;
 
-        //AddCard(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy);
-        //AddCard(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self);
-        //AddCard(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies);
-        //AddCard(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies);
-
-        BattleCards = new BattleCards
+        _deckButton.Pressed += () =>
         {
-            DeckCards = new List<CardInfo>
-            {
-                new CardInfo(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy),
-                new CardInfo(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self),
-                new CardInfo(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies),
-                new CardInfo(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies),
-            },
-            HandCards = new List<CardInfo>
-            {
-                new CardInfo(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy),
-                new CardInfo(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self),
-                new CardInfo(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies),
-                new CardInfo(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies),
-                new CardInfo(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy),
-                new CardInfo(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self),
-                new CardInfo(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies),
-                new CardInfo(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies),
-
-            },
-            DiscardCards = new List<CardInfo>
-            {
-                new CardInfo(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy),
-                new CardInfo(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 2, CardTarget.Self),
-                new CardInfo(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 3, CardTarget.AllEnemies),
-                new CardInfo(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 4, CardTarget.AllAllies),
-            },
+            _deckCardViewer.DisplayCards(BattleCards.DeckCards);
         };
-    }
 
-    public override void _Process(double delta)
-    {
-        //GD.Print(SelectedCard?.CardName);
-    }
-
-    public override void _Input(InputEvent @event)
-    {
-        if (@event is InputEventMouseButton mouseEvent)
+        _discardButton.Pressed += () =>
         {
-            if (mouseEvent.ButtonIndex == MouseButton.Left)
-            {
-                if (mouseEvent.Pressed)
-                {
-                    GD.Print("Left mouse button pressed");
-                    var previewCard = GetNodeOrNull("PreviewCard") as Card;
-                    if (previewCard != null)
-                    {
-                        if (_operatingCard == null)
-                        {
-                            _operatingCard = previewCard;
-                            previewCard.MouseExited -= ExitPreviewCard;
-                        }
-                        else
-                        {
-                            _operatingCard.TakeEffect();
-                            ExitPreviewCard();
-                            _operatingCard = null;
-                        }
-                    }
-                }
-                if (mouseEvent.IsReleased())
-                {
-                    GD.Print("Left mouse button released");
-                }
-            }
-        }
+            _discardCardViewer.DisplayCards(BattleCards.DiscardCards);
+        };
     }
 
     private void UpdateHandCard()
@@ -140,6 +94,8 @@ public partial class CardBattle : Control
         {
             AddCard(card);
         }
+        _deckCardNum.Text = BattleCards.DeckCards.Count.ToString();
+        _discardCardNum.Text = BattleCards.DiscardCards.Count.ToString();
     }
 
     private void UpdateCardPosition()
@@ -204,7 +160,7 @@ public partial class CardBattle : Control
     private void AddCard(CardInfo card)
     {
         var cardNode = _cardScene.Instantiate<Card>();
-        cardNode.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
+        cardNode.InitializeCard(card);
         cardNode.Position = _deck.Position - _hand.Position;
         cardNode.Scale = Vector2.Zero;
         cardNode.MouseEntered += () =>
@@ -276,13 +232,14 @@ public partial class CardBattle : Control
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
         newCard.Parent = card;
+        newCard.GuiInput += OperateCard;
         newCard.MouseExited += ExitPreviewCard;
         AddChild(newCard);
         var tweenPosition = CreateTween();
         var tweenRotation = CreateTween();
         var tweenScale = CreateTween();
         tweenPosition.TweenProperty(newCard, "position",
-            new Vector2(card.Position.X - _cardWidth / 2, -_cardHeight * 2) + _hand.Position, 0.05);
+            new Vector2(card.Position.X - _cardWidth / 2, -_cardHeight * 1.4f) + _hand.Position, 0.05);
         tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.05);
         tweenScale.TweenProperty(newCard, "scale", Vector2.One * 2, 0.05);
         card.Visible = false;
@@ -300,6 +257,33 @@ public partial class CardBattle : Control
         tweenScale.TweenProperty(newCard, "scale", newCard.Parent.Scale, 0.05);
         tweenScale.TweenCallback(Callable.From(newCard.Free));
         newCard.Parent.Visible = true;
+    }
+
+    private void OperateCard(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton mouseEvent)
+        {
+            if (mouseEvent.ButtonIndex == MouseButton.Left)
+            {
+                if (mouseEvent.IsReleased())
+                {
+                    var previewCard = GetNodeOrNull("PreviewCard") as Card;
+                    if (previewCard != null)
+                    {
+                        if (_operatingCard != previewCard)
+                        {
+                            _operatingCard = previewCard;
+                            previewCard.MouseExited -= ExitPreviewCard;
+                        }
+                        else
+                        {
+                            _operatingCard = null;
+                            previewCard.MouseExited += ExitPreviewCard;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -10,8 +10,8 @@ using UI;
 
 public partial class BattleManager : Node
 {
-    private static readonly PackedScene _pieceBattleScene = ResourceLoader.Load<PackedScene>("res://Scenes/Maps/PieceBattle.tscn");
-    private static readonly PackedScene _cardBattleScene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/CardBattle.tscn");
+    private static readonly PackedScene _pieceBattleScene = GD.Load<PackedScene>("res://Scenes/Maps/PieceBattle.tscn");
+    private static readonly PackedScene _cardBattleScene = GD.Load<PackedScene>("res://Scenes/UI/CardBattle.tscn");
     public PieceBattle PieceBattle { get; set; }
     public CardBattle CardBattle { get; set; }
     public List<IBattlePiece> Pieces => PieceBattle.Pieces;
@@ -32,7 +32,15 @@ public partial class BattleManager : Node
     }
     public void TurnTo(IBattlePiece battlePiece)
     {
-
+        battlePiece.Shield = 0;
+        if (battlePiece is BattleParty battleParty)
+        {
+            var partyIndex = Parties.IndexOf(battleParty);
+            PrepareCards(partyIndex, battleParty.HandCardCount);
+        }
+        else if (battlePiece is BattleEnemy battleEnemy)
+        {
+        }
     }
     public void PrepareCards(int partyIndex, int cardCount)
     {

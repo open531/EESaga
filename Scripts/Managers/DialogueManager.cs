@@ -9,7 +9,7 @@ using UI;
 /// </summary>
 public partial class DialogueManager : Node
 {
-    private static readonly PackedScene _dialogueScene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Dialogue.tscn");
+    private static readonly PackedScene _dialogueScene = GD.Load<PackedScene>("res://Scenes/UI/Dialogue.tscn");
     public Dialogue Dialogue { get; set; }
 
     private List<DialogueMessage> _dialogueMessages = [];

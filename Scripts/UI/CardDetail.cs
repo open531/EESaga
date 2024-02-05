@@ -28,15 +28,15 @@ public partial class CardDetail : Control
         {
             _cardName.Text = Tr(card.CardName) +
                 "(" + card.CardCost.ToString() + "," +
-                Tr(card.CardType switch
+                card.CardType switch
                 {
-                    CardType.Null => "CARD_NULL",
-                    CardType.Attack => "CARD_ATTACK",
-                    CardType.Defense => "CARD_DEFENSE",
-                    CardType.Special => "CARD_SPECIAL",
-                    CardType.Item => "CARD_ITEM",
-                    _ => "CARD_NULL"
-                }) + ")";
+                    CardType.Null => Tr("CARD_NULL"),
+                    CardType.Attack => Tr("CARD_ATTACK"),
+                    CardType.Defense => Tr("CARD_DEFENSE"),
+                    CardType.Special => Tr("CARD_SPECIAL"),
+                    CardType.Item => Tr("CARD_ITEM"),
+                    _ => Tr("CARD_NULL")
+                } + ")";
             _cardDescription.Text = Tr(card.CardDescription);
         }
     }

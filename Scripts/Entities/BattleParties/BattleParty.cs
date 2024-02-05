@@ -13,6 +13,7 @@ public partial class BattleParty : Area2D, IBattleParty
     public int Agility { get; set; }
     public RangedInt Energy { get; set; }
     public BattleCards BattleCards { get; set; }
+    public int HandCardCount { get; set; }
     protected AnimatedSprite2D _sprite;
     protected CollisionShape2D _collision;
     public override void _Ready()

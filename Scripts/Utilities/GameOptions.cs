@@ -21,9 +21,9 @@ public partial class GameOptions : Node
 
     public override void _Ready()
     {
-        DefaultTheme = ResourceLoader.Load<Theme>("res://Assets/Themes/default.tres");
-        UniFont = ResourceLoader.Load<FontFile>("res://Assets/Fonts/unifont.otf");
-        UniFontJp = ResourceLoader.Load<FontFile>("res://Assets/Fonts/unifont_jp.otf");
+        DefaultTheme = GD.Load<Theme>("res://Assets/Themes/default.tres");
+        UniFont = GD.Load<FontFile>("res://Assets/Fonts/unifont.otf");
+        UniFontJp = GD.Load<FontFile>("res://Assets/Fonts/unifont_jp.otf");
         if (!LoadOptions())
         {
             GenerateOptions();
