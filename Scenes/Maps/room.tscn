@@ -156,9 +156,9 @@ collision_mask = 0
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_qrtdr")
 
-[node name="EnemySpawnPoints" type="Node2D" parent="."]
+[node name="Enemies" type="Node2D" parent="."]
 
-[node name="PartySpawnPoints" type="Node2D" parent="."]
+[node name="Parties" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("7_qa6rm")]
 position = Vector2(192, 112)

@@ -47,6 +47,15 @@ public partial class Card : Control, ICard
         CardTarget = cardTarget;
     }
 
+    public void InitializeCard(CardInfo cardInfo)
+    {
+        CardType = cardInfo.CardType;
+        CardName = cardInfo.CardName;
+        CardDescription = cardInfo.CardDescription;
+        CardCost = cardInfo.CardCost;
+        CardTarget = cardInfo.CardTarget;
+    }
+
     public void TakeEffect(IEntity entity = null)
     {
         switch (CardTarget)

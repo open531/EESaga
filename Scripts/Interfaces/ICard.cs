@@ -31,3 +31,13 @@ public enum CardTarget
     AllAllies,
     All,
 }
+
+public struct CardInfo(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget) : ICard
+{
+    public CardType CardType { get; set; } = cardType;
+    public string CardName { get; set; } = cardName;
+    public string CardDescription { get; set; } = cardDescription;
+    public int CardCost { get; set; } = cardCost;
+    public CardTarget CardTarget { get; set; } = cardTarget;
+    public readonly bool NeedTarget => CardTarget == CardTarget.Enemy || CardTarget == CardTarget.Ally;
+}
