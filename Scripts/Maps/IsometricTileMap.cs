@@ -5,18 +5,8 @@ using System.Collections.Generic;
 
 public partial class IsometricTileMap : TileMap
 {
-    public List<TileSetInfo> TileSetInfos { get; set; } = [];
-    public void PlaceTile(Vector2I position, Vector2I tile, TileSetInfo tileSet, Layer layer)
-    {
-        SetCell((int)layer, position - new Vector2I((int)layer, (int)layer), tileSet.SourceId, tile);
-    }
-}
-
-public enum Layer
-{
-    Ground,
-    Walls,
-    Objects
+    public Vector2I SelectedTile => throw new System.NotImplementedException();
+    public List<Vector2I> GetAStarPath(Vector2I src,Vector2I dst, bool avoidObstacles = true, bool avoidEntities = true) => throw new System.NotImplementedException();
 }
 
 public struct TileSetInfo
