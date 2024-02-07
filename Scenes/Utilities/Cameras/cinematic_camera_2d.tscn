@@ -4,4 +4,6 @@
 
 [node name="CinematicCamera2D" type="Camera2D"]
 position = Vector2(320, 180)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 script = ExtResource("1_o55vx")

@@ -12,13 +12,13 @@ public partial class CinematicCamera2D : Camera2D
     {
         if (IsInstanceValid(CameraHost))
         {
-            Zoom = Zoom.MoveToward(CameraHost.Zoom, (float)delta * Math.Max(0.0f, TweenSpeed));
-            Offset = Offset.MoveToward(CameraHost.Offset, (float)delta * Math.Max(0.0f, TweenSpeed));
+            Zoom = Zoom.MoveToward(CameraHost.Zoom, (float)delta * Math.Max(0.0f, TweenSpeed * Zoom.Length()));
+            Offset = Offset.MoveToward(CameraHost.Offset, (float)delta * Math.Max(0.0f, TweenSpeed * Zoom.Length()));
             var halfBounds = GetViewportRect().Size / Zoom / 2;
             var topLeft = new Vector2(CameraHost.LimitLeft, CameraHost.LimitTop);
             var bottomRight = new Vector2(CameraHost.LimitRight, CameraHost.LimitBottom);
-            topLeft += CameraHost.GlobalPosition + halfBounds - Offset;
-            bottomRight += CameraHost.GlobalPosition - halfBounds - Offset;
+            topLeft += CameraHost.GlobalPosition / Zoom + halfBounds - Offset;
+            bottomRight += CameraHost.GlobalPosition / Zoom - halfBounds - Offset;
             if (IsInstanceValid(FollowNode))
             {
                 GlobalPosition = FollowNode.GlobalPosition.Clamp(topLeft, bottomRight);
@@ -27,7 +27,8 @@ public partial class CinematicCamera2D : Camera2D
             {
                 GlobalPosition = GlobalPosition.Clamp(topLeft, bottomRight);
             }
-            GlobalPosition = GlobalPosition.MoveToward(CameraHost.GlobalPosition, (float)delta * Math.Max(0.0f, TweenSpeed));
+            GlobalPosition = GlobalPosition.MoveToward(CameraHost.GlobalPosition,
+                (float)delta * Math.Max(0.0f, TweenSpeed * Zoom.Length()));
         }
         else if (IsInstanceValid(FollowNode))
         {
