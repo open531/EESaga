@@ -20,10 +20,10 @@ public partial class BattleManager : Node
     public List<BattleCards> PartyBattleCards { get; set; }
     public Card SelectedCard => CardBattle.SelectedCard;
     public IBattlePiece CardTarget { get; set; }
-    public void Initialize(Room room)
+    public void Initialize(IsometricTileMap tileMap)
     {
         PieceBattle = _pieceBattleScene.Instantiate<PieceBattle>();
-        PieceBattle.Room = room;
+        PieceBattle.TileMap = tileMap;
         PieceBattle.Name = "PieceBattle";
         AddChild(PieceBattle);
         CardBattle = _cardBattleScene.Instantiate<CardBattle>();

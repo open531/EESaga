@@ -1,12 +1,15 @@
 namespace EESaga.Scripts.Entities.BattleParties;
 
+using EESaga.Scripts.Maps;
 using Godot;
 using UI;
 using Utilities;
 
 public partial class BattleParty : Area2D, IBattleParty
 {
-    public string PartyName { get; set; }
+    public string PartyName { get; private set; }
+    public IsometricTileMap TileMap { get; set; }
+    public Vector2I TileMapPos => TileMap.LocalToMap(GlobalPosition);
     public int Level { get; set; }
     public RangedInt Health { get; set; }
     public int Shield { get; set; }
@@ -18,9 +21,11 @@ public partial class BattleParty : Area2D, IBattleParty
     protected CollisionShape2D _collision;
     public override void _Ready()
     {
+        TileMap = GetNode<IsometricTileMap>("../../IsometricTileMap");
         _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         _collision = GetNode<CollisionShape2D>("CollisionShape2D");
     }
+
     public void Initialize(Player player)
     {
         PartyName = player.PlayerName;
@@ -31,6 +36,7 @@ public partial class BattleParty : Area2D, IBattleParty
         Energy = player.Energy;
         BattleCards = player.BattleCards;
     }
+
     public void Initialize(IBattleParty party)
     {
         PartyName = party.PartyName;
@@ -42,4 +48,14 @@ public partial class BattleParty : Area2D, IBattleParty
         BattleCards = party.BattleCards;
     }
 
+    public void Move(Vector2I direction)
+    {
+        var targetTileMapPos = TileMapPos + direction;
+
+    }
+
+    public void MoveTo(Vector2I tileMapPos)
+    {
+        var tileData = TileMap.GetCellTileData((int)Layer.Ground, tileMapPos);
+    }
 }
