@@ -26,11 +26,14 @@ public partial class CardViewer : PopupPanel
         {
             card.QueueFree();
         }
-        foreach (var cardInfo in cards)
+        if (cards != null)
         {
-            var card = _cardScene.Instantiate<Card>();
-            card.InitializeCard(cardInfo);
-            _gridContainer.AddChild(card);
+            foreach (var cardInfo in cards)
+            {
+                var card = _cardScene.Instantiate<Card>();
+                card.InitializeCard(cardInfo);
+                _gridContainer.AddChild(card);
+            }
         }
         PopupCentered();
     }

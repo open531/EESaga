@@ -5,6 +5,7 @@ using Utilities;
 
 public partial class BattleEnemy : Area2D, IBattleEnemy
 {
+    public Vector2I TileMapPos { get; set; }
     public int Level { get; set; }
     public RangedInt Health { get; set; }
     public int Shield { get; set; }

@@ -6,7 +6,8 @@ using Utilities;
 
 public partial class BattleParty : Area2D, IBattleParty
 {
-    public string PartyName { get; set; }
+    public string PartyName { get; private set; }
+    public Vector2I TileMapPos { get; set; }
     public int Level { get; set; }
     public RangedInt Health { get; set; }
     public int Shield { get; set; }

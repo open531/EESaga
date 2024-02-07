@@ -9,24 +9,26 @@ using Utilities;
 
 public partial class PieceBattle : Node2D
 {
-    public Room Room { get; set; }
+    public IsometricTileMap TileMap { get; set; }
     public List<IBattlePiece> Pieces { get; set; }
     public List<IBattleParty> Parties { get; set; }
     public List<IBattleEnemy> Enemies { get; set; }
 
-    private GameData _gameData;
-    private static readonly PackedScene _battlePartyScene = GD.Load<PackedScene>("res://Scenes/Entities/battle_party.tscn");
-    private static readonly PackedScene _battleEnemyScene = GD.Load<PackedScene>("res://Scenes/Entities/battle_enemy.tscn");
+    private static readonly PackedScene _battlePartyScene = GD.Load<PackedScene>("res://Scenes/Entities/BattleParties/battle_party.tscn");
+    private static readonly PackedScene _playerBattleScene = GD.Load<PackedScene>("res://Scenes/Entities/BattleParties/player_battle.tscn");
+    private static readonly PackedScene _battleEnemyScene = GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/battle_enemy.tscn");
     public override void _Ready()
     {
-        _gameData = GD.Load<GameData>("/root/GameData");
-
-        foreach (var party in _gameData.Parties)
+        foreach (var party in GameData.Parties)
         {
-            var battleParty = _battlePartyScene.Instantiate<BattleParty>();
+            var battleParty = party.PartyName switch
+            {
+                var partyName when partyName == GameData.Player.PlayerName => _playerBattleScene.Instantiate<PlayerBattle>(),
+                _ => _battlePartyScene.Instantiate<BattleParty>()
+            };
             battleParty.Initialize(party);
             battleParty.Name = "BattleParty" + battleParty.PartyName;
-            Room.Parties.AddChild(battleParty);
+            //TileMap.Parties.AddChild(battleParty);
             Parties.Add(battleParty);
         }
 

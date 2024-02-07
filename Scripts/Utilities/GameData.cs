@@ -1,13 +1,14 @@
 namespace EESaga.Scripts.Utilities;
 
 using Entities;
+using Entities.BattleParties;
 using Godot;
 using System.Collections.Generic;
 
 public partial class GameData : Node
 {
-    public Player Player { get; set; }
-    public List<Player> Parties { get; set; }
+    public static Player Player { get; set; }
+    public static List<IBattleParty> Parties { get; set; }
     public void SaveData(string filename)
     {
         var saveData = new ConfigFile();
