@@ -96,6 +96,24 @@ public partial class IsometricTileMap : TileMap
         }
         return temp;
     }
+
+    public List<Vector2I> GetAvailableTiles(Vector2I src, int range)
+    {
+        List<Vector2I> availableTiles = new List<Vector2I>();
+        for (int x = -range; x <= range; x++)
+        {
+            for (int y = -range; y <= range; y++)
+            {
+                Vector2I cellPos = src + new Vector2I(x, y);
+                if (GetCellTileData((int)Layer.Ground, cellPos) != null &&
+                                       GetAStarPath(src,cellPos).Count<=range+1)
+                {
+                    availableTiles.Add(cellPos);
+                }
+            }
+        }
+        return availableTiles;
+    }
 }
 
 public enum Layer
