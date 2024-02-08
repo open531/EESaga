@@ -8,7 +8,7 @@
 [node name="Room" type="Node2D"]
 script = ExtResource("1_t5g0i")
 
-[node name="IsometricTileMap" parent="." instance=ExtResource("2_262vl")]
+[node name="TileMap" parent="." instance=ExtResource("2_262vl")]
 
 [node name="Enemies" type="Node2D" parent="."]
 

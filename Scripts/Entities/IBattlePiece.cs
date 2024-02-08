@@ -12,6 +12,7 @@ public interface IBattlePiece
     public RangedInt Health { get; set; }
     public int Shield { get; set; }
     public int Agility { get; set; }
+    public bool IsMoving { get; set; }
     public void Move(Vector2I direction);
     public void MoveTo(Vector2I tileMapPos);
 }
