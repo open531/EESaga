@@ -18,6 +18,8 @@ public partial class Card : Control, ICard
 
     public Card Parent { get; set; }
 
+    public static Card Instance() => GD.Load<PackedScene>("res://Scenes/UI/card.tscn").Instantiate<Card>();
+
     public override void _Ready()
     {
         _background = GetNode<TextureRect>("Background");

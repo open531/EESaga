@@ -20,6 +20,9 @@ public partial class BattleParty : Area2D, IBattleParty
     public bool IsMoving { get; set; }
     protected AnimatedSprite2D _sprite;
     protected CollisionShape2D _collision;
+
+    public static BattleParty Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleParties/battle_party.tscn").Instantiate<BattleParty>();
+
     public override void _Ready()
     {
         TileMap = GetNode<IsometricTileMap>("../../TileMap");

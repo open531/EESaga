@@ -13,6 +13,9 @@ public partial class IsometricTileMap : TileMap
     public const int TileSelectedId = 999;
     public static Vector2I TileSelectedAtlas = new(0, 0);
 
+    public static IsometricTileMap Instance() => GD.Load<PackedScene>("res://Scenes/Maps/isometric_tile_map.tscn").Instantiate<IsometricTileMap>();
+
+
     public override void _Ready()
     {
         GenerateBoundary();

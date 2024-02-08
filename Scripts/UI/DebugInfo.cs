@@ -9,6 +9,8 @@ public partial class DebugInfo : Control
 
     private Label _fpsLabel;
 
+    public static DebugInfo Instance() => GD.Load<PackedScene>("res://Scenes/UI/debug_info.tscn").Instantiate<DebugInfo>();
+
     public override void _Ready()
     {
         _gameOptions = GetNode<GameOptions>("/root/GameOptions");

@@ -15,6 +15,8 @@ public partial class TitleMenu : Control
 
     private OptionMenu _optionMenu;
 
+    public static TitleMenu Instance() => GD.Load<PackedScene>("res://Scenes/UI/title_menu.tscn").Instantiate<TitleMenu>();
+
     public override void _Ready()
     {
         _marginContainer = GetNode<MarginContainer>("MarginContainer");

@@ -25,6 +25,8 @@ public partial class DialogueHelper : Node
 
     [Signal] public delegate void PauseRequestedEventHandler(float duration);
 
+    public static DialogueHelper Instance() => GD.Load<PackedScene>("res://Scenes/Utilities/dialogue_helper.tscn").Instantiate<DialogueHelper>();
+
     public override void _Ready()
     {
         _bbCodeERegex.Compile(BBCODE_E_PATTERN);

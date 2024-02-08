@@ -16,6 +16,8 @@ public partial class BattleEnemy : Area2D, IBattleEnemy
     protected AnimatedSprite2D _sprite;
     protected CollisionShape2D _collision;
 
+    public static BattleEnemy Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/battle_enemy.tscn").Instantiate<BattleEnemy>();
+
     public override void _Ready()
     {
         TileMap = GetNode<IsometricTileMap>("../../TileMap");

@@ -12,5 +12,6 @@ public partial class RoomManager : Node
     [Export] public int RoomRest { get; set; } = 1;
     [Export] public int RoomBoss { get; set; } = 1;
     public int RoomCount => RoomNull + RoomBattle + RoomChest + RoomShop + RoomRest + RoomBoss;
-    private static readonly PackedScene _roomScene = GD.Load<PackedScene>("res://Scenes/Maps/room.tscn");
+    
+    public static RoomManager Instance() => GD.Load<PackedScene>("res://Scenes/Managers/room_manager.tscn").Instantiate<RoomManager>();
 }

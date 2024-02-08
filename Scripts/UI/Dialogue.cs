@@ -19,6 +19,8 @@ public partial class Dialogue : Control
 
     [Signal] public delegate void MessageCompletedEventHandler();
 
+    public static Dialogue Instance() => GD.Load<PackedScene>("res://Scenes/UI/dialogue.tscn").Instantiate<Dialogue>();
+
     public override void _Ready()
     {
         _speakerLabel = GetNode<Label>("%SpeakerLabel");
