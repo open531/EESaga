@@ -12,12 +12,13 @@ public partial class BattleEnemy : Area2D, IBattleEnemy
     public RangedInt Health { get; set; }
     public int Shield { get; set; }
     public int Agility { get; set; }
+    public bool IsMoving { get; set; }
     protected AnimatedSprite2D _sprite;
     protected CollisionShape2D _collision;
 
     public override void _Ready()
     {
-        TileMap = GetNode<IsometricTileMap>("../../IsometricTileMap");
+        TileMap = GetNode<IsometricTileMap>("../../TileMap");
         _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         _collision = GetNode<CollisionShape2D>("CollisionShape2D");
     }

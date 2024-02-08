@@ -10,26 +10,45 @@ using UI;
 
 public partial class BattleManager : Node
 {
-    private static readonly PackedScene _pieceBattleScene = GD.Load<PackedScene>("res://Scenes/Maps/PieceBattle.tscn");
-    private static readonly PackedScene _cardBattleScene = GD.Load<PackedScene>("res://Scenes/UI/CardBattle.tscn");
+    public BattleState BattleState
+    {
+        get
+        {
+            if (SelectedTile != null)
+            {
+                return BattleState.Moving;
+            }
+            else if (SelectedCard != null)
+            {
+                return BattleState.CardTargeting;
+            }
+            else
+            {
+                return BattleState.CardSelecting;
+            }
+        }
+    }
     public PieceBattle PieceBattle { get; set; }
     public CardBattle CardBattle { get; set; }
     public List<IBattlePiece> Pieces => PieceBattle.Pieces;
     public List<IBattleParty> Parties => PieceBattle.Parties;
     public List<IBattleEnemy> Enemies => PieceBattle.Enemies;
     public List<BattleCards> PartyBattleCards { get; set; }
+    public Vector2I? SelectedTile => PieceBattle.TileMap.SelectedTile;
     public Card SelectedCard => CardBattle.SelectedCard;
     public IBattlePiece CardTarget { get; set; }
-    public void Initialize(IsometricTileMap tileMap)
+
+    public override void _Ready()
     {
-        PieceBattle = _pieceBattleScene.Instantiate<PieceBattle>();
-        PieceBattle.TileMap = tileMap;
-        PieceBattle.Name = "PieceBattle";
-        AddChild(PieceBattle);
-        CardBattle = _cardBattleScene.Instantiate<CardBattle>();
-        CardBattle.Name = "CardBattle";
-        AddChild(CardBattle);
+        PieceBattle = GetNode<PieceBattle>("PieceBattle");
+        CardBattle = GetNode<CardBattle>("CardBattle");
     }
+
+    public void Initialize(Room room)
+    {
+        PieceBattle.Initialize(room);
+    }
+
     public void TurnTo(IBattlePiece battlePiece)
     {
         battlePiece.Shield = 0;
@@ -42,6 +61,7 @@ public partial class BattleManager : Node
         {
         }
     }
+
     public void PrepareCards(int partyIndex, int cardCount)
     {
         if (PartyBattleCards[partyIndex].DeckCards.Count < cardCount)
@@ -62,4 +82,12 @@ public partial class BattleManager : Node
         }
         CardBattle.BattleCards = PartyBattleCards[partyIndex];
     }
+}
+
+public enum BattleState
+{
+    None,
+    Moving,
+    CardSelecting,
+    CardTargeting,
 }

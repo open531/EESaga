@@ -88,8 +88,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4u0np"]
-size = Vector2(16, 16)
+[sub_resource type="CircleShape2D" id="CircleShape2D_0tmj6"]
+radius = 5.66
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 8
@@ -102,7 +102,8 @@ sprite_frames = SubResource("SpriteFrames_7j5gd")
 animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
-shape = SubResource("RectangleShape2D_4u0np")
+position = Vector2(0, 9.17)
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_0tmj6")
 
 [node name="CameraHost" parent="." instance=ExtResource("4_r8ey4")]
