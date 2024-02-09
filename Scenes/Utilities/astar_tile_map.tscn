@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cja40bssipck3"]
-
-[ext_resource type="Script" path="res://Scripts/Utilities/AstarTileMap.cs" id="1_dfbgg"]
-
-[node name="AstarTileMap" type="TileMap"]
-format = 2
-script = ExtResource("1_dfbgg")

@@ -74,8 +74,8 @@ public partial class OptionMenu : PopupPanel
 
         _frameRateButton.Disabled = true;
 
-        AboutToPopup += UpdateFocus;
-        _tabContainer.TabChanged += (long tab) => UpdateFocus();
+        //AboutToPopup += UpdateFocus;
+        //_tabContainer.TabChanged += (long tab) => UpdateFocus();
     }
 
     public override void _Input(InputEvent @event)

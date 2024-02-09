@@ -31,11 +31,9 @@ public partial class TitleMenu : Control
         _optionButton.Pressed += OnOptionButtonPressed;
         _quitButton.Pressed += OnQuitButtonPressed;
 
-        _optionMenu.Hide();
-
         _marginContainer.Position = new Vector2(0, 360 - _marginContainer.Size.Y);
 
-        _playButton.GrabFocus();
+        //_playButton.GrabFocus();
     }
 
     private void OnPlayButtonPressed()
