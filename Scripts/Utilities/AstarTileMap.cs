@@ -78,6 +78,9 @@ public partial class AstarTileMap : TileMap
         foreach (var cellPosition in cellPositions)
         {
             _astar.AddPoint(GetPoint(cellPosition), cellPosition);
+        }
+        foreach (var cellPosition in cellPositions)
+        {
             ConnectCardinals(cellPosition);
         }
     }
@@ -273,8 +276,8 @@ public partial class AstarTileMap : TileMap
         if (x >= 0) a = x * 2; else a = x * -2 - 1;
         if (y >= 0) b = y * 2; else b = y * -2 - 1;
         int c = SzudzikPair(a, b);
-        if (a >= 0 && b < 0 || a < 0 && b >= 0) return c;
-        return -c - 1;
+        if (a >= 0 && b < 0 || a < 0 && b >= 0) return -c - 1;
+        return c;
     }
 
     private bool HasPoint(Vector2 position) => _astar.HasPoint(GetPoint(position));

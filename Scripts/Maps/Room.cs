@@ -26,6 +26,8 @@ public partial class Room : Node2D, IRoom
     public Node2D Parties;
     private Player _player;
 
+    public static Room Instance() => GD.Load<PackedScene>("res://Scenes/Maps/room.tscn").Instantiate<Room>();
+
     public override void _Ready()
     {
         TileMap = GetNode<IsometricTileMap>("TileMap");

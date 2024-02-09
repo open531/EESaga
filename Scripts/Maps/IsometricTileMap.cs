@@ -1,12 +1,13 @@
 namespace EESaga.Scripts.Maps;
 
 using Godot;
-using System;
+using Godot.Collections;
 using System.Collections.Generic;
 
 public partial class IsometricTileMap : TileMap
 {
     public Vector2I? SelectedTile { get; private set; } = null;
+
     public const int TileSetId = 0;
     public static Vector2I BoundaryAtlas = new(0, 0);
     public static Vector2I DefaultTileAtlas = new(1, 0);
@@ -14,8 +15,19 @@ public partial class IsometricTileMap : TileMap
     public const int TileSelectedId = 999;
     public static Vector2I TileSelectedAtlas = new(0, 0);
 
+    private AStarGrid2D _astar = new()
+    {
+        CellSize = new Vector2I(1, 1),
+        DefaultComputeHeuristic = AStarGrid2D.Heuristic.Manhattan,
+        DefaultEstimateHeuristic = AStarGrid2D.Heuristic.Manhattan,
+        DiagonalMode = AStarGrid2D.DiagonalModeEnum.Never,
+    };
+
+    public static IsometricTileMap Instance() => GD.Load<PackedScene>("res://Scenes/Maps/isometric_tile_map.tscn").Instantiate<IsometricTileMap>();
+
     public override void _Ready()
     {
+        UpdateAStar();
         GenerateBoundary();
     }
 
@@ -46,6 +58,25 @@ public partial class IsometricTileMap : TileMap
         }
     }
 
+    public List<Vector2I> GetAStarPath(Vector2I src, Vector2I dst) => new(_astar.GetIdPath(src, dst));
+
+    public List<Vector2I> GetAvailableTiles(Vector2I src, int range)
+    {
+        var availableTiles = new List<Vector2I>();
+        foreach (var cell in GetUsedCells((int)Layer.Ground))
+        {
+            if (GetManhattanDistance(src, cell) <= range &&
+                GetCellAtlasCoords((int)Layer.Ground, cell) != BoundaryAtlas)
+            {
+                if (GetAStarPath(src, cell).Count <= range + 1)
+                {
+                    availableTiles.Add(cell);
+                }
+            }
+        }
+        return availableTiles;
+    }
+
     private void UpdateSelectedTile()
     {
         var mousePos = GetGlobalMousePosition();
@@ -68,51 +99,38 @@ public partial class IsometricTileMap : TileMap
             }
         }
     }
-    public List<Vector2I> GetAStarPath(Vector2I src, Vector2I dst, bool avoidObstacles = true, bool avoidEntities = true)
-    {
-        AStarGrid2D astarGrid = new AStarGrid2D();
-        astarGrid.Region = new Rect2I(0, 0, 10, 10);
-        astarGrid.CellSize = new Vector2I(16, 16);
-        astarGrid.DefaultComputeHeuristic = AStarGrid2D.Heuristic.Manhattan;
-        astarGrid.DefaultEstimateHeuristic = AStarGrid2D.Heuristic.Manhattan;
-        astarGrid.DiagonalMode = AStarGrid2D.DiagonalModeEnum.Never;
 
-        for (int x = 0; x < 10; x++)
+    private void UpdateAStar()
+    {
+        _astar.Region = GetUsedRect();
+        foreach (var cell in Rect2IContains(_astar.Region))
         {
-            for (int y = 0; y < 10; y++)
+            if (GetCellTileData((int)Layer.Ground, cell) == null ||
+                GetCellAtlasCoords((int)Layer.Ground, cell) == BoundaryAtlas ||
+                GetCellTileData((int)Layer.Obstacle, cell) != null)
             {
-                Vector2I cellPos = new Vector2I(x, y);
-                if (GetCellTileData((int)Layer.Obstacle, cellPos) != null)
-                {
-                    astarGrid.SetPointSolid(cellPos, true);
-                }
+                _astar.SetPointSolid(cell);
             }
         }
-        astarGrid.Update();
-        List<Vector2I> temp = new List<Vector2I>();
-        foreach (var point in astarGrid.GetIdPath(src, dst))
-        {
-            temp.Add(point);
-        }
-        return temp;
+        _astar.Update();
     }
 
-    public List<Vector2I> GetAvailableTiles(Vector2I src, int range)
+    private static int GetManhattanDistance(Vector2I src, Vector2I dst)
     {
-        List<Vector2I> availableTiles = new List<Vector2I>();
-        for (int x = -range; x <= range; x++)
+        return Mathf.Abs(src.X - dst.X) + Mathf.Abs(src.Y - dst.Y);
+    }
+
+    private static List<Vector2I> Rect2IContains(Rect2I rect)
+    {
+        var cells = new List<Vector2I>();
+        for (var x = rect.Position.X; x < rect.Position.X + rect.Size.X; x++)
         {
-            for (int y = -range; y <= range; y++)
+            for (var y = rect.Position.Y; y < rect.Position.Y + rect.Size.Y; y++)
             {
-                Vector2I cellPos = src + new Vector2I(x, y);
-                if (GetCellTileData((int)Layer.Ground, cellPos) != null &&
-                                       GetAStarPath(src,cellPos).Count<=range+1)
-                {
-                    availableTiles.Add(cellPos);
-                }
+                cells.Add(new Vector2I(x, y));
             }
         }
-        return availableTiles;
+        return cells;
     }
 }
 

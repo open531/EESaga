@@ -8,6 +8,8 @@ public partial class CardDetail : Control
     private Label _cardName;
     private Label _cardDescription;
 
+    public static CardDetail Instance() => GD.Load<PackedScene>("res://Scenes/UI/card_detail.tscn").Instantiate<CardDetail>();
+
     public override void _Ready()
     {
         _cardName = GetNode<Label>("%CardName");

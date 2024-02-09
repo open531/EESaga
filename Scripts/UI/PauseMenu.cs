@@ -13,6 +13,8 @@ public partial class PauseMenu : Control
 
     private PopupPanel _optionMenu;
 
+    public static PauseMenu Instance() => GD.Load<PackedScene>("res://Scenes/UI/pause_menu.tscn").Instantiate<PauseMenu>();
+
     public override void _Ready()
     {
         _marginContainer = GetNode<MarginContainer>("MarginContainer");

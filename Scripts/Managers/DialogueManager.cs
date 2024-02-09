@@ -9,7 +9,6 @@ using UI;
 /// </summary>
 public partial class DialogueManager : Node
 {
-    private static readonly PackedScene _dialogueScene = GD.Load<PackedScene>("res://Scenes/UI/Dialogue.tscn");
     public Dialogue Dialogue { get; set; }
 
     private List<DialogueMessage> _dialogueMessages = [];
@@ -19,6 +18,8 @@ public partial class DialogueManager : Node
     [Signal] public delegate void MessageRequestedEventHandler();
     [Signal] public delegate void MessageCompletedEventHandler();
     [Signal] public delegate void FinishedEventHandler();
+
+    public static DialogueManager Instance() => GD.Load<PackedScene>("res://Scenes/Managers/dialogue_manager.tscn").Instantiate<DialogueManager>();
 
     public override void _Input(InputEvent @event)
     {
@@ -51,7 +52,7 @@ public partial class DialogueManager : Node
         _isActive = true;
         _dialogueMessages = dialogueMessages;
         _dialogueIndex = 0;
-        var dialogue = _dialogueScene.Instantiate<Dialogue>();
+        var dialogue = Dialogue.Instance();
         dialogue.MessageCompleted += OnDialogueMessageCompleted;
         AddChild(dialogue);
         Dialogue = dialogue;

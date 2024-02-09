@@ -38,6 +38,8 @@ public partial class BattleManager : Node
     public Card SelectedCard => CardBattle.SelectedCard;
     public IBattlePiece CardTarget { get; set; }
 
+    public static BattleManager Instance() => GD.Load<PackedScene>("res://Scenes/Managers/battle_manager.tscn").Instantiate<BattleManager>();
+
     public override void _Ready()
     {
         PieceBattle = GetNode<PieceBattle>("PieceBattle");

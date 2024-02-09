@@ -25,6 +25,7 @@ public partial class OptionMenu : PopupPanel
     private Slider _soundSlider;
     private Slider _voiceSlider;
 
+    public static OptionMenu Instance() => GD.Load<PackedScene>("res://Scenes/UI/option_menu.tscn").Instantiate<OptionMenu>();
 
     public override void _Ready()
     {

@@ -10,7 +10,7 @@ public partial class CardViewer : PopupPanel
     private ScrollContainer _scrollContainer;
     private GridContainer _gridContainer;
 
-    private static readonly PackedScene _cardScene = GD.Load<PackedScene>("res://Scenes/UI/card.tscn");
+    public static CardViewer Instance() => GD.Load<PackedScene>("res://Scenes/UI/card_viewer.tscn").Instantiate<CardViewer>();
 
     public override void _Ready()
     {
@@ -30,7 +30,7 @@ public partial class CardViewer : PopupPanel
         {
             foreach (var cardInfo in cards)
             {
-                var card = _cardScene.Instantiate<Card>();
+                var card = Card.Instance();
                 card.InitializeCard(cardInfo);
                 _gridContainer.AddChild(card);
             }

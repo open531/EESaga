@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://qeoyybt5xht"]
-
-[ext_resource type="Script" path="res://Scripts/Utilities/GameData.cs" id="1_bksm4"]
-
-[node name="GameData" type="Node"]
-script = ExtResource("1_bksm4")

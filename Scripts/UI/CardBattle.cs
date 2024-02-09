@@ -44,14 +44,14 @@ public partial class CardBattle : Control
     }
     private Card _operatingCard;
 
-    private static readonly PackedScene _cardScene = GD.Load<PackedScene>("res://Scenes/UI/card.tscn");
-
     private const int _maxHandSize = 8;
     private const float _cardX = 64.0f;
     private const float _cardY = 72.0f;
     private const float _cardRotation = 0.1f;
     private const float _cardWidth = 57.0f;
     private const float _cardHeight = 88.0f;
+
+    public static CardBattle Instance() => GD.Load<PackedScene>("res://Scenes/UI/card_battle.tscn").Instantiate<CardBattle>();
 
     public override void _Ready()
     {
@@ -143,7 +143,7 @@ public partial class CardBattle : Control
 
     private void AddCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget)
     {
-        var card = _cardScene.Instantiate<Card>();
+        var card = Card.Instance();
         card.InitializeCard(cardType, cardName, cardDescription, cardCost, cardTarget);
         card.Position = _deck.Position - _hand.Position;
         card.Scale = Vector2.Zero;
@@ -159,7 +159,7 @@ public partial class CardBattle : Control
 
     private void AddCard(CardInfo card)
     {
-        var cardNode = _cardScene.Instantiate<Card>();
+        var cardNode = Card.Instance();
         cardNode.InitializeCard(card);
         cardNode.Position = _deck.Position - _hand.Position;
         cardNode.Scale = Vector2.Zero;
@@ -176,7 +176,7 @@ public partial class CardBattle : Control
     private void RemoveCard(Card card)
     {
         if (!_hand.GetChildren().Contains(card)) return;
-        var newCard = _cardScene.Instantiate<Card>();
+        var newCard = Card.Instance();
         newCard.Name = "RemovedCard";
         newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
         newCard.Position = card.Position + _hand.Position;
@@ -198,7 +198,7 @@ public partial class CardBattle : Control
     {
         if (index < 0 || index >= _hand.GetChildCount()) return;
         var card = _hand.GetChild(index) as Card;
-        var newCard = _cardScene.Instantiate<Card>();
+        var newCard = Card.Instance();
         newCard.Name = "RemovedCard";
         newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
         newCard.Position = card.Position + _hand.Position;
@@ -225,7 +225,7 @@ public partial class CardBattle : Control
             previewCard.Parent.Visible = true;
             previewCard.Free();
         }
-        var newCard = _cardScene.Instantiate<Card>();
+        var newCard = Card.Instance();
         newCard.Name = "PreviewCard";
         newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
         newCard.Position = card.Position + _hand.Position;

@@ -18,6 +18,8 @@ public partial class Player : CharacterBody2D
     private AnimatedSprite2D _sprite;
     private CollisionShape2D _collision;
 
+    public static Player Instance() => GD.Load<PackedScene>("res://Scenes/Entities/player.tscn").Instantiate<Player>();
+
     public override void _Ready()
     {
         _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
