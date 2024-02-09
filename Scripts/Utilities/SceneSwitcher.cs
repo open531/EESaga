@@ -30,7 +30,6 @@ public partial class SceneSwitcher : Node
         {
             PushScene(_titleMenu);
         }
-
     }
 
     public void PushScene(Node? newScene)
@@ -50,11 +49,11 @@ public partial class SceneSwitcher : Node
     {
         if (CurrentScene != null)
         {
-            Main.RemoveChild(CurrentScene);
+            Main.RemoveChild(Scenes.Pop());
         }
-        if (Scenes.Count > 1)
+        if (Scenes.Count > 0)
         {
-            Main.AddChild(Scenes.Pop());
+            Main.AddChild(Scenes.Peek());
         }
     }
 }
