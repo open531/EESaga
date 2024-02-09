@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfdkew1ovsrab"
-path="res://.godot/imported/hero_right_still.png-c8b59e6df5fdcda54bd3c661c89ed820.ctex"
+path="res://.godot/imported/hero_still.png-17bb610131135fa955d007d0a819edec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/hero_right_still.png"
-dest_files=["res://.godot/imported/hero_right_still.png-c8b59e6df5fdcda54bd3c661c89ed820.ctex"]
+source_file="res://Assets/Textures/hero_still.png"
+dest_files=["res://.godot/imported/hero_still.png-17bb610131135fa955d007d0a819edec.ctex"]
 
 [params]
 

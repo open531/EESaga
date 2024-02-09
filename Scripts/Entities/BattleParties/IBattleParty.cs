@@ -13,3 +13,9 @@ public interface IBattleParty : IBattlePiece
     public void Initialize(Player player);
     public void Initialize(IBattleParty party);
 }
+
+public enum PartyType
+{
+    Null,
+    Player,
+}

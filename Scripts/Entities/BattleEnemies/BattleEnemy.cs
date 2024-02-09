@@ -20,7 +20,6 @@ public partial class BattleEnemy : Area2D, IBattleEnemy
 
     public override void _Ready()
     {
-        TileMap = GetNode<IsometricTileMap>("../../TileMap");
         _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         _collision = GetNode<CollisionShape2D>("CollisionShape2D");
     }

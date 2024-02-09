@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://2knbl6nuc0ca"]
+[gd_scene load_steps=3 format=3 uid="uid://2knbl6nuc0ca"]
 
 [ext_resource type="Script" path="res://Scripts/Maps/PieceBattle.cs" id="1_dycyo"]
+[ext_resource type="PackedScene" uid="uid://35ry4gujareg" path="res://Scenes/Maps/isometric_tile_map.tscn" id="2_6f3ci"]
 
 [node name="PieceBattle" type="Node2D"]
 script = ExtResource("1_dycyo")
+
+[node name="TileMap" parent="." instance=ExtResource("2_6f3ci")]
+
+[node name="Enemies" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Parties" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
