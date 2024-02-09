@@ -20,10 +20,6 @@ public partial class PieceBattle : Node2D
 
     private Room _room;
 
-    private static readonly PackedScene _battlePartyScene = GD.Load<PackedScene>("res://Scenes/Entities/BattleParties/battle_party.tscn");
-    private static readonly PackedScene _playerBattleScene = GD.Load<PackedScene>("res://Scenes/Entities/BattleParties/player_battle.tscn");
-    private static readonly PackedScene _battleEnemyScene = GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/battle_enemy.tscn");
-
     public static PieceBattle Instance() => GD.Load<PackedScene>("res://Scenes/Maps/piece_battle.tscn").Instantiate<PieceBattle>();
 
     public override void _Ready()

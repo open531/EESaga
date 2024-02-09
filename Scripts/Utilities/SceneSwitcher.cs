@@ -24,9 +24,13 @@ public partial class SceneSwitcher : Node
 
     public override void _Ready()
     {
-        Main = GetNode<Node>("/root/Main");
+        Main = GetNodeOrNull<Node>("/root/Main");
         AddChild(_timer);
-        PushScene(_titleMenu);
+        if (Main != null)
+        {
+            PushScene(_titleMenu);
+        }
+
     }
 
     public void PushScene(Node? newScene)
