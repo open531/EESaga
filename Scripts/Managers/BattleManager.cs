@@ -48,7 +48,7 @@ public partial class BattleManager : Node
 
     public void Initialize(Room room)
     {
-        PieceBattle.Initialize(room);
+        PieceBattle.Initialize(room.TileMap);
     }
 
     public void TurnTo(IBattlePiece battlePiece)

@@ -1,12 +1,12 @@
 namespace EESaga.Scripts.Maps;
 
 using Godot;
-using Godot.Collections;
 using System.Collections.Generic;
 
 public partial class IsometricTileMap : TileMap
 {
     public Vector2I? SelectedTile { get; private set; } = null;
+    public List<Vector2I> AvailableCells = [];
 
     public const int TileSetId = 0;
     public static Vector2I BoundaryAtlas = new(0, 0);
@@ -14,6 +14,7 @@ public partial class IsometricTileMap : TileMap
     public const int TileSetAdvancedId = 1;
     public const int TileSelectedId = 999;
     public static Vector2I TileSelectedAtlas = new(0, 0);
+    public static Vector2I TileDestinationAtlas = new(0, 1);
 
     private AStarGrid2D _astar = new()
     {
@@ -27,6 +28,7 @@ public partial class IsometricTileMap : TileMap
 
     public override void _Ready()
     {
+        UpdateCells();
         UpdateAStar();
         GenerateBoundary();
     }
@@ -60,13 +62,13 @@ public partial class IsometricTileMap : TileMap
 
     public List<Vector2I> GetAStarPath(Vector2I src, Vector2I dst) => new(_astar.GetIdPath(src, dst));
 
-    public List<Vector2I> GetAvailableTiles(Vector2I src, int range)
+    public List<Vector2I> GetAccessableTiles(Vector2I src, int range)
     {
         var availableTiles = new List<Vector2I>();
         foreach (var cell in GetUsedCells((int)Layer.Ground))
         {
             if (GetManhattanDistance(src, cell) <= range &&
-                GetCellAtlasCoords((int)Layer.Ground, cell) != BoundaryAtlas)
+                !IsBoundary((int)Layer.Ground, cell))
             {
                 if (GetAStarPath(src, cell).Count <= range + 1)
                 {
@@ -75,6 +77,42 @@ public partial class IsometricTileMap : TileMap
             }
         }
         return availableTiles;
+    }
+
+    public void CopyFrom(IsometricTileMap tileMap, bool filterBoundary = true)
+    {
+        Clear();
+        var layersCount = tileMap.GetLayersCount();
+        for (var layer = 0; layer < layersCount; layer++)
+        {
+            var usedCells = tileMap.GetUsedCells(layer);
+            foreach (var cell in usedCells)
+            {
+                if (!(filterBoundary && IsBoundary(layer, cell)))
+                {
+                    SetCell(layer, cell,
+                    tileMap.GetCellSourceId(layer, cell),
+                    tileMap.GetCellAtlasCoords(layer, cell));
+                }
+            }
+        }
+        UpdateCells();
+        UpdateAStar();
+    }
+
+    private void UpdateCells()
+    {
+        AvailableCells.Clear();
+        var usedCells = GetUsedCells((int)Layer.Ground);
+        foreach (var cell in usedCells)
+        {
+            if (!IsBoundary((int)Layer.Ground, cell) &&
+                GetCellTileData((int)Layer.Obstacle, cell) == null &&
+                !AvailableCells.Contains(cell))
+            {
+                AvailableCells.Add(cell);
+            }
+        }
     }
 
     private void UpdateSelectedTile()
@@ -88,7 +126,7 @@ public partial class IsometricTileMap : TileMap
                 SetCell((int)Layer.Cursor, (Vector2I)SelectedTile, TileSelectedId, null);
             }
             if (GetCellTileData((int)Layer.Ground, tileMapPos) != null &&
-                GetCellAtlasCoords((int)Layer.Ground, tileMapPos) != BoundaryAtlas)
+                !IsBoundary((int)Layer.Ground, tileMapPos))
             {
                 SetCell((int)Layer.Cursor, tileMapPos, TileSelectedId, TileSelectedAtlas);
                 SelectedTile = tileMapPos;
@@ -103,10 +141,11 @@ public partial class IsometricTileMap : TileMap
     private void UpdateAStar()
     {
         _astar.Region = GetUsedRect();
-        foreach (var cell in Rect2IContains(_astar.Region))
+        var rect2IList = Rect2IContains(_astar.Region);
+        foreach (var cell in rect2IList)
         {
             if (GetCellTileData((int)Layer.Ground, cell) == null ||
-                GetCellAtlasCoords((int)Layer.Ground, cell) == BoundaryAtlas ||
+                IsBoundary((int)Layer.Ground, cell) ||
                 GetCellTileData((int)Layer.Obstacle, cell) != null)
             {
                 _astar.SetPointSolid(cell);
@@ -132,6 +171,10 @@ public partial class IsometricTileMap : TileMap
         }
         return cells;
     }
+
+    private bool IsBoundary(int layer, Vector2I coords)
+        => GetCellSourceId(layer, coords) == TileSetId &&
+        GetCellAtlasCoords(layer, coords) == BoundaryAtlas;
 }
 
 public enum Layer

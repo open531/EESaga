@@ -25,7 +25,6 @@ public partial class BattleParty : Area2D, IBattleParty
 
     public override void _Ready()
     {
-        TileMap = GetNode<IsometricTileMap>("../../TileMap");
         _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         _collision = GetNode<CollisionShape2D>("CollisionShape2D");
     }

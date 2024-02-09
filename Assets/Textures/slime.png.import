@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh02827ohet5t"
-path="res://.godot/imported/hero_left_move.png-333ea97c0415b960f74c59572b4f7447.ctex"
+uid="uid://wjgw5dbu8p0g"
+path="res://.godot/imported/slime.png-a033281198bf6c3b191542c73f974ec5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/hero_left_move.png"
-dest_files=["res://.godot/imported/hero_left_move.png-333ea97c0415b960f74c59572b4f7447.ctex"]
+source_file="res://Assets/Textures/slime.png"
+dest_files=["res://.godot/imported/slime.png-a033281198bf6c3b191542c73f974ec5.ctex"]
 
 [params]
 
