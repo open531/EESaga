@@ -30,13 +30,13 @@ public partial class BattleManager : Node
     }
     public PieceBattle PieceBattle { get; set; }
     public CardBattle CardBattle { get; set; }
-    public List<IBattlePiece> Pieces => PieceBattle.Pieces;
-    public List<IBattleParty> Parties => PieceBattle.Parties;
-    public List<IBattleEnemy> Enemies => PieceBattle.Enemies;
+    public List<BattlePiece> Pieces => PieceBattle.Pieces;
+    public List<BattleParty> Parties => PieceBattle.Parties;
+    public List<BattleEnemy> Enemies => PieceBattle.Enemies;
     public List<BattleCards> PartyBattleCards { get; set; }
-    public Vector2I? SelectedTile => PieceBattle.TileMap.SelectedTile;
+    public Vector2I? SelectedTile => PieceBattle.TileMap.SelectedCell;
     public Card SelectedCard => CardBattle.SelectedCard;
-    public IBattlePiece CardTarget { get; set; }
+    public BattlePiece CardTarget { get; set; }
 
     public static BattleManager Instance() => GD.Load<PackedScene>("res://Scenes/Managers/battle_manager.tscn").Instantiate<BattleManager>();
 
@@ -51,7 +51,7 @@ public partial class BattleManager : Node
         PieceBattle.Initialize(room.TileMap);
     }
 
-    public void TurnTo(IBattlePiece battlePiece)
+    public void TurnTo(BattlePiece battlePiece)
     {
         battlePiece.Shield = 0;
         if (battlePiece is BattleParty battleParty)

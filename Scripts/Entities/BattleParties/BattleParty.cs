@@ -1,27 +1,17 @@
 namespace EESaga.Scripts.Entities.BattleParties;
 
-using EESaga.Scripts.Maps;
 using Godot;
 using UI;
 using Utilities;
 
-public partial class BattleParty : Area2D, IBattleParty
+public partial class BattleParty : BattlePiece, IBattleParty
 {
     public string PartyName { get; private set; }
-    public IsometricTileMap TileMap { get; set; }
-    public Vector2I TileMapPos => TileMap.LocalToMap(GlobalPosition);
-    public int Level { get; set; }
-    public RangedInt Health { get; set; }
-    public int Shield { get; set; }
-    public int Agility { get; set; }
     public RangedInt Energy { get; set; }
     public BattleCards BattleCards { get; set; }
     public int HandCardCount { get; set; }
-    public bool IsMoving { get; set; }
-    protected AnimatedSprite2D _sprite;
-    protected CollisionShape2D _collision;
 
-    public static BattleParty Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleParties/battle_party.tscn").Instantiate<BattleParty>();
+    public static new BattleParty Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleParties/battle_party.tscn").Instantiate<BattleParty>();
 
     public override void _Ready()
     {
@@ -49,16 +39,5 @@ public partial class BattleParty : Area2D, IBattleParty
         Agility = party.Agility;
         Energy = party.Energy;
         BattleCards = party.BattleCards;
-    }
-
-    public void Move(Vector2I direction)
-    {
-        var targetTileMapPos = TileMapPos + direction;
-
-    }
-
-    public void MoveTo(Vector2I tileMapPos)
-    {
-        var tileData = TileMap.GetCellTileData((int)Layer.Ground, tileMapPos);
     }
 }

@@ -5,7 +5,7 @@ using Interfaces;
 using System;
 using System.Collections.Generic;
 
-public partial class CardBattle : Control
+public partial class CardBattle : CanvasLayer
 {
     private Control _hand;
     private Control _deck;

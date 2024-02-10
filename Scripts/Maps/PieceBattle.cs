@@ -10,13 +10,13 @@ using System.Collections.Generic;
 public partial class PieceBattle : Node2D
 {
     public IsometricTileMap TileMap { get; set; }
-    public List<IBattlePiece> Pieces { get; set; } = [];
-    public List<IBattleParty> Parties { get; set; } = [];
-    public List<IBattleEnemy> Enemies { get; set; } = [];
+    public List<BattlePiece> Pieces { get; set; } = [];
+    public List<BattleParty> Parties { get; set; } = [];
+    public List<BattleEnemy> Enemies { get; set; } = [];
     public List<Obstacle> Obstacles { get; set; } = [];
     public List<Trap> Traps { get; set; } = [];
 
-    public Dictionary<Vector2I, IBattlePiece> PieceMap { get; set; } = [];
+    public Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
 
     private Room _room;
     private Node2D _enemies;
@@ -45,7 +45,11 @@ public partial class PieceBattle : Node2D
         AddEnemy(EnemyType.Slime);
         AddEnemy(EnemyType.Slime);
         AddEnemy(EnemyType.Slime);
+        AddEnemy(EnemyType.Slime);
+        AddEnemy(EnemyType.Slime);
+        AddEnemy(EnemyType.Slime);
         AddParty(PartyType.Player);
+        ShowAccessibleTiles(Parties[0], 3);
         #endregion
     }
 
@@ -101,16 +105,31 @@ public partial class PieceBattle : Node2D
         Parties.Add(party);
     }
 
+    public void ShowAccessibleTiles(BattleParty party, int range)
+    {
+        var src = TileMap.LocalToMap(party.GlobalPosition);
+        var availableTiles = TileMap.GetAccessibleTiles(src, range);
+        foreach (var tile in availableTiles)
+        {
+            if (PieceMap[tile] == null)
+            {
+                TileMap.SetCell((int)Layer.Mark, tile,
+                    IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
+            }
+        }
+    }
+
     public void MovePiece(Node2D piece, Vector2I dst)
     {
         var src = TileMap.LocalToMap(piece.GlobalPosition);
+        var srcPiece = PieceMap[src];
         piece.GlobalPosition = PosForPiece(dst);
+        PieceMap[src] = null;
+        PieceMap[dst] = srcPiece;
     }
 
     public void EndBattle()
     {
-        RemoveChild(TileMap);
-        _room.AddChild(TileMap);
     }
 
     private Vector2 PosForPiece(Vector2I coord) => TileMap.MapToLocal(coord) - new Vector2(0, 6);
