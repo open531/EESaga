@@ -46,7 +46,7 @@ public partial class Player : CharacterBody2D
             {
                 _sprite.FlipH = direction.X < 0.0f;
             }
-            _sprite.Play("walk");
+            _sprite.Play("move");
         }
         Velocity = direction * Speed;
         MoveAndSlide();
