@@ -1,11 +1,16 @@
 namespace EESaga.Scripts.Maps;
 
+using Entities;
 using Godot;
 using System.Collections.Generic;
 
 public partial class IsometricTileMap : TileMap
 {
-    public Vector2I? SelectedTile { get; private set; } = null;
+    public Vector2I? SelectedCell { get; private set; } = null;
+
+    /// <summary>
+    /// 可以用来放置棋子的地图坐标
+    /// </summary>
     public List<Vector2I> AvailableCells = [];
 
     public const int TileSetId = 0;
@@ -62,9 +67,9 @@ public partial class IsometricTileMap : TileMap
 
     public List<Vector2I> GetAStarPath(Vector2I src, Vector2I dst) => new(_astar.GetIdPath(src, dst));
 
-    public List<Vector2I> GetAccessableTiles(Vector2I src, int range)
+    public List<Vector2I> GetAccessibleTiles(Vector2I src, int range)
     {
-        var availableTiles = new List<Vector2I>();
+        var accessibleTiles = new List<Vector2I>();
         foreach (var cell in GetUsedCells((int)Layer.Ground))
         {
             if (GetManhattanDistance(src, cell) <= range &&
@@ -72,11 +77,11 @@ public partial class IsometricTileMap : TileMap
             {
                 if (GetAStarPath(src, cell).Count <= range + 1)
                 {
-                    availableTiles.Add(cell);
+                    accessibleTiles.Add(cell);
                 }
             }
         }
-        return availableTiles;
+        return accessibleTiles;
     }
 
     public void CopyFrom(IsometricTileMap tileMap, bool filterBoundary = true)
@@ -119,26 +124,26 @@ public partial class IsometricTileMap : TileMap
     {
         var mousePos = GetGlobalMousePosition();
         var tileMapPos = LocalToMap(mousePos);
-        if (tileMapPos != SelectedTile)
+        if (tileMapPos != SelectedCell)
         {
-            if (SelectedTile != null)
+            if (SelectedCell != null)
             {
-                SetCell((int)Layer.Cursor, (Vector2I)SelectedTile, TileSelectedId, null);
+                SetCell((int)Layer.Cursor, (Vector2I)SelectedCell, TileSelectedId, null);
             }
             if (GetCellTileData((int)Layer.Ground, tileMapPos) != null &&
                 !IsBoundary((int)Layer.Ground, tileMapPos))
             {
                 SetCell((int)Layer.Cursor, tileMapPos, TileSelectedId, TileSelectedAtlas);
-                SelectedTile = tileMapPos;
+                SelectedCell = tileMapPos;
             }
             else
             {
-                SelectedTile = null;
+                SelectedCell = null;
             }
         }
     }
 
-    private void UpdateAStar()
+    public void UpdateAStar()
     {
         _astar.Region = GetUsedRect();
         var rect2IList = Rect2IContains(_astar.Region);
@@ -181,5 +186,6 @@ public enum Layer
 {
     Ground,
     Obstacle,
+    Mark,
     Cursor,
 }

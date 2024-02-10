@@ -15,17 +15,11 @@ shadow_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 1)
 
-[node name="CardBattle" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CardBattle" type="CanvasLayer"]
 script = ExtResource("1_pg3r3")
 
 [node name="Hand" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -35,7 +29,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Deck" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -62,7 +56,7 @@ text = "99"
 label_settings = SubResource("LabelSettings_wexl2")
 
 [node name="Discard" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
