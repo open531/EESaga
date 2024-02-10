@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckde8pps82y0c"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/BattlePiece.cs" id="1_dalta"]
-[ext_resource type="SpriteFrames" uid="uid://blh7o8ghqmhbt" path="res://Assets/Resources/spriteframes_player.tres" id="2_ddd7v"]
+[ext_resource type="SpriteFrames" uid="uid://blh7o8ghqmhbt" path="res://Assets/Resources/spriteframes_player.tres" id="2_1jyx4"]
 [ext_resource type="PackedScene" uid="uid://6bchl2tclt34" path="res://Scenes/Utilities/Cameras/camera_host.tscn" id="4_8akg4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xlrbo"]
@@ -11,7 +11,7 @@ size = Vector2(16, 16)
 script = ExtResource("1_dalta")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("2_ddd7v")
+sprite_frames = ExtResource("2_1jyx4")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

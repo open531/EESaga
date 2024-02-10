@@ -13,12 +13,6 @@ public partial class BattleParty : BattlePiece, IBattleParty
 
     public static new BattleParty Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleParties/battle_party.tscn").Instantiate<BattleParty>();
 
-    public override void _Ready()
-    {
-        _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        _collision = GetNode<CollisionShape2D>("CollisionShape2D");
-    }
-
     public void Initialize(Player player)
     {
         PartyName = player.PlayerName;

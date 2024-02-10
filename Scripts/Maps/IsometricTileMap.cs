@@ -70,12 +70,13 @@ public partial class IsometricTileMap : TileMap
     public List<Vector2I> GetAccessibleTiles(Vector2I src, int range)
     {
         var accessibleTiles = new List<Vector2I>();
-        foreach (var cell in GetUsedCells((int)Layer.Ground))
+        var usedCells = GetUsedCells((int)Layer.Ground);
+        foreach (var cell in usedCells)
         {
             if (GetManhattanDistance(src, cell) <= range &&
                 !IsBoundary((int)Layer.Ground, cell))
             {
-                if (GetAStarPath(src, cell).Count <= range + 1)
+                if (GetAStarPath(src, cell).Count <= range + 1 && GetAStarPath(src, cell).Count > 0)
                 {
                     accessibleTiles.Add(cell);
                 }
@@ -146,6 +147,7 @@ public partial class IsometricTileMap : TileMap
     public void UpdateAStar()
     {
         _astar.Region = GetUsedRect();
+        _astar.Update();
         var rect2IList = Rect2IContains(_astar.Region);
         foreach (var cell in rect2IList)
         {
@@ -156,7 +158,6 @@ public partial class IsometricTileMap : TileMap
                 _astar.SetPointSolid(cell);
             }
         }
-        _astar.Update();
     }
 
     private static int GetManhattanDistance(Vector2I src, Vector2I dst)
@@ -164,7 +165,7 @@ public partial class IsometricTileMap : TileMap
         return Mathf.Abs(src.X - dst.X) + Mathf.Abs(src.Y - dst.Y);
     }
 
-    private static List<Vector2I> Rect2IContains(Rect2I rect)
+    public static List<Vector2I> Rect2IContains(Rect2I rect)
     {
         var cells = new List<Vector2I>();
         for (var x = rect.Position.X; x < rect.Position.X + rect.Size.X; x++)
@@ -177,9 +178,13 @@ public partial class IsometricTileMap : TileMap
         return cells;
     }
 
-    private bool IsBoundary(int layer, Vector2I coords)
+    public bool IsBoundary(int layer, Vector2I coords)
         => GetCellSourceId(layer, coords) == TileSetId &&
         GetCellAtlasCoords(layer, coords) == BoundaryAtlas;
+
+    public bool IsDestination(Vector2I coords)
+        => GetCellSourceId((int)Layer.Mark, coords) == TileSelectedId &&
+        GetCellAtlasCoords((int)Layer.Mark, coords) == TileDestinationAtlas;
 }
 
 public enum Layer

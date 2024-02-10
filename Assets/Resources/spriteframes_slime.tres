@@ -22,4 +22,15 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8j5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jojwu")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
 }]
