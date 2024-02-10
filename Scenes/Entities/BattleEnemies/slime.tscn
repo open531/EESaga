@@ -1,35 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://drk3x0q8wlqcf"]
+[gd_scene load_steps=4 format=3 uid="uid://drk3x0q8wlqcf"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/Slime.cs" id="1_khosh"]
 [ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_q814s"]
-[ext_resource type="Texture2D" uid="uid://dx20485tmp6dc" path="res://Assets/Textures/slime_still.png" id="3_vsu4r"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l8j5a"]
-atlas = ExtResource("3_vsu4r")
-region = Rect2(0, 0, 16, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jojwu"]
-atlas = ExtResource("3_vsu4r")
-region = Rect2(16, 0, 16, 24)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_kb6lg"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l8j5a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jojwu")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 2.0
-}]
+[ext_resource type="SpriteFrames" uid="uid://b5afsunuh0276" path="res://Assets/Resources/spriteframes_slime.tres" id="3_0a85e"]
 
 [node name="Slime" instance=ExtResource("1_q814s")]
 script = ExtResource("1_khosh")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-sprite_frames = SubResource("SpriteFrames_kb6lg")
-animation = &"idle"
+sprite_frames = ExtResource("3_0a85e")
 frame_progress = 0.493516

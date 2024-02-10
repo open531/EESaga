@@ -14,4 +14,7 @@ y_sort_enabled = true
 [node name="Parties" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="PieceMoveTimer" type="Timer" parent="."]
+wait_time = 0.5
+
 [node name="Camera2D" type="Camera2D" parent="."]

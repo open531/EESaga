@@ -6,9 +6,11 @@ using Entities.BattleParties;
 using Godot;
 using Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class PieceBattle : Node2D
 {
+    [Export] public double PieceMoveTime { get; set; } = 0.2;
     public IsometricTileMap TileMap { get; set; }
     public List<BattlePiece> Pieces { get; set; } = [];
     public List<BattleParty> Parties { get; set; } = [];
@@ -16,12 +18,25 @@ public partial class PieceBattle : Node2D
     public List<Obstacle> Obstacles { get; set; } = [];
     public List<Trap> Traps { get; set; } = [];
 
+    public BattlePiece CurrentPiece { get; set; }
+
     public Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
 
     private Room _room;
     private Node2D _enemies;
     private Node2D _parties;
+    private Timer _pieceMoveTimer;
     private Camera2D _camera;
+
+    private AStarGrid2D _astar = new()
+    {
+        CellSize = new Vector2I(1, 1),
+        DefaultComputeHeuristic = AStarGrid2D.Heuristic.Manhattan,
+        DefaultEstimateHeuristic = AStarGrid2D.Heuristic.Manhattan,
+        DiagonalMode = AStarGrid2D.DiagonalModeEnum.Never,
+    };
+    private List<Vector2I> _pieceMovePath = [];
+    private int _pieceMoveIndex = 0;
 
     public static PieceBattle Instance() => GD.Load<PackedScene>("res://Scenes/Maps/piece_battle.tscn").Instantiate<PieceBattle>();
 
@@ -30,7 +45,11 @@ public partial class PieceBattle : Node2D
         TileMap = GetNode<IsometricTileMap>("TileMap");
         _enemies = GetNode<Node2D>("Enemies");
         _parties = GetNode<Node2D>("Parties");
+        _pieceMoveTimer = GetNode<Timer>("PieceMoveTimer");
         _camera = GetNode<Camera2D>("Camera2D");
+
+        _pieceMoveTimer.WaitTime = PieceMoveTime;
+        _pieceMoveTimer.Timeout += OnPieceMoveTimerTimeout;
 
         #region test
         var tileMap = IsometricTileMap.Instance();
@@ -49,8 +68,29 @@ public partial class PieceBattle : Node2D
         AddEnemy(EnemyType.Slime);
         AddEnemy(EnemyType.Slime);
         AddParty(PartyType.Player);
-        ShowAccessibleTiles(Parties[0], 3);
+        CurrentPiece = Parties[0];
+        ShowAccessibleTiles(3);
         #endregion
+    }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton mouseEvent)
+        {
+            if (mouseEvent.ButtonIndex == MouseButton.Left)
+            {
+                if (mouseEvent.Pressed)
+                {
+                    var cell = TileMap.SelectedCell;
+                    if (cell != null &&
+                        TileMap.IsDestination(cell.Value) &&
+                        !CurrentPiece.IsMoving)
+                    {
+                        MoveCurrentPiece(cell.Value);
+                    }
+                }
+            }
+        }
     }
 
     public void Initialize(IsometricTileMap tileMap)
@@ -105,27 +145,51 @@ public partial class PieceBattle : Node2D
         Parties.Add(party);
     }
 
-    public void ShowAccessibleTiles(BattleParty party, int range)
+    public void ShowAccessibleTiles(int range)
     {
-        var src = TileMap.LocalToMap(party.GlobalPosition);
-        var availableTiles = TileMap.GetAccessibleTiles(src, range);
-        foreach (var tile in availableTiles)
+        TileMap.ClearLayer((int)Layer.Mark);
+        _astar.Clear();
+        var src = TileMap.LocalToMap(CurrentPiece.GlobalPosition);
+        var accessibleTiles = TileMap.GetAccessibleTiles(src, range);
+        var primaryTiles = new List<Vector2I>();
+        foreach (var tile in accessibleTiles)
         {
             if (PieceMap[tile] == null)
             {
-                TileMap.SetCell((int)Layer.Mark, tile,
-                    IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
+                primaryTiles.Add(tile);
+            }
+        }
+        _astar.Region = TileMap.GetUsedRect();
+        _astar.Update();
+        var checkTiles = IsometricTileMap.Rect2IContains(_astar.Region);
+        foreach (var tile in checkTiles)
+        {
+            if (!primaryTiles.Contains(tile) && tile != src)
+            {
+                _astar.SetPointSolid(tile);
+            }
+        }
+        foreach (var tile in primaryTiles)
+        {
+            if (GetAStarPath(src, tile).Count <= range + 1 && GetAStarPath(src, tile).Count > 0)
+            {
+                TileMap.SetCell((int)Layer.Mark, tile, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
             }
         }
     }
 
-    public void MovePiece(Node2D piece, Vector2I dst)
+    public void MoveCurrentPiece(Vector2I dst)
     {
-        var src = TileMap.LocalToMap(piece.GlobalPosition);
-        var srcPiece = PieceMap[src];
-        piece.GlobalPosition = PosForPiece(dst);
-        PieceMap[src] = null;
-        PieceMap[dst] = srcPiece;
+        var src = TileMap.LocalToMap(CurrentPiece.GlobalPosition);
+        var path = GetAStarPath(src, dst);
+        if (path.Count > 1)
+        {
+            _pieceMovePath = path.Skip(1).ToList();
+            _pieceMoveIndex = 0;
+            CurrentPiece.IsMoving = true;
+            _pieceMoveTimer.Start();
+            TileMap.SetCell((int)Layer.Mark, src, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
+        }
     }
 
     public void EndBattle()
@@ -133,4 +197,29 @@ public partial class PieceBattle : Node2D
     }
 
     private Vector2 PosForPiece(Vector2I coord) => TileMap.MapToLocal(coord) - new Vector2(0, 6);
+
+    private List<Vector2I> GetAStarPath(Vector2I src, Vector2I dst) => new(_astar.GetIdPath(src, dst));
+
+    private void OnPieceMoveTimerTimeout()
+    {
+        if (_pieceMovePath != null && _pieceMovePath.Count > 0)
+        {
+            var tween = CreateTween();
+            tween.TweenProperty(CurrentPiece, "global_position",
+                PosForPiece(_pieceMovePath[_pieceMoveIndex]), PieceMoveTime);
+            CurrentPiece.FlipH = PosForPiece(_pieceMovePath[_pieceMoveIndex]).X - CurrentPiece.GlobalPosition.X < 0;
+            if (_pieceMoveIndex == _pieceMovePath.Count - 1)
+            {
+                TileMap.SetCell((int)Layer.Mark, _pieceMovePath[_pieceMoveIndex]);
+                _pieceMovePath = [];
+                _pieceMoveIndex = 0;
+                CurrentPiece.IsMoving = false;
+                _pieceMoveTimer.Stop();
+            }
+            else
+            {
+                _pieceMoveIndex++;
+            }
+        }
+    }
 }
