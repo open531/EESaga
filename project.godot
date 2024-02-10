@@ -36,7 +36,7 @@ project/assembly_name="EESaga"
 
 [gui]
 
-theme/custom="res://Assets/Themes/default.tres"
+theme/custom="res://Assets/Resources/theme_default.tres"
 
 [input]
 

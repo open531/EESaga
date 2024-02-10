@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://b5afsunuh0276"]
+
+[ext_resource type="Texture2D" uid="uid://dx20485tmp6dc" path="res://Assets/Textures/slime_idle.png" id="1_xbimy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8j5a"]
+atlas = ExtResource("1_xbimy")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jojwu"]
+atlas = ExtResource("1_xbimy")
+region = Rect2(16, 0, 16, 24)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8j5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jojwu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]

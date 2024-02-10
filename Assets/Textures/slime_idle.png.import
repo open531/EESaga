@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfdkew1ovsrab"
-path="res://.godot/imported/hero_still.png-17bb610131135fa955d007d0a819edec.ctex"
+uid="uid://dx20485tmp6dc"
+path="res://.godot/imported/slime_idle.png-d24a6ddb447f4b0379bfc17394ae34ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/hero_still.png"
-dest_files=["res://.godot/imported/hero_still.png-17bb610131135fa955d007d0a819edec.ctex"]
+source_file="res://Assets/Textures/slime_idle.png"
+dest_files=["res://.godot/imported/slime_idle.png-d24a6ddb447f4b0379bfc17394ae34ab.ctex"]
 
 [params]
 
