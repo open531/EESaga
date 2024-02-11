@@ -67,9 +67,114 @@ public partial class PieceBattle : Node2D
         AddEnemy(EnemyType.Slime);
         AddEnemy(EnemyType.Slime);
         AddEnemy(EnemyType.Slime);
-        AddParty(PartyType.Player);
-        CurrentPiece = Parties[0];
-        ShowAccessibleTiles(3);
+        var player = PlayerBattle.Instance();
+        player.BattleCards = new UI.BattleCards()
+        {
+            DeckCards =
+            [
+                new CardInfo
+                {
+                    CardType = CardType.Attack,
+                    CardName = "C_A_STRIKE",
+                    CardDescription = "C_A_STRIKE_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Enemy
+                },
+                new CardInfo
+                {
+                    CardType = CardType.Defense,
+                    CardName = "C_D_DEFEND",
+                    CardDescription = "C_D_DEFEND_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Self
+                },
+                new CardInfo
+                {
+                    CardType = CardType.Special,
+                    CardName = "C_S_STRUGGLE",
+                    CardDescription = "C_S_STRUGGLE_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Self
+                },
+                new CardInfo
+                {
+                    CardType = CardType.Item,
+                    CardName = "C_I_ECS",
+                    CardDescription = "C_I_ECS_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Self
+                },
+                new CardInfo
+                {
+                    CardType = CardType.Attack,
+                    CardName = "C_A_STRIKE",
+                    CardDescription = "C_A_STRIKE_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Enemy
+                },
+                new CardInfo
+                {
+                    CardType = CardType.Defense,
+                    CardName = "C_D_DEFEND",
+                    CardDescription = "C_D_DEFEND_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Self
+                },
+                new CardInfo
+                {
+                    CardType = CardType.Special,
+                    CardName = "C_S_STRUGGLE",
+                    CardDescription = "C_S_STRUGGLE_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Self
+                },
+                new CardInfo
+                {
+                    CardType = CardType.Item,
+                    CardName = "C_I_ECS",
+                    CardDescription = "C_I_ECS_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Self
+                }
+            ],
+            HandCards = [],
+            DiscardCards =
+            [
+                new CardInfo
+                {
+                    CardType = CardType.Attack,
+                    CardName = "C_A_STRIKE",
+                    CardDescription = "C_A_STRIKE_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Enemy
+                },
+                new CardInfo
+                {
+                    CardType = CardType.Defense,
+                    CardName = "C_D_DEFEND",
+                    CardDescription = "C_D_DEFEND_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Self
+                },
+                new CardInfo
+                {
+                    CardType = CardType.Special,
+                    CardName = "C_S_STRUGGLE",
+                    CardDescription = "C_S_STRUGGLE_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Self
+                },
+                new CardInfo
+                {
+                    CardType = CardType.Item,
+                    CardName = "C_I_ECS",
+                    CardDescription = "C_I_ECS_DESC",
+                    CardCost = 1,
+                    CardTarget = CardTarget.Self
+                }
+            ],
+        };
+        AddParty(player);
         #endregion
     }
 
@@ -133,6 +238,20 @@ public partial class PieceBattle : Node2D
             PartyType.Player => PlayerBattle.Instance(),
             _ => BattleParty.Instance(),
         };
+        _parties.AddChild(party);
+        var rng = new RandomNumberGenerator();
+        var cell = TileMap.AvailableCells[rng.RandiRange(0, TileMap.AvailableCells.Count - 1)];
+        while (PieceMap[cell] != null)
+        {
+            cell = TileMap.AvailableCells[rng.RandiRange(0, TileMap.AvailableCells.Count - 1)];
+        }
+        party.GlobalPosition = PosForPiece(cell);
+        PieceMap[cell] = party;
+        Parties.Add(party);
+    }
+
+    public void AddParty(BattleParty party)
+    {
         _parties.AddChild(party);
         var rng = new RandomNumberGenerator();
         var cell = TileMap.AvailableCells[rng.RandiRange(0, TileMap.AvailableCells.Count - 1)];

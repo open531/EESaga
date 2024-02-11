@@ -12,5 +12,6 @@ public interface IBattlePiece
     public RangedInt Health { get; set; }
     public int Shield { get; set; }
     public int Agility { get; set; }
+    public int MoveRange { get; set; }
     public bool IsMoving { get; set; }
 }

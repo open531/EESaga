@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://har87ymot8rq"]
+[gd_scene load_steps=11 format=3 uid="uid://har87ymot8rq"]
 
 [ext_resource type="Script" path="res://Scripts/UI/CardBattle.cs" id="1_pg3r3"]
 [ext_resource type="Texture2D" uid="uid://dmfcjyjl8vitj" path="res://Assets/Textures/book_deck.png" id="2_3lluo"]
@@ -18,13 +18,23 @@ shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q386o"]
 texture = ExtResource("6_y343o")
-texture_margin_left = 8.0
-texture_margin_top = 4.0
+texture_margin_left = 12.0
+texture_margin_top = 8.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 axis_stretch_horizontal = 1
-axis_stretch_vertical = 2
-region_rect = Rect2(48, 0, 48, 64)
+axis_stretch_vertical = 1
+region_rect = Rect2(0, 0, 48, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_028dj"]
+texture = ExtResource("6_y343o")
+texture_margin_left = 12.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 7.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(48, 1, 48, 63)
 
 [node name="CardBattle" type="CanvasLayer"]
 script = ExtResource("1_pg3r3")
@@ -103,4 +113,4 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_q386o")
 
 [node name="DiscardCardViewer" parent="." instance=ExtResource("3_ogy6m")]
 visible = false
-theme_override_styles/panel = SubResource("StyleBoxTexture_q386o")
+theme_override_styles/panel = SubResource("StyleBoxTexture_028dj")

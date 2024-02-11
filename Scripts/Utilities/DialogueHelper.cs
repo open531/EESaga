@@ -49,7 +49,7 @@ public partial class DialogueHelper : Node
         {
             if (pause.PausePosition == position)
             {
-                EmitSignal(nameof(PauseRequested), pause.PauseDuration);
+                EmitSignal(SignalName.PauseRequested, pause.PauseDuration);
             }
         }
     }

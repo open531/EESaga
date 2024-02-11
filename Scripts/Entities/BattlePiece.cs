@@ -12,6 +12,7 @@ public partial class BattlePiece : Area2D, IBattlePiece
     public RangedInt Health { get; set; }
     public int Shield { get; set; }
     public int Agility { get; set; }
+    public int MoveRange { get; set; }
     protected bool isMoving;
     public bool IsMoving
     {

@@ -20,7 +20,7 @@ public enum RoomType
     Boss,
 }
 
-public struct Obstacle
+public class Obstacle
 {
     public Vector2I Position { get; set; }
     public ObstacleType Type { get; set; }
@@ -34,7 +34,7 @@ public enum ObstacleType
     Table,
 }
 
-public struct Trap
+public class Trap
 {
     public Vector2I Position { get; set; }
     public TrapType Type { get; set; }

@@ -61,14 +61,14 @@ public partial class DialogueManager : Node
 
     private void ShowCurrent()
     {
-        EmitSignal(nameof(MessageRequested));
+        EmitSignal(SignalName.MessageRequested);
         var message = _dialogueMessages[_dialogueIndex];
         Dialogue.UpdateDialogue(message);
     }
 
     private void OnDialogueMessageCompleted()
     {
-        EmitSignal(nameof(MessageCompleted));
+        EmitSignal(SignalName.MessageCompleted);
     }
 
     private void Hide()
@@ -77,6 +77,6 @@ public partial class DialogueManager : Node
         Dialogue.QueueFree();
         Dialogue = null;
         _isActive = false;
-        EmitSignal(nameof(Finished));
+        EmitSignal(SignalName.Finished);
     }
 }
