@@ -239,7 +239,7 @@ public partial class CardBattle : CanvasLayer
         var tweenRotation = CreateTween();
         var tweenScale = CreateTween();
         tweenPosition.TweenProperty(newCard, "position",
-            new Vector2(card.Position.X - _cardWidth / 2, -_cardHeight * 1.4f) + _hand.Position, 0.05);
+            new Vector2(card.Position.X - _cardWidth / 2, -_cardHeight) + _hand.Position, 0.05);
         tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.05);
         tweenScale.TweenProperty(newCard, "scale", Vector2.One * 2, 0.05);
         card.Visible = false;
@@ -267,8 +267,7 @@ public partial class CardBattle : CanvasLayer
             {
                 if (mouseEvent.IsReleased())
                 {
-                    var previewCard = GetNodeOrNull("PreviewCard") as Card;
-                    if (previewCard != null)
+                    if (GetNodeOrNull("PreviewCard") is Card previewCard)
                     {
                         if (_operatingCard != previewCard)
                         {
@@ -287,7 +286,7 @@ public partial class CardBattle : CanvasLayer
     }
 }
 
-public struct BattleCards
+public class BattleCards
 {
     public List<CardInfo> DeckCards { get; set; }
     public List<CardInfo> HandCards { get; set; }

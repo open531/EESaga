@@ -14,7 +14,7 @@ public partial class BattleManager : Node
     {
         get
         {
-            if (SelectedTile != null)
+            if (SelectedCell != null)
             {
                 return BattleState.Moving;
             }
@@ -33,8 +33,12 @@ public partial class BattleManager : Node
     public List<BattlePiece> Pieces => PieceBattle.Pieces;
     public List<BattleParty> Parties => PieceBattle.Parties;
     public List<BattleEnemy> Enemies => PieceBattle.Enemies;
-    public List<BattleCards> PartyBattleCards { get; set; }
-    public Vector2I? SelectedTile => PieceBattle.TileMap.SelectedCell;
+    public BattlePiece CurrentPiece
+    {
+        get => PieceBattle.CurrentPiece;
+        set => PieceBattle.CurrentPiece = value;
+    }
+    public Vector2I? SelectedCell => PieceBattle.TileMap.SelectedCell;
     public Card SelectedCard => CardBattle.SelectedCard;
     public BattlePiece CardTarget { get; set; }
 
@@ -44,6 +48,8 @@ public partial class BattleManager : Node
     {
         PieceBattle = GetNode<PieceBattle>("PieceBattle");
         CardBattle = GetNode<CardBattle>("CardBattle");
+
+        TurnTo(Parties[0]);
     }
 
     public void Initialize(Room room)
@@ -56,33 +62,38 @@ public partial class BattleManager : Node
         battlePiece.Shield = 0;
         if (battlePiece is BattleParty battleParty)
         {
-            var partyIndex = Parties.IndexOf(battleParty);
-            PrepareCards(partyIndex, battleParty.HandCardCount);
+            CurrentPiece = battleParty;
+            PieceBattle.ShowAccessibleTiles(battleParty.MoveRange);
+            GD.Print(battleParty.MoveRange);
+            PrepareCards();
         }
         else if (battlePiece is BattleEnemy battleEnemy)
         {
         }
     }
 
-    public void PrepareCards(int partyIndex, int cardCount)
+    public void PrepareCards()
     {
-        if (PartyBattleCards[partyIndex].DeckCards.Count < cardCount)
+        if (CurrentPiece is BattleParty battleParty)
         {
-            foreach (var card in PartyBattleCards[partyIndex].DiscardCards)
+            if (battleParty.BattleCards.DeckCards.Count < battleParty.HandCardCount)
             {
-                PartyBattleCards[partyIndex].DeckCards.Add(card);
+                foreach (var card in battleParty.BattleCards.DiscardCards)
+                {
+                    battleParty.BattleCards.DeckCards.Add(card);
+                }
+                battleParty.BattleCards.DiscardCards.Clear();
             }
-            PartyBattleCards[partyIndex].DiscardCards.Clear();
+            var rng = new RandomNumberGenerator();
+            rng.Randomize();
+            for (var i = 0; i < battleParty.HandCardCount; i++)
+            {
+                var randomIndex = rng.RandiRange(0, battleParty.BattleCards.DeckCards.Count - 1);
+                battleParty.BattleCards.HandCards.Add(battleParty.BattleCards.DeckCards[randomIndex]);
+                battleParty.BattleCards.DeckCards.RemoveAt(randomIndex);
+            }
+            CardBattle.BattleCards = battleParty.BattleCards;
         }
-        var rng = new RandomNumberGenerator();
-        rng.Randomize();
-        for (var i = 0; i < cardCount; i++)
-        {
-            var randomIndex = rng.RandiRange(0, PartyBattleCards[partyIndex].DeckCards.Count - 1);
-            PartyBattleCards[partyIndex].HandCards.Add(PartyBattleCards[partyIndex].DeckCards[randomIndex]);
-            PartyBattleCards[partyIndex].DeckCards.RemoveAt(randomIndex);
-        }
-        CardBattle.BattleCards = PartyBattleCards[partyIndex];
     }
 }
 
