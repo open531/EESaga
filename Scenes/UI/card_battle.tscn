@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://har87ymot8rq"]
+[gd_scene load_steps=10 format=3 uid="uid://har87ymot8rq"]
 
 [ext_resource type="Script" path="res://Scripts/UI/CardBattle.cs" id="1_pg3r3"]
 [ext_resource type="Texture2D" uid="uid://dmfcjyjl8vitj" path="res://Assets/Textures/book_deck.png" id="2_3lluo"]
 [ext_resource type="PackedScene" uid="uid://nr6wkkfm6sr6" path="res://Scenes/UI/card_detail.tscn" id="2_avj3s"]
 [ext_resource type="PackedScene" uid="uid://c88cj1wn6al84" path="res://Scenes/UI/card_viewer.tscn" id="3_ogy6m"]
 [ext_resource type="Texture2D" uid="uid://borjconk6781k" path="res://Assets/Textures/book_discard.png" id="3_ttuks"]
+[ext_resource type="Texture2D" uid="uid://h8xe8agkk5sw" path="res://Assets/Textures/paper.png" id="6_y343o"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wexl2"]
 outline_size = 1
@@ -14,6 +15,16 @@ shadow_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_mc6gi"]
 outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q386o"]
+texture = ExtResource("6_y343o")
+texture_margin_left = 8.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 2
+region_rect = Rect2(48, 0, 48, 64)
 
 [node name="CardBattle" type="CanvasLayer"]
 script = ExtResource("1_pg3r3")
@@ -88,6 +99,8 @@ label_settings = SubResource("LabelSettings_mc6gi")
 
 [node name="DeckCardViewer" parent="." instance=ExtResource("3_ogy6m")]
 visible = false
+theme_override_styles/panel = SubResource("StyleBoxTexture_q386o")
 
 [node name="DiscardCardViewer" parent="." instance=ExtResource("3_ogy6m")]
 visible = false
+theme_override_styles/panel = SubResource("StyleBoxTexture_q386o")

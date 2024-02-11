@@ -5,9 +5,13 @@ using static Data.OptionData;
 
 public partial class GameOptions : Node
 {
-    public Theme DefaultTheme { get; set; }
-    public FontFile UniFont { get; set; }
-    public FontFile UniFontJp { get; set; }
+    public static Theme DefaultTheme { get; set; }
+    public static FontFile UniFont { get; set; }
+    public static FontFile UniFontJp { get; set; }
+    public static FontFile Misaki { get; set; }
+    public static Resource Cursor { get; set; }
+    public static Resource CursorGreen { get; set; }
+    public static Resource CursorRed { get; set; }
     public Language GameLanguage { get; set; }
     public DisplayMode VideoDisplayMode { get; set; }
     public Resolution VideoResolution { get; set; }
@@ -24,6 +28,10 @@ public partial class GameOptions : Node
         DefaultTheme = GD.Load<Theme>("res://Assets/Resources/theme_default.tres");
         UniFont = GD.Load<FontFile>("res://Assets/Fonts/unifont.otf");
         UniFontJp = GD.Load<FontFile>("res://Assets/Fonts/unifont_jp.otf");
+        Misaki = GD.Load<FontFile>("res://Assets/Fonts/misaki.ttf");
+        Cursor = GD.Load<Resource>("res://Assets/Textures/cursor.png");
+        CursorGreen = GD.Load<Resource>("res://Assets/Textures/cursor_green.png");
+        CursorRed = GD.Load<Resource>("res://Assets/Textures/cursor_red.png");
         if (!LoadOptions())
         {
             GenerateOptions();
@@ -178,5 +186,10 @@ public partial class GameOptions : Node
         AudioMusic = 80;
         AudioSound = 80;
         AudioVoice = 80;
+    }
+
+    public static void SetCursor(Resource cursor)
+    {
+        Input.SetCustomMouseCursor(cursor);
     }
 }

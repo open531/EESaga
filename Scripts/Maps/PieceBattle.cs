@@ -154,7 +154,7 @@ public partial class PieceBattle : Node2D
         var primaryTiles = new List<Vector2I>();
         foreach (var tile in accessibleTiles)
         {
-            if (PieceMap[tile] == null)
+            if (PieceMap[tile] == null || tile == src)
             {
                 primaryTiles.Add(tile);
             }
@@ -164,7 +164,7 @@ public partial class PieceBattle : Node2D
         var checkTiles = IsometricTileMap.Rect2IContains(_astar.Region);
         foreach (var tile in checkTiles)
         {
-            if (!primaryTiles.Contains(tile) && tile != src)
+            if (!primaryTiles.Contains(tile))
             {
                 _astar.SetPointSolid(tile);
             }
@@ -188,7 +188,6 @@ public partial class PieceBattle : Node2D
             _pieceMoveIndex = 0;
             CurrentPiece.IsMoving = true;
             _pieceMoveTimer.Start();
-            TileMap.SetCell((int)Layer.Mark, src, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
         }
     }
 
@@ -210,7 +209,6 @@ public partial class PieceBattle : Node2D
             CurrentPiece.FlipH = PosForPiece(_pieceMovePath[_pieceMoveIndex]).X - CurrentPiece.GlobalPosition.X < 0;
             if (_pieceMoveIndex == _pieceMovePath.Count - 1)
             {
-                TileMap.SetCell((int)Layer.Mark, _pieceMovePath[_pieceMoveIndex]);
                 _pieceMovePath = [];
                 _pieceMoveIndex = 0;
                 CurrentPiece.IsMoving = false;
