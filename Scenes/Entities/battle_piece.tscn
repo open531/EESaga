@@ -18,4 +18,9 @@ animation = &"idle"
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_xlrbo")
 
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+fill_mode = 3
+
 [node name="CameraHost" parent="." instance=ExtResource("4_8akg4")]

@@ -7,7 +7,8 @@ using Utilities;
 public interface IBattleParty : IBattlePiece
 {
     public string PartyName { get; }
-    public RangedInt Energy { get; set; }
+    public int EnergyMax { get; set; }
+    public int Energy { get; set; }
     public BattleCards BattleCards { get; set; }
     public int HandCardCount { get; set; }
     public void Initialize(Player player);

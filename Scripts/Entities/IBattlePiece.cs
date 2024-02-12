@@ -6,10 +6,9 @@ using Utilities;
 
 public interface IBattlePiece
 {
-    public IsometricTileMap TileMap { get; set; }
-    public Vector2I TileMapPos { get; }
     public int Level { get; set; }
-    public RangedInt Health { get; set; }
+    public int HealthMax { get; set; }
+    public int Health { get; set; }
     public int Shield { get; set; }
     public int Agility { get; set; }
     public int MoveRange { get; set; }
