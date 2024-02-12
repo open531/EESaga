@@ -11,6 +11,7 @@ public partial class BattleEnemy : BattlePiece, IBattleEnemy
     public void Initialize(IBattleEnemy enemy)
     {
         Level = enemy.Level;
+        HealthMax = enemy.HealthMax;
         Health = enemy.Health;
         Shield = enemy.Shield;
         Agility = enemy.Agility;
