@@ -7,7 +7,10 @@ using System.Collections.Generic;
 
 public partial class GameData : Node
 {
-    public static Player Player { get; set; }
+    public static Player Player { get; set; } = new Player()
+    {
+        PlayerName = "MAX",
+    };
     public static List<IBattleParty> Parties { get; set; }
     public void SaveData(string filename)
     {
