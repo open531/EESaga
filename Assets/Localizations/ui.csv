@@ -7,3 +7,4 @@ UI_LOAD,载入游戏,載入遊戲,Load,ロード
 UI_SAVE,保存游戏,保存遊戲,Save,セーブ
 UI_OPTION,游戏选项,遊戲選項,Options,オプション
 UI_QUIT,退出游戏,退出遊戲,Quit,ゲーム終了
+END_TURN,结束回合,結束回合,End Turn,ターン終了

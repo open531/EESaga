@@ -13,6 +13,8 @@ public partial class CardBattle : CanvasLayer
 
     private CardDetail _cardDetail;
 
+    private Button _endTurnButton;
+
     private TextureButton _deckButton;
     private Label _deckCardNum;
     private TextureButton _discardButton;
@@ -60,6 +62,8 @@ public partial class CardBattle : CanvasLayer
         _discard = GetNode<Control>("Discard");
 
         _cardDetail = GetNode<CardDetail>("CardDetail");
+
+        _endTurnButton = GetNode<Button>("EndTurnButton");
 
         _deckButton = GetNode<TextureButton>("Deck/TextureButton");
         _deckCardNum = GetNode<Label>("Deck/Label");

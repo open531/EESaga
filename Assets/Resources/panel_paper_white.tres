@@ -1,0 +1,13 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://ba4burj6uhd4"]
+
+[ext_resource type="Texture2D" uid="uid://h8xe8agkk5sw" path="res://Assets/Textures/paper.png" id="1_4rv6t"]
+
+[resource]
+texture = ExtResource("1_4rv6t")
+texture_margin_left = 12.0
+texture_margin_top = 8.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(0, 0, 48, 64)
