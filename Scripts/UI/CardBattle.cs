@@ -45,6 +45,17 @@ public partial class CardBattle : CanvasLayer
         }
     }
     private Card _operatingCard;
+    public Card OperatingCard
+    {
+        get => _operatingCard;
+        private set
+        {
+            _operatingCard = value;
+            EmitSignal(SignalName.OperatingCardChanged);
+        }
+    }
+
+    [Signal] public delegate void OperatingCardChangedEventHandler();
 
     private const int _maxHandSize = 8;
     private const float _cardX = 64.0f;
@@ -74,7 +85,7 @@ public partial class CardBattle : CanvasLayer
         _discardCardViewer = GetNode<CardViewer>("DiscardCardViewer");
 
         _selectedCard = null;
-        _operatingCard = null;
+        OperatingCard = null;
 
         _deckButton.Pressed += () =>
         {
@@ -145,15 +156,15 @@ public partial class CardBattle : CanvasLayer
         }
     }
 
-    private void AddCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget)
+    private void AddCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange = 1)
     {
         var card = Card.Instance();
-        card.InitializeCard(cardType, cardName, cardDescription, cardCost, cardTarget);
+        card.InitializeCard(cardType, cardName, cardDescription, cardCost, cardTarget, cardRange);
         card.Position = _deck.Position - _hand.Position;
         card.Scale = Vector2.Zero;
         card.MouseEntered += () =>
         {
-            if (_operatingCard != null) return;
+            if (OperatingCard != null) return;
             SelectedCard = card;
             PreviewCard(card);
         };
@@ -169,7 +180,7 @@ public partial class CardBattle : CanvasLayer
         cardNode.Scale = Vector2.Zero;
         cardNode.MouseEntered += () =>
         {
-            if (_operatingCard != null) return;
+            if (OperatingCard != null) return;
             SelectedCard = cardNode;
             PreviewCard(cardNode);
         };
@@ -182,7 +193,7 @@ public partial class CardBattle : CanvasLayer
         if (!_hand.GetChildren().Contains(card)) return;
         var newCard = Card.Instance();
         newCard.Name = "RemovedCard";
-        newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
+        newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
@@ -204,7 +215,7 @@ public partial class CardBattle : CanvasLayer
         var card = _hand.GetChild(index) as Card;
         var newCard = Card.Instance();
         newCard.Name = "RemovedCard";
-        newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
+        newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
@@ -231,7 +242,7 @@ public partial class CardBattle : CanvasLayer
         }
         var newCard = Card.Instance();
         newCard.Name = "PreviewCard";
-        newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget);
+        newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
@@ -273,14 +284,14 @@ public partial class CardBattle : CanvasLayer
                 {
                     if (GetNodeOrNull("PreviewCard") is Card previewCard)
                     {
-                        if (_operatingCard != previewCard)
+                        if (OperatingCard != previewCard)
                         {
-                            _operatingCard = previewCard;
+                            OperatingCard = previewCard;
                             previewCard.MouseExited -= ExitPreviewCard;
                         }
                         else
                         {
-                            _operatingCard = null;
+                            OperatingCard = null;
                             previewCard.MouseExited += ExitPreviewCard;
                         }
                     }

@@ -10,6 +10,8 @@ public partial class GameData : Node
     public static Player Player { get; set; } = new Player()
     {
         PlayerName = "MAX",
+        HealthMax = 100,
+        Health = 100,
     };
     public static List<IBattleParty> Parties { get; set; }
     public void SaveData(string filename)

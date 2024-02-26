@@ -22,6 +22,8 @@ public partial class PieceBattle : Node2D
 
     public Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
 
+    private Dictionary<Vector2I, CellColor> ColorMap { get; set; } = [];
+
     private Room _room;
     private Node2D _enemies;
     private Node2D _parties;
@@ -73,105 +75,105 @@ public partial class PieceBattle : Node2D
             DeckCards =
             [
                 new CardInfo
-                {
-                    CardType = CardType.Attack,
-                    CardName = "C_A_STRIKE",
-                    CardDescription = "C_A_STRIKE_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Enemy
-                },
+                (
+                    CardType.Attack,
+                    "C_A_STRIKE",
+                    "C_A_STRIKE_DESC",
+                    1,
+                    CardTarget.Enemy
+                ),
                 new CardInfo
-                {
-                    CardType = CardType.Defense,
-                    CardName = "C_D_DEFEND",
-                    CardDescription = "C_D_DEFEND_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Self
-                },
+                (
+                    CardType.Defense,
+                    "C_D_DEFEND",
+                    "C_D_DEFEND_DESC",
+                    1,
+                    CardTarget.Self
+                ),
                 new CardInfo
-                {
-                    CardType = CardType.Special,
-                    CardName = "C_S_STRUGGLE",
-                    CardDescription = "C_S_STRUGGLE_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Self
-                },
+                (
+                    CardType.Special,
+                    "C_S_STRUGGLE",
+                    "C_S_STRUGGLE_DESC",
+                    1,
+                    CardTarget.Self
+                ),
                 new CardInfo
-                {
-                    CardType = CardType.Item,
-                    CardName = "C_I_ECS",
-                    CardDescription = "C_I_ECS_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Self
-                },
+                (
+                    CardType.Item,
+                    "C_I_ECS",
+                    "C_I_ECS_DESC",
+                    1,
+                    CardTarget.Self
+                ),
                 new CardInfo
-                {
-                    CardType = CardType.Attack,
-                    CardName = "C_A_STRIKE",
-                    CardDescription = "C_A_STRIKE_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Enemy
-                },
+                (
+                    CardType.Attack,
+                    "C_A_STRIKE",
+                    "C_A_STRIKE_DESC",
+                    1,
+                    CardTarget.Enemy
+                ),
                 new CardInfo
-                {
-                    CardType = CardType.Defense,
-                    CardName = "C_D_DEFEND",
-                    CardDescription = "C_D_DEFEND_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Self
-                },
+                (
+                    CardType.Defense,
+                    "C_D_DEFEND",
+                    "C_D_DEFEND_DESC",
+                    1,
+                    CardTarget.Self
+                ),
                 new CardInfo
-                {
-                    CardType = CardType.Special,
-                    CardName = "C_S_STRUGGLE",
-                    CardDescription = "C_S_STRUGGLE_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Self
-                },
+                (
+                    CardType.Special,
+                    "C_S_STRUGGLE",
+                    "C_S_STRUGGLE_DESC",
+                    1,
+                    CardTarget.Self
+                ),
                 new CardInfo
-                {
-                    CardType = CardType.Item,
-                    CardName = "C_I_ECS",
-                    CardDescription = "C_I_ECS_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Self
-                }
+                (
+                    CardType.Item,
+                    "C_I_ECS",
+                    "C_I_ECS_DESC",
+                    1,
+                    CardTarget.Self
+                ),
             ],
             HandCards = [],
             DiscardCards =
             [
                 new CardInfo
-                {
-                    CardType = CardType.Attack,
-                    CardName = "C_A_STRIKE",
-                    CardDescription = "C_A_STRIKE_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Enemy
-                },
+                (
+                    CardType.Attack,
+                    "C_A_STRIKE",
+                    "C_A_STRIKE_DESC",
+                    1,
+                    CardTarget.Enemy
+                ),
                 new CardInfo
-                {
-                    CardType = CardType.Defense,
-                    CardName = "C_D_DEFEND",
-                    CardDescription = "C_D_DEFEND_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Self
-                },
+                (
+                    CardType.Defense,
+                    "C_D_DEFEND",
+                    "C_D_DEFEND_DESC",
+                    1,
+                    CardTarget.Self
+                ),
                 new CardInfo
-                {
-                    CardType = CardType.Special,
-                    CardName = "C_S_STRUGGLE",
-                    CardDescription = "C_S_STRUGGLE_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Self
-                },
+                (
+                    CardType.Special,
+                    "C_S_STRUGGLE",
+                    "C_S_STRUGGLE_DESC",
+                    1,
+                    CardTarget.Self
+                ),
                 new CardInfo
-                {
-                    CardType = CardType.Item,
-                    CardName = "C_I_ECS",
-                    CardDescription = "C_I_ECS_DESC",
-                    CardCost = 1,
-                    CardTarget = CardTarget.Self
-                }
+                (
+                    CardType.Item,
+                    "C_I_ECS",
+                    "C_I_ECS_DESC",
+                    1,
+                    CardTarget.Self
+                ),
             ],
         };
         AddParty(player);
@@ -297,6 +299,78 @@ public partial class PieceBattle : Node2D
         }
     }
 
+    public void ShowAttackTiles(int range, CardTarget cardTarget)
+    {
+        var src = TileMap.LocalToMap(CurrentPiece.GlobalPosition);
+        var usedCells = TileMap.GetUsedCells((int)Layer.Ground);
+        switch (cardTarget)
+        {
+            case CardTarget.Self:
+                TileMap.SetCell((int)Layer.Mark, src, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                ColorMap.Add(src, CellColor.Red);
+                break;
+            case CardTarget.Enemy:
+                foreach (var cell in usedCells)
+                {
+                    if (Mathf.Abs(cell.X - src.X) <= range && Mathf.Abs(cell.Y - src.Y) <= range && PieceMap[cell] is BattleEnemy)
+                    {
+                        TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                        ColorMap.Add(cell, CellColor.Red);
+                    }
+                }
+                break;
+            case CardTarget.Ally:
+                foreach (var cell in usedCells)
+                {
+                    if (Mathf.Abs(cell.X - src.X) <= range && Mathf.Abs(cell.Y - src.Y) <= range && PieceMap[cell] is BattleParty)
+                    {
+                        TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                        ColorMap.Add(cell, CellColor.Red);
+                    }
+                }
+                break;
+            case CardTarget.AllEnemies:
+                foreach (var cell in usedCells)
+                {
+                    if (PieceMap[cell] is BattleEnemy)
+                    {
+                        TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                        ColorMap.Add(cell, CellColor.Red);
+                    }
+                }
+                break;
+            case CardTarget.AllAllies:
+                foreach (var cell in usedCells)
+                {
+                    if (PieceMap[cell] is BattleParty)
+                    {
+                        TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                        ColorMap.Add(cell, CellColor.Red);
+                    }
+                }
+                break;
+            case CardTarget.All:
+                foreach (var cell in usedCells)
+                {
+                    if (PieceMap[cell] is BattleParty || PieceMap[cell] is BattleEnemy)
+                    {
+                        TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                        ColorMap.Add(cell, CellColor.Red);
+                    }
+                }
+                break;
+        }
+    }
+
+    public void RecoverAttackTiles()
+    {
+        foreach (var item in ColorMap)
+        {
+            TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
+            ColorMap.Remove(item.Key);
+        }
+    }
+
     public void MoveCurrentPiece(Vector2I dst)
     {
         var src = TileMap.LocalToMap(CurrentPiece.GlobalPosition);
@@ -306,6 +380,8 @@ public partial class PieceBattle : Node2D
             _pieceMovePath = path.Skip(1).ToList();
             _pieceMoveIndex = 0;
             CurrentPiece.IsMoving = true;
+            PieceMap[src] = null;
+            PieceMap[dst] = CurrentPiece;
             _pieceMoveTimer.Start();
         }
     }
@@ -338,5 +414,12 @@ public partial class PieceBattle : Node2D
                 _pieceMoveIndex++;
             }
         }
+    }
+
+    enum CellColor
+    {
+        Null,
+        Red,
+        Green,
     }
 }

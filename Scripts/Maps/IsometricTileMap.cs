@@ -20,6 +20,7 @@ public partial class IsometricTileMap : TileMap
     public const int TileSelectedId = 999;
     public static Vector2I TileSelectedAtlas = new(0, 0);
     public static Vector2I TileDestinationAtlas = new(0, 1);
+    public static Vector2I TileAttackAtlas = new(1, 1);
 
     private AStarGrid2D _astar = new()
     {
