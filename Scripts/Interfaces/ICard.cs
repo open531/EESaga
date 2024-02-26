@@ -9,6 +9,7 @@ public interface ICard
     public string CardDescription { get; set; }
     public int CardCost { get; set; }
     public CardTarget CardTarget { get; set; }
+    public int CardRange { get; set; }
     public bool NeedTarget => CardTarget == CardTarget.Enemy || CardTarget == CardTarget.Ally;
 }
 
@@ -32,12 +33,13 @@ public enum CardTarget
     All,
 }
 
-public struct CardInfo(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget) : ICard
+public struct CardInfo(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange = 1) : ICard
 {
     public CardType CardType { get; set; } = cardType;
     public string CardName { get; set; } = cardName;
     public string CardDescription { get; set; } = cardDescription;
     public int CardCost { get; set; } = cardCost;
     public CardTarget CardTarget { get; set; } = cardTarget;
+    public int CardRange { get; set; } = cardRange;
     public readonly bool NeedTarget => CardTarget == CardTarget.Enemy || CardTarget == CardTarget.Ally;
 }

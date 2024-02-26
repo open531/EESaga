@@ -49,8 +49,11 @@ public partial class BattleManager : Node
         PieceBattle = GetNode<PieceBattle>("PieceBattle");
         CardBattle = GetNode<CardBattle>("CardBattle");
 
+        CardBattle.OperatingCardChanged += OnCardBattleOperatingCardChanged;
+
         TurnTo(Parties[0]);
     }
+
 
     public void Initialize(Room room)
     {
@@ -93,6 +96,18 @@ public partial class BattleManager : Node
                 battleParty.BattleCards.DeckCards.RemoveAt(randomIndex);
             }
             CardBattle.BattleCards = battleParty.BattleCards;
+        }
+    }
+
+    private void OnCardBattleOperatingCardChanged()
+    {
+        if (CardBattle.OperatingCard == null)
+        {
+            PieceBattle.RecoverAttackTiles();
+        }
+        else
+        {
+            PieceBattle.ShowAttackTiles(CardBattle.OperatingCard.CardRange, CardBattle.OperatingCard.CardTarget);
         }
     }
 }

@@ -15,6 +15,7 @@ public partial class Card : Control, ICard
     [Export] public string CardDescription { get; set; }
     [Export] public int CardCost { get; set; }
     [Export] public CardTarget CardTarget { get; set; }
+    [Export] public int CardRange { get; set; }
 
     public Card Parent { get; set; }
 
@@ -40,13 +41,14 @@ public partial class Card : Control, ICard
         _cost.Text = CardCost.ToString();
     }
 
-    public void InitializeCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget)
+    public void InitializeCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange)
     {
         CardType = cardType;
         CardName = cardName;
         CardDescription = cardDescription;
         CardCost = cardCost;
         CardTarget = cardTarget;
+        CardRange = cardRange;
     }
 
     public void InitializeCard(CardInfo cardInfo)
@@ -56,6 +58,7 @@ public partial class Card : Control, ICard
         CardDescription = cardInfo.CardDescription;
         CardCost = cardInfo.CardCost;
         CardTarget = cardInfo.CardTarget;
+        CardRange = cardInfo.CardRange;
     }
 
     public void TakeEffect(IEntity entity = null)
