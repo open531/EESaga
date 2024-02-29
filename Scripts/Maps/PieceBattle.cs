@@ -1,10 +1,10 @@
 namespace EESaga.Scripts.Maps;
 
+using Cards;
 using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;
 using Godot;
-using Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -74,106 +74,22 @@ public partial class PieceBattle : Node2D
         {
             DeckCards =
             [
-                new CardInfo
-                (
-                    CardType.Attack,
-                    "C_A_STRIKE",
-                    "C_A_STRIKE_DESC",
-                    1,
-                    CardTarget.Enemy
-                ),
-                new CardInfo
-                (
-                    CardType.Defense,
-                    "C_D_DEFEND",
-                    "C_D_DEFEND_DESC",
-                    1,
-                    CardTarget.Self
-                ),
-                new CardInfo
-                (
-                    CardType.Special,
-                    "C_S_STRUGGLE",
-                    "C_S_STRUGGLE_DESC",
-                    1,
-                    CardTarget.Self
-                ),
-                new CardInfo
-                (
-                    CardType.Item,
-                    "C_I_ECS",
-                    "C_I_ECS_DESC",
-                    1,
-                    CardTarget.Self
-                ),
-                new CardInfo
-                (
-                    CardType.Attack,
-                    "C_A_STRIKE",
-                    "C_A_STRIKE_DESC",
-                    1,
-                    CardTarget.Enemy
-                ),
-                new CardInfo
-                (
-                    CardType.Defense,
-                    "C_D_DEFEND",
-                    "C_D_DEFEND_DESC",
-                    1,
-                    CardTarget.Self
-                ),
-                new CardInfo
-                (
-                    CardType.Special,
-                    "C_S_STRUGGLE",
-                    "C_S_STRUGGLE_DESC",
-                    1,
-                    CardTarget.Self
-                ),
-                new CardInfo
-                (
-                    CardType.Item,
-                    "C_I_ECS",
-                    "C_I_ECS_DESC",
-                    1,
-                    CardTarget.Self
-                ),
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CSStruggle,
+                CardData.CIECS,
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CSStruggle,
+                CardData.CIECS,
             ],
             HandCards = [],
             DiscardCards =
             [
-                new CardInfo
-                (
-                    CardType.Attack,
-                    "C_A_STRIKE",
-                    "C_A_STRIKE_DESC",
-                    1,
-                    CardTarget.Enemy
-                ),
-                new CardInfo
-                (
-                    CardType.Defense,
-                    "C_D_DEFEND",
-                    "C_D_DEFEND_DESC",
-                    1,
-                    CardTarget.Self
-                ),
-                new CardInfo
-                (
-                    CardType.Special,
-                    "C_S_STRUGGLE",
-                    "C_S_STRUGGLE_DESC",
-                    1,
-                    CardTarget.Self
-                ),
-                new CardInfo
-                (
-                    CardType.Item,
-                    "C_I_ECS",
-                    "C_I_ECS_DESC",
-                    1,
-                    CardTarget.Self
-                ),
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CSStruggle,
+                CardData.CIECS,
             ],
         };
         AddParty(player);

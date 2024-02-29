@@ -16,6 +16,7 @@ theme_override_styles/panel = ExtResource("1_ydxuv")
 script = ExtResource("2_t10ab")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
 offset_right = 600.0
 offset_bottom = 320.0
 
@@ -45,6 +46,7 @@ label_settings = SubResource("LabelSettings_gnvpr")
 
 [node name="NameInput" type="LineEdit" parent="."]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 35.0
 offset_top = 210.0
 offset_right = 294.0
@@ -57,6 +59,7 @@ alignment = 1
 max_length = 16
 
 [node name="SubmitButton" type="Button" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 300.0
 offset_top = 211.0

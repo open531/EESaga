@@ -1,4 +1,4 @@
-﻿namespace EESaga.Scripts.Interfaces;
+﻿namespace EESaga.Scripts.Cards;
 
 using Godot;
 
@@ -33,7 +33,7 @@ public enum CardTarget
     All,
 }
 
-public struct CardInfo(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange = 1) : ICard
+public class CardInfo(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange = 1) : ICard
 {
     public CardType CardType { get; set; } = cardType;
     public string CardName { get; set; } = cardName;
@@ -41,5 +41,13 @@ public struct CardInfo(CardType cardType, string cardName, string cardDescriptio
     public int CardCost { get; set; } = cardCost;
     public CardTarget CardTarget { get; set; } = cardTarget;
     public int CardRange { get; set; } = cardRange;
-    public readonly bool NeedTarget => CardTarget == CardTarget.Enemy || CardTarget == CardTarget.Ally;
+    public bool NeedTarget => CardTarget == CardTarget.Enemy || CardTarget == CardTarget.Ally;
+}
+
+public static class CardData
+{
+    public static CardInfo CAStrike = new(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy, 1);
+    public static CardInfo CDDefend = new(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 1, CardTarget.Self);
+    public static CardInfo CSStruggle = new(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 1, CardTarget.Self);
+    public static CardInfo CIECS = new(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 1, CardTarget.Self);
 }

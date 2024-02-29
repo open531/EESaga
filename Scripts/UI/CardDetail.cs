@@ -1,7 +1,7 @@
 namespace EESaga.Scripts.UI;
 
+using Cards;
 using Godot;
-using Interfaces;
 
 public partial class CardDetail : Control
 {
