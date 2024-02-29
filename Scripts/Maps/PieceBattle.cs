@@ -22,7 +22,7 @@ public partial class PieceBattle : Node2D
 
     public Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
 
-    private Dictionary<Vector2I, CellColor> ColorMap { get; set; } = [];
+    public Dictionary<Vector2I, CellColor> ColorMap { get; set; } = [];
 
     private Room _room;
     private Node2D _enemies;
@@ -79,9 +79,9 @@ public partial class PieceBattle : Node2D
                 CardData.CSStruggle,
                 CardData.CIECS,
                 CardData.CAStrike,
-                CardData.CDDefend,
-                CardData.CSStruggle,
-                CardData.CIECS,
+                CardData.CAStrike,
+                CardData.CAStrike,
+                CardData.CAStrike,
             ],
             HandCards = [],
             DiscardCards =
@@ -94,26 +94,6 @@ public partial class PieceBattle : Node2D
         };
         AddParty(player);
         #endregion
-    }
-
-    public override void _UnhandledInput(InputEvent @event)
-    {
-        if (@event is InputEventMouseButton mouseEvent)
-        {
-            if (mouseEvent.ButtonIndex == MouseButton.Left)
-            {
-                if (mouseEvent.Pressed)
-                {
-                    var cell = TileMap.SelectedCell;
-                    if (cell != null &&
-                        TileMap.IsDestination(cell.Value) &&
-                        !CurrentPiece.IsMoving)
-                    {
-                        MoveCurrentPiece(cell.Value);
-                    }
-                }
-            }
-        }
     }
 
     public void Initialize(IsometricTileMap tileMap)

@@ -2,6 +2,7 @@ namespace EESaga.Scripts.Cards;
 
 using Entities;
 using Godot;
+using System.Collections.Generic;
 
 public partial class Card : Control, ICard
 {
@@ -64,24 +65,5 @@ public partial class Card : Control, ICard
         CardRange = cardRange;
     }
 
-    public virtual void TakeEffect(IEntity entity = null)
-    {
-        switch (CardTarget)
-        {
-            case CardTarget.Self:
-                break;
-            case CardTarget.Enemy:
-                break;
-            case CardTarget.Ally:
-                break;
-            case CardTarget.AllEnemies:
-                break;
-            case CardTarget.AllAllies:
-                break;
-            case CardTarget.All:
-                break;
-            default:
-                break;
-        }
-    }
+    public virtual void TakeEffect(List<BattlePiece> battlePieces) { }
 }

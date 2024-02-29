@@ -5,11 +5,11 @@ CARD_DEFENSE,防御,防禦,Defense,防御
 CARD_SPECIAL,技能,技能,Special,特殊
 CARD_ITEM,物品,物品,Item,アイテム
 C_A_STRIKE,打击,打擊,Strike,打ち込む
-C_A_STRIKE_DESC,造成{0}点伤害,造成{0}點傷害,Deal {0} damage,ダメージ{0}を与える
+C_A_STRIKE_DESC,造成6点伤害,造成6點傷害,Deal 6 damage,ダメージ6を与える
 C_A_BASH,痛击,痛擊,Bash,打ち据える
-C_A_BASH_DESC,造成{0}点伤害并使目标{1}回合无法行动,造成{0}點傷害並使目標{1}回合無法行動,Deal {0} damage and stun the target for {1} turns,ダメージ{0}を与え、{1}ターン行動不能にする
+C_A_BASH_DESC,造成6点伤害并使目标1回合无法行动,造成6點傷害並使目標1回合無法行動,Deal 6 damage and stun the target for 1 turns,ダメージ6を与え、1ターン行動不能にする
 C_D_DEFEND,防御,防禦,Defend,守る
-C_D_DEFEND_DESC,获得{0}点护盾,獲得{0}點護盾,Get {0} shield,シールド{0}を得る
+C_D_DEFEND_DESC,获得3点护盾,獲得3點護盾,Get 3 shield,シールド3を得る
 C_S_STRUGGLE,挣扎,掙扎,Struggle,もがく
 C_S_STRUGGLE_DESC,电子系的学生应该有挣扎的感觉,電子系的學生應該有掙扎的感覺,EE students should have a sense of struggle,電子工学部の学生はもがく感じがあるべき
 C_I_ECS,电子电路,電子電路,Electronic Circuits,電子回路

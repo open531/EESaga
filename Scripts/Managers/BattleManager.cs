@@ -55,6 +55,64 @@ public partial class BattleManager : Node
         TurnTo(Parties[0]);
     }
 
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton mouseEvent)
+        {
+            if (mouseEvent.ButtonIndex == MouseButton.Left)
+            {
+                if (mouseEvent.Pressed)
+                {
+                    var cell = PieceBattle.TileMap.SelectedCell;
+                    var card = CardBattle.OperatingCard;
+                    if (cell != null &&
+                        PieceBattle.TileMap.IsDestination(cell.Value) &&
+                        !PieceBattle.CurrentPiece.IsMoving &&
+                        CardBattle.IsMoving)
+                    {
+                        PieceBattle.MoveCurrentPiece(cell.Value);
+                    }
+                    else if (cell != null &&
+                        card != null &&
+                        !PieceBattle.CurrentPiece.IsMoving)
+                    {
+                        var target = ConfirmTarget(cell, card.CardTarget);
+                        if (target != null)
+                        {
+                            switch (card)
+                            {
+                                case CardAttack cardAttack:
+                                    cardAttack.TakeEffect(target);
+                                    CardBattle.RemoveCard(cardAttack);
+                                    break;
+                                case CardDefense cardDefense:
+                                    cardDefense.TakeEffect(target);
+                                    CardBattle.RemoveCard(cardDefense);
+                                    break;
+                                case CardSpecial cardSpecial:
+                                    cardSpecial.TakeEffect(target);
+                                    CardBattle.RemoveCard(cardSpecial);
+                                    break;
+                                case CardItem cardItem:
+                                    cardItem.TakeEffect(target);
+                                    CardBattle.RemoveCard(cardItem);
+                                    break;
+                            }
+                            CheckDeathAndClear(target);
+                            if (CardBattle.IsMoving)
+                            {
+                                CardBattle.IsMoving = false;
+                                foreach (var cellUnhandled in PieceBattle.TileMap.GetUsedCells((int)Layer.Ground))
+                                {
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public void Initialize(Room room)
     {
@@ -100,6 +158,89 @@ public partial class BattleManager : Node
         }
     }
 
+    public List<BattlePiece>? ConfirmTarget(Vector2I? cell, CardTarget cardTarget)
+    {
+        if (cell == null)
+        {
+            return null;
+        }
+        var targetPiece = PieceBattle.PieceMap[cell.Value];
+        if (targetPiece == null)
+        {
+            return null;
+        }
+        if (PieceBattle.ColorMap[cell.Value] == null)
+        {
+            return null;
+        }
+        switch (cardTarget)
+        {
+            case Cards.CardTarget.Self:
+                if (targetPiece == CurrentPiece)
+                {
+                    return new List<BattlePiece> { CurrentPiece };
+                }
+                return null;
+            case Cards.CardTarget.Enemy:
+                if (targetPiece is BattleEnemy enemy)
+                {
+                    return new List<BattlePiece> { enemy };
+                }
+                return null;
+            case Cards.CardTarget.Ally:
+                if (targetPiece is BattleParty && targetPiece != CurrentPiece)
+                {
+                    return new List<BattlePiece> { targetPiece };
+                }
+                return null;
+            case Cards.CardTarget.AllEnemies:
+                if (targetPiece is BattleEnemy)
+                {
+                    List<BattlePiece> enemies = new List<BattlePiece>();
+                    foreach (var piece in Pieces)
+                    {
+                        if (piece is BattleEnemy)
+                        {
+                            enemies.Add(piece);
+                        }
+                    }
+                    return enemies;
+                }
+                return null;
+            case Cards.CardTarget.AllAllies:
+                if (targetPiece is BattleParty)
+                {
+                    List<BattlePiece> partis = new List<BattlePiece>();
+                    foreach (var piece in Pieces)
+                    {
+                        if (piece is BattleParty)
+                        {
+                            partis.Add(piece);
+                        }
+                    }
+                    return partis;
+                }
+                return null;
+            case Cards.CardTarget.All:
+                return Pieces;
+        }
+        return null;
+    }
+
+    public void CheckDeathAndClear(List<BattlePiece> battlePieces)
+    {
+        if (battlePieces.Count == 0)
+        {
+            return;
+        }
+        foreach (var piece in battlePieces)
+        {
+            if (piece.Health == 0)
+            {
+                piece.QueueFree();
+            }
+        }
+    }
     private void OnCardBattleOperatingCardChanged()
     {
         if (CardBattle.OperatingCard == null)
