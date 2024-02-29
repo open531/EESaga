@@ -307,7 +307,7 @@ public partial class PieceBattle : Node2D
         {
             case CardTarget.Self:
                 TileMap.SetCell((int)Layer.Mark, src, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                ColorMap.Add(src, CellColor.Red);
+                ColorMap.Add(src, CellColor.Green);
                 break;
             case CardTarget.Enemy:
                 foreach (var cell in usedCells)
@@ -315,7 +315,7 @@ public partial class PieceBattle : Node2D
                     if (Mathf.Abs(cell.X - src.X) <= range && Mathf.Abs(cell.Y - src.Y) <= range && PieceMap[cell] is BattleEnemy)
                     {
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Red);
+                        ColorMap.Add(cell, CellColor.Null);
                     }
                 }
                 break;
@@ -325,7 +325,7 @@ public partial class PieceBattle : Node2D
                     if (Mathf.Abs(cell.X - src.X) <= range && Mathf.Abs(cell.Y - src.Y) <= range && PieceMap[cell] is BattleParty)
                     {
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Red);
+                        ColorMap.Add(cell, CellColor.Green);
                     }
                 }
                 break;
@@ -335,7 +335,7 @@ public partial class PieceBattle : Node2D
                     if (PieceMap[cell] is BattleEnemy)
                     {
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Red);
+                        ColorMap.Add(cell, CellColor.Null);
                     }
                 }
                 break;
@@ -345,17 +345,22 @@ public partial class PieceBattle : Node2D
                     if (PieceMap[cell] is BattleParty)
                     {
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Red);
+                        ColorMap.Add(cell, CellColor.Green);
                     }
                 }
                 break;
             case CardTarget.All:
                 foreach (var cell in usedCells)
                 {
-                    if (PieceMap[cell] is BattleParty || PieceMap[cell] is BattleEnemy)
+                    if (PieceMap[cell] is BattleParty)
                     {
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Red);
+                        ColorMap.Add(cell, CellColor.Green);
+                    }
+                    else if (PieceMap[cell] is BattleEnemy)
+                    {
+                        TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                        ColorMap.Add(cell, CellColor.Null);
                     }
                 }
                 break;
@@ -366,8 +371,16 @@ public partial class PieceBattle : Node2D
     {
         foreach (var item in ColorMap)
         {
-            TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
-            ColorMap.Remove(item.Key);
+            if(item.Value == CellColor.Green)
+            {
+                TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
+                ColorMap.Remove(item.Key);
+            }
+            else if(item.Value == CellColor.Null)
+            {
+                TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.DefaultTileAtlas);
+                ColorMap.Remove(item.Key);
+            }
         }
     }
 
