@@ -56,6 +56,8 @@ public partial class CardBattle : CanvasLayer
         }
     }
 
+    public bool IsMoving = true;
+
     [Signal] public delegate void OperatingCardChangedEventHandler();
 
     private const int _maxHandSize = 8;
@@ -177,6 +179,15 @@ public partial class CardBattle : CanvasLayer
     {
         if (!_hand.GetChildren().Contains(card)) return;
         var newCard = Card.Instance();
+        var previewCard = GetNodeOrNull("PreviewCard") as Card;
+        if (card == OperatingCard)
+        {
+            OperatingCard = null;
+        }
+        if (previewCard.Parent == card)
+        {
+            previewCard.QueueFree();
+        }
         newCard.Name = "RemovedCard";
         newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
@@ -199,6 +210,15 @@ public partial class CardBattle : CanvasLayer
         if (index < 0 || index >= _hand.GetChildCount()) return;
         var card = _hand.GetChild(index) as Card;
         var newCard = Card.Instance();
+        var previewCard = GetNodeOrNull("PreviewCard") as Card;
+        if (card == OperatingCard)
+        {
+            OperatingCard = null;
+        }
+        if (previewCard.Parent == card)
+        {
+            previewCard.QueueFree();
+        }
         newCard.Name = "RemovedCard";
         newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;

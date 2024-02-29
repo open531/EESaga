@@ -64,11 +64,11 @@ public partial class BattleManager : Node
                 if (mouseEvent.Pressed)
                 {
                     var cell = PieceBattle.TileMap.SelectedCell;
-                    GD.Print(cell);
                     var card = CardBattle.OperatingCard;
                     if (cell != null &&
                         PieceBattle.TileMap.IsDestination(cell.Value) &&
-                        !PieceBattle.CurrentPiece.IsMoving)
+                        !PieceBattle.CurrentPiece.IsMoving &&
+                        CardBattle.IsMoving)
                     {
                         PieceBattle.MoveCurrentPiece(cell.Value);
                     }
@@ -76,8 +76,9 @@ public partial class BattleManager : Node
                         card != null &&
                         !PieceBattle.CurrentPiece.IsMoving)
                     {
-                        var target = ConfirmTarget(cell,card.CardTarget);
+                        var target = ConfirmTarget(cell, card.CardTarget);
                         if (target != null)
+                        {
                             switch (card)
                             {
                                 case CardAttack cardAttack:
@@ -97,6 +98,16 @@ public partial class BattleManager : Node
                                     CardBattle.RemoveCard(cardItem);
                                     break;
                             }
+                            CheckDeathAndClear(target);
+                            if (CardBattle.IsMoving)
+                            {
+                                CardBattle.IsMoving = false;
+                                foreach (var cellUnhandled in PieceBattle.TileMap.GetUsedCells((int)Layer.Ground))
+                                {
+                                    
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -147,7 +158,7 @@ public partial class BattleManager : Node
         }
     }
 
-    public List<BattlePiece>? ConfirmTarget(Vector2I? cell,CardTarget cardTarget)
+    public List<BattlePiece>? ConfirmTarget(Vector2I? cell, CardTarget cardTarget)
     {
         if (cell == null)
         {
@@ -155,6 +166,10 @@ public partial class BattleManager : Node
         }
         var targetPiece = PieceBattle.PieceMap[cell.Value];
         if (targetPiece == null)
+        {
+            return null;
+        }
+        if (PieceBattle.ColorMap[cell.Value] == null)
         {
             return null;
         }
@@ -212,6 +227,20 @@ public partial class BattleManager : Node
         return null;
     }
 
+    public void CheckDeathAndClear(List<BattlePiece> battlePieces)
+    {
+        if (battlePieces.Count == 0)
+        {
+            return;
+        }
+        foreach (var piece in battlePieces)
+        {
+            if (piece.Health == 0)
+            {
+                piece.QueueFree();
+            }
+        }
+    }
     private void OnCardBattleOperatingCardChanged()
     {
         if (CardBattle.OperatingCard == null)

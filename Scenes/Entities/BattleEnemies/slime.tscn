@@ -10,3 +10,7 @@ script = ExtResource("1_khosh")
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = ExtResource("3_0a85e")
 frame_progress = 0.493516
+
+[node name="HealthBar" parent="." index="2"]
+offset_top = -3.0
+offset_bottom = -1.0
