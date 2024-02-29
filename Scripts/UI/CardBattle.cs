@@ -56,7 +56,16 @@ public partial class CardBattle : CanvasLayer
         }
     }
 
-    public bool IsMoving = true;
+    private bool _isMoving = true;
+
+    public bool IsMoving
+    {
+        get => _isMoving;
+        set
+        {
+            _isMoving = value;
+        }
+    }
 
     [Signal] public delegate void OperatingCardChangedEventHandler();
 
