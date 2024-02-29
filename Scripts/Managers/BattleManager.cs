@@ -39,7 +39,7 @@ public partial class BattleManager : Node
         get => PieceBattle.CurrentPiece;
         set => PieceBattle.CurrentPiece = value;
     }
-    public Vector2I? SelectedCell => PieceBattle.TileMap.SelectedCell;
+    public Vector2I? SelectedCell => PieceBattle.SelectedCell;
     public Card SelectedCard => CardBattle.SelectedCard;
     public BattlePiece CardTarget { get; set; }
 
