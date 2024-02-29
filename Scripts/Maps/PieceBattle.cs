@@ -55,9 +55,9 @@ public partial class PieceBattle : Node2D
 
         #region test
         var tileMap = IsometricTileMap.Instance();
-        for (var x = 0; x < 10; x++)
+        for (var x = 0; x < 6; x++)
         {
-            for (var y = 0; y < 10; y++)
+            for (var y = 0; y < 6; y++)
             {
                 tileMap.SetCell((int)Layer.Ground, new Vector2I(x, y), IsometricTileMap.TileSetId, IsometricTileMap.DefaultTileAtlas);
             }
@@ -126,7 +126,7 @@ public partial class PieceBattle : Node2D
         var rectCenter = TileMap.GetUsedRect().GetCenter();
         _camera.GlobalPosition = TileMap.GlobalPosition +
             new Vector2(24 * (rectCenter.X - rectCenter.Y) + 12,
-            12 * (rectCenter.X + rectCenter.Y) + 40);
+            12 * (rectCenter.X + rectCenter.Y));
         _camera.Enabled = true;
     }
 
@@ -287,12 +287,12 @@ public partial class PieceBattle : Node2D
     {
         foreach (var item in ColorMap)
         {
-            if (item.Value == CellColor.Green)
+            if(item.Value == CellColor.Green)
             {
                 TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
                 ColorMap.Remove(item.Key);
             }
-            else if (item.Value == CellColor.Null)
+            else if(item.Value == CellColor.Null)
             {
                 TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.DefaultTileAtlas);
                 ColorMap.Remove(item.Key);
@@ -345,7 +345,7 @@ public partial class PieceBattle : Node2D
         }
     }
 
-    public enum CellColor
+    enum CellColor
     {
         Null,
         Red,

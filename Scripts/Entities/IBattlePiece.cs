@@ -6,7 +6,6 @@ using Utilities;
 
 public interface IBattlePiece
 {
-    public string PieceName { get; set; }
     public int Level { get; set; }
     public int HealthMax { get; set; }
     public int Health { get; set; }
