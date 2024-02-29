@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.UI;
 
 using Cards;
+using EESaga.Scripts.Entities;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -172,7 +173,7 @@ public partial class CardBattle : CanvasLayer
         UpdateCardPosition();
     }
 
-    private void RemoveCard(Card card)
+    public void RemoveCard(Card card)
     {
         if (!_hand.GetChildren().Contains(card)) return;
         var newCard = Card.Instance();
@@ -193,7 +194,7 @@ public partial class CardBattle : CanvasLayer
         UpdateCardPosition();
     }
 
-    private void RemoveCard(int index)
+    public void RemoveCard(int index)
     {
         if (index < 0 || index >= _hand.GetChildCount()) return;
         var card = _hand.GetChild(index) as Card;
@@ -268,9 +269,9 @@ public partial class CardBattle : CanvasLayer
                 {
                     if (GetNodeOrNull("PreviewCard") is Card previewCard)
                     {
-                        if (OperatingCard != previewCard)
+                        if (OperatingCard != previewCard.Parent)
                         {
-                            OperatingCard = previewCard;
+                            OperatingCard = previewCard.Parent;
                             previewCard.MouseExited -= ExitPreviewCard;
                         }
                         else
