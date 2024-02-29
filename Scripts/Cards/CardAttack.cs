@@ -27,6 +27,11 @@ public partial class CardAttack : Card
             {
                 piece.Health -= AttackDamage;
                 GD.Print($"{piece.Name} 受到了 {AttackDamage} 点伤害");
+                if (piece.Health == 0)
+                {
+                    GD.Print($"{piece.Name} 死了");
+                    break;
+                }
             }
         }
     }

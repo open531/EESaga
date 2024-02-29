@@ -87,8 +87,8 @@ text = "99"
 label_settings = SubResource("LabelSettings_mc6gi")
 
 [node name="CardDetail" parent="." instance=ExtResource("2_avj3s")]
-offset_left = 4.0
-offset_right = 204.0
+offset_left = 5.0
+offset_right = 213.0
 
 [node name="EndTurnButton" type="Button" parent="."]
 anchors_preset = 1
