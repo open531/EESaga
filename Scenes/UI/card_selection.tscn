@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj7j76clxagjp"]
+
+[ext_resource type="Script" path="res://Scripts/UI/CardSelection.cs" id="1_6ei15"]
+[ext_resource type="PackedScene" uid="uid://nr6wkkfm6sr6" path="res://Scenes/UI/card_detail.tscn" id="1_q1mnj"]
+
+[node name="CardSelection" type="Panel"]
+offset_right = 640.0
+offset_bottom = 360.0
+script = ExtResource("1_6ei15")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 55.0
+offset_right = 409.0
+offset_bottom = 71.0
+text = "choose one card of three"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cards" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CardDetail" parent="." instance=ExtResource("1_q1mnj")]
+offset_left = 20.0
+offset_top = 280.0
+offset_right = 620.0
+offset_bottom = 324.0
+
+[node name="VBoxContainer" parent="CardDetail" index="0"]
+offset_right = 600.0
+
+[editable path="CardDetail"]
