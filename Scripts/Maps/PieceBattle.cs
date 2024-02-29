@@ -20,8 +20,6 @@ public partial class PieceBattle : Node2D
 
     public BattlePiece CurrentPiece { get; set; }
 
-    public Vector2I? SelectedCell { get; private set; } = null;
-
     public Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
 
     private Dictionary<Vector2I, CellColor> ColorMap { get; set; } = [];
@@ -98,11 +96,6 @@ public partial class PieceBattle : Node2D
         #endregion
     }
 
-    public override void _Process(double delta)
-    {
-        UpdateSelectedCell();
-    }
-
     public override void _UnhandledInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton mouseEvent)
@@ -111,7 +104,7 @@ public partial class PieceBattle : Node2D
             {
                 if (mouseEvent.Pressed)
                 {
-                    var cell = SelectedCell;
+                    var cell = TileMap.SelectedCell;
                     if (cell != null &&
                         TileMap.IsDestination(cell.Value) &&
                         !CurrentPiece.IsMoving)
@@ -348,31 +341,6 @@ public partial class PieceBattle : Node2D
             else
             {
                 _pieceMoveIndex++;
-            }
-        }
-    }
-
-    private void UpdateSelectedCell()
-    {
-        var mousePos = GetGlobalMousePosition();
-        var tileMapPos = TileMap.LocalToMap(mousePos);
-        if (tileMapPos != SelectedCell)
-        {
-            if (SelectedCell != null)
-            {
-                TileMap.SetCell((int)Layer.Cursor, (Vector2I)SelectedCell,
-                    IsometricTileMap.TileSelectedId, null);
-            }
-            if (TileMap.GetCellTileData((int)Layer.Ground, tileMapPos) != null &&
-                !TileMap.IsBoundary((int)Layer.Ground, tileMapPos))
-            {
-                TileMap.SetCell((int)Layer.Cursor, tileMapPos,
-                    IsometricTileMap.TileSelectedId, IsometricTileMap.TileSelectedAtlas);
-                SelectedCell = tileMapPos;
-            }
-            else
-            {
-                SelectedCell = null;
             }
         }
     }

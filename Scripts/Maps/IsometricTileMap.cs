@@ -1,10 +1,12 @@
 namespace EESaga.Scripts.Maps;
 
+using Entities;
 using Godot;
 using System.Collections.Generic;
 
 public partial class IsometricTileMap : TileMap
 {
+    public Vector2I? SelectedCell { get; private set; } = null;
 
     /// <summary>
     /// 可以用来放置棋子的地图坐标
@@ -35,6 +37,11 @@ public partial class IsometricTileMap : TileMap
         UpdateCells();
         UpdateAStar();
         GenerateBoundary();
+    }
+
+    public override void _Process(double delta)
+    {
+        UpdateSelectedTile();
     }
 
     private void GenerateBoundary()
@@ -115,6 +122,28 @@ public partial class IsometricTileMap : TileMap
         }
     }
 
+    private void UpdateSelectedTile()
+    {
+        var mousePos = GetGlobalMousePosition();
+        var tileMapPos = LocalToMap(mousePos);
+        if (tileMapPos != SelectedCell)
+        {
+            if (SelectedCell != null)
+            {
+                SetCell((int)Layer.Cursor, (Vector2I)SelectedCell, TileSelectedId, null);
+            }
+            if (GetCellTileData((int)Layer.Ground, tileMapPos) != null &&
+                !IsBoundary((int)Layer.Ground, tileMapPos))
+            {
+                SetCell((int)Layer.Cursor, tileMapPos, TileSelectedId, TileSelectedAtlas);
+                SelectedCell = tileMapPos;
+            }
+            else
+            {
+                SelectedCell = null;
+            }
+        }
+    }
 
     public void UpdateAStar()
     {
