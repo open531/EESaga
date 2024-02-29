@@ -1,7 +1,7 @@
-namespace EESaga.Scripts.UI;
+namespace EESaga.Scripts.Cards;
 
+using Entities;
 using Godot;
-using Interfaces;
 
 public partial class Card : Control, ICard
 {
@@ -10,16 +10,18 @@ public partial class Card : Control, ICard
     private Label _name;
     private Label _cost;
 
-    [Export] public CardType CardType { get; set; }
-    [Export] public string CardName { get; set; }
-    [Export] public string CardDescription { get; set; }
-    [Export] public int CardCost { get; set; }
-    [Export] public CardTarget CardTarget { get; set; }
-    [Export] public int CardRange { get; set; }
+    public CardInfo CardInfo { get; set; }
+
+    public CardType CardType { get; set; }
+    public string CardName { get; set; }
+    public string CardDescription { get; set; }
+    public int CardCost { get; set; }
+    public CardTarget CardTarget { get; set; }
+    public int CardRange { get; set; }
 
     public Card Parent { get; set; }
 
-    public static Card Instance() => GD.Load<PackedScene>("res://Scenes/UI/card.tscn").Instantiate<Card>();
+    public static Card Instance() => GD.Load<PackedScene>("res://Scenes/Cards/card.tscn").Instantiate<Card>();
 
     public override void _Ready()
     {
@@ -41,7 +43,18 @@ public partial class Card : Control, ICard
         _cost.Text = CardCost.ToString();
     }
 
-    public void InitializeCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange)
+    public void InitializeCard(CardInfo cardInfo)
+    {
+        CardInfo = cardInfo;
+        CardType = cardInfo.CardType;
+        CardName = cardInfo.CardName;
+        CardDescription = cardInfo.CardDescription;
+        CardCost = cardInfo.CardCost;
+        CardTarget = cardInfo.CardTarget;
+        CardRange = cardInfo.CardRange;
+    }
+
+    public void SetCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange)
     {
         CardType = cardType;
         CardName = cardName;
@@ -49,16 +62,6 @@ public partial class Card : Control, ICard
         CardCost = cardCost;
         CardTarget = cardTarget;
         CardRange = cardRange;
-    }
-
-    public void InitializeCard(CardInfo cardInfo)
-    {
-        CardType = cardInfo.CardType;
-        CardName = cardInfo.CardName;
-        CardDescription = cardInfo.CardDescription;
-        CardCost = cardInfo.CardCost;
-        CardTarget = cardInfo.CardTarget;
-        CardRange = cardInfo.CardRange;
     }
 
     public void TakeEffect(IEntity entity = null)

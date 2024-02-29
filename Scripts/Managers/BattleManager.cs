@@ -1,5 +1,6 @@
 namespace EESaga.Scripts.Managers;
 
+using Cards;
 using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;

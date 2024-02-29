@@ -2,8 +2,6 @@ namespace EESaga.Scripts.Maps;
 
 using Entities;
 using Godot;
-using Interfaces;
-using Managers;
 using System.Collections.Generic;
 
 public partial class Room : Node2D, IRoom

@@ -1,7 +1,7 @@
 namespace EESaga.Scripts.UI;
 
+using Cards;
 using Godot;
-using Interfaces;
 using System.Collections.Generic;
 
 public partial class CardViewer : PopupPanel

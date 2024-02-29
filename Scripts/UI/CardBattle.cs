@@ -1,7 +1,7 @@
 namespace EESaga.Scripts.UI;
 
+using Cards;
 using Godot;
-using Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -156,22 +156,6 @@ public partial class CardBattle : CanvasLayer
         }
     }
 
-    private void AddCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange = 1)
-    {
-        var card = Card.Instance();
-        card.InitializeCard(cardType, cardName, cardDescription, cardCost, cardTarget, cardRange);
-        card.Position = _deck.Position - _hand.Position;
-        card.Scale = Vector2.Zero;
-        card.MouseEntered += () =>
-        {
-            if (OperatingCard != null) return;
-            SelectedCard = card;
-            PreviewCard(card);
-        };
-        _hand.AddChild(card);
-        UpdateCardPosition();
-    }
-
     private void AddCard(CardInfo card)
     {
         var cardNode = Card.Instance();
@@ -193,7 +177,7 @@ public partial class CardBattle : CanvasLayer
         if (!_hand.GetChildren().Contains(card)) return;
         var newCard = Card.Instance();
         newCard.Name = "RemovedCard";
-        newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
+        newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
@@ -215,7 +199,7 @@ public partial class CardBattle : CanvasLayer
         var card = _hand.GetChild(index) as Card;
         var newCard = Card.Instance();
         newCard.Name = "RemovedCard";
-        newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
+        newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
@@ -242,7 +226,7 @@ public partial class CardBattle : CanvasLayer
         }
         var newCard = Card.Instance();
         newCard.Name = "PreviewCard";
-        newCard.InitializeCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
+        newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;

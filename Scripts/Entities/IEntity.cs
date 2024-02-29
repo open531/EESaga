@@ -1,4 +1,4 @@
-﻿namespace EESaga.Scripts.Interfaces;
+﻿namespace EESaga.Scripts.Entities;
 
 using Godot;
 
