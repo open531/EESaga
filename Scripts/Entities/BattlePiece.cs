@@ -4,7 +4,6 @@ using Godot;
 
 public partial class BattlePiece : Area2D, IBattlePiece
 {
-    public string PieceName { get; set; }
     public virtual int Level { get; set; }
     protected int _healthMax;
     public virtual int HealthMax
@@ -76,8 +75,6 @@ public partial class BattlePiece : Area2D, IBattlePiece
         _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         _collision = GetNode<CollisionShape2D>("CollisionShape2D");
         _healthBar = GetNode<TextureProgressBar>("HealthBar");
-
-        PieceName = "BATTLEPIECE";
 
         IsMoving = false;
     }
