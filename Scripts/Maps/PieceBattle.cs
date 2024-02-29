@@ -22,7 +22,9 @@ public partial class PieceBattle : Node2D
 
     public Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
 
-    public Dictionary<Vector2I, CellColor> ColorMap { get; set; } = [];
+    public Dictionary<Vector2I, Vector2I> ColorMap { get; set; } = [];
+
+    public Dictionary<Vector2I, Vector2I> RealTimeColorMap { get; set; } = [];
 
     private Room _room;
     private Node2D _enemies;
@@ -195,23 +197,23 @@ public partial class PieceBattle : Node2D
         }
     }
 
-    public void ShowAttackTiles(int range, CardTarget cardTarget)
+    public void ShowEffectTiles(int range, CardTarget cardTarget)
     {
         var src = TileMap.LocalToMap(CurrentPiece.GlobalPosition);
         var usedCells = TileMap.GetUsedCells((int)Layer.Ground);
         switch (cardTarget)
         {
             case CardTarget.Self:
+                ColorMap.Add(src, TileMap.GetCellAtlasCoords((int)Layer.Mark, src));
                 TileMap.SetCell((int)Layer.Mark, src, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                ColorMap.Add(src, CellColor.Green);
                 break;
             case CardTarget.Enemy:
                 foreach (var cell in usedCells)
                 {
                     if (Mathf.Abs(cell.X - src.X) <= range && Mathf.Abs(cell.Y - src.Y) <= range && PieceMap[cell] is BattleEnemy)
                     {
+                        ColorMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Null);
                     }
                 }
                 break;
@@ -220,8 +222,8 @@ public partial class PieceBattle : Node2D
                 {
                     if (Mathf.Abs(cell.X - src.X) <= range && Mathf.Abs(cell.Y - src.Y) <= range && PieceMap[cell] is BattleParty)
                     {
+                        ColorMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Green);
                     }
                 }
                 break;
@@ -230,8 +232,8 @@ public partial class PieceBattle : Node2D
                 {
                     if (PieceMap[cell] is BattleEnemy)
                     {
+                        ColorMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Null);
                     }
                 }
                 break;
@@ -240,8 +242,8 @@ public partial class PieceBattle : Node2D
                 {
                     if (PieceMap[cell] is BattleParty)
                     {
+                        ColorMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Green);
                     }
                 }
                 break;
@@ -250,31 +252,34 @@ public partial class PieceBattle : Node2D
                 {
                     if (PieceMap[cell] is BattleParty)
                     {
+                        ColorMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Green);
                     }
                     else if (PieceMap[cell] is BattleEnemy)
                     {
+                        ColorMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
                         TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
-                        ColorMap.Add(cell, CellColor.Null);
                     }
                 }
                 break;
         }
     }
 
-    public void RecoverAttackTiles()
+    public void RecoverEffectTiles()
     {
+        Vector2I vector2I = Vector2I.Zero;
+        vector2I.X = -1;
+        vector2I.Y = -1;
         foreach (var item in ColorMap)
         {
-            if (item.Value == CellColor.Green)
-            {
-                TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
-                ColorMap.Remove(item.Key);
-            }
-            else if (item.Value == CellColor.Null)
+            if(item.Value == vector2I)
             {
                 TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.DefaultTileAtlas);
+                ColorMap.Remove(item.Key);
+            }
+            else
+            {
+                TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, item.Value);
                 ColorMap.Remove(item.Key);
             }
         }

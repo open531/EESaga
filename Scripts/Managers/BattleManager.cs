@@ -104,7 +104,7 @@ public partial class BattleManager : Node
                                 CardBattle.IsMoving = false;
                                 foreach (var cellUnhandled in PieceBattle.TileMap.GetUsedCells((int)Layer.Ground))
                                 {
-                                    
+                                    PieceBattle.TileMap.SetCell((int)Layer.Mark, cellUnhandled);
                                 }
                             }
                         }
@@ -169,7 +169,7 @@ public partial class BattleManager : Node
         {
             return null;
         }
-        if (PieceBattle.ColorMap[cell.Value] == null)
+        if (!PieceBattle.ColorMap.ContainsKey(cell.Value))
         {
             return null;
         }
@@ -245,11 +245,11 @@ public partial class BattleManager : Node
     {
         if (CardBattle.OperatingCard == null)
         {
-            PieceBattle.RecoverAttackTiles();
+            PieceBattle.RecoverEffectTiles();
         }
         else
         {
-            PieceBattle.ShowAttackTiles(CardBattle.OperatingCard.CardRange, CardBattle.OperatingCard.CardTarget);
+            PieceBattle.ShowEffectTiles(CardBattle.OperatingCard.CardRange, CardBattle.OperatingCard.CardTarget);
         }
     }
 }
