@@ -43,7 +43,7 @@ public partial class Card : Control, ICard
         _cost.Text = CardCost.ToString();
     }
 
-    public void InitializeCard(CardInfo cardInfo)
+    public virtual void InitializeCard(CardInfo cardInfo)
     {
         CardInfo = cardInfo;
         CardType = cardInfo.CardType;
@@ -54,7 +54,7 @@ public partial class Card : Control, ICard
         CardRange = cardInfo.CardRange;
     }
 
-    public void SetCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange)
+    public virtual void SetCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange)
     {
         CardType = cardType;
         CardName = cardName;
@@ -64,7 +64,7 @@ public partial class Card : Control, ICard
         CardRange = cardRange;
     }
 
-    public void TakeEffect(IEntity entity = null)
+    public virtual void TakeEffect(IEntity entity = null)
     {
         switch (CardTarget)
         {

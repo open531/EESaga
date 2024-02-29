@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2vcdd0nhni5a"]
+
+[ext_resource type="PackedScene" uid="uid://djtn7yfj76bmj" path="res://Scenes/Cards/card.tscn" id="1_b81j1"]
+[ext_resource type="Script" path="res://Scripts/Cards/CardAttack.cs" id="2_173p7"]
+[ext_resource type="Texture2D" uid="uid://opgke20asuqw" path="res://Assets/Textures/Cards/card_red.png" id="2_ynbqh"]
+
+[node name="CardAttack" instance=ExtResource("1_b81j1")]
+script = ExtResource("2_173p7")
+
+[node name="Background" parent="." index="0"]
+texture = ExtResource("2_ynbqh")

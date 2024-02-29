@@ -158,7 +158,7 @@ public partial class CardBattle : CanvasLayer
 
     private void AddCard(CardInfo card)
     {
-        var cardNode = Card.Instance();
+        var cardNode = CardFactory.CreateCard(card);
         cardNode.InitializeCard(card);
         cardNode.Position = _deck.Position - _hand.Position;
         cardNode.Scale = Vector2.Zero;

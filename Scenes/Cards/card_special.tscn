@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnfndd2kaj2qd"]
+
+[ext_resource type="PackedScene" uid="uid://djtn7yfj76bmj" path="res://Scenes/Cards/card.tscn" id="1_lwhup"]
+[ext_resource type="Texture2D" uid="uid://bri48w0equilg" path="res://Assets/Textures/Cards/card_green.png" id="2_jogg0"]
+[ext_resource type="Script" path="res://Scripts/Cards/CardSpecial.cs" id="2_pipxn"]
+
+[node name="CardSpecial" instance=ExtResource("1_lwhup")]
+script = ExtResource("2_pipxn")
+
+[node name="Background" parent="." index="0"]
+texture = ExtResource("2_jogg0")
