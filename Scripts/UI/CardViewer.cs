@@ -30,7 +30,7 @@ public partial class CardViewer : PopupPanel
         {
             foreach (var cardInfo in cards)
             {
-                var card = Card.Instance();
+                var card = CardFactory.CreateCard(cardInfo);
                 card.InitializeCard(cardInfo);
                 _gridContainer.AddChild(card);
             }
