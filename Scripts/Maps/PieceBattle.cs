@@ -71,7 +71,7 @@ public partial class PieceBattle : Node2D
         AddEnemy(EnemyType.Slime);
         AddEnemy(EnemyType.Slime);
         var player = PlayerBattle.Instance();
-        player.BattleCards = new UI.BattleCards()
+        player.BattleCards = new BattleCards()
         {
             DeckCards =
             [

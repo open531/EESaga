@@ -133,20 +133,22 @@ public partial class BattleManager : Node
         {
             CardBattle.IsMoving = true;
             CurrentPiece = battleParty;
+            CardBattle.BattleCards = battleParty.BattleCards;
+            CardBattle.UpdateEnergyLabel(battleParty);
             PieceBattle.ShowAccessibleTiles(battleParty.MoveRange);
             GD.Print(battleParty.MoveRange);
             PrepareCards();
-            CardBattle.Visible = true;
         }
         else if (battlePiece is BattleEnemy battleEnemy)
         {
             CurrentPiece = battleEnemy;
+            CardBattle.BattleCards = BattleCards.Empty;
+            PieceBattle.ShowAccessibleTiles(battleEnemy.MoveRange);
             TakeAction();
             var index = Pieces.IndexOf(CurrentPiece);
             index = (index + 1) % Pieces.Count;
             TurnTo(Pieces[index]);
         }
-        CardBattle.TurnTo(battlePiece);
     }
 
     public void PrepareCards()
@@ -166,8 +168,9 @@ public partial class BattleManager : Node
             for (var i = 0; i < battleParty.HandCardCount; i++)
             {
                 var randomIndex = rng.RandiRange(0, battleParty.BattleCards.DeckCards.Count - 1);
-                battleParty.BattleCards.HandCards.Add(battleParty.BattleCards.DeckCards[randomIndex]);
-                battleParty.BattleCards.DeckCards.RemoveAt(randomIndex);
+                var card = battleParty.BattleCards.DeckCards[randomIndex];
+                battleParty.BattleCards.HandCards.Add(card);
+                battleParty.BattleCards.DeckCards.Remove(card);
             }
             CardBattle.BattleCards = battleParty.BattleCards;
         }
@@ -313,11 +316,11 @@ public partial class BattleManager : Node
                 var cells = GetNearAccessibleCell(dst.Value);
                 if (cells.Contains(cell))
                 {
-                    for(var i =0; i< enemy.AttackTimes; i++)
+                    for (var i = 0; i < enemy.AttackTimes; i++)
                     {
                         target.Health -= enemy.AttackDamage;
                         GD.Print($"{target.Name} 受到了 {enemy.AttackDamage} 点伤害");
-                        if(target.Health <= 0)
+                        if (target.Health <= 0)
                         {
                             GD.Print($"{target.Name} 不堪重负似掉了！");
                             break;
@@ -345,16 +348,20 @@ public partial class BattleManager : Node
         };
         foreach (var cell in accessibleCells)
         {
-            if (PieceBattle.PieceMap[cell]!=null)
+            if (PieceBattle.TileMap.IsBoundary((int)Layer.Ground, cell))
             {
                 deleteCells.Add(cell);
             }
-            else if (PieceBattle.TileMap.IsBoundary((int)Layer.Ground,cell))
+            else if (!PieceBattle.PieceMap.ContainsKey(cell))
+            {
+                deleteCells.Add(cell);
+            }
+            else if (PieceBattle.PieceMap[cell] != null)
             {
                 deleteCells.Add(cell);
             }
         }
-        foreach(var cell in deleteCells)
+        foreach (var cell in deleteCells)
         {
             accessibleCells.Remove(cell);
         }
