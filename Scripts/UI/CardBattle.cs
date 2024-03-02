@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.UI;
 
 using Cards;
+using EESaga.Scripts.Entities.BattleEnemies;
 using Entities;
 using Entities.BattleParties;
 using Godot;
@@ -116,24 +117,9 @@ public partial class CardBattle : CanvasLayer
             _discardCardViewer.DisplayCards(BattleCards.DiscardCards);
         };
 
-        CardUpdated += OnCardUpdated;
-    }
+        _endTurnButton.Pressed += OnEndTurnButtonPressed;
 
-    public void TurnTo(BattlePiece battlePiece)
-    {
-        UpdateEnergyLabel(battlePiece);
-        if (battlePiece is BattleParty party)
-        {
-            BattleCards = party.BattleCards;
-            _deck.Visible = true;
-            _discard.Visible = true;
-        }
-        else
-        {
-            BattleCards = BattleCards.Empty;
-            _deck.Visible = false;
-            _discard.Visible = false;
-        }
+        CardUpdated += OnCardUpdated;
     }
 
     private void UpdateHandCard()
@@ -141,7 +127,7 @@ public partial class CardBattle : CanvasLayer
         var oldCards = _hand.GetChildren();
         foreach (var card in oldCards)
         {
-            card.QueueFree();
+            card.Free();
         }
         foreach (var card in BattleCards.HandCards)
         {
@@ -219,21 +205,19 @@ public partial class CardBattle : CanvasLayer
     {
         if (!_hand.GetChildren().Contains(card)) return;
         var newCard = Card.Instance();
-        var previewCard = GetNodeOrNull("PreviewCard") as Card;
+        var previewCard = GetNodeOrNull("PreviewCard");
         if (card == OperatingCard)
         {
             OperatingCard = null;
         }
-        if (previewCard.Parent == card)
-        {
-            previewCard.QueueFree();
-        }
+        previewCard?.QueueFree();
         newCard.Name = "RemovedCard";
         newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
         AddChild(newCard);
+        BattleCards.HandCards.Remove(card.CardInfo);
         BattleCards.DiscardCards.Add(card.CardInfo);
         _hand.RemoveChild(card);
         var tweenPosition = CreateTween();
@@ -266,6 +250,7 @@ public partial class CardBattle : CanvasLayer
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
         AddChild(newCard);
+        BattleCards.HandCards.Remove(card.CardInfo);
         BattleCards.DiscardCards.Add(card.CardInfo);
         _hand.RemoveChild(card);
         var tweenPosition = CreateTween();
@@ -347,26 +332,27 @@ public partial class CardBattle : CanvasLayer
         }
     }
 
-    private void UpdateEnergyLabel(BattlePiece battlePiece)
+    public void UpdateEnergyLabel(BattleParty party)
     {
-        if (battlePiece is BattleParty party)
-        {
-            _energyLabel.Text = $"{party.Energy}/{party.EnergyMax}";
-        }
-        else
-        {
-            _energyLabel.Text = "";
-        }
+        _energyLabel.Text = $"{party.Energy}/{party.EnergyMax}";
     }
 
     private void OnCardUpdated()
     {
-        UpdateCardPosition();
         UpdateBattleCardsCount();
+        UpdateCardPosition();
     }
 
     private void OnEndTurnButtonPressed()
     {
+        if (_hand.GetChildren().Count > 0)
+        {
+            var cards = _hand.GetChildren();
+            foreach (var card in cards)
+            {
+                RemoveCard(card as Card);
+            }
+        }
         EmitSignal(SignalName.EndTurn);
     }
 }
