@@ -6,6 +6,7 @@ using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -166,35 +167,76 @@ public partial class PieceBattle : Node2D
         Pieces.Add(party);
     }
 
-    public void ShowAccessibleTiles(int range)
+    public void ShowAccessibleTiles(int range,bool auto = false)
     {
         TileMap.ClearLayer((int)Layer.Mark);
         _astar.Clear();
         var src = TileMap.LocalToMap(CurrentPiece.GlobalPosition);
-        var accessibleTiles = TileMap.GetAccessibleTiles(src, range);
-        var primaryTiles = new List<Vector2I>();
-        foreach (var tile in accessibleTiles)
+        var _range = 20;
+        var autoAccessibleTiles = TileMap.GetAccessibleTiles(src, _range);
+        var accessibleTiles = TileMap.GetAccessibleTiles(src,range);
+        if (auto)
         {
-            if (PieceMap[tile] == null || tile == src)
+            var primaryTiles = new List<Vector2I>();
+            foreach (var tile in accessibleTiles)
             {
-                primaryTiles.Add(tile);
+                if (PieceMap[tile] == null || tile == src)
+                {
+                    primaryTiles.Add(tile);
+                }
+            }
+            var PrimaryTiles = new List<Vector2I>();//这用于判断自动行走范围，因此较大
+            foreach (var tile in autoAccessibleTiles)
+            {
+                if (PieceMap[tile] == null || tile == src)
+                {
+                    PrimaryTiles.Add(tile);
+                }
+            }
+            _astar.Region = TileMap.GetUsedRect();
+            _astar.Update();
+            var checkTiles = IsometricTileMap.Rect2IContains(_astar.Region);
+            foreach (var tile in checkTiles)
+            {
+                if (!PrimaryTiles.Contains(tile))
+                {
+                    _astar.SetPointSolid(tile);
+                }
+            }
+            foreach (var tile in primaryTiles)
+            {
+                if (GetAStarPath(src, tile).Count <= range + 1 && GetAStarPath(src, tile).Count > 0)
+                {
+                    TileMap.SetCell((int)Layer.Mark, tile, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
+                }
             }
         }
-        _astar.Region = TileMap.GetUsedRect();
-        _astar.Update();
-        var checkTiles = IsometricTileMap.Rect2IContains(_astar.Region);
-        foreach (var tile in checkTiles)
+        else
         {
-            if (!primaryTiles.Contains(tile))
+            var primaryTiles = new List<Vector2I>();
+            foreach (var tile in accessibleTiles)
             {
-                _astar.SetPointSolid(tile);
+                if (PieceMap[tile] == null || tile == src)
+                {
+                    primaryTiles.Add(tile);
+                }
             }
-        }
-        foreach (var tile in primaryTiles)
-        {
-            if (GetAStarPath(src, tile).Count <= range + 1 && GetAStarPath(src, tile).Count > 0)
+            _astar.Region = TileMap.GetUsedRect();
+            _astar.Update();
+            var checkTiles = IsometricTileMap.Rect2IContains(_astar.Region);
+            foreach (var tile in checkTiles)
             {
-                TileMap.SetCell((int)Layer.Mark, tile, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
+                if (!primaryTiles.Contains(tile))
+                {
+                    _astar.SetPointSolid(tile);
+                }
+            }
+            foreach (var tile in primaryTiles)
+            {
+                if (GetAStarPath(src, tile).Count <= range + 1 && GetAStarPath(src, tile).Count > 0)
+                {
+                    TileMap.SetCell((int)Layer.Mark, tile, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
+                }
             }
         }
     }
@@ -291,7 +333,6 @@ public partial class PieceBattle : Node2D
     {
         var src = TileMap.LocalToMap(CurrentPiece.GlobalPosition);
         var path = GetAStarPath(src, dst);
-        GD.Print($"{CurrentPiece} from {src} to {dst}");
         if (path.Count > 1)
         {
             _pieceMovePath = path.Skip(1).ToList();

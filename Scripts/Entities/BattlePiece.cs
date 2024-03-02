@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.Entities;
 
 using Godot;
+using System.Runtime.InteropServices.Marshalling;
 
 public partial class BattlePiece : Area2D, IBattlePiece
 {
@@ -40,7 +41,15 @@ public partial class BattlePiece : Area2D, IBattlePiece
     }
     public virtual int Shield { get; set; }
     public virtual int Agility { get; set; }
-    public virtual int MoveRange { get; set; }
+    private int _moveRange;
+    public int MoveRange
+    {
+        get => _moveRange + 1;
+        set
+        {
+            _moveRange = value;
+        }
+    }
     protected bool _isMoving;
     public bool IsMoving
     {
