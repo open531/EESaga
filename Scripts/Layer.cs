@@ -35,11 +35,11 @@ public partial class Layer : CanvasLayer
     {
         var fadeInTween = CreateTween();
         fadeInTween.TweenProperty(_blackRect, "color", new Color(0, 0, 0, 1), duration);
-        await ToSignal(fadeInTween, "finished");
+        await ToSignal(fadeInTween, Tween.SignalName.Finished);
         EmitSignal(SignalName.FadedIn);
         var fadeOutTween = CreateTween();
         fadeOutTween.TweenProperty(_blackRect, "color", new Color(0, 0, 0, 0), duration);
-        await ToSignal(fadeOutTween, "finished");
+        await ToSignal(fadeOutTween, Tween.SignalName.Finished);
         EmitSignal(SignalName.FadedOut);
     }
 }

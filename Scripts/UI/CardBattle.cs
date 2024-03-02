@@ -122,6 +122,24 @@ public partial class CardBattle : CanvasLayer
         CardUpdated += OnCardUpdated;
     }
 
+    public void HideUI()
+    {
+        _deck.Visible = false;
+        _discard.Visible = false;
+        _cardDetail.Visible = false;
+        _endTurnButton.Visible = false;
+        _energyLabel.Visible = false;
+    }
+
+    public void ShowUI()
+    {
+        _deck.Visible = true;
+        _discard.Visible = true;
+        _cardDetail.Visible = true;
+        _endTurnButton.Visible = true;
+        _energyLabel.Visible = true;
+    }
+
     private void UpdateHandCard()
     {
         var oldCards = _hand.GetChildren();
@@ -206,10 +224,8 @@ public partial class CardBattle : CanvasLayer
         if (!_hand.GetChildren().Contains(card)) return;
         var newCard = Card.Instance();
         var previewCard = GetNodeOrNull("PreviewCard");
-        if (card == OperatingCard)
-        {
-            OperatingCard = null;
-        }
+        if (OperatingCard == card) OperatingCard = null;
+        if (SelectedCard == card) SelectedCard = null;
         previewCard?.QueueFree();
         newCard.Name = "RemovedCard";
         newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
@@ -235,15 +251,10 @@ public partial class CardBattle : CanvasLayer
         if (index < 0 || index >= _hand.GetChildCount()) return;
         var card = _hand.GetChild(index) as Card;
         var newCard = Card.Instance();
-        var previewCard = GetNodeOrNull("PreviewCard") as Card;
-        if (card == OperatingCard)
-        {
-            OperatingCard = null;
-        }
-        if (previewCard.Parent == card)
-        {
-            previewCard.QueueFree();
-        }
+        var previewCard = GetNodeOrNull("PreviewCard");
+        if (OperatingCard == card) OperatingCard = null;
+        if (SelectedCard == card) SelectedCard = null;
+        previewCard?.QueueFree();
         newCard.Name = "RemovedCard";
         newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;

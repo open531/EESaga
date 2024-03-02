@@ -1,7 +1,6 @@
 namespace EESaga.Scripts.Entities;
 
 using Godot;
-using System.Runtime.InteropServices.Marshalling;
 
 public partial class BattlePiece : Area2D, IBattlePiece
 {
@@ -89,5 +88,19 @@ public partial class BattlePiece : Area2D, IBattlePiece
         PieceName = "BATTLEPIECE";
 
         IsMoving = false;
+    }
+
+    public virtual void BeAttacked(int damage)
+    {
+        if (Shield >= damage)
+        {
+            Shield -= damage;
+        }
+        else
+        {
+            damage -= Shield;
+            Shield = 0;
+            Health -= damage;
+        }
     }
 }

@@ -26,6 +26,8 @@ public partial class PieceBattle : Node2D
 
     public Dictionary<Vector2I, Vector2I> ColorMap { get; set; } = [];
 
+    [Signal] public delegate void PieceMovedEventHandler();
+
     private Room _room;
     private Node2D _enemies;
     private Node2D _parties;
@@ -344,10 +346,6 @@ public partial class PieceBattle : Node2D
         }
     }
 
-    public void EndBattle()
-    {
-    }
-
     private Vector2 PosForPiece(Vector2I coord) => TileMap.MapToLocal(coord) - new Vector2(0, 6);
 
     public List<Vector2I> GetAStarPath(Vector2I src, Vector2I dst) => new(_astar.GetIdPath(src, dst));
@@ -356,19 +354,20 @@ public partial class PieceBattle : Node2D
     {
         if (_pieceMovePath != null && _pieceMovePath.Count > 0)
         {
-            var tween = CreateTween();
-            tween.TweenProperty(CurrentPiece, "global_position",
-                PosForPiece(_pieceMovePath[_pieceMoveIndex]), PieceMoveTime);
-            CurrentPiece.FlipH = PosForPiece(_pieceMovePath[_pieceMoveIndex]).X - CurrentPiece.GlobalPosition.X < 0;
-            if (_pieceMoveIndex == _pieceMovePath.Count - 1)
+            if (_pieceMoveIndex == _pieceMovePath.Count)
             {
                 _pieceMovePath = [];
                 _pieceMoveIndex = 0;
                 CurrentPiece.IsMoving = false;
                 _pieceMoveTimer.Stop();
+                EmitSignal(SignalName.PieceMoved);
             }
             else
             {
+                var tween = CreateTween();
+                tween.TweenProperty(CurrentPiece, "global_position",
+                    PosForPiece(_pieceMovePath[_pieceMoveIndex]), PieceMoveTime);
+                CurrentPiece.FlipH = PosForPiece(_pieceMovePath[_pieceMoveIndex]).X - CurrentPiece.GlobalPosition.X < 0;
                 _pieceMoveIndex++;
             }
         }
@@ -376,9 +375,9 @@ public partial class PieceBattle : Node2D
 
     public void ClearHeritage(Vector2I cell)
     {
-        if (PieceMap.ContainsKey(cell))
+        if (PieceMap.TryGetValue(cell, out var value))
         {
-            var piece = PieceMap[cell];
+            var piece = value;
             if (piece is BattleEnemy enemy)
             {
                 Enemies.Remove(enemy);
@@ -391,10 +390,7 @@ public partial class PieceBattle : Node2D
             }
             PieceMap[cell] = null;
         }
-        if (ColorMap.ContainsKey(cell))
-        {
-            ColorMap.Remove(cell);
-        }
+        ColorMap.Remove(cell);
     }
 
     /// <summary>
@@ -403,8 +399,8 @@ public partial class PieceBattle : Node2D
     /// <param name="cell">参考点</param>
     public List<BattleParty> GetNearestParty(Vector2I cell)
     {
-        List<BattleParty> battleParties = new List<BattleParty>(Parties);
-        if (battleParties.Count() > 1)
+        List<BattleParty> battleParties = new(Parties);
+        if (battleParties.Count > 1)
         {
             List<BattleParty> orderedBattleParties = battleParties.OrderBy(p => GetAStarPath(cell, TileMap.LocalToMap(p.GlobalPosition)).Count).ThenBy(x => x.Health).ToList();
             return orderedBattleParties;
@@ -415,12 +411,5 @@ public partial class PieceBattle : Node2D
         }
     }
 
-    public int GetManhattanDistance(Vector2I src, Vector2I dst) => Mathf.Abs(src.X - dst.X) + Mathf.Abs(src.Y - dst.Y);
-
-    public enum CellColor
-    {
-        Null,
-        Red,
-        Green,
-    }
+    public static int GetManhattanDistance(Vector2I src, Vector2I dst) => Mathf.Abs(src.X - dst.X) + Mathf.Abs(src.Y - dst.Y);
 }

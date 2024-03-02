@@ -1,7 +1,7 @@
 namespace EESaga.Scripts.UI;
 
+using Data;
 using Godot;
-using Utilities;
 
 public partial class NameInputPanel : Panel
 {
@@ -21,6 +21,6 @@ public partial class NameInputPanel : Panel
 
     public void OnSubmitButtonPressed()
     {
-        GameData.Player.PlayerName = _nameInput.Text;
+        SaveData.Player.PlayerName = _nameInput.Text;
     }
 }
