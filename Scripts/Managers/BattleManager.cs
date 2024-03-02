@@ -145,9 +145,6 @@ public partial class BattleManager : Node
             CardBattle.BattleCards = BattleCards.Empty;
             PieceBattle.ShowAccessibleTiles(battleEnemy.MoveRange);
             TakeAction();
-            var index = Pieces.IndexOf(CurrentPiece);
-            index = (index + 1) % Pieces.Count;
-            TurnTo(Pieces[index]);
         }
     }
 
@@ -316,16 +313,7 @@ public partial class BattleManager : Node
                 var cells = GetNearAccessibleCell(dst.Value);
                 if (cells.Contains(cell))
                 {
-                    for (var i = 0; i < enemy.AttackTimes; i++)
-                    {
-                        target.Health -= enemy.AttackDamage;
-                        GD.Print($"{target.Name} 受到了 {enemy.AttackDamage} 点伤害");
-                        if (target.Health <= 0)
-                        {
-                            GD.Print($"{target.Name} 不堪重负似掉了！");
-                            break;
-                        }
-                    }
+                    enemy.Attack(target);
                 }
                 break;
             }

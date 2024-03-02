@@ -1,5 +1,6 @@
 namespace EESaga.Scripts.Entities.BattleEnemies;
 
+using EESaga.Scripts.Entities.BattleParties;
 using Godot;
 
 public partial class Slime : BattleEnemy
@@ -16,5 +17,25 @@ public partial class Slime : BattleEnemy
         MoveRange = 3;
         AttackTimes = 1;
         AttackDamage = 2;
+        Shield = 0;
+    }
+
+    public void Attack(BattleParty battleParty)
+    {
+        for (var i = 0; i < AttackTimes; i++)
+        {
+            battleParty.Health -= AttackDamage;
+            GD.Print($"{battleParty.PieceName} 受到了 {AttackDamage} 点伤害");
+            if (battleParty.Health == 0)
+            {
+                GD.Print($"{battleParty.PieceName} 用他的牺牲，为队友争取了时间！");
+                break;
+            }
+        }
+    }
+
+    public void Defense(BattleEnemy battleEnemy)
+    {
+        battleEnemy.Shield += 1;
     }
 }
