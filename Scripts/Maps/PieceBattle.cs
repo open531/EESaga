@@ -24,8 +24,6 @@ public partial class PieceBattle : Node2D
 
     public Dictionary<Vector2I, Vector2I> ColorMap { get; set; } = [];
 
-    public Dictionary<Vector2I, Vector2I> RealTimeColorMap { get; set; } = [];
-
     private Room _room;
     private Node2D _enemies;
     private Node2D _parties;
@@ -330,6 +328,18 @@ public partial class PieceBattle : Node2D
             {
                 _pieceMoveIndex++;
             }
+        }
+    }
+
+    public void Clearheritage(Vector2I cell)
+    {
+        if (PieceMap.ContainsKey(cell))
+        {
+            PieceMap.Remove(cell);
+        }
+        if (ColorMap.ContainsKey(cell))
+        {
+            ColorMap.Remove(cell);
         }
     }
 
