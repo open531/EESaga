@@ -1,6 +1,8 @@
 namespace EESaga.Scripts.Cards;
 
+using EESaga.Scripts.Entities;
 using Godot;
+using System.Collections.Generic;
 
 public partial class CardDefense : Card
 {
@@ -12,5 +14,14 @@ public partial class CardDefense : Card
     {
         base.InitializeCard(cardInfo);
         DefenseValue = cardInfo.DefenseValue;
+    }
+
+    public override void TakeEffect(List<BattlePiece> battlePieces)
+    {
+        foreach (var piece in battlePieces)
+        {
+            piece.Shield += DefenseValue;
+            GD.Print($"{piece.Name}护盾值增加了{DefenseValue}");
+        }
     }
 }

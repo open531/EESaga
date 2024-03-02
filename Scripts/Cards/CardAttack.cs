@@ -25,8 +25,23 @@ public partial class CardAttack : Card
         {
             for (var i = 0; i < AttackTimes; i++)
             {
-                piece.Health -= AttackDamage;
-                GD.Print($"{piece.Name} 受到了 {AttackDamage} 点伤害");
+                var dif = -piece.Shield + AttackDamage;
+                var shield = piece.Shield;
+                if (piece.Shield != 0)
+                {
+                    piece.Shield -= AttackDamage;
+                }
+                if (piece.Shield <= 0)
+                {
+                    piece.Shield = 0;
+                    piece.Health -= dif;
+                    GD.Print($"{piece.Name} 护盾值削减了 {shield} 点");
+                    GD.Print($"{piece.Name} 受到了 {dif} 点伤害");
+                }
+                else
+                {
+                    GD.Print($"{piece.Name} 护盾值削减了 {AttackDamage} 点");
+                }
                 if (piece.Health == 0)
                 {
                     GD.Print($"{piece.Name} 死了");

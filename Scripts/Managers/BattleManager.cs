@@ -5,7 +5,9 @@ using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;
 using Godot;
+using Godot.Collections;
 using Maps;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UI;
@@ -131,19 +133,19 @@ public partial class BattleManager : Node
         battlePiece.Shield = 0;
         if (battlePiece is BattleParty battleParty)
         {
+            GD.Print("Player Turn");
             CardBattle.IsMoving = true;
             CurrentPiece = battleParty;
             CardBattle.BattleCards = battleParty.BattleCards;
             CardBattle.UpdateEnergyLabel(battleParty);
             PieceBattle.ShowAccessibleTiles(battleParty.MoveRange);
-            GD.Print(battleParty.MoveRange);
             PrepareCards();
         }
         else if (battlePiece is BattleEnemy battleEnemy)
         {
             CurrentPiece = battleEnemy;
             CardBattle.BattleCards = BattleCards.Empty;
-            PieceBattle.ShowAccessibleTiles(battleEnemy.MoveRange);
+            PieceBattle.ShowAccessibleTiles(CurrentPiece.MoveRange, true);
             TakeAction();
         }
     }
@@ -301,7 +303,7 @@ public partial class BattleManager : Node
     private void TakeAction()
     {
         GD.Print("Enemy Turn");
-        var enemy = CurrentPiece as Slime;
+        var enemy = CurrentPiece as BattleEnemy;
         var location = PieceBattle.TileMap.LocalToMap(enemy.GlobalPosition);
         var targets = PieceBattle.GetNearestParty(location);
         foreach (var target in targets)
@@ -310,17 +312,22 @@ public partial class BattleManager : Node
             var dst = FindDstAndMove(cell);
             if (dst != null)
             {
-                var cells = GetNearAccessibleCell(dst.Value);
+                var cells = GetNearAccessibleCell(dst.Value, enemyFight: true);
+                var cellsArray = new Array<Vector2I>(cells);
                 if (cells.Contains(cell))
                 {
                     enemy.Attack(target);
+                }
+                else
+                {
+                    enemy.Defense(enemy);
                 }
                 break;
             }
         }
     }
 
-    public List<Vector2I> GetNearAccessibleCell(Vector2I dst)
+    public List<Vector2I> GetNearAccessibleCell(Vector2I dst, bool partyFight = false, bool enemyFight = false)
     {
         var cells = PieceBattle.TileMap.GetUsedCells((int)Layer.Ground);
         var deleteCells = new List<Vector2I>();
@@ -346,7 +353,9 @@ public partial class BattleManager : Node
             }
             else if (PieceBattle.PieceMap[cell] != null)
             {
-                deleteCells.Add(cell);
+                if (partyFight && PieceBattle.PieceMap[cell] is BattleEnemy) { }
+                else if (enemyFight && PieceBattle.PieceMap[cell] is BattleParty) { }
+                else { deleteCells.Add(cell); }
             }
         }
         foreach (var cell in deleteCells)
@@ -356,23 +365,41 @@ public partial class BattleManager : Node
         return accessibleCells;
     }
 
-    public Vector2I? FindDstAndMove(Vector2I target)
+    public Vector2I? FindDstAndMove(Vector2I target, bool isTarget = true)
     {
         var cell = PieceBattle.TileMap.LocalToMap(CurrentPiece.GlobalPosition);
-        var SortedAccessibleCells = GetNearAccessibleCell(target).OrderBy(p => PieceBattle.GetAStarPath(p, cell).Count).ToList();
+        var SortedAccessibleCells = GetNearAccessibleCell(target).OrderBy(p => PieceBattle.GetAStarPath(cell, p).Count).ToList();
         if (SortedAccessibleCells.Count == 0)
         {
             return null;
         }
         var dst = SortedAccessibleCells[0];
-        if (PieceBattle.GetAStarPath(SortedAccessibleCells[0], cell).Count <= CurrentPiece.MoveRange)
+        var path = new Array<Vector2I>(PieceBattle.GetAStarPath(cell, dst));
+        if (PieceBattle.GetAStarPath(cell, dst).Count == CurrentPiece.MoveRange+1)
         {
+            PieceBattle.MoveCurrentPiece(dst);
+            return dst;
+        }
+        else if (PieceBattle.GetAStarPath(cell, dst).Count < CurrentPiece.MoveRange+1)
+        {
+            if (!isTarget)
+            {
+                var newList = SortedAccessibleCells.OrderBy(p => PieceBattle.GetManhattanDistance(target, dst)).ToList();
+                foreach (var item in newList)
+                {
+                    if (item != dst)
+                    {
+                        dst = item;
+                        break;
+                    }
+                }
+            }
             PieceBattle.MoveCurrentPiece(dst);
             return dst;
         }
         else
         {
-            return FindDstAndMove(dst);
+            return FindDstAndMove(dst, false);
         }
     }
 }
