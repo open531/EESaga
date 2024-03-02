@@ -4,6 +4,8 @@ using Godot;
 
 public interface IBattleEnemy : IBattlePiece
 {
+    public int AttackDamage { get; set; }
+    public int AttackTimes { get; set; }
     public void Initialize(IBattleEnemy enemy);
 }
 
