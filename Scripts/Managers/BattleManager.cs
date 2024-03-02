@@ -7,6 +7,7 @@ using Entities.BattleParties;
 using Godot;
 using Maps;
 using System.Collections.Generic;
+using System.Linq;
 using UI;
 
 public partial class BattleManager : Node
@@ -53,12 +54,12 @@ public partial class BattleManager : Node
         CardBattle.OperatingCardChanged += OnCardBattleOperatingCardChanged;
         CardBattle.EndTurn += () =>
         {
-            var index = Pieces.IndexOf(CurrentPiece as BattleParty);
+            var index = Pieces.IndexOf(CurrentPiece);
             index = (index + 1) % Pieces.Count;
             TurnTo(Pieces[index]);
         };
 
-        TurnTo(Pieces[0]);
+        TurnTo(Pieces[Pieces.Count - 1]);
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -130,15 +131,20 @@ public partial class BattleManager : Node
         battlePiece.Shield = 0;
         if (battlePiece is BattleParty battleParty)
         {
+            CardBattle.IsMoving = true;
             CurrentPiece = battleParty;
             PieceBattle.ShowAccessibleTiles(battleParty.MoveRange);
             GD.Print(battleParty.MoveRange);
             PrepareCards();
+            CardBattle.Visible = true;
         }
         else if (battlePiece is BattleEnemy battleEnemy)
         {
             CurrentPiece = battleEnemy;
-            TakeAction(battleEnemy);
+            TakeAction();
+            var index = Pieces.IndexOf(CurrentPiece);
+            index = (index + 1) % Pieces.Count;
+            TurnTo(Pieces[index]);
         }
         CardBattle.TurnTo(battlePiece);
     }
@@ -273,7 +279,7 @@ public partial class BattleManager : Node
                 {
                     if (item.Value == piece)
                     {
-                        PieceBattle.Clearheritage(item.Key);
+                        PieceBattle.ClearHeritage(item.Key);
                     }
                 }
                 piece.QueueFree();
@@ -292,9 +298,87 @@ public partial class BattleManager : Node
         }
     }
 
-    private void TakeAction(BattleEnemy battleEnemy)
+    private void TakeAction()
     {
         GD.Print("Enemy Turn");
+        var enemy = CurrentPiece as Slime;
+        var location = PieceBattle.TileMap.LocalToMap(enemy.GlobalPosition);
+        var targets = PieceBattle.GetNearestParty(location);
+        foreach (var target in targets)
+        {
+            var cell = PieceBattle.TileMap.LocalToMap(target.GlobalPosition);
+            var dst = FindDstAndMove(cell);
+            if (dst != null)
+            {
+                var cells = GetNearAccessibleCell(dst.Value);
+                if (cells.Contains(cell))
+                {
+                    for(var i =0; i< enemy.AttackTimes; i++)
+                    {
+                        target.Health -= enemy.AttackDamage;
+                        GD.Print($"{target.Name} 受到了 {enemy.AttackDamage} 点伤害");
+                        if(target.Health <= 0)
+                        {
+                            GD.Print($"{target.Name} 不堪重负似掉了！");
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    public List<Vector2I> GetNearAccessibleCell(Vector2I dst)
+    {
+        var cells = PieceBattle.TileMap.GetUsedCells((int)Layer.Ground);
+        var deleteCells = new List<Vector2I>();
+        List<Vector2I> accessibleCells = new List<Vector2I>() {
+        new Vector2I(dst.X - 1, dst.Y),
+        new Vector2I(dst.X + 1, dst.Y),
+        new Vector2I(dst.X, dst.Y - 1),
+        new Vector2I(dst.X, dst.Y + 1),
+        new Vector2I(dst.X - 1, dst.Y - 1),
+        new Vector2I(dst.X + 1, dst.Y + 1),
+        new Vector2I(dst.X - 1, dst.Y + 1),
+        new Vector2I(dst.X + 1, dst.Y - 1),
+        };
+        foreach (var cell in accessibleCells)
+        {
+            if (PieceBattle.PieceMap[cell]!=null)
+            {
+                deleteCells.Add(cell);
+            }
+            else if (PieceBattle.TileMap.IsBoundary((int)Layer.Ground,cell))
+            {
+                deleteCells.Add(cell);
+            }
+        }
+        foreach(var cell in deleteCells)
+        {
+            accessibleCells.Remove(cell);
+        }
+        return accessibleCells;
+    }
+
+    public Vector2I? FindDstAndMove(Vector2I target)
+    {
+        var cell = PieceBattle.TileMap.LocalToMap(CurrentPiece.GlobalPosition);
+        var SortedAccessibleCells = GetNearAccessibleCell(target).OrderBy(p => PieceBattle.GetAStarPath(p, cell).Count).ToList();
+        if (SortedAccessibleCells.Count == 0)
+        {
+            return null;
+        }
+        var dst = SortedAccessibleCells[0];
+        if (PieceBattle.GetAStarPath(SortedAccessibleCells[0], cell).Count <= CurrentPiece.MoveRange)
+        {
+            PieceBattle.MoveCurrentPiece(dst);
+            return dst;
+        }
+        else
+        {
+            return FindDstAndMove(dst);
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.Maps;
 
 using Cards;
+using EESaga.Scripts.UI;
 using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;
@@ -273,7 +274,7 @@ public partial class PieceBattle : Node2D
         vector2I.Y = -1;
         foreach (var item in ColorMap)
         {
-            if(item.Value == vector2I)
+            if (item.Value == vector2I)
             {
                 TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.DefaultTileAtlas);
                 ColorMap.Remove(item.Key);
@@ -290,6 +291,7 @@ public partial class PieceBattle : Node2D
     {
         var src = TileMap.LocalToMap(CurrentPiece.GlobalPosition);
         var path = GetAStarPath(src, dst);
+        GD.Print($"{CurrentPiece} from {src} to {dst}");
         if (path.Count > 1)
         {
             _pieceMovePath = path.Skip(1).ToList();
@@ -307,7 +309,7 @@ public partial class PieceBattle : Node2D
 
     private Vector2 PosForPiece(Vector2I coord) => TileMap.MapToLocal(coord) - new Vector2(0, 6);
 
-    private List<Vector2I> GetAStarPath(Vector2I src, Vector2I dst) => new(_astar.GetIdPath(src, dst));
+    public List<Vector2I> GetAStarPath(Vector2I src, Vector2I dst) => new(_astar.GetIdPath(src, dst));
 
     private void OnPieceMoveTimerTimeout()
     {
@@ -331,17 +333,48 @@ public partial class PieceBattle : Node2D
         }
     }
 
-    public void Clearheritage(Vector2I cell)
+    public void ClearHeritage(Vector2I cell)
     {
         if (PieceMap.ContainsKey(cell))
         {
-            PieceMap.Remove(cell);
+            var piece = PieceMap[cell];
+            if (piece is BattleEnemy enemy)
+            {
+                Enemies.Remove(enemy);
+                Pieces.Remove(enemy);
+            }
+            else if (piece is BattleParty party)
+            {
+                Parties.Remove(party);
+                Pieces.Remove(party);
+            }
+            PieceMap[cell] = null;
         }
         if (ColorMap.ContainsKey(cell))
         {
             ColorMap.Remove(cell);
         }
     }
+
+    /// <summary>
+    /// 按照距离cell的距离以及棋子的生命值依次排序，返回排序后的棋子列表
+    /// </summary>
+    /// <param name="cell">参考点</param>
+    public List<BattleParty> GetNearestParty(Vector2I cell)
+    {
+        List<BattleParty> battleParties = new List<BattleParty>(Parties);
+        if (battleParties.Count() > 1)
+        {
+            List<BattleParty> orderedBattleParties = battleParties.OrderBy(p => GetAStarPath(cell, TileMap.LocalToMap(p.GlobalPosition)).Count).ThenBy(x => x.Health).ToList();
+            return orderedBattleParties;
+        }
+        else
+        {
+            return battleParties;
+        }
+    }
+
+    public int GetManhattanDistance(Vector2I src, Vector2I dst) => Mathf.Abs(src.X - dst.X) + Mathf.Abs(src.Y - dst.Y);
 
     public enum CellColor
     {
