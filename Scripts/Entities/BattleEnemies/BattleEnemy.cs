@@ -11,8 +11,8 @@ public partial class BattleEnemy : BattlePiece, IBattleEnemy
     public int AttackTimes { get; set; }
     public static new BattleEnemy Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/battle_enemy.tscn").Instantiate<BattleEnemy>();
 
-    public virtual void Attack(BattleParty battleParty){}
-    public virtual void Defense(BattleEnemy battleEnemy) { }
+    public virtual void Attack(BattleParty battleParty) { }
+    public virtual void Defend(BattleEnemy battleEnemy) { }
     public void Initialize(IBattleEnemy enemy)
     {
         Level = enemy.Level;

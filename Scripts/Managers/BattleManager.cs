@@ -46,6 +46,8 @@ public partial class BattleManager : Node
     public Card SelectedCard => CardBattle.SelectedCard;
     public BattlePiece CardTarget { get; set; }
 
+    [Signal] public delegate void TakenActionEventHandler();
+
     public static BattleManager Instance() => GD.Load<PackedScene>("res://Scenes/Managers/battle_manager.tscn").Instantiate<BattleManager>();
 
     public override void _Ready()
@@ -128,14 +130,15 @@ public partial class BattleManager : Node
         PieceBattle.Initialize(room.TileMap);
     }
 
-    public void TurnTo(BattlePiece battlePiece)
+    public async void TurnTo(BattlePiece battlePiece)
     {
         battlePiece.Shield = 0;
         if (battlePiece is BattleParty battleParty)
         {
-            GD.Print("Player Turn");
-            CardBattle.IsMoving = true;
             CurrentPiece = battleParty;
+            GD.Print($"{CurrentPiece.PieceName} Turn");
+            CardBattle.ShowUI();
+            CardBattle.IsMoving = true;
             CardBattle.BattleCards = battleParty.BattleCards;
             CardBattle.UpdateEnergyLabel(battleParty);
             PieceBattle.ShowAccessibleTiles(battleParty.MoveRange);
@@ -144,9 +147,13 @@ public partial class BattleManager : Node
         else if (battlePiece is BattleEnemy battleEnemy)
         {
             CurrentPiece = battleEnemy;
+            GD.Print($"{CurrentPiece.PieceName} Turn");
+            CardBattle.HideUI();
             CardBattle.BattleCards = BattleCards.Empty;
             PieceBattle.ShowAccessibleTiles(CurrentPiece.MoveRange, true);
             TakeAction();
+            await ToSignal(this, SignalName.TakenAction);
+            CardBattle.EmitSignal(CardBattle.SignalName.EndTurn);
         }
     }
 
@@ -300,9 +307,8 @@ public partial class BattleManager : Node
         }
     }
 
-    private void TakeAction()
+    private async void TakeAction()
     {
-        GD.Print("Enemy Turn");
         var enemy = CurrentPiece as BattleEnemy;
         var location = PieceBattle.TileMap.LocalToMap(enemy.GlobalPosition);
         var targets = PieceBattle.GetNearestParty(location);
@@ -312,26 +318,27 @@ public partial class BattleManager : Node
             var dst = FindDstAndMove(cell);
             if (dst != null)
             {
+                await ToSignal(PieceBattle, PieceBattle.SignalName.PieceMoved);
                 var cells = GetNearAccessibleCell(dst.Value, enemyFight: true);
-                var cellsArray = new Array<Vector2I>(cells);
                 if (cells.Contains(cell))
                 {
                     enemy.Attack(target);
                 }
                 else
                 {
-                    enemy.Defense(enemy);
+                    enemy.Defend(enemy);
                 }
                 break;
             }
         }
+        EmitSignal(SignalName.TakenAction);
     }
 
     public List<Vector2I> GetNearAccessibleCell(Vector2I dst, bool partyFight = false, bool enemyFight = false)
     {
         var cells = PieceBattle.TileMap.GetUsedCells((int)Layer.Ground);
         var deleteCells = new List<Vector2I>();
-        List<Vector2I> accessibleCells = new List<Vector2I>() {
+        List<Vector2I> accessibleCells = [
         new Vector2I(dst.X - 1, dst.Y),
         new Vector2I(dst.X + 1, dst.Y),
         new Vector2I(dst.X, dst.Y - 1),
@@ -340,21 +347,21 @@ public partial class BattleManager : Node
         new Vector2I(dst.X + 1, dst.Y + 1),
         new Vector2I(dst.X - 1, dst.Y + 1),
         new Vector2I(dst.X + 1, dst.Y - 1),
-        };
+        ];
         foreach (var cell in accessibleCells)
         {
             if (PieceBattle.TileMap.IsBoundary((int)Layer.Ground, cell))
             {
                 deleteCells.Add(cell);
             }
-            else if (!PieceBattle.PieceMap.ContainsKey(cell))
+            else if (!PieceBattle.PieceMap.TryGetValue(cell, out BattlePiece value))
             {
                 deleteCells.Add(cell);
             }
-            else if (PieceBattle.PieceMap[cell] != null)
+            else if (value != null)
             {
-                if (partyFight && PieceBattle.PieceMap[cell] is BattleEnemy) { }
-                else if (enemyFight && PieceBattle.PieceMap[cell] is BattleParty) { }
+                if (partyFight && value is BattleEnemy) { }
+                else if (enemyFight && value is BattleParty) { }
                 else { deleteCells.Add(cell); }
             }
         }
@@ -375,12 +382,12 @@ public partial class BattleManager : Node
         }
         var dst = SortedAccessibleCells[0];
         var path = new Array<Vector2I>(PieceBattle.GetAStarPath(cell, dst));
-        if (PieceBattle.GetAStarPath(cell, dst).Count == CurrentPiece.MoveRange+1)
+        if (PieceBattle.GetAStarPath(cell, dst).Count == CurrentPiece.MoveRange + 1)
         {
             PieceBattle.MoveCurrentPiece(dst);
             return dst;
         }
-        else if (PieceBattle.GetAStarPath(cell, dst).Count < CurrentPiece.MoveRange+1)
+        else if (PieceBattle.GetAStarPath(cell, dst).Count < CurrentPiece.MoveRange + 1)
         {
             if (!isTarget)
             {

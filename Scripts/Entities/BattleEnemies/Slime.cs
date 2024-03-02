@@ -49,7 +49,7 @@ public partial class Slime : BattleEnemy
         }
     }
 
-    public override void Defense(BattleEnemy battleEnemy)
+    public override void Defend(BattleEnemy battleEnemy)
     {
         battleEnemy.Shield += 3;
     }

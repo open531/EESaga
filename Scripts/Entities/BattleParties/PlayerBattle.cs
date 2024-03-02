@@ -1,8 +1,7 @@
 namespace EESaga.Scripts.Entities.BattleParties;
 
+using Data;
 using Godot;
-using UI;
-using Utilities;
 
 public partial class PlayerBattle : BattleParty
 {
@@ -11,12 +10,14 @@ public partial class PlayerBattle : BattleParty
     public override void _Ready()
     {
         base._Ready();
-        PartyName = GameData.Player.PlayerName;
-        PieceName = GameData.Player.PlayerName;
+        PartyName = SaveData.Player.PlayerName;
+        PieceName = SaveData.Player.PlayerName;
         MoveRange = 3;
         HandCardCount = 4;
-        Health = GameData.Player.Health;
-        HealthMax = GameData.Player.HealthMax;
-        Agility = GameData.Player.Agility;
+        Health = SaveData.Player.Health;
+        HealthMax = SaveData.Player.HealthMax;
+        Energy = SaveData.Player.Energy;
+        EnergyMax = SaveData.Player.EnergyMax;
+        Agility = SaveData.Player.Agility;
     }
 }
