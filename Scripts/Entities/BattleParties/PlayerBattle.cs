@@ -17,5 +17,6 @@ public partial class PlayerBattle : BattleParty
         HandCardCount = 4;
         Health = GameData.Player.Health;
         HealthMax = GameData.Player.HealthMax;
+        Agility = GameData.Player.Agility;
     }
 }

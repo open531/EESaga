@@ -12,5 +12,6 @@ public partial class Slime : BattleEnemy
         PieceName = "SLIME";
         HealthMax = 10;
         Health = HealthMax;
+        Agility = 1;
     }
 }

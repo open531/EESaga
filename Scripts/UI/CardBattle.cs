@@ -1,7 +1,8 @@
 namespace EESaga.Scripts.UI;
 
 using Cards;
-using EESaga.Scripts.Entities;
+using Entities;
+using Entities.BattleParties;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ public partial class CardBattle : CanvasLayer
     private CardDetail _cardDetail;
 
     private Button _endTurnButton;
+
+    private Label _energyLabel;
 
     private TextureButton _deckButton;
     private Label _deckCardNum;
@@ -68,7 +71,7 @@ public partial class CardBattle : CanvasLayer
     }
 
     [Signal] public delegate void OperatingCardChangedEventHandler();
-
+    [Signal] public delegate void CardUpdatedEventHandler();
     [Signal] public delegate void EndTurnEventHandler();
 
     private const int _maxHandSize = 8;
@@ -90,6 +93,8 @@ public partial class CardBattle : CanvasLayer
 
         _endTurnButton = GetNode<Button>("EndTurnButton");
 
+        _energyLabel = GetNode<Label>("EnergyLabel");
+
         _deckButton = GetNode<TextureButton>("Deck/TextureButton");
         _deckCardNum = GetNode<Label>("Deck/Label");
         _discardButton = GetNode<TextureButton>("Discard/TextureButton");
@@ -110,6 +115,25 @@ public partial class CardBattle : CanvasLayer
         {
             _discardCardViewer.DisplayCards(BattleCards.DiscardCards);
         };
+
+        CardUpdated += OnCardUpdated;
+    }
+
+    public void TurnTo(BattlePiece battlePiece)
+    {
+        UpdateEnergyLabel(battlePiece);
+        if (battlePiece is BattleParty party)
+        {
+            BattleCards = party.BattleCards;
+            _deck.Visible = true;
+            _discard.Visible = true;
+        }
+        else
+        {
+            BattleCards = BattleCards.Empty;
+            _deck.Visible = false;
+            _discard.Visible = false;
+        }
     }
 
     private void UpdateHandCard()
@@ -123,7 +147,7 @@ public partial class CardBattle : CanvasLayer
         {
             AddCard(card);
         }
-        UpdateBattleCardsCount();
+        EmitSignal(SignalName.CardUpdated);
     }
 
     private void UpdateBattleCardsCount()
@@ -188,7 +212,7 @@ public partial class CardBattle : CanvasLayer
             PreviewCard(cardNode);
         };
         _hand.AddChild(cardNode);
-        UpdateCardPosition();
+        EmitSignal(SignalName.CardUpdated);
     }
 
     public void RemoveCard(Card card)
@@ -219,8 +243,7 @@ public partial class CardBattle : CanvasLayer
         tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.15);
         tweenScale.TweenProperty(newCard, "scale", Vector2.Zero, 0.2);
         tweenScale.TweenCallback(Callable.From(newCard.QueueFree));
-        UpdateCardPosition();
-        UpdateBattleCardsCount();
+        EmitSignal(SignalName.CardUpdated);
     }
 
     public void RemoveCard(int index)
@@ -252,8 +275,7 @@ public partial class CardBattle : CanvasLayer
         tweenRotation.TweenProperty(newCard, "rotation", 0.0f, 0.15);
         tweenScale.TweenProperty(newCard, "scale", Vector2.Zero, 0.2);
         tweenScale.TweenCallback(Callable.From(newCard.QueueFree));
-        UpdateCardPosition();
-        UpdateBattleCardsCount();
+        EmitSignal(SignalName.CardUpdated);
     }
 
     private void PreviewCard(Card card)
@@ -325,7 +347,25 @@ public partial class CardBattle : CanvasLayer
         }
     }
 
-    public void OnEndTurnButtonPressed()
+    private void UpdateEnergyLabel(BattlePiece battlePiece)
+    {
+        if (battlePiece is BattleParty party)
+        {
+            _energyLabel.Text = $"{party.Energy}/{party.EnergyMax}";
+        }
+        else
+        {
+            _energyLabel.Text = "";
+        }
+    }
+
+    private void OnCardUpdated()
+    {
+        UpdateCardPosition();
+        UpdateBattleCardsCount();
+    }
+
+    private void OnEndTurnButtonPressed()
     {
         EmitSignal(SignalName.EndTurn);
     }
@@ -336,4 +376,10 @@ public class BattleCards
     public List<CardInfo> DeckCards { get; set; }
     public List<CardInfo> HandCards { get; set; }
     public List<CardInfo> DiscardCards { get; set; }
+    public static BattleCards Empty => new()
+    {
+        DeckCards = [],
+        HandCards = [],
+        DiscardCards = [],
+    };
 }
