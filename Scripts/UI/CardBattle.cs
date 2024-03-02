@@ -121,6 +121,11 @@ public partial class CardBattle : CanvasLayer
         {
             AddCard(card);
         }
+        UpdateBattleCardsCount();
+    }
+
+    private void UpdateBattleCardsCount()
+    {
         _deckCardNum.Text = BattleCards.DeckCards.Count.ToString();
         _discardCardNum.Text = BattleCards.DiscardCards.Count.ToString();
     }
@@ -203,6 +208,7 @@ public partial class CardBattle : CanvasLayer
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
         AddChild(newCard);
+        BattleCards.DiscardCards.Add(card.CardInfo);
         _hand.RemoveChild(card);
         var tweenPosition = CreateTween();
         var tweenRotation = CreateTween();
@@ -212,6 +218,7 @@ public partial class CardBattle : CanvasLayer
         tweenScale.TweenProperty(newCard, "scale", Vector2.Zero, 0.2);
         tweenScale.TweenCallback(Callable.From(newCard.QueueFree));
         UpdateCardPosition();
+        UpdateBattleCardsCount();
     }
 
     public void RemoveCard(int index)
@@ -234,6 +241,7 @@ public partial class CardBattle : CanvasLayer
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
         AddChild(newCard);
+        BattleCards.DiscardCards.Add(card.CardInfo);
         _hand.RemoveChild(card);
         var tweenPosition = CreateTween();
         var tweenRotation = CreateTween();
@@ -243,6 +251,7 @@ public partial class CardBattle : CanvasLayer
         tweenScale.TweenProperty(newCard, "scale", Vector2.Zero, 0.2);
         tweenScale.TweenCallback(Callable.From(newCard.QueueFree));
         UpdateCardPosition();
+        UpdateBattleCardsCount();
     }
 
     private void PreviewCard(Card card)
