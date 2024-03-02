@@ -146,6 +146,7 @@ public partial class BattleManager : Node
             index = (index + 1) % Pieces.Count;
             TurnTo(Pieces[index]);
         }
+        CardBattle.TurnTo(battlePiece);
     }
 
     public void PrepareCards()
@@ -192,25 +193,25 @@ public partial class BattleManager : Node
             case Cards.CardTarget.Self:
                 if (targetPiece == CurrentPiece)
                 {
-                    return new List<BattlePiece> { CurrentPiece };
+                    return [CurrentPiece];
                 }
                 return null;
             case Cards.CardTarget.Enemy:
                 if (targetPiece is BattleEnemy enemy)
                 {
-                    return new List<BattlePiece> { enemy };
+                    return [enemy];
                 }
                 return null;
             case Cards.CardTarget.Ally:
                 if (targetPiece is BattleParty && targetPiece != CurrentPiece)
                 {
-                    return new List<BattlePiece> { targetPiece };
+                    return [targetPiece];
                 }
                 return null;
             case Cards.CardTarget.AllEnemies:
                 if (targetPiece is BattleEnemy)
                 {
-                    List<BattlePiece> enemies = new List<BattlePiece>();
+                    List<BattlePiece> enemies = [];
                     foreach (var piece in Pieces)
                     {
                         if (piece is BattleEnemy)
@@ -224,21 +225,44 @@ public partial class BattleManager : Node
             case Cards.CardTarget.AllAllies:
                 if (targetPiece is BattleParty)
                 {
-                    List<BattlePiece> partis = new List<BattlePiece>();
+                    List<BattlePiece> parties = [];
                     foreach (var piece in Pieces)
                     {
                         if (piece is BattleParty)
                         {
-                            partis.Add(piece);
+                            parties.Add(piece);
                         }
                     }
-                    return partis;
+                    return parties;
                 }
                 return null;
             case Cards.CardTarget.All:
                 return Pieces;
         }
         return null;
+    }
+
+    public void UseCard(Card card, List<BattlePiece> target)
+    {
+        switch (card)
+        {
+            case CardAttack cardAttack:
+                cardAttack.TakeEffect(target);
+                CardBattle.RemoveCard(cardAttack);
+                break;
+            case CardDefense cardDefense:
+                cardDefense.TakeEffect(target);
+                CardBattle.RemoveCard(cardDefense);
+                break;
+            case CardSpecial cardSpecial:
+                cardSpecial.TakeEffect(target);
+                CardBattle.RemoveCard(cardSpecial);
+                break;
+            case CardItem cardItem:
+                cardItem.TakeEffect(target);
+                CardBattle.RemoveCard(cardItem);
+                break;
+        }
     }
 
     public void CheckDeathAndClear(List<BattlePiece> battlePieces)
