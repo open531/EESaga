@@ -127,6 +127,7 @@ public partial class PieceBattle : Node2D
         enemy.GlobalPosition = PosForPiece(cell);
         PieceMap[cell] = enemy;
         Enemies.Add(enemy);
+        Pieces.Add(enemy);
     }
 
     public void AddParty(PartyType partyType)
@@ -146,6 +147,7 @@ public partial class PieceBattle : Node2D
         party.GlobalPosition = PosForPiece(cell);
         PieceMap[cell] = party;
         Parties.Add(party);
+        Pieces.Add(party);
     }
 
     public void AddParty(BattleParty party)
@@ -160,6 +162,7 @@ public partial class PieceBattle : Node2D
         party.GlobalPosition = PosForPiece(cell);
         PieceMap[cell] = party;
         Parties.Add(party);
+        Pieces.Add(party);
     }
 
     public void ShowAccessibleTiles(int range)
