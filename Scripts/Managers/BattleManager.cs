@@ -51,8 +51,14 @@ public partial class BattleManager : Node
         CardBattle = GetNode<CardBattle>("CardBattle");
 
         CardBattle.OperatingCardChanged += OnCardBattleOperatingCardChanged;
+        CardBattle.EndTurn += () =>
+        {
+            var index = Pieces.IndexOf(CurrentPiece as BattleParty);
+            index = (index + 1) % Pieces.Count;
+            TurnTo(Pieces[index]);
+        };
 
-        TurnTo(Parties[0]);
+        TurnTo(Pieces[0]);
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -131,6 +137,8 @@ public partial class BattleManager : Node
         }
         else if (battlePiece is BattleEnemy battleEnemy)
         {
+            CurrentPiece = battleEnemy;
+            TakeAction(battleEnemy);
         }
     }
 
@@ -237,6 +245,13 @@ public partial class BattleManager : Node
         {
             if (piece.Health == 0)
             {
+                foreach (var item in PieceBattle.PieceMap)
+                {
+                    if (item.Value == piece)
+                    {
+                        PieceBattle.Clearheritage(item.Key);
+                    }
+                }
                 piece.QueueFree();
             }
         }
@@ -251,6 +266,11 @@ public partial class BattleManager : Node
         {
             PieceBattle.ShowEffectTiles(CardBattle.OperatingCard.CardRange, CardBattle.OperatingCard.CardTarget);
         }
+    }
+
+    private void TakeAction(BattleEnemy battleEnemy)
+    {
+        GD.Print("Enemy Turn");
     }
 }
 

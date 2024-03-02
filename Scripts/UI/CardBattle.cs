@@ -69,6 +69,8 @@ public partial class CardBattle : CanvasLayer
 
     [Signal] public delegate void OperatingCardChangedEventHandler();
 
+    [Signal] public delegate void EndTurnEventHandler();
+
     private const int _maxHandSize = 8;
     private const float _cardX = 64.0f;
     private const float _cardY = 72.0f;
@@ -312,6 +314,11 @@ public partial class CardBattle : CanvasLayer
                 }
             }
         }
+    }
+
+    public void OnEndTurnButtonPressed()
+    {
+        EmitSignal(SignalName.EndTurn);
     }
 }
 

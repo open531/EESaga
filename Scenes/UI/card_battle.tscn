@@ -108,3 +108,5 @@ theme_override_styles/panel = ExtResource("6_l64th")
 [node name="DiscardCardViewer" parent="." instance=ExtResource("3_ogy6m")]
 visible = false
 theme_override_styles/panel = ExtResource("7_1pk8w")
+
+[connection signal="pressed" from="EndTurnButton" to="." method="OnEndTurnButtonPressed"]
