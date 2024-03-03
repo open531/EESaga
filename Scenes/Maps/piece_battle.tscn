@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://2knbl6nuc0ca"]
+[gd_scene load_steps=4 format=3 uid="uid://2knbl6nuc0ca"]
 
 [ext_resource type="Script" path="res://Scripts/Maps/PieceBattle.cs" id="1_dycyo"]
 [ext_resource type="PackedScene" uid="uid://35ry4gujareg" path="res://Scenes/Maps/isometric_tile_map.tscn" id="2_6f3ci"]
+[ext_resource type="PackedScene" uid="uid://bha4dqxuyyijh" path="res://Scenes/UI/piece_detail.tscn" id="3_wory3"]
 
 [node name="PieceBattle" type="Node2D"]
 script = ExtResource("1_dycyo")
@@ -18,3 +19,12 @@ y_sort_enabled = true
 wait_time = 0.5
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PieceDetail" parent="CanvasLayer" instance=ExtResource("3_wory3")]
+unique_name_in_owner = true
+offset_left = 5.0
+offset_top = 180.0
+offset_right = 213.0
+offset_bottom = 224.0

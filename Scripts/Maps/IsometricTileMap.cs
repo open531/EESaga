@@ -39,11 +39,6 @@ public partial class IsometricTileMap : TileMap
         GenerateBoundary();
     }
 
-    public override void _Process(double delta)
-    {
-        UpdateSelectedTile();
-    }
-
     private void GenerateBoundary()
     {
         List<Vector2I> offsets = [
@@ -122,7 +117,7 @@ public partial class IsometricTileMap : TileMap
         }
     }
 
-    private void UpdateSelectedTile()
+    public void UpdateSelectedTile()
     {
         var mousePos = GetGlobalMousePosition();
         var tileMapPos = LocalToMap(mousePos);
