@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.Maps;
 
 using Cards;
+using EESaga.Scripts.Managers;
 using EESaga.Scripts.UI;
 using Entities;
 using Entities.BattleEnemies;
@@ -25,6 +26,7 @@ public partial class PieceBattle : Node2D
     public Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
 
     public Dictionary<Vector2I, Vector2I> ColorMap { get; set; } = [];
+    public BattleManager BattleManager { get; set; }
 
     [Signal] public delegate void PieceMovedEventHandler();
 
@@ -169,14 +171,14 @@ public partial class PieceBattle : Node2D
         Pieces.Add(party);
     }
 
-    public void ShowAccessibleTiles(int range,bool auto = false)
+    public void ShowAccessibleTiles(int range, bool auto = false)
     {
         TileMap.ClearLayer((int)Layer.Mark);
         _astar.Clear();
         var src = TileMap.LocalToMap(CurrentPiece.GlobalPosition);
         var _range = 20;
         var autoAccessibleTiles = TileMap.GetAccessibleTiles(src, _range);
-        var accessibleTiles = TileMap.GetAccessibleTiles(src,range);
+        var accessibleTiles = TileMap.GetAccessibleTiles(src, range);
         if (auto)
         {
             var primaryTiles = new List<Vector2I>();
@@ -245,6 +247,10 @@ public partial class PieceBattle : Node2D
 
     public void ShowEffectTiles(int range, CardTarget cardTarget)
     {
+        if (CurrentPiece.IsMoving)
+        {
+            return;
+        }
         var src = TileMap.LocalToMap(CurrentPiece.GlobalPosition);
         var usedCells = TileMap.GetUsedCells((int)Layer.Ground);
         switch (cardTarget)
@@ -313,9 +319,11 @@ public partial class PieceBattle : Node2D
 
     public void RecoverEffectTiles()
     {
-        Vector2I vector2I = Vector2I.Zero;
-        vector2I.X = -1;
-        vector2I.Y = -1;
+        if (ColorMap.Count == 0)
+        {
+            return;
+        }
+        var vector2I = new Vector2I(-1, -1);
         foreach (var item in ColorMap)
         {
             if (item.Value == vector2I)
@@ -340,9 +348,17 @@ public partial class PieceBattle : Node2D
             _pieceMovePath = path.Skip(1).ToList();
             _pieceMoveIndex = 0;
             CurrentPiece.IsMoving = true;
+            if (BattleManager.CardBattle.OperatingCard != null)
+            {
+                BattleManager.CardBattle.RecoverCardStatus();
+            }
             PieceMap[src] = null;
             PieceMap[dst] = CurrentPiece;
             _pieceMoveTimer.Start();
+        }
+        else
+        {
+            EmitSignal(SignalName.PieceMoved);
         }
     }
 

@@ -2,6 +2,7 @@ namespace EESaga.Scripts.UI;
 
 using Cards;
 using EESaga.Scripts.Entities.BattleEnemies;
+using EESaga.Scripts.Managers;
 using Entities;
 using Entities.BattleParties;
 using Godot;
@@ -29,6 +30,7 @@ public partial class CardBattle : CanvasLayer
     private CardViewer _discardCardViewer;
 
     private BattleCards _battleCards;
+    public BattleManager BattleManager { get; set; }
     public BattleCards BattleCards
     {
         get => _battleCards;
@@ -53,10 +55,23 @@ public partial class CardBattle : CanvasLayer
     public Card OperatingCard
     {
         get => _operatingCard;
-        private set
+        set
         {
-            _operatingCard = value;
-            EmitSignal(SignalName.OperatingCardChanged);
+            if (start)
+            {
+                _operatingCard = value;
+                start = false;
+            }
+            else if (!BattleManager.CurrentPiece.IsMoving)
+            {
+                _operatingCard = value;
+                EmitSignal(SignalName.OperatingCardChanged);
+            }
+            else
+            {
+                _operatingCard = null;
+                EmitSignal(SignalName.OperatingCardChanged);
+            }
         }
     }
 
@@ -81,6 +96,8 @@ public partial class CardBattle : CanvasLayer
     private const float _cardRotation = 0.1f;
     private const float _cardWidth = 57.0f;
     private const float _cardHeight = 88.0f;
+
+    private bool start = true;
 
     public static CardBattle Instance() => GD.Load<PackedScene>("res://Scenes/UI/card_battle.tscn").Instantiate<CardBattle>();
 
@@ -327,13 +344,19 @@ public partial class CardBattle : CanvasLayer
                 {
                     if (GetNodeOrNull("PreviewCard") is Card previewCard)
                     {
-                        if (OperatingCard != previewCard.Parent)
+                        if (BattleManager.CurrentPiece.IsMoving)
+                        {
+
+                        }
+                        else if (OperatingCard != previewCard.Parent)
                         {
                             OperatingCard = previewCard.Parent;
+                            OperatingCard.Child = previewCard;
                             previewCard.MouseExited -= ExitPreviewCard;
                         }
                         else
                         {
+                            OperatingCard.Child = null;
                             OperatingCard = null;
                             previewCard.MouseExited += ExitPreviewCard;
                         }
@@ -346,6 +369,12 @@ public partial class CardBattle : CanvasLayer
     public void UpdateEnergyLabel(BattleParty party)
     {
         _energyLabel.Text = $"{party.Energy}/{party.EnergyMax}";
+    }
+
+    public void RecoverCardStatus()
+    {
+        OperatingCard.Child.MouseExited += ExitPreviewCard;
+        OperatingCard = null;
     }
 
     private void OnCardUpdated()

@@ -62,6 +62,8 @@ public partial class BattleManager : Node
             index = (index + 1) % Pieces.Count;
             TurnTo(Pieces[index]);
         };
+        CardBattle.BattleManager = this;
+        PieceBattle.BattleManager = this;
 
         TurnTo(Pieces[Pieces.Count - 1]);
     }
