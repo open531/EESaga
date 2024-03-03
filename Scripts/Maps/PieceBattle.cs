@@ -35,6 +35,7 @@ public partial class PieceBattle : Node2D
     private Node2D _parties;
     private Timer _pieceMoveTimer;
     private Camera2D _camera;
+    private PieceDetail _pieceDetail;
 
     private AStarGrid2D _astar = new()
     {
@@ -55,6 +56,7 @@ public partial class PieceBattle : Node2D
         _parties = GetNode<Node2D>("Parties");
         _pieceMoveTimer = GetNode<Timer>("PieceMoveTimer");
         _camera = GetNode<Camera2D>("Camera2D");
+        _pieceDetail = GetNode<PieceDetail>("%PieceDetail");
 
         _pieceMoveTimer.WaitTime = PieceMoveTime;
         _pieceMoveTimer.Timeout += OnPieceMoveTimerTimeout;
@@ -100,6 +102,15 @@ public partial class PieceBattle : Node2D
         };
         AddParty(player);
         #endregion
+    }
+
+    public override void _Process(double delta)
+    {
+        TileMap.UpdateSelectedTile();
+        if (TileMap.SelectedCell != null)
+        {
+            _pieceDetail.Update(PieceMap[TileMap.SelectedCell.Value]);
+        }
     }
 
     public void Initialize(IsometricTileMap tileMap)

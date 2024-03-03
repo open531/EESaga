@@ -7,6 +7,7 @@ public partial class PieceDetail : Control
 {
     private Label _pieceName;
     private Label _pieceHealth;
+    private Label _pieceShield;
 
     public static PieceDetail Instance() => GD.Load<PackedScene>("res://Scenes/UI/piece_detail.tscn").Instantiate<PieceDetail>();
 
@@ -14,9 +15,11 @@ public partial class PieceDetail : Control
     {
         _pieceName = GetNode<Label>("%PieceName");
         _pieceHealth = GetNode<Label>("%PieceHealth");
+        _pieceShield = GetNode<Label>("%PieceShield");
 
         _pieceName.Text = "";
         _pieceHealth.Text = "";
+        _pieceShield.Text = "";
     }
 
     public void Update(BattlePiece piece)
@@ -25,11 +28,13 @@ public partial class PieceDetail : Control
         {
             _pieceName.Text = "";
             _pieceHealth.Text = "";
+            _pieceShield.Text = "";
         }
         else
         {
             _pieceName.Text = Tr(piece.PieceName);
             _pieceHealth.Text = piece.Health.ToString() + "/" + piece.HealthMax.ToString();
+            _pieceShield.Text = piece.Shield.ToString();
         }
     }
 }
