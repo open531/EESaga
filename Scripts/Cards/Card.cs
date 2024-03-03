@@ -22,6 +22,8 @@ public partial class Card : Control, ICard
 
     public Card Parent { get; set; }
 
+    public Card Child { get; set; }
+
     public static Card Instance() => GD.Load<PackedScene>("res://Scenes/Cards/card.tscn").Instantiate<Card>();
 
     public override void _Ready()
