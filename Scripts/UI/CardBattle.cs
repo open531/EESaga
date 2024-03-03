@@ -351,12 +351,10 @@ public partial class CardBattle : CanvasLayer
                         else if (OperatingCard != previewCard.Parent)
                         {
                             OperatingCard = previewCard.Parent;
-                            OperatingCard.Child = previewCard;
                             previewCard.MouseExited -= ExitPreviewCard;
                         }
                         else
                         {
-                            OperatingCard.Child = null;
                             OperatingCard = null;
                             previewCard.MouseExited += ExitPreviewCard;
                         }
@@ -373,7 +371,7 @@ public partial class CardBattle : CanvasLayer
 
     public void RecoverCardStatus()
     {
-        OperatingCard.Child.MouseExited += ExitPreviewCard;
+        ExitPreviewCard();
         OperatingCard = null;
     }
 
