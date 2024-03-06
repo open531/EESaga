@@ -8,7 +8,11 @@ public static class CardFactory
         {
             CardType.Attack => CardAttack.Instance(),
             CardType.Defense => CardDefense.Instance(),
-            CardType.Special => CardSpecial.Instance(),
+            CardType.Special => cardInfo.SpecialType switch
+            {
+                CardSpecialType.Cure => CardCure.Instance(),
+                _ => CardSpecial.Instance(),
+            },
             CardType.Item => CardItem.Instance(),
             _ => Card.Instance(),
         };

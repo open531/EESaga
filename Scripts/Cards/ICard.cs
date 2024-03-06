@@ -33,10 +33,17 @@ public enum CardTarget
     All,
 }
 
+public enum CardSpecialType
+{
+    General,
+    Cure,
+}
+
 public class CardInfo(
     CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange = 1,
     int attackDamage = 0, int attackTimes = 0,
-    int defenseValue = 0
+    int defenseValue = 0,
+    CardSpecialType specialType = CardSpecialType.General
     ) : ICard
 {
     #region Card
@@ -59,6 +66,7 @@ public class CardInfo(
     #endregion
 
     #region Special
+    public CardSpecialType SpecialType { get; set; } = specialType;
     #endregion
 
     #region Item
@@ -71,4 +79,5 @@ public static class CardData
     public static CardInfo CDDefend = new(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 1, CardTarget.Self, defenseValue: 3);
     public static CardInfo CSStruggle = new(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 1, CardTarget.Self);
     public static CardInfo CIECS = new(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 1, CardTarget.Self);
+    public static CardInfo CSCure = new(CardType.Special, "C_S_CURE", "C_S_CURE_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Cure);
 }
