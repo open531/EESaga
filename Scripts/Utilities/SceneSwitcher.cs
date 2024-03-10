@@ -19,8 +19,8 @@ public partial class SceneSwitcher : Node
 
     private Timer _timer = new();
 
-    private TitleMenu _titleMenu = TitleMenu.Instance();
-    private BattleManager _battleManager = BattleManager.Instance();
+    public TitleMenu TitleMenu { get; } = TitleMenu.Instance();
+    public BattleManager BattleManager { get; } = BattleManager.Instance();
 
     public override void _Ready()
     {
@@ -28,7 +28,7 @@ public partial class SceneSwitcher : Node
         AddChild(_timer);
         if (Main != null)
         {
-            PushScene(_titleMenu);
+            PushScene(TitleMenu);
         }
     }
 
