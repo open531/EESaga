@@ -90,6 +90,10 @@ public partial class PieceBattle : Node2D
                 CardData.CAStrike,
                 CardData.CAStrike,
                 CardData.CAStrike,
+                CardData.CSCure,
+                CardData.CSCure,
+                CardData.CSCure,
+                CardData.CSCure,
             ],
             HandCards = [],
             DiscardCards =
