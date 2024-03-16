@@ -1,11 +1,11 @@
 namespace EESaga.Scripts.UI;
 
 using Godot;
-using System;
+using Utilities;
 
 public partial class TitleMenu : Control
 {
-    [Export] public PackedScene PlayScene { get; set; }
+    private SceneSwitcher _sceneSwitcher;
 
     private MarginContainer _marginContainer;
     private Button _playButton;
@@ -19,6 +19,8 @@ public partial class TitleMenu : Control
 
     public override void _Ready()
     {
+        _sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
+
         _marginContainer = GetNode<MarginContainer>("MarginContainer");
         _playButton = GetNode<Button>("%PlayButton");
         _loadButton = GetNode<Button>("%LoadButton");
@@ -38,10 +40,7 @@ public partial class TitleMenu : Control
 
     private void OnPlayButtonPressed()
     {
-        if (PlayScene != null)
-        {
-            GetTree().ChangeSceneToPacked(PlayScene);
-        }
+        _sceneSwitcher.PushScene(_sceneSwitcher.BattleManager);
     }
 
     private void OnOptionButtonPressed()
