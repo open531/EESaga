@@ -63,7 +63,6 @@ public partial class BattleManager : Node
         {
             var index = Pieces.IndexOf(CurrentPiece);
             index = (index + 1) % Pieces.Count;
-            TurnTo(Pieces[index]);
         };
         CardBattle.BattleManager = this;
         PieceBattle.BattleManager = this;
@@ -338,13 +337,13 @@ public partial class BattleManager : Node
                 if (cells.Contains(cell))
                 {
                     var body = enemy.Attack(target);
-                    if(body != null)
+                    if (body != null)
                     {
                         PieceBattle.PieceMap[cell] = null;
-                        if(Parties.Count == 1)
+                        if (Parties.Count == 1)
                         {
-                            _sceneSwitcher.PopScene();
-                            _sceneSwitcher.PushScene(_sceneSwitcher.GameOver);
+                            GD.Print("Game Over");
+                            _sceneSwitcher.PushScene(SceneSwitcher.GameOver, true);
                         }
                     }
                 }

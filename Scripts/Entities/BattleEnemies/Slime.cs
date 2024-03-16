@@ -48,7 +48,7 @@ public partial class Slime : BattleEnemy
                 break;
             }
         }
-        if(battleParty.Health > 0)
+        if (battleParty.Health > 0)
         {
             GD.Print($"{battleParty.Name} 还剩下 {battleParty.Shield} 点护盾值");
             GD.Print($"{battleParty.Name} 还剩下 {battleParty.Health} 点生命值");
