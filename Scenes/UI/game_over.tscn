@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwkn2tep4vgn4"]
+
+[ext_resource type="Script" path="res://Scripts/UI/GameOver.cs" id="1_wboaj"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_wboaj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(16.0708, 9.04)
+color = Color(0.596078, 0.705882, 1, 0.0980392)
+
+[node name="GameOverTitle" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 220.0
+offset_top = 93.0
+offset_right = 292.0
+offset_bottom = 109.0
+scale = Vector2(2.71983, 2.56103)
+text = "GAME_OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameRestartButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 147.0
+offset_top = 180.0
+offset_right = 251.0
+offset_bottom = 204.0
+text = "GAME_RESTART"
+
+[node name="GameQuitButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 389.0
+offset_top = 180.0
+offset_right = 493.0
+offset_bottom = 204.0
+text = "GAME_QUIT"

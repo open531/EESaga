@@ -17,6 +17,7 @@ using UI;
 
 public partial class BattleManager : Node
 {
+    private SceneSwitcher _sceneSwitcher;
     public BattleState BattleState
     {
         get
@@ -55,6 +56,7 @@ public partial class BattleManager : Node
 
     public override void _Ready()
     {
+        _sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
         PieceBattle = GetNode<PieceBattle>("PieceBattle");
         CardBattle = GetNode<CardBattle>("CardBattle");
 
@@ -62,8 +64,11 @@ public partial class BattleManager : Node
         CardBattle.EndTurn += () =>
         {
             var index = Pieces.IndexOf(CurrentPiece);
-            index = (index + 1) % Pieces.Count;
-            TurnTo(Pieces[index]);
+            if (Pieces.Count > 0)
+            {
+                index = (index + 1) % Pieces.Count;
+                TurnTo(Pieces[index]);
+            }
         };
         CardBattle.BattleManager = this;
         PieceBattle.BattleManager = this;
@@ -351,7 +356,16 @@ public partial class BattleManager : Node
                 var cells = GetNearAccessibleCell(dst.Value, enemyFight: true);
                 if (cells.Contains(cell))
                 {
-                    enemy.Attack(target);
+                    var body = enemy.Attack(target);
+                    if (body != null)
+                    {
+                        PieceBattle.PieceMap[cell] = null;
+                        if (Parties.Count == 1)
+                        {
+                            GD.Print("Game Over");
+                            _sceneSwitcher.PushScene(SceneSwitcher.GameOver, true);
+                        }
+                    }
                 }
                 else
                 {
