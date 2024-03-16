@@ -40,7 +40,7 @@ public partial class TitleMenu : Control
 
     private void OnPlayButtonPressed()
     {
-        _sceneSwitcher.PushScene(_sceneSwitcher.BattleManager);
+        _sceneSwitcher.PushScene(SceneSwitcher.BattleManager);
     }
 
     private void OnOptionButtonPressed()

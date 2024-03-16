@@ -23,7 +23,7 @@ public partial class GameOver : Control
 
 	private void OnGameRestartButtonPressed()
 	{
-        _sceneSwitcher.PushScene(_sceneSwitcher.TitleMenu);
+        _sceneSwitcher.PushScene(SceneSwitcher.TitleMenu);
     }
 	private void OnGameQuitButtonPressed()
 	{
