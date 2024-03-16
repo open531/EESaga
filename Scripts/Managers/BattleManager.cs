@@ -106,7 +106,17 @@ public partial class BattleManager : Node
                                     CardBattle.RemoveCard(cardDefense);
                                     break;
                                 case CardSpecial cardSpecial:
-                                    cardSpecial.TakeEffect(target);
+                                    {
+                                        switch (card)
+                                        {
+                                            case CardCure cardCure:
+                                                cardCure.TakeEffect(target);
+                                                break;
+                                            default:
+                                                cardSpecial.TakeEffect(target);
+                                                break;
+                                        }
+                                    }
                                     CardBattle.RemoveCard(cardSpecial);
                                     break;
                                 case CardItem cardItem:
@@ -354,13 +364,13 @@ public partial class BattleManager : Node
         var deleteCells = new List<Vector2I>();
         List<Vector2I> accessibleCells = [
         new Vector2I(dst.X - 1, dst.Y),
-        new Vector2I(dst.X + 1, dst.Y),
-        new Vector2I(dst.X, dst.Y - 1),
-        new Vector2I(dst.X, dst.Y + 1),
-        new Vector2I(dst.X - 1, dst.Y - 1),
-        new Vector2I(dst.X + 1, dst.Y + 1),
-        new Vector2I(dst.X - 1, dst.Y + 1),
-        new Vector2I(dst.X + 1, dst.Y - 1),
+            new Vector2I(dst.X + 1, dst.Y),
+            new Vector2I(dst.X, dst.Y - 1),
+            new Vector2I(dst.X, dst.Y + 1),
+            new Vector2I(dst.X - 1, dst.Y - 1),
+            new Vector2I(dst.X + 1, dst.Y + 1),
+            new Vector2I(dst.X - 1, dst.Y + 1),
+            new Vector2I(dst.X + 1, dst.Y - 1),
         ];
         foreach (var cell in accessibleCells)
         {
