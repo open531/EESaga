@@ -16,10 +16,14 @@ public static class CardFactory
             CardType.Special => cardInfo.SpecialType switch
             {
                 CardSpecialType.Cure => CardCure.Instance(),
+                CardSpecialType.Struggle => CardStruggle.Instance(),
                 _ => CardSpecial.Instance(),
             },
-            CardType.Item => CardItem.Instance(),
-            _ => Card.Instance(),
+            CardType.Item => cardInfo.ItemType switch
+            {
+                CardItemType.Ecs => CardEcs.Instance(),
+                _ => Card.Instance(),
+            }
         };
 
         card.InitializeCard(cardInfo);

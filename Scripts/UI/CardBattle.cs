@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.UI;
 
 using Cards;
+using Cards.CardItems;
 using Entities.BattleParties;
 using Godot;
 using Managers;
@@ -221,6 +222,10 @@ public partial class CardBattle : CanvasLayer
     private void AddCard(CardInfo card)
     {
         var cardNode = CardFactory.CreateCard(card);
+        if (cardNode is CardEcs cardEcs)
+        {
+            cardEcs.EcsGetCards += () => BattleManager.PrepareCards(cardEcs.CardNum);
+        }
         cardNode.InitializeCard(card);
         cardNode.Position = _deck.Position - _hand.Position;
         cardNode.Scale = Vector2.Zero;

@@ -112,6 +112,9 @@ public partial class BattleManager : Node
                                             case CardCure cardCure:
                                                 cardCure.TakeEffect(target);
                                                 break;
+                                            case CardStruggle cardStruggle:
+                                                cardStruggle.TakeEffect(target);
+                                                break;
                                             default:
                                                 cardSpecial.TakeEffect(target);
                                                 break;
@@ -120,9 +123,20 @@ public partial class BattleManager : Node
                                     CardBattle.RemoveCard(cardSpecial);
                                     break;
                                 case CardItem cardItem:
-                                    cardItem.TakeEffect(target);
+                                    {
+                                        switch (card)
+                                        {
+                                            case CardEcs cardEcs:
+                                                cardEcs.TakeEffect(target);
+                                                break;
+                                            default:
+                                                cardItem.TakeEffect(target);
+                                                break;
+                                        }
+                                    }
                                     CardBattle.RemoveCard(cardItem);
                                     break;
+
                             }
                             CheckDeathAndClear(target);
                             if (CardBattle.IsMoving)
@@ -157,7 +171,7 @@ public partial class BattleManager : Node
             CardBattle.BattleCards = battleParty.BattleCards;
             CardBattle.UpdateEnergyLabel(battleParty);
             PieceBattle.ShowAccessibleTiles(battleParty.MoveRange);
-            PrepareCards();
+            PrepareCards(battleParty.HandCardCount);
         }
         else if (battlePiece is BattleEnemy battleEnemy)
         {
@@ -172,11 +186,11 @@ public partial class BattleManager : Node
         }
     }
 
-    public void PrepareCards()
+    public void PrepareCards(int num)
     {
         if (CurrentPiece is BattleParty battleParty)
         {
-            if (battleParty.BattleCards.DeckCards.Count < battleParty.HandCardCount)
+            if (battleParty.BattleCards.DeckCards.Count < num)
             {
                 foreach (var card in battleParty.BattleCards.DiscardCards)
                 {
@@ -186,7 +200,7 @@ public partial class BattleManager : Node
             }
             var rng = new RandomNumberGenerator();
             rng.Randomize();
-            for (var i = 0; i < battleParty.HandCardCount; i++)
+            for (var i = 0; i < num; i++)
             {
                 var randomIndex = rng.RandiRange(0, battleParty.BattleCards.DeckCards.Count - 1);
                 var card = battleParty.BattleCards.DeckCards[randomIndex];
