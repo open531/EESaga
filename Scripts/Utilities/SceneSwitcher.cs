@@ -22,6 +22,8 @@ public partial class SceneSwitcher : Node
     public TitleMenu TitleMenu { get; } = TitleMenu.Instance();
     public BattleManager BattleManager { get; } = BattleManager.Instance();
 
+    public GameOver GameOver { get; } = GameOver.Instance();
+
     public override void _Ready()
     {
         Main = GetNodeOrNull<Node>("/root/Main");

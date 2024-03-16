@@ -20,7 +20,7 @@ public partial class Slime : BattleEnemy
         Shield = 0;
     }
 
-    public override void Attack(BattleParty battleParty)
+    public override BattleParty Attack(BattleParty battleParty)
     {
         for (var i = 0; i < AttackTimes; i++)
         {
@@ -43,9 +43,20 @@ public partial class Slime : BattleEnemy
             }
             if (battleParty.Health == 0)
             {
+                battleParty.QueueFree();
                 GD.Print($"{battleParty.PieceName} 用他的牺牲，为队友争取了时间！");
                 break;
             }
+        }
+        if(battleParty.Health > 0)
+        {
+            GD.Print($"{battleParty.Name} 还剩下 {battleParty.Shield} 点护盾值");
+            GD.Print($"{battleParty.Name} 还剩下 {battleParty.Health} 点生命值");
+            return null;
+        }
+        else
+        {
+            return battleParty;
         }
     }
 
