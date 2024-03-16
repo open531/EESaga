@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.Managers;
 
 using Cards;
+using EESaga.Scripts.Utilities;
 using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;
@@ -14,6 +15,7 @@ using UI;
 
 public partial class BattleManager : Node
 {
+    private SceneSwitcher _sceneSwitcher;
     public BattleState BattleState
     {
         get
@@ -52,6 +54,7 @@ public partial class BattleManager : Node
 
     public override void _Ready()
     {
+        _sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
         PieceBattle = GetNode<PieceBattle>("PieceBattle");
         CardBattle = GetNode<CardBattle>("CardBattle");
 
@@ -324,7 +327,16 @@ public partial class BattleManager : Node
                 var cells = GetNearAccessibleCell(dst.Value, enemyFight: true);
                 if (cells.Contains(cell))
                 {
-                    enemy.Attack(target);
+                    var body = enemy.Attack(target);
+                    if(body != null)
+                    {
+                        PieceBattle.PieceMap[cell] = null;
+                        if(Parties.Count == 1)
+                        {
+                            _sceneSwitcher.PopScene();
+                            _sceneSwitcher.PushScene(_sceneSwitcher.GameOver);
+                        }
+                    }
                 }
                 else
                 {
