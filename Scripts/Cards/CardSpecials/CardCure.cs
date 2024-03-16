@@ -1,7 +1,6 @@
-﻿namespace EESaga.Scripts.Cards;
+﻿namespace EESaga.Scripts.Cards.CardSpecials;
 
-using EESaga.Scripts.Entities;
-using EESaga.Scripts.Maps;
+using Entities;
 using Godot;
 using System.Collections.Generic;
 public partial class CardCure : CardSpecial

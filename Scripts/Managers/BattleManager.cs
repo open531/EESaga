@@ -1,13 +1,16 @@
 namespace EESaga.Scripts.Managers;
 
 using Cards;
+using Cards.CardAttacks;
+using Cards.CardDefenses;
+using Cards.CardItems;
+using Cards.CardSpecials;
 using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;
 using Godot;
 using Godot.Collections;
 using Maps;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UI;

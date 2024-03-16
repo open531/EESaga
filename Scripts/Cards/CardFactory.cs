@@ -1,5 +1,10 @@
 ﻿namespace EESaga.Scripts.Cards;
 
+using Cards.CardAttacks;
+using Cards.CardDefenses;
+using Cards.CardItems;
+using Cards.CardSpecials;
+
 public static class CardFactory
 {
     public static Card CreateCard(CardInfo cardInfo)

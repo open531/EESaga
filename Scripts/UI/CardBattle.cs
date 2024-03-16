@@ -1,11 +1,9 @@
 namespace EESaga.Scripts.UI;
 
 using Cards;
-using EESaga.Scripts.Entities.BattleEnemies;
-using EESaga.Scripts.Managers;
-using Entities;
 using Entities.BattleParties;
 using Godot;
+using Managers;
 using System;
 using System.Collections.Generic;
 

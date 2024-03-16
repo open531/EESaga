@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://djtn7yfj76bmj" path="res://Scenes/Cards/card.tscn" id="1_lwhup"]
 [ext_resource type="Texture2D" uid="uid://bri48w0equilg" path="res://Assets/Textures/Cards/card_green.png" id="2_jogg0"]
-[ext_resource type="Script" path="res://Scripts/Cards/CardSpecial.cs" id="2_pipxn"]
+[ext_resource type="Script" path="res://Scripts/Cards/CardSpecials/CardSpecial.cs" id="2_pipxn"]
 
 [node name="CardSpecial" instance=ExtResource("1_lwhup")]
 script = ExtResource("2_pipxn")

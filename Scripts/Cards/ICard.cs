@@ -1,6 +1,5 @@
 ﻿namespace EESaga.Scripts.Cards;
 
-using Godot;
 
 public interface ICard
 {
