@@ -62,7 +62,11 @@ public partial class BattleManager : Node
         CardBattle.EndTurn += () =>
         {
             var index = Pieces.IndexOf(CurrentPiece);
-            index = (index + 1) % Pieces.Count;
+            if (Pieces.Count > 0)
+            {
+                index = (index + 1) % Pieces.Count;
+                TurnTo(Pieces[index]);
+            }
         };
         CardBattle.BattleManager = this;
         PieceBattle.BattleManager = this;
