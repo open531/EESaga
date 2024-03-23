@@ -78,7 +78,7 @@ public class CardInfo(
 
     #region Item
     public CardItemType ItemType { get; set; } = itemType;
-    #endregion  
+    #endregion
 }
 
 public static class CardData

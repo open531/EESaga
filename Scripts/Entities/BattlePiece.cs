@@ -113,7 +113,7 @@ public partial class BattlePiece : Area2D, IBattlePiece
 
     public virtual void CheckDeath()
     {
-        if(Health == 0)
+        if (Health == 0)
         {
             GD.Print($"{PieceName} is dead.");
             EmitSignal(SignalName.PieceDeath, this);

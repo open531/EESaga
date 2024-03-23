@@ -23,7 +23,8 @@ public static class CardFactory
             {
                 CardItemType.Ecs => CardEcs.Instance(),
                 _ => Card.Instance(),
-            }
+            },
+            _ => Card.Instance(),
         };
 
         card.InitializeCard(cardInfo);

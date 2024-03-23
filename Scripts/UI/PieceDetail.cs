@@ -33,8 +33,8 @@ public partial class PieceDetail : Control
         else
         {
             _pieceName.Text = Tr(piece.PieceName);
-            _pieceHealth.Text = piece.Health.ToString() + "/" + piece.HealthMax.ToString();
-            _pieceShield.Text = piece.Shield.ToString();
+            _pieceHealth.Text = Tr("PIECE_HEALTH") + ": " + piece.Health.ToString() + "/" + piece.HealthMax.ToString();
+            _pieceShield.Text = Tr("PIECE_SHIELD") + ": " + piece.Shield.ToString();
         }
     }
 }

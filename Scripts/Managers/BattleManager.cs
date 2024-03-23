@@ -199,7 +199,7 @@ public partial class BattleManager : Node
         PieceBattle.Initialize(room.TileMap);
     }
 
-    public async void TurnTo(BattlePiece battlePiece)
+    public void TurnTo(BattlePiece battlePiece)
     {
         if (CurrentPiece == battlePiece)
         {
@@ -211,6 +211,7 @@ public partial class BattleManager : Node
             battleParty.Energy = battleParty.EnergyMax;
             CurrentPiece = battleParty;
             GD.Print($"{CurrentPiece.PieceName} Turn");
+            battleParty.Energy = battleParty.EnergyMax;
             CardBattle.ShowUI();
             CardBattle.IsMoving = true;
             CardBattle.BattleCards = battleParty.BattleCards;
@@ -384,7 +385,7 @@ public partial class BattleManager : Node
         }
     }
 
-    private async void TakeAction()
+    private void TakeAction()
     {
         var enemy = CurrentPiece as BattleEnemy;
         var location = PieceBattle.TileMap.LocalToMap(enemy.GlobalPosition);
