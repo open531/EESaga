@@ -3,4 +3,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Cards\CardAttacks\" />
+    <Folder Include="Scripts\Cards\CardDefenses\" />
+  </ItemGroup>
 </Project>
