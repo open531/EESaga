@@ -11,11 +11,14 @@ using Maps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UI;
 
 public partial class BattleManager : Node
 {
-    private SceneSwitcher _sceneSwitcher;
+    public SceneSwitcher _sceneSwitcher;
+    public bool _timerReady;
+    public bool IsGameOver { get; set; }
     public BattleState BattleState
     {
         get
@@ -42,13 +45,22 @@ public partial class BattleManager : Node
     public BattlePiece CurrentPiece
     {
         get => PieceBattle.CurrentPiece;
-        set => PieceBattle.CurrentPiece = value;
+        set
+        {
+            PieceBattle.CurrentPiece = value;
+        }
     }
     public Vector2I? SelectedCell => PieceBattle.TileMap.SelectedCell;
     public Card SelectedCard => CardBattle.SelectedCard;
     public BattlePiece CardTarget { get; set; }
+    public Timer DelayTimer { get; set; }
+    public Vector2I Destination { get; set; }
+    public Vector2I TargetCell { get; set; }
+    public BattleEnemy CurrentEnemy { get; set; }
+    public BattlePiece CurrentTarget { get; set; }
 
     [Signal] public delegate void TakenActionEventHandler();
+    [Signal] public delegate void TimeOutEventHandler();
 
     public static BattleManager Instance() => GD.Load<PackedScene>("res://Scenes/Managers/battle_manager.tscn").Instantiate<BattleManager>();
 
@@ -57,14 +69,20 @@ public partial class BattleManager : Node
         _sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
         PieceBattle = GetNode<PieceBattle>("PieceBattle");
         CardBattle = GetNode<CardBattle>("CardBattle");
+        DelayTimer = GetNode<Timer>("DelayTimer");
+        IsGameOver = false;
+        _timerReady = false;
 
         CardBattle.OperatingCardChanged += OnCardBattleOperatingCardChanged;
+
+        DelayTimer.Timeout += OnTimeOut;
         CardBattle.EndTurn += () =>
         {
             var index = Pieces.IndexOf(CurrentPiece);
             if (Pieces.Count > 0)
             {
                 index = (index + 1) % Pieces.Count;
+                GD.Print($"index: {index}");
                 TurnTo(Pieces[index]);
             }
         };
@@ -127,7 +145,6 @@ public partial class BattleManager : Node
                                     CardBattle.RemoveCard(cardItem);
                                     break;
                             }
-                            CheckDeathAndClear(target);
                             if (CardBattle.IsMoving)
                             {
                                 CardBattle.IsMoving = false;
@@ -150,6 +167,10 @@ public partial class BattleManager : Node
 
     public async void TurnTo(BattlePiece battlePiece)
     {
+        if (CurrentPiece == battlePiece)
+        {
+            return;
+        }
         battlePiece.Shield = 0;
         if (battlePiece is BattleParty battleParty)
         {
@@ -170,8 +191,6 @@ public partial class BattleManager : Node
             CardBattle.BattleCards = BattleCards.Empty;
             PieceBattle.ShowAccessibleTiles(CurrentPiece.MoveRange, true);
             TakeAction();
-            await ToSignal(this, SignalName.TakenAction);
-            CardBattle.EmitSignal(CardBattle.SignalName.EndTurn);
         }
     }
 
@@ -187,7 +206,7 @@ public partial class BattleManager : Node
                 }
                 battleParty.BattleCards.DiscardCards.Clear();
             }
-            var rng = new RandomNumberGenerator();
+            var rng = new Godot.RandomNumberGenerator();
             rng.Randomize();
             for (var i = 0; i < battleParty.HandCardCount; i++)
             {
@@ -292,27 +311,27 @@ public partial class BattleManager : Node
         }
     }
 
-    public void CheckDeathAndClear(List<BattlePiece> battlePieces)
-    {
-        if (battlePieces.Count == 0)
-        {
-            return;
-        }
-        foreach (var piece in battlePieces)
-        {
-            if (piece.Health == 0)
-            {
-                foreach (var item in PieceBattle.PieceMap)
-                {
-                    if (item.Value == piece)
-                    {
-                        PieceBattle.ClearHeritage(item.Key);
-                    }
-                }
-                piece.QueueFree();
-            }
-        }
-    }
+    //public void CheckDeathAndClear(List<BattlePiece> battlePieces)
+    //{
+    //    if (battlePieces.Count == 0)
+    //    {
+    //        return;
+    //    }
+    //    foreach (var piece in battlePieces)
+    //    {
+    //        if (piece.Health == 0)
+    //        {
+    //            foreach (var item in PieceBattle.PieceMap)
+    //            {
+    //                if (item.Value == piece)
+    //                {
+    //                    PieceBattle.ClearByCell(item.Key);
+    //                }
+    //            }
+    //            piece.QueueFree();
+    //        }
+    //    }
+    //}
     private void OnCardBattleOperatingCardChanged()
     {
         if (CardBattle.OperatingCard == null)
@@ -330,35 +349,68 @@ public partial class BattleManager : Node
         var enemy = CurrentPiece as BattleEnemy;
         var location = PieceBattle.TileMap.LocalToMap(enemy.GlobalPosition);
         var targets = PieceBattle.GetNearestParty(location);
-        foreach (var target in targets)
+        if (targets == null)
         {
-            var cell = PieceBattle.TileMap.LocalToMap(target.GlobalPosition);
-            var dst = FindDstAndMove(cell);
-            if (dst != null)
+            DelayTimer.WaitTime = 0f;
+            DelayTimer.Start();
+            return;
+        }
+        else
+        {
+            var attackableCells = GetNearAccessibleCell(location, enemyFight: true);
+            if (targets.Count == 0)
             {
-                await ToSignal(PieceBattle, PieceBattle.SignalName.PieceMoved);
-                var cells = GetNearAccessibleCell(dst.Value, enemyFight: true);
-                if (cells.Contains(cell))
+                DelayTimer.WaitTime = 0f;
+                DelayTimer.Start();
+                return;
+            }
+            var primaryTarget = targets[0];
+            var primaryCell = PieceBattle.TileMap.LocalToMap(primaryTarget.GlobalPosition);
+            if (attackableCells.Contains(primaryCell))
+            {
+                DelayTimer.WaitTime = 0.2f;
+                DelayTimer.Start();
+                enemy.Attack(primaryTarget);
+                return;
+            }
+            else
+            {
+                foreach (var target in targets)
                 {
-                    var body = enemy.Attack(target);
-                    if (body != null)
+                    CurrentEnemy = enemy;
+                    CurrentTarget = target;
+                    TargetCell = PieceBattle.TileMap.LocalToMap(target.GlobalPosition);
+                    var info = FindDstAndMove(TargetCell);
+                    if (info != null)
                     {
-                        PieceBattle.PieceMap[cell] = null;
-                        if (Parties.Count == 1)
-                        {
-                            GD.Print("Game Over");
-                            _sceneSwitcher.PushScene(SceneSwitcher.GameOver, true);
-                        }
+                        var wayLength = info[2];
+                        Destination = new Vector2I(info[0], info[1]);
+                        DelayTimer.WaitTime = wayLength * 0.4f;
+                        DelayTimer.Start();
                     }
                 }
-                else
-                {
-                    enemy.Defend(enemy);
-                }
-                break;
+                return;
             }
         }
-        EmitSignal(SignalName.TakenAction);
+    }
+
+    public void OnTimeOut()
+    {
+        DelayTimer.Stop();
+        var dst = Destination;
+        var cell = TargetCell;
+        var target = CurrentTarget as BattleParty;
+        var enemy = CurrentEnemy;
+        var cells = GetNearAccessibleCell(dst, enemyFight: true);
+        if (cells.Contains(cell))
+        {
+            enemy.Attack(target);
+        }
+        else
+        {
+            enemy.Defend(enemy);
+        }
+        CardBattle.EmitSignal(CardBattle.SignalName.EndTurn);
     }
 
     public List<Vector2I> GetNearAccessibleCell(Vector2I dst, bool partyFight = false, bool enemyFight = false)
@@ -399,8 +451,9 @@ public partial class BattleManager : Node
         return accessibleCells;
     }
 
-    public Vector2I? FindDstAndMove(Vector2I target, bool isTarget = true)
+    public Array<int>? FindDstAndMove(Vector2I target, bool isTarget = true)
     {
+        var info = new Array<int>();
         var cell = PieceBattle.TileMap.LocalToMap(CurrentPiece.GlobalPosition);
         var SortedAccessibleCells = GetNearAccessibleCell(target).OrderBy(p => PieceBattle.GetAStarPath(cell, p).Count).ToList();
         if (SortedAccessibleCells.Count == 0)
@@ -408,13 +461,17 @@ public partial class BattleManager : Node
             return null;
         }
         var dst = SortedAccessibleCells[0];
-        var path = new Array<Vector2I>(PieceBattle.GetAStarPath(cell, dst));
-        if (PieceBattle.GetAStarPath(cell, dst).Count == CurrentPiece.MoveRange + 1)
+        var dstPath = PieceBattle.GetAStarPath(cell, dst);
+        var path = new Array<Vector2I>(dstPath);
+        if (dstPath.Count == CurrentPiece.MoveRange + 1)
         {
+            info.Add(dst.X);
+            info.Add(dst.Y);
+            info.Add(dstPath.Count);
             PieceBattle.MoveCurrentPiece(dst);
-            return dst;
+            return info;
         }
-        else if (PieceBattle.GetAStarPath(cell, dst).Count < CurrentPiece.MoveRange + 1)
+        else if (dstPath.Count < CurrentPiece.MoveRange + 1)
         {
             if (!isTarget)
             {
@@ -428,8 +485,12 @@ public partial class BattleManager : Node
                     }
                 }
             }
+            var secondDstPath = PieceBattle.GetAStarPath(cell, dst);
             PieceBattle.MoveCurrentPiece(dst);
-            return dst;
+            info.Add(dst.X);
+            info.Add(dst.Y);
+            info.Add(secondDstPath.Count);
+            return info;
         }
         else
         {

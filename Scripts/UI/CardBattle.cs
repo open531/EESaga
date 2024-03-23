@@ -97,7 +97,7 @@ public partial class CardBattle : CanvasLayer
     private const float _cardWidth = 57.0f;
     private const float _cardHeight = 88.0f;
 
-    private bool start = true;
+    public bool start = true;
 
     public static CardBattle Instance() => GD.Load<PackedScene>("res://Scenes/UI/card_battle.tscn").Instantiate<CardBattle>();
 

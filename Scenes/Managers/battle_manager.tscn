@@ -10,3 +10,6 @@ script = ExtResource("1_x6vbe")
 [node name="PieceBattle" parent="." instance=ExtResource("2_wdq5o")]
 
 [node name="CardBattle" parent="." instance=ExtResource("3_cup6a")]
+
+[node name="DelayTimer" type="Timer" parent="."]
+unique_name_in_owner = true

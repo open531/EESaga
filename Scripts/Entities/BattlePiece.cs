@@ -4,6 +4,8 @@ using Godot;
 
 public partial class BattlePiece : Area2D, IBattlePiece
 {
+    [Signal] public delegate void PieceDeathEventHandler(BattlePiece battlePiece);
+
     public string PieceName { get; set; }
     public virtual int Level { get; set; }
     protected int _healthMax;
@@ -95,12 +97,26 @@ public partial class BattlePiece : Area2D, IBattlePiece
         if (Shield >= damage)
         {
             Shield -= damage;
+            GD.Print($"{PieceName}损失了{damage}点护盾值");
+            GD.Print($"{PieceName}当前生命值为{Health}");
         }
         else
         {
             damage -= Shield;
             Shield = 0;
             Health -= damage;
+            GD.Print($"{PieceName}损失了{Shield}点护盾值");
+            GD.Print($"{PieceName}损失了{damage}点生命值");
+            GD.Print($"{PieceName}当前生命值为{Health}");
+        }
+    }
+
+    public virtual void CheckDeath()
+    {
+        if(Health == 0)
+        {
+            GD.Print($"{PieceName} is dead.");
+            EmitSignal(SignalName.PieceDeath, this);
         }
     }
 }
