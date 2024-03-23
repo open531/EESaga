@@ -161,7 +161,7 @@ public partial class CardBattle : CanvasLayer
         var oldCards = _hand.GetChildren();
         foreach (var card in oldCards)
         {
-            card.Free();
+            card.QueueFree();
         }
         foreach (var card in BattleCards.HandCards)
         {
