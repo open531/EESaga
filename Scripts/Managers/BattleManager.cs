@@ -1,447 +1,464 @@
 namespace EESaga.Scripts.Managers;
 
 using Cards;
-using EESaga.Scripts.Utilities;
+using Cards.CardAttacks;
+using Cards.CardDefenses;
+using Cards.CardItems;
+using Cards.CardSpecials;
 using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;
 using Godot;
 using Godot.Collections;
 using Maps;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UI;
+using Utilities;
 
 public partial class BattleManager : Node
 {
-    private SceneSwitcher _sceneSwitcher;
-    public BattleState BattleState
-    {
-        get
-        {
-            if (SelectedCell != null)
-            {
-                return BattleState.Moving;
-            }
-            else if (SelectedCard != null)
-            {
-                return BattleState.CardTargeting;
-            }
-            else
-            {
-                return BattleState.CardSelecting;
-            }
-        }
-    }
-    public PieceBattle PieceBattle { get; set; }
-    public CardBattle CardBattle { get; set; }
-    public List<BattlePiece> Pieces => PieceBattle.Pieces;
-    public List<BattleParty> Parties => PieceBattle.Parties;
-    public List<BattleEnemy> Enemies => PieceBattle.Enemies;
-    public BattlePiece CurrentPiece
-    {
-        get => PieceBattle.CurrentPiece;
-        set => PieceBattle.CurrentPiece = value;
-    }
-    public Vector2I? SelectedCell => PieceBattle.TileMap.SelectedCell;
-    public Card SelectedCard => CardBattle.SelectedCard;
-    public BattlePiece CardTarget { get; set; }
+	private SceneSwitcher _sceneSwitcher;
+	public BattleState BattleState
+	{
+		get
+		{
+			if (SelectedCell != null)
+			{
+				return BattleState.Moving;
+			}
+			else if (SelectedCard != null)
+			{
+				return BattleState.CardTargeting;
+			}
+			else
+			{
+				return BattleState.CardSelecting;
+			}
+		}
+	}
+	public PieceBattle PieceBattle { get; set; }
+	public CardBattle CardBattle { get; set; }
+	public List<BattlePiece> Pieces => PieceBattle.Pieces;
+	public List<BattleParty> Parties => PieceBattle.Parties;
+	public List<BattleEnemy> Enemies => PieceBattle.Enemies;
+	public BattlePiece CurrentPiece
+	{
+		get => PieceBattle.CurrentPiece;
+		set => PieceBattle.CurrentPiece = value;
+	}
+	public Vector2I? SelectedCell => PieceBattle.TileMap.SelectedCell;
+	public Card SelectedCard => CardBattle.SelectedCard;
+	public BattlePiece CardTarget { get; set; }
 
-    [Signal] public delegate void TakenActionEventHandler();
+	[Signal] public delegate void TakenActionEventHandler();
 
-    public static BattleManager Instance() => GD.Load<PackedScene>("res://Scenes/Managers/battle_manager.tscn").Instantiate<BattleManager>();
+	public static BattleManager Instance() => GD.Load<PackedScene>("res://Scenes/Managers/battle_manager.tscn").Instantiate<BattleManager>();
 
-    public override void _Ready()
-    {
-        _sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
-        PieceBattle = GetNode<PieceBattle>("PieceBattle");
-        CardBattle = GetNode<CardBattle>("CardBattle");
+	public override void _Ready()
+	{
+		_sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
+		PieceBattle = GetNode<PieceBattle>("PieceBattle");
+		CardBattle = GetNode<CardBattle>("CardBattle");
 
-        CardBattle.OperatingCardChanged += OnCardBattleOperatingCardChanged;
-        CardBattle.EndTurn += () =>
-        {
-            var index = Pieces.IndexOf(CurrentPiece);
-            if (Pieces.Count > 0)
-            {
-                index = (index + 1) % Pieces.Count;
-                TurnTo(Pieces[index]);
-            }
-        };
-        CardBattle.BattleManager = this;
-        PieceBattle.BattleManager = this;
+		CardBattle.OperatingCardChanged += OnCardBattleOperatingCardChanged;
+		CardBattle.EndTurn += () =>
+		{
+			var index = Pieces.IndexOf(CurrentPiece);
+			if (Pieces.Count > 0)
+			{
+				index = (index + 1) % Pieces.Count;
+				TurnTo(Pieces[index]);
+			}
+		};
+		CardBattle.BattleManager = this;
+		PieceBattle.BattleManager = this;
 
-        TurnTo(Pieces[Pieces.Count - 1]);
-    }
+		TurnTo(Pieces[Pieces.Count - 1]);
+	}
 
-    public override void _UnhandledInput(InputEvent @event)
-    {
-        if (@event is InputEventMouseButton mouseEvent)
-        {
-            if (mouseEvent.ButtonIndex == MouseButton.Left)
-            {
-                if (mouseEvent.Pressed)
-                {
-                    var cell = PieceBattle.TileMap.SelectedCell;
-                    var card = CardBattle.OperatingCard;
-                    if (cell != null &&
-                        PieceBattle.TileMap.IsDestination(cell.Value) &&
-                        !PieceBattle.CurrentPiece.IsMoving &&
-                        CardBattle.IsMoving)
-                    {
-                        PieceBattle.MoveCurrentPiece(cell.Value);
-                    }
-                    else if (cell != null &&
-                        card != null &&
-                        !PieceBattle.CurrentPiece.IsMoving)
-                    {
-                        var target = ConfirmTarget(cell, card.CardTarget);
-                        if (target != null)
-                        {
-                            switch (card)
-                            {
-                                case CardAttack cardAttack:
-                                    cardAttack.TakeEffect(target);
-                                    CardBattle.RemoveCard(cardAttack);
-                                    break;
-                                case CardDefense cardDefense:
-                                    cardDefense.TakeEffect(target);
-                                    CardBattle.RemoveCard(cardDefense);
-                                    break;
-                                case CardSpecial cardSpecial:
-                                    {
-                                        switch (card)
-                                        {
-                                            case CardCure cardCure:
-                                                cardCure.TakeEffect(target);
-                                                break;
-                                            default:
-                                                cardSpecial.TakeEffect(target);
-                                                break;
-                                        }
-                                    }
-                                    CardBattle.RemoveCard(cardSpecial);
-                                    break;
-                                case CardItem cardItem:
-                                    cardItem.TakeEffect(target);
-                                    CardBattle.RemoveCard(cardItem);
-                                    break;
-                            }
-                            CheckDeathAndClear(target);
-                            if (CardBattle.IsMoving)
-                            {
-                                CardBattle.IsMoving = false;
-                                foreach (var cellUnhandled in PieceBattle.TileMap.GetUsedCells((int)Layer.Ground))
-                                {
-                                    PieceBattle.TileMap.SetCell((int)Layer.Mark, cellUnhandled);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mouseEvent)
+		{
+			if (mouseEvent.ButtonIndex == MouseButton.Left)
+			{
+				if (mouseEvent.Pressed)
+				{
+					var cell = PieceBattle.TileMap.SelectedCell;
+					var card = CardBattle.OperatingCard;
+					if (cell != null &&
+						PieceBattle.TileMap.IsDestination(cell.Value) &&
+						!PieceBattle.CurrentPiece.IsMoving &&
+						CardBattle.IsMoving)
+					{
+						PieceBattle.MoveCurrentPiece(cell.Value);
+					}
+					else if (cell != null &&
+						card != null &&
+						!PieceBattle.CurrentPiece.IsMoving)
+					{
+						var target = ConfirmTarget(cell, card.CardTarget);
+						if (target != null)
+						{
+							switch (card)
+							{
+								case CardAttack cardAttack:
+									cardAttack.TakeEffect(target);
+									CardBattle.RemoveCard(cardAttack);
+									break;
+								case CardDefense cardDefense:
+									cardDefense.TakeEffect(target);
+									CardBattle.RemoveCard(cardDefense);
+									break;
+								case CardSpecial cardSpecial:
+									{
+										switch (card)
+										{
+											case CardCure cardCure:
+												cardCure.TakeEffect(target);
+												break;
+											case CardStruggle cardStruggle:
+												cardStruggle.TakeEffect(target);
+												break;
+											default:
+												cardSpecial.TakeEffect(target);
+												break;
+										}
+									}
+									CardBattle.RemoveCard(cardSpecial);
+									break;
+								case CardItem cardItem:
+									{
+										switch (card)
+										{
+											case CardEcs cardEcs:
+												cardEcs.TakeEffect(target);
+												break;
+											default:
+												cardItem.TakeEffect(target);
+												break;
+										}
+									}
+									CardBattle.RemoveCard(cardItem);
+									break;
 
-    public void Initialize(Room room)
-    {
-        PieceBattle.Initialize(room.TileMap);
-    }
+							}
+							CheckDeathAndClear(target);
+							if (CardBattle.IsMoving)
+							{
+								CardBattle.IsMoving = false;
+								foreach (var cellUnhandled in PieceBattle.TileMap.GetUsedCells((int)Layer.Ground))
+								{
+									PieceBattle.TileMap.SetCell((int)Layer.Mark, cellUnhandled);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 
-    public async void TurnTo(BattlePiece battlePiece)
-    {
-        battlePiece.Shield = 0;
-        if (battlePiece is BattleParty battleParty)
-        {
-            CurrentPiece = battleParty;
-            GD.Print($"{CurrentPiece.PieceName} Turn");
-            CardBattle.ShowUI();
-            CardBattle.IsMoving = true;
-            CardBattle.BattleCards = battleParty.BattleCards;
-            CardBattle.UpdateEnergyLabel(battleParty);
-            PieceBattle.ShowAccessibleTiles(battleParty.MoveRange);
-            PrepareCards();
-        }
-        else if (battlePiece is BattleEnemy battleEnemy)
-        {
-            CurrentPiece = battleEnemy;
-            GD.Print($"{CurrentPiece.PieceName} Turn");
-            CardBattle.HideUI();
-            CardBattle.BattleCards = BattleCards.Empty;
-            PieceBattle.ShowAccessibleTiles(CurrentPiece.MoveRange, true);
-            TakeAction();
-            await ToSignal(this, SignalName.TakenAction);
-            CardBattle.EmitSignal(CardBattle.SignalName.EndTurn);
-        }
-    }
+	public void Initialize(Room room)
+	{
+		PieceBattle.Initialize(room.TileMap);
+	}
 
-    public void PrepareCards()
-    {
-        if (CurrentPiece is BattleParty battleParty)
-        {
-            if (battleParty.BattleCards.DeckCards.Count < battleParty.HandCardCount)
-            {
-                foreach (var card in battleParty.BattleCards.DiscardCards)
-                {
-                    battleParty.BattleCards.DeckCards.Add(card);
-                }
-                battleParty.BattleCards.DiscardCards.Clear();
-            }
-            var rng = new RandomNumberGenerator();
-            rng.Randomize();
-            for (var i = 0; i < battleParty.HandCardCount; i++)
-            {
-                var randomIndex = rng.RandiRange(0, battleParty.BattleCards.DeckCards.Count - 1);
-                var card = battleParty.BattleCards.DeckCards[randomIndex];
-                battleParty.BattleCards.HandCards.Add(card);
-                battleParty.BattleCards.DeckCards.Remove(card);
-            }
-            CardBattle.BattleCards = battleParty.BattleCards;
-        }
-    }
+	public async void TurnTo(BattlePiece battlePiece)
+	{
+		battlePiece.Shield = 0;
+		if (battlePiece is BattleParty battleParty)
+		{
+			CurrentPiece = battleParty;
+			GD.Print($"{CurrentPiece.PieceName} Turn");
+			CardBattle.ShowUI();
+			CardBattle.IsMoving = true;
+			CardBattle.BattleCards = battleParty.BattleCards;
+			CardBattle.UpdateEnergyLabel(battleParty);
+			PieceBattle.ShowAccessibleTiles(battleParty.MoveRange);
+			PrepareCards(battleParty.HandCardCount);
+		}
+		else if (battlePiece is BattleEnemy battleEnemy)
+		{
+			CurrentPiece = battleEnemy;
+			GD.Print($"{CurrentPiece.PieceName} Turn");
+			CardBattle.HideUI();
+			CardBattle.BattleCards = BattleCards.Empty;
+			PieceBattle.ShowAccessibleTiles(CurrentPiece.MoveRange, true);
+			TakeAction();
+			await ToSignal(this, SignalName.TakenAction);
+			CardBattle.EmitSignal(CardBattle.SignalName.EndTurn);
+		}
+	}
 
-    public List<BattlePiece>? ConfirmTarget(Vector2I? cell, CardTarget cardTarget)
-    {
-        if (cell == null)
-        {
-            return null;
-        }
-        var targetPiece = PieceBattle.PieceMap[cell.Value];
-        if (targetPiece == null)
-        {
-            return null;
-        }
-        if (!PieceBattle.ColorMap.ContainsKey(cell.Value))
-        {
-            return null;
-        }
-        switch (cardTarget)
-        {
-            case Cards.CardTarget.Self:
-                if (targetPiece == CurrentPiece)
-                {
-                    return [CurrentPiece];
-                }
-                return null;
-            case Cards.CardTarget.Enemy:
-                if (targetPiece is BattleEnemy enemy)
-                {
-                    return [enemy];
-                }
-                return null;
-            case Cards.CardTarget.Ally:
-                if (targetPiece is BattleParty && targetPiece != CurrentPiece)
-                {
-                    return [targetPiece];
-                }
-                return null;
-            case Cards.CardTarget.AllEnemies:
-                if (targetPiece is BattleEnemy)
-                {
-                    List<BattlePiece> enemies = [];
-                    foreach (var piece in Pieces)
-                    {
-                        if (piece is BattleEnemy)
-                        {
-                            enemies.Add(piece);
-                        }
-                    }
-                    return enemies;
-                }
-                return null;
-            case Cards.CardTarget.AllAllies:
-                if (targetPiece is BattleParty)
-                {
-                    List<BattlePiece> parties = [];
-                    foreach (var piece in Pieces)
-                    {
-                        if (piece is BattleParty)
-                        {
-                            parties.Add(piece);
-                        }
-                    }
-                    return parties;
-                }
-                return null;
-            case Cards.CardTarget.All:
-                return Pieces;
-        }
-        return null;
-    }
+	public void PrepareCards(int num)
+	{
+		if (CurrentPiece is BattleParty battleParty)
+		{
+			if (battleParty.BattleCards.DeckCards.Count < num)
+			{
+				foreach (var card in battleParty.BattleCards.DiscardCards)
+				{
+					battleParty.BattleCards.DeckCards.Add(card);
+				}
+				battleParty.BattleCards.DiscardCards.Clear();
+			}
+			var rng = new RandomNumberGenerator();
+			rng.Randomize();
+			for (var i = 0; i < num; i++)
+			{
+				var randomIndex = rng.RandiRange(0, battleParty.BattleCards.DeckCards.Count - 1);
+				var card = battleParty.BattleCards.DeckCards[randomIndex];
+				battleParty.BattleCards.HandCards.Add(card);
+				battleParty.BattleCards.DeckCards.Remove(card);
+			}
+			CardBattle.BattleCards = battleParty.BattleCards;
+		}
+	}
 
-    public void UseCard(Card card, List<BattlePiece> target)
-    {
-        switch (card)
-        {
-            case CardAttack cardAttack:
-                cardAttack.TakeEffect(target);
-                CardBattle.RemoveCard(cardAttack);
-                break;
-            case CardDefense cardDefense:
-                cardDefense.TakeEffect(target);
-                CardBattle.RemoveCard(cardDefense);
-                break;
-            case CardSpecial cardSpecial:
-                cardSpecial.TakeEffect(target);
-                CardBattle.RemoveCard(cardSpecial);
-                break;
-            case CardItem cardItem:
-                cardItem.TakeEffect(target);
-                CardBattle.RemoveCard(cardItem);
-                break;
-        }
-    }
+	public List<BattlePiece>? ConfirmTarget(Vector2I? cell, CardTarget cardTarget)
+	{
+		if (cell == null)
+		{
+			return null;
+		}
+		var targetPiece = PieceBattle.PieceMap[cell.Value];
+		if (targetPiece == null)
+		{
+			return null;
+		}
+		if (!PieceBattle.ColorMap.ContainsKey(cell.Value))
+		{
+			return null;
+		}
+		switch (cardTarget)
+		{
+			case Cards.CardTarget.Self:
+				if (targetPiece == CurrentPiece)
+				{
+					return [CurrentPiece];
+				}
+				return null;
+			case Cards.CardTarget.Enemy:
+				if (targetPiece is BattleEnemy enemy)
+				{
+					return [enemy];
+				}
+				return null;
+			case Cards.CardTarget.Ally:
+				if (targetPiece is BattleParty && targetPiece != CurrentPiece)
+				{
+					return [targetPiece];
+				}
+				return null;
+			case Cards.CardTarget.AllEnemies:
+				if (targetPiece is BattleEnemy)
+				{
+					List<BattlePiece> enemies = [];
+					foreach (var piece in Pieces)
+					{
+						if (piece is BattleEnemy)
+						{
+							enemies.Add(piece);
+						}
+					}
+					return enemies;
+				}
+				return null;
+			case Cards.CardTarget.AllAllies:
+				if (targetPiece is BattleParty)
+				{
+					List<BattlePiece> parties = [];
+					foreach (var piece in Pieces)
+					{
+						if (piece is BattleParty)
+						{
+							parties.Add(piece);
+						}
+					}
+					return parties;
+				}
+				return null;
+			case Cards.CardTarget.All:
+				return Pieces;
+		}
+		return null;
+	}
 
-    public void CheckDeathAndClear(List<BattlePiece> battlePieces)
-    {
-        if (battlePieces.Count == 0)
-        {
-            return;
-        }
-        foreach (var piece in battlePieces)
-        {
-            if (piece.Health == 0)
-            {
-                foreach (var item in PieceBattle.PieceMap)
-                {
-                    if (item.Value == piece)
-                    {
-                        PieceBattle.ClearHeritage(item.Key);
-                    }
-                }
-                piece.QueueFree();
-            }
-        }
-    }
-    private void OnCardBattleOperatingCardChanged()
-    {
-        if (CardBattle.OperatingCard == null)
-        {
-            PieceBattle.RecoverEffectTiles();
-        }
-        else
-        {
-            PieceBattle.ShowEffectTiles(CardBattle.OperatingCard.CardRange, CardBattle.OperatingCard.CardTarget);
-        }
-    }
+	public void UseCard(Card card, List<BattlePiece> target)
+	{
+		switch (card)
+		{
+			case CardAttack cardAttack:
+				cardAttack.TakeEffect(target);
+				CardBattle.RemoveCard(cardAttack);
+				break;
+			case CardDefense cardDefense:
+				cardDefense.TakeEffect(target);
+				CardBattle.RemoveCard(cardDefense);
+				break;
+			case CardSpecial cardSpecial:
+				cardSpecial.TakeEffect(target);
+				CardBattle.RemoveCard(cardSpecial);
+				break;
+			case CardItem cardItem:
+				cardItem.TakeEffect(target);
+				CardBattle.RemoveCard(cardItem);
+				break;
+		}
+	}
 
-    private async void TakeAction()
-    {
-        var enemy = CurrentPiece as BattleEnemy;
-        var location = PieceBattle.TileMap.LocalToMap(enemy.GlobalPosition);
-        var targets = PieceBattle.GetNearestParty(location);
-        foreach (var target in targets)
-        {
-            var cell = PieceBattle.TileMap.LocalToMap(target.GlobalPosition);
-            var dst = FindDstAndMove(cell);
-            if (dst != null)
-            {
-                await ToSignal(PieceBattle, PieceBattle.SignalName.PieceMoved);
-                var cells = GetNearAccessibleCell(dst.Value, enemyFight: true);
-                if (cells.Contains(cell))
-                {
-                    var body = enemy.Attack(target);
-                    if (body != null)
-                    {
-                        PieceBattle.PieceMap[cell] = null;
-                        if (Parties.Count == 1)
-                        {
-                            GD.Print("Game Over");
-                            _sceneSwitcher.PushScene(SceneSwitcher.GameOver, true);
-                        }
-                    }
-                }
-                else
-                {
-                    enemy.Defend(enemy);
-                }
-                break;
-            }
-        }
-        EmitSignal(SignalName.TakenAction);
-    }
+	public void CheckDeathAndClear(List<BattlePiece> battlePieces)
+	{
+		if (battlePieces.Count == 0)
+		{
+			return;
+		}
+		foreach (var piece in battlePieces)
+		{
+			if (piece.Health == 0)
+			{
+				foreach (var item in PieceBattle.PieceMap)
+				{
+					if (item.Value == piece)
+					{
+						PieceBattle.ClearHeritage(item.Key);
+					}
+				}
+				piece.QueueFree();
+			}
+		}
+	}
+	private void OnCardBattleOperatingCardChanged()
+	{
+		if (CardBattle.OperatingCard == null)
+		{
+			PieceBattle.RecoverEffectTiles();
+		}
+		else
+		{
+			PieceBattle.ShowEffectTiles(CardBattle.OperatingCard.CardRange, CardBattle.OperatingCard.CardTarget);
+		}
+	}
 
-    public List<Vector2I> GetNearAccessibleCell(Vector2I dst, bool partyFight = false, bool enemyFight = false)
-    {
-        var cells = PieceBattle.TileMap.GetUsedCells((int)Layer.Ground);
-        var deleteCells = new List<Vector2I>();
-        List<Vector2I> accessibleCells = [
-        new Vector2I(dst.X - 1, dst.Y),
-            new Vector2I(dst.X + 1, dst.Y),
-            new Vector2I(dst.X, dst.Y - 1),
-            new Vector2I(dst.X, dst.Y + 1),
-            new Vector2I(dst.X - 1, dst.Y - 1),
-            new Vector2I(dst.X + 1, dst.Y + 1),
-            new Vector2I(dst.X - 1, dst.Y + 1),
-            new Vector2I(dst.X + 1, dst.Y - 1),
-        ];
-        foreach (var cell in accessibleCells)
-        {
-            if (PieceBattle.TileMap.IsBoundary((int)Layer.Ground, cell))
-            {
-                deleteCells.Add(cell);
-            }
-            else if (!PieceBattle.PieceMap.TryGetValue(cell, out BattlePiece value))
-            {
-                deleteCells.Add(cell);
-            }
-            else if (value != null)
-            {
-                if (partyFight && value is BattleEnemy) { }
-                else if (enemyFight && value is BattleParty) { }
-                else { deleteCells.Add(cell); }
-            }
-        }
-        foreach (var cell in deleteCells)
-        {
-            accessibleCells.Remove(cell);
-        }
-        return accessibleCells;
-    }
+	private async void TakeAction()
+	{
+		var enemy = CurrentPiece as BattleEnemy;
+		var location = PieceBattle.TileMap.LocalToMap(enemy.GlobalPosition);
+		var targets = PieceBattle.GetNearestParty(location);
+		foreach (var target in targets)
+		{
+			var cell = PieceBattle.TileMap.LocalToMap(target.GlobalPosition);
+			var dst = FindDstAndMove(cell);
+			if (dst != null)
+			{
+				await ToSignal(PieceBattle, PieceBattle.SignalName.PieceMoved);
+				var cells = GetNearAccessibleCell(dst.Value, enemyFight: true);
+				if (cells.Contains(cell))
+				{
+					var body = enemy.Attack(target);
+					if (body != null)
+					{
+						PieceBattle.PieceMap[cell] = null;
+						if (Parties.Count == 1)
+						{
+							GD.Print("Game Over");
+							_sceneSwitcher.PushScene(SceneSwitcher.GameOver, true);
+						}
+					}
+				}
+				else
+				{
+					enemy.Defend(enemy);
+				}
+				break;
+			}
+		}
+		EmitSignal(SignalName.TakenAction);
+	}
 
-    public Vector2I? FindDstAndMove(Vector2I target, bool isTarget = true)
-    {
-        var cell = PieceBattle.TileMap.LocalToMap(CurrentPiece.GlobalPosition);
-        var SortedAccessibleCells = GetNearAccessibleCell(target).OrderBy(p => PieceBattle.GetAStarPath(cell, p).Count).ToList();
-        if (SortedAccessibleCells.Count == 0)
-        {
-            return null;
-        }
-        var dst = SortedAccessibleCells[0];
-        var path = new Array<Vector2I>(PieceBattle.GetAStarPath(cell, dst));
-        if (PieceBattle.GetAStarPath(cell, dst).Count == CurrentPiece.MoveRange + 1)
-        {
-            PieceBattle.MoveCurrentPiece(dst);
-            return dst;
-        }
-        else if (PieceBattle.GetAStarPath(cell, dst).Count < CurrentPiece.MoveRange + 1)
-        {
-            if (!isTarget)
-            {
-                var newList = SortedAccessibleCells.OrderBy(p => PieceBattle.GetManhattanDistance(target, dst)).ToList();
-                foreach (var item in newList)
-                {
-                    if (item != dst)
-                    {
-                        dst = item;
-                        break;
-                    }
-                }
-            }
-            PieceBattle.MoveCurrentPiece(dst);
-            return dst;
-        }
-        else
-        {
-            return FindDstAndMove(dst, false);
-        }
-    }
+	public List<Vector2I> GetNearAccessibleCell(Vector2I dst, bool partyFight = false, bool enemyFight = false)
+	{
+		var cells = PieceBattle.TileMap.GetUsedCells((int)Layer.Ground);
+		var deleteCells = new List<Vector2I>();
+		List<Vector2I> accessibleCells = [
+		new Vector2I(dst.X - 1, dst.Y),
+			new Vector2I(dst.X + 1, dst.Y),
+			new Vector2I(dst.X, dst.Y - 1),
+			new Vector2I(dst.X, dst.Y + 1),
+			new Vector2I(dst.X - 1, dst.Y - 1),
+			new Vector2I(dst.X + 1, dst.Y + 1),
+			new Vector2I(dst.X - 1, dst.Y + 1),
+			new Vector2I(dst.X + 1, dst.Y - 1),
+		];
+		foreach (var cell in accessibleCells)
+		{
+			if (PieceBattle.TileMap.IsBoundary((int)Layer.Ground, cell))
+			{
+				deleteCells.Add(cell);
+			}
+			else if (!PieceBattle.PieceMap.TryGetValue(cell, out BattlePiece value))
+			{
+				deleteCells.Add(cell);
+			}
+			else if (value != null)
+			{
+				if (partyFight && value is BattleEnemy) { }
+				else if (enemyFight && value is BattleParty) { }
+				else { deleteCells.Add(cell); }
+			}
+		}
+		foreach (var cell in deleteCells)
+		{
+			accessibleCells.Remove(cell);
+		}
+		return accessibleCells;
+	}
+
+	public Vector2I? FindDstAndMove(Vector2I target, bool isTarget = true)
+	{
+		var cell = PieceBattle.TileMap.LocalToMap(CurrentPiece.GlobalPosition);
+		var SortedAccessibleCells = GetNearAccessibleCell(target).OrderBy(p => PieceBattle.GetAStarPath(cell, p).Count).ToList();
+		if (SortedAccessibleCells.Count == 0)
+		{
+			return null;
+		}
+		var dst = SortedAccessibleCells[0];
+		var path = new Array<Vector2I>(PieceBattle.GetAStarPath(cell, dst));
+		if (PieceBattle.GetAStarPath(cell, dst).Count == CurrentPiece.MoveRange + 1)
+		{
+			PieceBattle.MoveCurrentPiece(dst);
+			return dst;
+		}
+		else if (PieceBattle.GetAStarPath(cell, dst).Count < CurrentPiece.MoveRange + 1)
+		{
+			if (!isTarget)
+			{
+				var newList = SortedAccessibleCells.OrderBy(p => PieceBattle.GetManhattanDistance(target, dst)).ToList();
+				foreach (var item in newList)
+				{
+					if (item != dst)
+					{
+						dst = item;
+						break;
+					}
+				}
+			}
+			PieceBattle.MoveCurrentPiece(dst);
+			return dst;
+		}
+		else
+		{
+			return FindDstAndMove(dst, false);
+		}
+	}
 }
 
 public enum BattleState
 {
-    None,
-    Moving,
-    CardSelecting,
-    CardTargeting,
+	None,
+	Moving,
+	CardSelecting,
+	CardTargeting,
 }

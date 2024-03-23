@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ddsa0ja8mipo5"]
 
-[ext_resource type="PackedScene" uid="uid://cnfndd2kaj2qd" path="res://Scenes/Cards/card_special.tscn" id="1_pqkjp"]
+[ext_resource type="PackedScene" uid="uid://cnfndd2kaj2qd" path="res://Scenes/Cards/CardSpecials/card_special.tscn" id="1_pqkjp"]
 [ext_resource type="Script" path="res://Scripts/Cards/CardSpecials/CardCure.cs" id="2_mdxm6"]
 
 [node name="CardCure" instance=ExtResource("1_pqkjp")]

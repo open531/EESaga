@@ -1,5 +1,10 @@
 ﻿namespace EESaga.Scripts.Cards;
 
+using Cards.CardAttacks;
+using Cards.CardDefenses;
+using Cards.CardItems;
+using Cards.CardSpecials;
+
 public static class CardFactory
 {
     public static Card CreateCard(CardInfo cardInfo)
@@ -11,10 +16,14 @@ public static class CardFactory
             CardType.Special => cardInfo.SpecialType switch
             {
                 CardSpecialType.Cure => CardCure.Instance(),
+                CardSpecialType.Struggle => CardStruggle.Instance(),
                 _ => CardSpecial.Instance(),
             },
-            CardType.Item => CardItem.Instance(),
-            _ => Card.Instance(),
+            CardType.Item => cardInfo.ItemType switch
+            {
+                CardItemType.Ecs => CardEcs.Instance(),
+                _ => Card.Instance(),
+            }
         };
 
         card.InitializeCard(cardInfo);
