@@ -208,6 +208,7 @@ public partial class BattleManager : Node
         battlePiece.Shield = 0;
         if (battlePiece is BattleParty battleParty)
         {
+            battleParty.Energy = battleParty.EnergyMax;
             CurrentPiece = battleParty;
             GD.Print($"{CurrentPiece.PieceName} Turn");
             CardBattle.ShowUI();

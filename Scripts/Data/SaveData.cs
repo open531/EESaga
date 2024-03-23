@@ -12,8 +12,8 @@ public partial class SaveData : Node
         PlayerName = "MAX",
         HealthMax = 100,
         Health = 100,
-        EnergyMax = 3,
-        Energy = 3,
+        EnergyMax = 4,
+        Energy = 4,
         Agility = 10,
     };
     public static List<BattleParty> Parties { get; set; }
