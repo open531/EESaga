@@ -18,7 +18,7 @@ public partial class CardBattle : CanvasLayer
 
     private Button _endTurnButton;
 
-    private Label _energyLabel;
+    public Label _energyLabel;
 
     private TextureButton _deckButton;
     private Label _deckCardNum;
@@ -326,7 +326,7 @@ public partial class CardBattle : CanvasLayer
         card.Visible = false;
     }
 
-    private void ExitPreviewCard()
+    public void ExitPreviewCard()
     {
         var newCard = GetNodeOrNull("PreviewCard") as Card;
         SelectedCard = null;

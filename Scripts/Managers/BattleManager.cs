@@ -117,46 +117,76 @@ public partial class BattleManager : Node
                         card != null &&
                         !PieceBattle.CurrentPiece.IsMoving)
                     {
-                        var target = ConfirmTarget(cell, card.CardTarget);
-                        if (target != null)
+                        var currentParty = CurrentPiece as BattleParty;
+                        if (currentParty.Energy > 0)
                         {
-                            switch (card)
+                            var target = ConfirmTarget(cell, card.CardTarget);
+                            if (target != null)
                             {
-                                case CardAttack cardAttack:
-                                    cardAttack.TakeEffect(target);
-                                    CardBattle.RemoveCard(cardAttack);
-                                    break;
-                                case CardDefense cardDefense:
-                                    cardDefense.TakeEffect(target);
-                                    CardBattle.RemoveCard(cardDefense);
-                                    break;
-                                case CardSpecial cardSpecial:
-                                    {
-                                        switch (card)
-                                        {
-                                            case CardCure cardCure:
-                                                cardCure.TakeEffect(target);
-                                                break;
-                                            default:
-                                                cardSpecial.TakeEffect(target);
-                                                break;
-                                        }
-                                    }
-                                    CardBattle.RemoveCard(cardSpecial);
-                                    break;
-                                case CardItem cardItem:
-                                    cardItem.TakeEffect(target);
-                                    CardBattle.RemoveCard(cardItem);
-                                    break;
-                            }
-                            if (CardBattle.IsMoving)
-                            {
-                                CardBattle.IsMoving = false;
-                                foreach (var cellUnhandled in PieceBattle.TileMap.GetUsedCells((int)Layer.Ground))
+                                switch (card)
                                 {
-                                    PieceBattle.TileMap.SetCell((int)Layer.Mark, cellUnhandled);
+                                    case CardAttack cardAttack:
+                                        if (cardAttack.TakePartyCost(CurrentPiece as BattleParty))
+                                        {
+                                            cardAttack.TakeEffect(target);
+                                            CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                            CardBattle.RemoveCard(cardAttack);
+                                        }
+                                        break;
+                                    case CardDefense cardDefense:
+                                        if (cardDefense.TakePartyCost(CurrentPiece as BattleParty))
+                                        {
+                                            cardDefense.TakeEffect(target);
+                                            CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                            CardBattle.RemoveCard(cardDefense);
+                                        }
+                                        break;
+                                    case CardSpecial cardSpecial:
+                                        {
+                                            switch (card)
+                                            {
+                                                case CardCure cardCure:
+                                                    if (cardCure.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        cardCure.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                    }
+                                                    break;
+                                                default:
+                                                    if (cardSpecial.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        cardSpecial.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                    }
+                                                    break;
+                                            }
+                                        }
+                                        CardBattle.RemoveCard(cardSpecial);
+                                        break;
+                                    case CardItem cardItem:
+                                        if (cardItem.TakePartyCost(CurrentPiece as BattleParty))
+                                        {
+                                            cardItem.TakeEffect(target);
+                                            CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                            CardBattle.RemoveCard(cardItem);
+                                        }
+                                        break;
+                                }
+                                if (CardBattle.IsMoving)
+                                {
+                                    CardBattle.IsMoving = false;
+                                    foreach (var cellUnhandled in PieceBattle.TileMap.GetUsedCells((int)Layer.Ground))
+                                    {
+                                        PieceBattle.TileMap.SetCell((int)Layer.Mark, cellUnhandled);
+                                    }
                                 }
                             }
+                        }
+                        else
+                        {
+                            GD.Print("Not enough energy");
+                            CardBattle.OperatingCard = null;
+                            CardBattle.ExitPreviewCard();
                         }
                     }
                 }
@@ -307,45 +337,40 @@ public partial class BattleManager : Node
         switch (card)
         {
             case CardAttack cardAttack:
-                cardAttack.TakeEffect(target);
-                CardBattle.RemoveCard(cardAttack);
+                if (cardAttack.TakePartyCost(CurrentPiece as BattleParty))
+                {
+                    cardAttack.TakeEffect(target);
+                    CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                    CardBattle.RemoveCard(cardAttack);
+                }
                 break;
             case CardDefense cardDefense:
-                cardDefense.TakeEffect(target);
-                CardBattle.RemoveCard(cardDefense);
+                if (cardDefense.TakePartyCost(CurrentPiece as BattleParty))
+                {
+                    cardDefense.TakeEffect(target);
+                    CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                    CardBattle.RemoveCard(cardDefense);
+                }
                 break;
             case CardSpecial cardSpecial:
-                cardSpecial.TakeEffect(target);
-                CardBattle.RemoveCard(cardSpecial);
+                if (cardSpecial.TakePartyCost(CurrentPiece as BattleParty))
+                {
+                    cardSpecial.TakeEffect(target);
+                    CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                    CardBattle.RemoveCard(cardSpecial);
+                }
                 break;
             case CardItem cardItem:
-                cardItem.TakeEffect(target);
-                CardBattle.RemoveCard(cardItem);
+                if (cardItem.TakePartyCost(CurrentPiece as BattleParty))
+                {
+                    cardItem.TakeEffect(target);
+                    CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                    CardBattle.RemoveCard(cardItem);
+                }
                 break;
         }
     }
 
-    //public void CheckDeathAndClear(List<BattlePiece> battlePieces)
-    //{
-    //    if (battlePieces.Count == 0)
-    //    {
-    //        return;
-    //    }
-    //    foreach (var piece in battlePieces)
-    //    {
-    //        if (piece.Health == 0)
-    //        {
-    //            foreach (var item in PieceBattle.PieceMap)
-    //            {
-    //                if (item.Value == piece)
-    //                {
-    //                    PieceBattle.ClearByCell(item.Key);
-    //                }
-    //            }
-    //            piece.QueueFree();
-    //        }
-    //    }
-    //}
     private void OnCardBattleOperatingCardChanged()
     {
         if (CardBattle.OperatingCard == null)
