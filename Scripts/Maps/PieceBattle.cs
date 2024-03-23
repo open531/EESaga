@@ -41,7 +41,7 @@ public partial class PieceBattle : Node2D
         }
     }
 
-    private bool _isRefreshing { get; set; }
+    private bool _isRefreshing;
 
     public System.Collections.Generic.Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
 
@@ -144,6 +144,10 @@ public partial class PieceBattle : Node2D
                 RecoverRangeTiles();
                 ShowRangeTiles(TileMap.LocalToMap(CurrentPiece.GlobalPosition), TileMap.SelectedCell.Value, CardRange);
             }
+        }
+        else
+        {
+            _pieceDetail.Update(null);
         }
     }
 
