@@ -65,7 +65,7 @@ public partial class BattleManager : Node
     [Signal] public delegate void TakenActionEventHandler();
     [Signal] public delegate void TimeOutEventHandler();
 
-	public static BattleManager Instance() => GD.Load<PackedScene>("res://Scenes/Managers/battle_manager.tscn").Instantiate<BattleManager>();
+    public static BattleManager Instance() => GD.Load<PackedScene>("res://Scenes/Managers/battle_manager.tscn").Instantiate<BattleManager>();
 
     public override void _Ready()
     {
@@ -92,8 +92,8 @@ public partial class BattleManager : Node
         CardBattle.BattleManager = this;
         PieceBattle.BattleManager = this;
 
-		TurnTo(Pieces[Pieces.Count - 1]);
-	}
+        TurnTo(Pieces[Pieces.Count - 1]);
+    }
 
     public override void _UnhandledInput(InputEvent @event)
     {
@@ -163,10 +163,10 @@ public partial class BattleManager : Node
         }
     }
 
-	public void Initialize(Room room)
-	{
-		PieceBattle.Initialize(room.TileMap);
-	}
+    public void Initialize(Room room)
+    {
+        PieceBattle.Initialize(room.TileMap);
+    }
 
     public async void TurnTo(BattlePiece battlePiece)
     {
@@ -184,7 +184,7 @@ public partial class BattleManager : Node
             CardBattle.BattleCards = battleParty.BattleCards;
             CardBattle.UpdateEnergyLabel(battleParty);
             PieceBattle.ShowAccessibleTiles(battleParty.MoveRange);
-            PrepareCards();
+            PrepareCards(battleParty.HandCardCount);
         }
         else if (battlePiece is BattleEnemy battleEnemy)
         {
@@ -197,11 +197,11 @@ public partial class BattleManager : Node
         }
     }
 
-    public void PrepareCards()
+    public void PrepareCards(int num)
     {
         if (CurrentPiece is BattleParty battleParty)
         {
-            if (battleParty.BattleCards.DeckCards.Count < battleParty.HandCardCount)
+            if (battleParty.BattleCards.DeckCards.Count < num)
             {
                 foreach (var card in battleParty.BattleCards.DiscardCards)
                 {
@@ -211,7 +211,7 @@ public partial class BattleManager : Node
             }
             var rng = new Godot.RandomNumberGenerator();
             rng.Randomize();
-            for (var i = 0; i < battleParty.HandCardCount; i++)
+            for (var i = 0; i < num; i++)
             {
                 var randomIndex = rng.RandiRange(0, battleParty.BattleCards.DeckCards.Count - 1);
                 var card = battleParty.BattleCards.DeckCards[randomIndex];
@@ -222,97 +222,97 @@ public partial class BattleManager : Node
         }
     }
 
-	public List<BattlePiece>? ConfirmTarget(Vector2I? cell, CardTarget cardTarget)
-	{
-		if (cell == null)
-		{
-			return null;
-		}
-		var targetPiece = PieceBattle.PieceMap[cell.Value];
-		if (targetPiece == null)
-		{
-			return null;
-		}
-		if (!PieceBattle.ColorMap.ContainsKey(cell.Value))
-		{
-			return null;
-		}
-		switch (cardTarget)
-		{
-			case Cards.CardTarget.Self:
-				if (targetPiece == CurrentPiece)
-				{
-					return [CurrentPiece];
-				}
-				return null;
-			case Cards.CardTarget.Enemy:
-				if (targetPiece is BattleEnemy enemy)
-				{
-					return [enemy];
-				}
-				return null;
-			case Cards.CardTarget.Ally:
-				if (targetPiece is BattleParty && targetPiece != CurrentPiece)
-				{
-					return [targetPiece];
-				}
-				return null;
-			case Cards.CardTarget.AllEnemies:
-				if (targetPiece is BattleEnemy)
-				{
-					List<BattlePiece> enemies = [];
-					foreach (var piece in Pieces)
-					{
-						if (piece is BattleEnemy)
-						{
-							enemies.Add(piece);
-						}
-					}
-					return enemies;
-				}
-				return null;
-			case Cards.CardTarget.AllAllies:
-				if (targetPiece is BattleParty)
-				{
-					List<BattlePiece> parties = [];
-					foreach (var piece in Pieces)
-					{
-						if (piece is BattleParty)
-						{
-							parties.Add(piece);
-						}
-					}
-					return parties;
-				}
-				return null;
-			case Cards.CardTarget.All:
-				return Pieces;
-		}
-		return null;
-	}
+    public List<BattlePiece>? ConfirmTarget(Vector2I? cell, CardTarget cardTarget)
+    {
+        if (cell == null)
+        {
+            return null;
+        }
+        var targetPiece = PieceBattle.PieceMap[cell.Value];
+        if (targetPiece == null)
+        {
+            return null;
+        }
+        if (!PieceBattle.ColorMap.ContainsKey(cell.Value))
+        {
+            return null;
+        }
+        switch (cardTarget)
+        {
+            case Cards.CardTarget.Self:
+                if (targetPiece == CurrentPiece)
+                {
+                    return [CurrentPiece];
+                }
+                return null;
+            case Cards.CardTarget.Enemy:
+                if (targetPiece is BattleEnemy enemy)
+                {
+                    return [enemy];
+                }
+                return null;
+            case Cards.CardTarget.Ally:
+                if (targetPiece is BattleParty && targetPiece != CurrentPiece)
+                {
+                    return [targetPiece];
+                }
+                return null;
+            case Cards.CardTarget.AllEnemies:
+                if (targetPiece is BattleEnemy)
+                {
+                    List<BattlePiece> enemies = [];
+                    foreach (var piece in Pieces)
+                    {
+                        if (piece is BattleEnemy)
+                        {
+                            enemies.Add(piece);
+                        }
+                    }
+                    return enemies;
+                }
+                return null;
+            case Cards.CardTarget.AllAllies:
+                if (targetPiece is BattleParty)
+                {
+                    List<BattlePiece> parties = [];
+                    foreach (var piece in Pieces)
+                    {
+                        if (piece is BattleParty)
+                        {
+                            parties.Add(piece);
+                        }
+                    }
+                    return parties;
+                }
+                return null;
+            case Cards.CardTarget.All:
+                return Pieces;
+        }
+        return null;
+    }
 
-	public void UseCard(Card card, List<BattlePiece> target)
-	{
-		switch (card)
-		{
-			case CardAttack cardAttack:
-				cardAttack.TakeEffect(target);
-				CardBattle.RemoveCard(cardAttack);
-				break;
-			case CardDefense cardDefense:
-				cardDefense.TakeEffect(target);
-				CardBattle.RemoveCard(cardDefense);
-				break;
-			case CardSpecial cardSpecial:
-				cardSpecial.TakeEffect(target);
-				CardBattle.RemoveCard(cardSpecial);
-				break;
-			case CardItem cardItem:
-				cardItem.TakeEffect(target);
-				CardBattle.RemoveCard(cardItem);
-				break;
-		}
-	}
+    public void UseCard(Card card, List<BattlePiece> target)
+    {
+        switch (card)
+        {
+            case CardAttack cardAttack:
+                cardAttack.TakeEffect(target);
+                CardBattle.RemoveCard(cardAttack);
+                break;
+            case CardDefense cardDefense:
+                cardDefense.TakeEffect(target);
+                CardBattle.RemoveCard(cardDefense);
+                break;
+            case CardSpecial cardSpecial:
+                cardSpecial.TakeEffect(target);
+                CardBattle.RemoveCard(cardSpecial);
+                break;
+            case CardItem cardItem:
+                cardItem.TakeEffect(target);
+                CardBattle.RemoveCard(cardItem);
+                break;
+        }
+    }
 
     //public void CheckDeathAndClear(List<BattlePiece> battlePieces)
     //{
@@ -416,43 +416,43 @@ public partial class BattleManager : Node
         CardBattle.EmitSignal(CardBattle.SignalName.EndTurn);
     }
 
-	public List<Vector2I> GetNearAccessibleCell(Vector2I dst, bool partyFight = false, bool enemyFight = false)
-	{
-		var cells = PieceBattle.TileMap.GetUsedCells((int)Layer.Ground);
-		var deleteCells = new List<Vector2I>();
-		List<Vector2I> accessibleCells = [
-		new Vector2I(dst.X - 1, dst.Y),
-			new Vector2I(dst.X + 1, dst.Y),
-			new Vector2I(dst.X, dst.Y - 1),
-			new Vector2I(dst.X, dst.Y + 1),
-			new Vector2I(dst.X - 1, dst.Y - 1),
-			new Vector2I(dst.X + 1, dst.Y + 1),
-			new Vector2I(dst.X - 1, dst.Y + 1),
-			new Vector2I(dst.X + 1, dst.Y - 1),
-		];
-		foreach (var cell in accessibleCells)
-		{
-			if (PieceBattle.TileMap.IsBoundary((int)Layer.Ground, cell))
-			{
-				deleteCells.Add(cell);
-			}
-			else if (!PieceBattle.PieceMap.TryGetValue(cell, out BattlePiece value))
-			{
-				deleteCells.Add(cell);
-			}
-			else if (value != null)
-			{
-				if (partyFight && value is BattleEnemy) { }
-				else if (enemyFight && value is BattleParty) { }
-				else { deleteCells.Add(cell); }
-			}
-		}
-		foreach (var cell in deleteCells)
-		{
-			accessibleCells.Remove(cell);
-		}
-		return accessibleCells;
-	}
+    public List<Vector2I> GetNearAccessibleCell(Vector2I dst, bool partyFight = false, bool enemyFight = false)
+    {
+        var cells = PieceBattle.TileMap.GetUsedCells((int)Layer.Ground);
+        var deleteCells = new List<Vector2I>();
+        List<Vector2I> accessibleCells = [
+        new Vector2I(dst.X - 1, dst.Y),
+            new Vector2I(dst.X + 1, dst.Y),
+            new Vector2I(dst.X, dst.Y - 1),
+            new Vector2I(dst.X, dst.Y + 1),
+            new Vector2I(dst.X - 1, dst.Y - 1),
+            new Vector2I(dst.X + 1, dst.Y + 1),
+            new Vector2I(dst.X - 1, dst.Y + 1),
+            new Vector2I(dst.X + 1, dst.Y - 1),
+        ];
+        foreach (var cell in accessibleCells)
+        {
+            if (PieceBattle.TileMap.IsBoundary((int)Layer.Ground, cell))
+            {
+                deleteCells.Add(cell);
+            }
+            else if (!PieceBattle.PieceMap.TryGetValue(cell, out BattlePiece value))
+            {
+                deleteCells.Add(cell);
+            }
+            else if (value != null)
+            {
+                if (partyFight && value is BattleEnemy) { }
+                else if (enemyFight && value is BattleParty) { }
+                else { deleteCells.Add(cell); }
+            }
+        }
+        foreach (var cell in deleteCells)
+        {
+            accessibleCells.Remove(cell);
+        }
+        return accessibleCells;
+    }
 
     public Array<int>? FindDstAndMove(Vector2I target, bool isTarget = true)
     {
@@ -504,8 +504,8 @@ public partial class BattleManager : Node
 
 public enum BattleState
 {
-	None,
-	Moving,
-	CardSelecting,
-	CardTargeting,
+    None,
+    Moving,
+    CardSelecting,
+    CardTargeting,
 }
