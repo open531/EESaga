@@ -26,6 +26,7 @@ public enum CardTarget
     Null,
     Self,
     Enemy,
+    Range,
     Ally,
     AllEnemies,
     AllAllies,

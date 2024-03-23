@@ -12,6 +12,7 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 
 public partial class PieceBattle : Node2D
 {
@@ -25,9 +26,12 @@ public partial class PieceBattle : Node2D
 
     public BattlePiece CurrentPiece { get; set; }
 
+    private bool _isRefreshing { get; set; }
+
     public System.Collections.Generic.Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
 
     public System.Collections.Generic.Dictionary<Vector2I, Vector2I> ColorMap { get; set; } = [];
+    public System.Collections.Generic.Dictionary<Vector2I, Vector2I> RangeMap { get; set; } = [];
     public BattleManager BattleManager { get; set; }
 
     [Signal] public delegate void PieceMovedEventHandler();
@@ -66,6 +70,7 @@ public partial class PieceBattle : Node2D
         _pieceMoveTimer.WaitTime = PieceMoveTime;
         _pieceMoveTimer.Timeout += OnPieceMoveTimerTimeout;
 
+        _isRefreshing = false;
         #region test
         var tileMap = IsometricTileMap.Instance();
         for (var x = 0; x < 10; x++)
@@ -119,6 +124,11 @@ public partial class PieceBattle : Node2D
         if (TileMap.SelectedCell != null)
         {
             _pieceDetail.Update(PieceMap[TileMap.SelectedCell.Value]);
+            if (_isRefreshing)
+            {
+                RecoverRangeTiles();
+                ShowRangeTiles(TileMap.LocalToMap(CurrentPiece.GlobalPosition), TileMap.SelectedCell.Value, 3);
+            }
         }
     }
 
@@ -299,6 +309,24 @@ public partial class PieceBattle : Node2D
                     }
                 }
                 break;
+            case CardTarget.Range:
+                _isRefreshing = true;
+                var dirShowTiles = new List<Vector2I>()
+                {
+                    new Vector2I(src.X+1, src.Y),
+                    new Vector2I(src.X-1, src.Y),
+                    new Vector2I(src.X, src.Y+1),
+                    new Vector2I(src.X, src.Y-1),
+                };
+                foreach (var cell in dirShowTiles)
+                {
+                    if (!TileMap.IsBoundary((int)(Layer.Ground), cell))
+                    {
+                        ColorMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
+                        TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                    }
+                }
+                break;
             case CardTarget.Ally:
                 foreach (var cell in usedCells)
                 {
@@ -349,6 +377,11 @@ public partial class PieceBattle : Node2D
 
     public void RecoverEffectTiles()
     {
+        if (_isRefreshing)
+        {
+            _isRefreshing = false;
+            RecoverRangeTiles();
+        }
         if (ColorMap.Count() == 0)
         {
             return;
@@ -366,6 +399,66 @@ public partial class PieceBattle : Node2D
             }
         }
         ColorMap.Clear();
+    }
+
+    public void ShowRangeTiles(Vector2I src, Vector2I dst, int range)
+    {
+        if (IsNear(src, dst))
+        {
+            var dir = new Vector2I(dst.X - src.X, dst.Y - src.Y);
+            var ortho = new Vector2I();
+            if (dir.X != 0)
+            {
+                ortho.X = 0;
+                ortho.Y = 1;
+            }
+            var usedCells = TileMap.GetUsedCells((int)Layer.Ground);
+            var tilesToShow = new List<Vector2I>();
+            var tilesToDelete = new List<Vector2I>();
+            for (int i = 1; i < range + 1; i++)
+            {
+                var temp = new Vector2I(src.X + i * dir.X, src.Y + i * dir.Y);
+                tilesToShow.Add(temp);
+                for (int j = 1; j < i + 1; j++)
+                {
+                    tilesToShow.Add(new Vector2I(temp.X + ortho.X * j, temp.Y + ortho.Y * j));
+                    tilesToShow.Add(new Vector2I(temp.X - ortho.X * j, temp.Y - ortho.Y * j));
+                }
+            }
+            foreach(var cell in tilesToShow)
+            {
+                if (usedCells.Contains(cell)&&!TileMap.IsBoundary((int)Layer.Ground, cell))
+                {
+                    TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                    RangeMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
+                }
+            }
+        }
+    }
+
+    public void RecoverRangeTiles()
+    {
+        if (RangeMap.Count() == 0)
+        {
+            return;
+        }
+        var vector2I = new Vector2I(-1, -1);
+        foreach (var item in RangeMap)
+        {
+            if (ColorMap.ContainsKey(item.Key))
+            {
+                continue;
+            }
+            else if (item.Value == vector2I)
+            {
+                TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.DefaultTileAtlas);
+            }
+            else
+            {
+                TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, item.Value);
+            }
+        }
+        RangeMap.Clear();
     }
 
     public void MoveCurrentPiece(Vector2I dst)
@@ -492,4 +585,27 @@ public partial class PieceBattle : Node2D
     }
 
     public static int GetManhattanDistance(Vector2I src, Vector2I dst) => Mathf.Abs(src.X - dst.X) + Mathf.Abs(src.Y - dst.Y);
+    public static bool IsNear(Vector2I src, Vector2I dst)
+    {
+        var manhattanDistance = GetManhattanDistance(src, dst);
+        if (manhattanDistance == 1 || (manhattanDistance == 2 && Mathf.Abs(src.X - dst.X) == 1))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public static bool IsNeighbor(Vector2I src, Vector2I dst)
+    {
+        if (GetManhattanDistance(src, dst) == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
