@@ -11,9 +11,10 @@ public partial class CardCure : CardSpecial
 	{
 		foreach (var piece in battlePieces)
 		{
-			var _health = piece.Health;
-			piece.Health += (piece.HealthMax - piece.Health) / 3;
-			GD.Print($"{piece.Name} 回复了 {piece.Health - _health} 点生命");
+			var healthRegeneration = (piece.HealthMax - piece.Health) / 3;
+			if (healthRegeneration == 0 && piece.Health != piece.HealthMax) healthRegeneration = 1;
+			piece.Health += healthRegeneration;
+            GD.Print($"{piece.Name} 回复了 {healthRegeneration} 点生命");
 		}
 	}
 }
