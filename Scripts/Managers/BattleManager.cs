@@ -197,7 +197,7 @@ public partial class BattleManager : Node
         }
     }
 
-    public void PrepareCards(int num)
+    public void PrepareCards(int num, bool append = false)
     {
         if (CurrentPiece is BattleParty battleParty)
         {
@@ -209,6 +209,7 @@ public partial class BattleManager : Node
                 }
                 battleParty.BattleCards.DiscardCards.Clear();
             }
+            var appendList = new List<CardInfo>();
             var rng = new Godot.RandomNumberGenerator();
             rng.Randomize();
             for (var i = 0; i < num; i++)
@@ -217,8 +218,17 @@ public partial class BattleManager : Node
                 var card = battleParty.BattleCards.DeckCards[randomIndex];
                 battleParty.BattleCards.HandCards.Add(card);
                 battleParty.BattleCards.DeckCards.Remove(card);
+                appendList.Add(card);
             }
-            CardBattle.BattleCards = battleParty.BattleCards;
+            if (!append)
+            {
+                CardBattle.BattleCards = battleParty.BattleCards;
+            }
+            else
+            {
+                CardBattle.UpdateHandCard(appendList, append);
+                CardBattle.UpdateCardPosition();
+            }
         }
     }
 

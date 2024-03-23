@@ -36,7 +36,7 @@ public partial class CardBattle : CanvasLayer
         set
         {
             _battleCards = value;
-            UpdateHandCard();
+            UpdateHandCard(_battleCards.HandCards);
         }
     }
 
@@ -156,14 +156,17 @@ public partial class CardBattle : CanvasLayer
         _energyLabel.Visible = true;
     }
 
-    private void UpdateHandCard()
+    public void UpdateHandCard(List<CardInfo> appendList, bool append = false)
     {
-        var oldCards = _hand.GetChildren();
-        foreach (var card in oldCards)
+        if (!append)
         {
-            card.QueueFree();
+            var oldCards = _hand.GetChildren();
+            foreach (var card in oldCards)
+            {
+                card.QueueFree();
+            }
         }
-        foreach (var card in BattleCards.HandCards)
+        foreach (var card in appendList)
         {
             AddCard(card);
         }
@@ -176,7 +179,7 @@ public partial class CardBattle : CanvasLayer
         _discardCardNum.Text = BattleCards.DiscardCards.Count.ToString();
     }
 
-    private void UpdateCardPosition()
+    public void UpdateCardPosition()
     {
         var cards = _hand.GetChildren();
         if (cards.Count <= _maxHandSize)
@@ -224,7 +227,7 @@ public partial class CardBattle : CanvasLayer
         var cardNode = CardFactory.CreateCard(card);
         if (cardNode is CardEcs cardEcs)
         {
-            cardEcs.EcsGetCards += () => BattleManager.PrepareCards(cardEcs.CardNum);
+            cardEcs.EcsGetCards += () => BattleManager.PrepareCards(cardEcs.CardNum, true);
         }
         cardNode.InitializeCard(card);
         cardNode.Position = _deck.Position - _hand.Position;
