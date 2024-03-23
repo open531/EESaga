@@ -11,3 +11,5 @@ END_TURN,结束回合,結束回合,End Turn,ターン終了
 GAME_OVER,你输了,你輸了,Game Over,あなたは失います
 GAME_RESTART,再次游玩,再次遊玩,Game Restart,もう一度プレイ
 GAME_QUIT,退出游戏,退出遊戲,Game Quit,ゲームを終了する
+GAME_NEXT,下一关,下一關,Next Game,次のレベル
+GAME_WIN,你赢了,你贏了,You Win,あなたが勝ちます
