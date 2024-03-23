@@ -372,7 +372,7 @@ public partial class CardBattle : CanvasLayer
 
     public void UpdateEnergyLabel(BattleParty party)
     {
-        _energyLabel.Text = $"{Tr("CARD_ENERGY")}:{party.Energy}/{party.EnergyMax}";
+        _energyLabel.Text = $"{Tr("CARD_ENERGY")}: {party.Energy}/{party.EnergyMax}";
     }
 
     public void RecoverCardStatus()
