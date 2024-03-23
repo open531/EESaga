@@ -10,6 +10,7 @@ using Entities.BattleEnemies;
 using Entities.BattleParties;
 using Godot;
 using Godot.Collections;
+using Godot.NativeInterop;
 using Maps;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ public partial class BattleManager : Node
 {
     public SceneSwitcher _sceneSwitcher;
     public bool _timerReady;
-    public bool IsGameOver { get; set; }
+    private bool _attackPermitted { get; set; }
     public BattleState BattleState
     {
         get
@@ -73,7 +74,7 @@ public partial class BattleManager : Node
         PieceBattle = GetNode<PieceBattle>("PieceBattle");
         CardBattle = GetNode<CardBattle>("CardBattle");
         DelayTimer = GetNode<Timer>("DelayTimer");
-        IsGameOver = false;
+        _attackPermitted = false;
         _timerReady = false;
 
         CardBattle.OperatingCardChanged += OnCardBattleOperatingCardChanged;
@@ -364,6 +365,7 @@ public partial class BattleManager : Node
         var targets = PieceBattle.GetNearestParty(location);
         if (targets == null)
         {
+            _attackPermitted = false;
             DelayTimer.WaitTime = 0f;
             DelayTimer.Start();
             return;
@@ -373,7 +375,8 @@ public partial class BattleManager : Node
             var attackableCells = GetNearAccessibleCell(location, enemyFight: true);
             if (targets.Count == 0)
             {
-                DelayTimer.WaitTime = 0f;
+                _attackPermitted = false;
+                DelayTimer.WaitTime = 0.3f;
                 DelayTimer.Start();
                 return;
             }
@@ -381,9 +384,12 @@ public partial class BattleManager : Node
             var primaryCell = PieceBattle.TileMap.LocalToMap(primaryTarget.GlobalPosition);
             if (attackableCells.Contains(primaryCell))
             {
-                DelayTimer.WaitTime = 0.2f;
+                Destination = location;
+                CurrentTarget = primaryTarget;
+                CurrentEnemy = enemy;
+                _attackPermitted = true;
+                DelayTimer.WaitTime = 0.3f;
                 DelayTimer.Start();
-                enemy.Attack(primaryTarget);
                 return;
             }
             else
@@ -396,10 +402,20 @@ public partial class BattleManager : Node
                     var info = FindDstAndMove(TargetCell);
                     if (info != null)
                     {
+                        var permit = info[3];
+                        if (permit == 0)
+                        {
+                            _attackPermitted = false;
+                        }
+                        else
+                        {
+                            _attackPermitted = true;
+                        }
                         var wayLength = info[2];
                         Destination = new Vector2I(info[0], info[1]);
-                        DelayTimer.WaitTime = wayLength * 0.4f;
+                        DelayTimer.WaitTime = wayLength * 0.25f;
                         DelayTimer.Start();
+                        break;
                     }
                 }
                 return;
@@ -415,7 +431,7 @@ public partial class BattleManager : Node
         var target = CurrentTarget as BattleParty;
         var enemy = CurrentEnemy;
         var cells = GetNearAccessibleCell(dst, enemyFight: true);
-        if (cells.Contains(cell))
+        if (cells.Contains(cell)&&_attackPermitted)
         {
             enemy.Attack(target);
         }
@@ -481,6 +497,14 @@ public partial class BattleManager : Node
             info.Add(dst.X);
             info.Add(dst.Y);
             info.Add(dstPath.Count);
+            if (isTarget)
+            {
+                info.Add(1);
+            }
+            else
+            {
+                info.Add(0);
+            }
             PieceBattle.MoveCurrentPiece(dst);
             return info;
         }
@@ -503,6 +527,14 @@ public partial class BattleManager : Node
             info.Add(dst.X);
             info.Add(dst.Y);
             info.Add(secondDstPath.Count);
+            if (isTarget)
+            {
+                info.Add(1);
+            }
+            else
+            {
+                info.Add(0);
+            }
             return info;
         }
         else

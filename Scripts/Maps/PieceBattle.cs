@@ -38,6 +38,7 @@ public partial class PieceBattle : Node2D
     private Timer _pieceMoveTimer;
     private Camera2D _camera;
     private PieceDetail _pieceDetail;
+    public SceneSwitcher _sceneSwitcher;
 
     private AStarGrid2D _astar = new()
     {
@@ -59,6 +60,7 @@ public partial class PieceBattle : Node2D
         _pieceMoveTimer = GetNode<Timer>("PieceMoveTimer");
         _camera = GetNode<Camera2D>("Camera2D");
         _pieceDetail = GetNode<PieceDetail>("%PieceDetail");
+        _sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
 
         _pieceMoveTimer.Autostart = true;
         _pieceMoveTimer.WaitTime = PieceMoveTime;
@@ -194,11 +196,7 @@ public partial class PieceBattle : Node2D
 
     private void HandlePieceDeath(BattlePiece battlePiece)
     {
-        if (battlePiece is BattleParty)
-        {
-            GD.Print("Game Over");
-            BattleManager._sceneSwitcher.PushScene(SceneSwitcher.GameOver, true);
-        }
+        PreCheckGameOver(battlePiece);
         ClearByPiece(battlePiece);
     }
 
@@ -455,6 +453,20 @@ public partial class PieceBattle : Node2D
     {
         var cell = TileMap.LocalToMap(battlePiece.GlobalPosition);
         ClearByCell(cell);
+    }
+
+    public void PreCheckGameOver(BattlePiece battlePiece)
+    {
+        if (battlePiece is BattleParty && Parties.Count == 1)
+        {
+            GD.Print(" Game Over");
+            _sceneSwitcher.PushScene(SceneSwitcher.GameOver);
+        }
+        else if (battlePiece is BattleEnemy && Enemies.Count == 1)
+        {
+            GD.Print("Game Win");
+            _sceneSwitcher.PushScene(SceneSwitcher.GameWin);
+        }
     }
 
     /// <summary>

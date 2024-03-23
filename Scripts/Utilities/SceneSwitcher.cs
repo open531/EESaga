@@ -16,6 +16,7 @@ public partial class SceneSwitcher : Node
     public static TitleMenu TitleMenu => TitleMenu.Instance();
     public static BattleManager BattleManager => BattleManager.Instance();
     public static GameOver GameOver => GameOver.Instance();
+    public static GameWin GameWin => GameWin.Instance();
 
     public override void _Ready()
     {
@@ -35,7 +36,7 @@ public partial class SceneSwitcher : Node
             GD.Print($"Removing {CurrentScene.Name}");
             Main.RemoveChild(CurrentScene);
             GD.Print($"Removed {CurrentScene.Name}");
-            
+
         }
         if (newScene != null)
         {
