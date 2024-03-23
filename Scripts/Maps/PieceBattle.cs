@@ -3,10 +3,12 @@ namespace EESaga.Scripts.Maps;
 using Cards;
 using EESaga.Scripts.Managers;
 using EESaga.Scripts.UI;
+using EESaga.Scripts.Utilities;
 using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +25,9 @@ public partial class PieceBattle : Node2D
 
     public BattlePiece CurrentPiece { get; set; }
 
-    public Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
+    public System.Collections.Generic.Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
 
-    public Dictionary<Vector2I, Vector2I> ColorMap { get; set; } = [];
+    public System.Collections.Generic.Dictionary<Vector2I, Vector2I> ColorMap { get; set; } = [];
     public BattleManager BattleManager { get; set; }
 
     [Signal] public delegate void PieceMovedEventHandler();
@@ -58,6 +60,7 @@ public partial class PieceBattle : Node2D
         _camera = GetNode<Camera2D>("Camera2D");
         _pieceDetail = GetNode<PieceDetail>("%PieceDetail");
 
+        _pieceMoveTimer.Autostart = true;
         _pieceMoveTimer.WaitTime = PieceMoveTime;
         _pieceMoveTimer.Timeout += OnPieceMoveTimerTimeout;
 
@@ -149,6 +152,7 @@ public partial class PieceBattle : Node2D
         PieceMap[cell] = enemy;
         Enemies.Add(enemy);
         Pieces.Add(enemy);
+        enemy.PieceDeath += HandlePieceDeath;
     }
 
     public void AddParty(PartyType partyType)
@@ -169,6 +173,7 @@ public partial class PieceBattle : Node2D
         PieceMap[cell] = party;
         Parties.Add(party);
         Pieces.Add(party);
+        party.PieceDeath += HandlePieceDeath;
     }
 
     public void AddParty(BattleParty party)
@@ -184,6 +189,17 @@ public partial class PieceBattle : Node2D
         PieceMap[cell] = party;
         Parties.Add(party);
         Pieces.Add(party);
+        party.PieceDeath += HandlePieceDeath;
+    }
+
+    private void HandlePieceDeath(BattlePiece battlePiece)
+    {
+        if (battlePiece is BattleParty)
+        {
+            GD.Print("Game Over");
+            BattleManager._sceneSwitcher.PushScene(SceneSwitcher.GameOver, true);
+        }
+        ClearByPiece(battlePiece);
     }
 
     public void ShowAccessibleTiles(int range, bool auto = false)
@@ -224,7 +240,8 @@ public partial class PieceBattle : Node2D
             }
             foreach (var tile in primaryTiles)
             {
-                if (GetAStarPath(src, tile).Count <= range + 1 && GetAStarPath(src, tile).Count > 0)
+                var path = GetAStarPath(src, tile);
+                if (path.Count <= range + 1 && path.Count > 0)
                 {
                     TileMap.SetCell((int)Layer.Mark, tile, IsometricTileMap.TileSelectedId, IsometricTileMap.TileDestinationAtlas);
                 }
@@ -334,7 +351,7 @@ public partial class PieceBattle : Node2D
 
     public void RecoverEffectTiles()
     {
-        if (ColorMap.Count == 0)
+        if (ColorMap.Count() == 0)
         {
             return;
         }
@@ -344,14 +361,13 @@ public partial class PieceBattle : Node2D
             if (item.Value == vector2I)
             {
                 TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, IsometricTileMap.DefaultTileAtlas);
-                ColorMap.Remove(item.Key);
             }
             else
             {
                 TileMap.SetCell((int)Layer.Mark, item.Key, IsometricTileMap.TileSelectedId, item.Value);
-                ColorMap.Remove(item.Key);
             }
         }
+        ColorMap.Clear();
     }
 
     public void MoveCurrentPiece(Vector2I dst)
@@ -369,7 +385,15 @@ public partial class PieceBattle : Node2D
             }
             PieceMap[src] = null;
             PieceMap[dst] = CurrentPiece;
-            _pieceMoveTimer.Start();
+            if (_pieceMoveTimer.IsInsideTree())
+            {
+                _pieceMoveTimer.Start();
+            }
+            else
+            {
+                AddChild(_pieceMoveTimer);
+                _pieceMoveTimer.Start();
+            }
         }
         else
         {
@@ -385,7 +409,7 @@ public partial class PieceBattle : Node2D
     {
         if (_pieceMovePath != null && _pieceMovePath.Count > 0)
         {
-            if (_pieceMoveIndex == _pieceMovePath.Count)
+            if (_pieceMoveIndex >= _pieceMovePath.Count)
             {
                 _pieceMovePath = [];
                 _pieceMoveIndex = 0;
@@ -404,11 +428,14 @@ public partial class PieceBattle : Node2D
         }
     }
 
-    public void ClearHeritage(Vector2I cell)
+    public void ClearByCell(Vector2I cell)
     {
-        if (PieceMap.TryGetValue(cell, out var value))
+        if (PieceMap.TryGetValue(cell, out var piece))
         {
-            var piece = value;
+            if (piece == null)
+            {
+                return;
+            }
             if (piece is BattleEnemy enemy)
             {
                 Enemies.Remove(enemy);
@@ -419,9 +446,15 @@ public partial class PieceBattle : Node2D
                 Parties.Remove(party);
                 Pieces.Remove(party);
             }
+            piece.QueueFree();
             PieceMap[cell] = null;
         }
-        ColorMap.Remove(cell);
+    }
+
+    public void ClearByPiece(BattlePiece battlePiece)
+    {
+        var cell = TileMap.LocalToMap(battlePiece.GlobalPosition);
+        ClearByCell(cell);
     }
 
     /// <summary>
@@ -430,7 +463,11 @@ public partial class PieceBattle : Node2D
     /// <param name="cell">参考点</param>
     public List<BattleParty> GetNearestParty(Vector2I cell)
     {
-        List<BattleParty> battleParties = new(Parties);
+        List<BattleParty> battleParties = new List<BattleParty>();
+        foreach (var party in Parties)
+        {
+            battleParties.Add(party);
+        }
         if (battleParties.Count > 1)
         {
             List<BattleParty> orderedBattleParties = battleParties.OrderBy(p => GetAStarPath(cell, TileMap.LocalToMap(p.GlobalPosition)).Count).ThenBy(x => x.Health).ToList();
