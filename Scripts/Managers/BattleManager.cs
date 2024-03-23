@@ -211,7 +211,6 @@ public partial class BattleManager : Node
             battleParty.Energy = battleParty.EnergyMax;
             CurrentPiece = battleParty;
             GD.Print($"{CurrentPiece.PieceName} Turn");
-            battleParty.Energy = battleParty.EnergyMax;
             CardBattle.ShowUI();
             CardBattle.IsMoving = true;
             CardBattle.BattleCards = battleParty.BattleCards;
