@@ -26,6 +26,21 @@ public partial class PieceBattle : Node2D
 
     public BattlePiece CurrentPiece { get; set; }
 
+    public int CardRange
+    {
+        get
+        {
+            if (BattleManager.CardBattle.OperatingCard == null)
+            {
+                return 3;
+            }
+            else
+            {
+                return BattleManager.CardBattle.OperatingCard.CardRange;
+            }
+        }
+    }
+
     private bool _isRefreshing { get; set; }
 
     public System.Collections.Generic.Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
@@ -127,7 +142,7 @@ public partial class PieceBattle : Node2D
             if (_isRefreshing)
             {
                 RecoverRangeTiles();
-                ShowRangeTiles(TileMap.LocalToMap(CurrentPiece.GlobalPosition), TileMap.SelectedCell.Value, 3);
+                ShowRangeTiles(TileMap.LocalToMap(CurrentPiece.GlobalPosition), TileMap.SelectedCell.Value, CardRange);
             }
         }
     }
@@ -425,9 +440,9 @@ public partial class PieceBattle : Node2D
                     tilesToShow.Add(new Vector2I(temp.X - ortho.X * j, temp.Y - ortho.Y * j));
                 }
             }
-            foreach(var cell in tilesToShow)
+            foreach (var cell in tilesToShow)
             {
-                if (usedCells.Contains(cell)&&!TileMap.IsBoundary((int)Layer.Ground, cell))
+                if (usedCells.Contains(cell) && !TileMap.IsBoundary((int)Layer.Ground, cell))
                 {
                     TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
                     RangeMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));

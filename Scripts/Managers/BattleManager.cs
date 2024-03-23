@@ -417,6 +417,11 @@ public partial class BattleManager : Node
                         DelayTimer.Start();
                         break;
                     }
+                    else
+                    {
+                        DelayTimer.WaitTime = 0.3f;
+                        DelayTimer.Start();
+                    }
                 }
                 return;
             }
@@ -431,7 +436,7 @@ public partial class BattleManager : Node
         var target = CurrentTarget as BattleParty;
         var enemy = CurrentEnemy;
         var cells = GetNearAccessibleCell(dst, enemyFight: true);
-        if (cells.Contains(cell)&&_attackPermitted)
+        if (cells.Contains(cell) && _attackPermitted)
         {
             enemy.Attack(target);
         }
@@ -442,20 +447,22 @@ public partial class BattleManager : Node
         CardBattle.EmitSignal(CardBattle.SignalName.EndTurn);
     }
 
-    public List<Vector2I> GetNearAccessibleCell(Vector2I dst, bool partyFight = false, bool enemyFight = false)
+    public List<Vector2I> GetNearAccessibleCell(Vector2I dst, bool partyFight = false, bool enemyFight = false, int range = 1)
     {
         var cells = PieceBattle.TileMap.GetUsedCells((int)Layer.Ground);
         var deleteCells = new List<Vector2I>();
-        List<Vector2I> accessibleCells = [
-        new Vector2I(dst.X - 1, dst.Y),
-            new Vector2I(dst.X + 1, dst.Y),
-            new Vector2I(dst.X, dst.Y - 1),
-            new Vector2I(dst.X, dst.Y + 1),
-            new Vector2I(dst.X - 1, dst.Y - 1),
-            new Vector2I(dst.X + 1, dst.Y + 1),
-            new Vector2I(dst.X - 1, dst.Y + 1),
-            new Vector2I(dst.X + 1, dst.Y - 1),
-        ];
+        List<Vector2I> accessibleCells = new List<Vector2I>();
+
+        for (int i = -range; i < range + 1; i++)
+        {
+            accessibleCells.Add(new Vector2I(dst.X - range, dst.Y - i));
+            accessibleCells.Add(new Vector2I(dst.X + range, dst.Y - i));
+        }
+        for (int i = -range + 1; i < range; i++)
+        {
+            accessibleCells.Add(new Vector2I(dst.X + i, dst.Y - range));
+            accessibleCells.Add(new Vector2I(dst.X + i, dst.Y + range));
+        }
         foreach (var cell in accessibleCells)
         {
             if (PieceBattle.TileMap.IsBoundary((int)Layer.Ground, cell))
@@ -483,15 +490,32 @@ public partial class BattleManager : Node
     public Array<int>? FindDstAndMove(Vector2I target, bool isTarget = true)
     {
         var info = new Array<int>();
+        var dst = new Vector2I();
+        var dstPath = new List<Vector2I>();
         var cell = PieceBattle.TileMap.LocalToMap(CurrentPiece.GlobalPosition);
-        var SortedAccessibleCells = GetNearAccessibleCell(target).OrderBy(p => PieceBattle.GetAStarPath(cell, p).Count).ToList();
-        if (SortedAccessibleCells.Count == 0)
+        var SortedAccessibleCells = new List<Vector2I>();
+        for (int i = 1; ; i++)
         {
-            return null;
+            SortedAccessibleCells = GetNearAccessibleCell(target, range: i).OrderBy(p => PieceBattle.GetAStarPath(cell, p).Count).ToList();
+            if (SortedAccessibleCells.Count == 0)
+            {
+                continue;
+            }
+            for (int j = 0; j < SortedAccessibleCells.Count; j++)
+            {
+                var item = SortedAccessibleCells[j];
+                dstPath = PieceBattle.GetAStarPath(cell, item);
+                if (dstPath.Count > 0)
+                {
+                    dst = item;
+                    break;
+                }
+            }
+            if (dstPath.Count > 0)
+            {
+                break;
+            }
         }
-        var dst = SortedAccessibleCells[0];
-        var dstPath = PieceBattle.GetAStarPath(cell, dst);
-        var path = new Array<Vector2I>(dstPath);
         if (dstPath.Count == CurrentPiece.MoveRange + 1)
         {
             info.Add(dst.X);
