@@ -1,11 +1,10 @@
 namespace EESaga.Scripts.UI;
 
 using Cards;
-using EESaga.Scripts.Entities.BattleEnemies;
-using EESaga.Scripts.Managers;
-using Entities;
+using Cards.CardItems;
 using Entities.BattleParties;
 using Godot;
+using Managers;
 using System;
 using System.Collections.Generic;
 
@@ -223,6 +222,10 @@ public partial class CardBattle : CanvasLayer
     private void AddCard(CardInfo card)
     {
         var cardNode = CardFactory.CreateCard(card);
+        if (cardNode is CardEcs cardEcs)
+        {
+            cardEcs.EcsGetCards += () => BattleManager.PrepareCards(cardEcs.CardNum);
+        }
         cardNode.InitializeCard(card);
         cardNode.Position = _deck.Position - _hand.Position;
         cardNode.Scale = Vector2.Zero;
