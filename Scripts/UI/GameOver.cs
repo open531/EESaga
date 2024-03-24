@@ -15,7 +15,7 @@ public partial class GameOver : Control
 	{
         _gameRestartButton = GetNode<Button>("GameRestartButton");
 		_gameQuitButton = GetNode<Button>("GameQuitButton");
-		_sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");	
+		_sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
 
 		_gameRestartButton.Pressed += OnGameRestartButtonPressed;
 		_gameQuitButton.Pressed += OnGameQuitButtonPressed;
@@ -23,7 +23,7 @@ public partial class GameOver : Control
 
 	private void OnGameRestartButtonPressed()
 	{
-        _sceneSwitcher.PushScene(SceneSwitcher.TitleMenu);
+        _sceneSwitcher.PushScene(SceneSwitcher.TitleMenuScene);
     }
 	private void OnGameQuitButtonPressed()
 	{

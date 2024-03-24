@@ -9,11 +9,9 @@ using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;
 using Godot;
-using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 
 public partial class PieceBattle : Node2D
 {
@@ -44,10 +42,9 @@ public partial class PieceBattle : Node2D
 
     private bool _isRefreshing;
 
-    public System.Collections.Generic.Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
-
-    public System.Collections.Generic.Dictionary<Vector2I, Vector2I> ColorMap { get; set; } = [];
-    public System.Collections.Generic.Dictionary<Vector2I, Vector2I> RangeMap { get; set; } = [];
+    public Dictionary<Vector2I, BattlePiece> PieceMap { get; set; } = [];
+    public Dictionary<Vector2I, Vector2I> ColorMap { get; set; } = [];
+    public Dictionary<Vector2I, Vector2I> RangeMap { get; set; } = [];
     public BattleManager BattleManager { get; set; }
 
     [Signal] public delegate void PieceMovedEventHandler();
@@ -57,7 +54,7 @@ public partial class PieceBattle : Node2D
     private Node2D _parties;
     private Timer _pieceMoveTimer;
     private Camera2D _camera;
-    private PieceDetail _pieceDetail;
+    public PieceDetail _pieceDetail;
     public SceneSwitcher _sceneSwitcher;
     private Label _gameLevelLabel;
 
@@ -591,13 +588,13 @@ public partial class PieceBattle : Node2D
         if (battlePiece is BattleParty && Parties.Count == 1)
         {
             GD.Print(" Game Over");
-            _sceneSwitcher.PushScene(SceneSwitcher.GameOver);
+            _sceneSwitcher.PushScene(SceneSwitcher.GameOverScene);
         }
         else if (battlePiece is BattleEnemy && Enemies.Count == 1)
         {
             GD.Print("Game Win");
             SaveData.Floor++;
-            _sceneSwitcher.PushScene(SceneSwitcher.GameWin);
+            _sceneSwitcher.PushScene(SceneSwitcher.GameWinScene);
         }
     }
 

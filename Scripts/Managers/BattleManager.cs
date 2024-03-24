@@ -10,11 +10,9 @@ using Entities.BattleEnemies;
 using Entities.BattleParties;
 using Godot;
 using Godot.Collections;
-using Godot.NativeInterop;
 using Maps;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using UI;
 using Utilities;
 
@@ -22,7 +20,7 @@ public partial class BattleManager : Node
 {
     public SceneSwitcher _sceneSwitcher;
     public bool _timerReady;
-    private bool _attackPermitted { get; set; }
+    private bool _attackPermitted;
     public BattleState BattleState
     {
         get
