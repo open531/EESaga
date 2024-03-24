@@ -9,7 +9,6 @@ using Entities;
 using Entities.BattleEnemies;
 using Entities.BattleParties;
 using Godot;
-using Godot.Collections;
 using Maps;
 using System.Collections.Generic;
 using System.Linq;
@@ -539,9 +538,9 @@ public partial class BattleManager : Node
         return accessibleCells;
     }
 
-    public Array<int>? FindDstAndMove(Vector2I target, bool isTarget = true)
+    public List<int>? FindDstAndMove(Vector2I target, bool isTarget = true)
     {
-        var info = new Array<int>();
+        var info = new List<int>();
         var dst = new Vector2I();
         var dstPath = new List<Vector2I>();
         var cell = PieceBattle.TileMap.LocalToMap(CurrentPiece.GlobalPosition);
