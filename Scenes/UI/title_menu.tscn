@@ -12,27 +12,20 @@ colors = PackedColorArray(0, 0, 0, 0.752941, 1, 1, 1, 0)
 gradient = SubResource("Gradient_ibvh8")
 width = 216
 
-[node name="TitleMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 640.0
-offset_bottom = 360.0
+[node name="TitleMenu" type="CanvasLayer"]
 script = ExtResource("1_rpgna")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_ehb1b")
 
 [node name="Background" type="TextureRect" parent="."]
-layout_mode = 2
 offset_right = 216.0
 offset_bottom = 360.0
 texture = SubResource("GradientTexture1D_m5fq7")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
 offset_top = 168.0
 offset_right = 216.0
 offset_bottom = 375.0
@@ -74,4 +67,3 @@ alignment = 0
 visible = false
 
 [node name="DebugInfo" parent="." instance=ExtResource("4_5bs21")]
-layout_mode = 1

@@ -3,7 +3,7 @@ namespace EESaga.Scripts.UI;
 using Godot;
 using Utilities;
 
-public partial class TitleMenu : Control
+public partial class TitleMenu : CanvasLayer
 {
     private SceneSwitcher _sceneSwitcher;
 
@@ -40,7 +40,7 @@ public partial class TitleMenu : Control
 
     private void OnPlayButtonPressed()
     {
-        _sceneSwitcher.PushScene(SceneSwitcher.BattleManager);
+        _sceneSwitcher.PushScene(SceneSwitcher.BattleManagerScene);
     }
 
     private void OnOptionButtonPressed()

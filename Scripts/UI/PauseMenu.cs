@@ -2,7 +2,7 @@ namespace EESaga.Scripts.UI;
 
 using Godot;
 
-public partial class PauseMenu : Control
+public partial class PauseMenu : CanvasLayer
 {
     private MarginContainer _marginContainer;
     private Button _resumeButton;
@@ -12,6 +12,8 @@ public partial class PauseMenu : Control
     private Button _quitButton;
 
     private PopupPanel _optionMenu;
+
+    [Signal] public delegate void GameResumeEventHandler();
 
     public static PauseMenu Instance() => GD.Load<PackedScene>("res://Scenes/UI/pause_menu.tscn").Instantiate<PauseMenu>();
 
@@ -38,6 +40,7 @@ public partial class PauseMenu : Control
     private void OnResumeButtonPressed()
     {
         GetTree().Paused = false;
+        EmitSignal(SignalName.GameResume);
     }
 
     private void OnOptionButtonPressed()
