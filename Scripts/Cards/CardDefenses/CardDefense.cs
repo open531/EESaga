@@ -16,12 +16,16 @@ public partial class CardDefense : Card
         DefenseValue = cardInfo.DefenseValue;
     }
 
-    public override void TakeEffect(List<BattlePiece> battlePieces)
+    public override List<string> TakeEffect(List<BattlePiece> battlePieces)
     {
+        var effectInfo = new List<string>();
+        effectInfo.Add($"{Tr("T_USE")}{Tr("CARD_DEFENSE")}\n");
         foreach (var piece in battlePieces)
         {
             piece.Shield += DefenseValue;
             GD.Print($"{piece.Name}护盾值增加了{DefenseValue}");
+            effectInfo.Add($"{piece.PieceName}{Tr("PIECE_SHIELD")}{Tr("T_INCREASE")}{DefenseValue}\n");
         }
+        return effectInfo;
     }
 }

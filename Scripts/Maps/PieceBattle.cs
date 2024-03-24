@@ -57,6 +57,12 @@ public partial class PieceBattle : Node2D
     public PieceDetail _pieceDetail;
     public SceneSwitcher _sceneSwitcher;
     private Label _gameLevelLabel;
+    private Label _actionPieceName;
+    private Label _pieceAction;
+    private Label _actionEffect;
+    private Label _lastActionPieceName;
+    private Label _lastPieceAction;
+    private Label _lastActionEffect;
 
     private AStarGrid2D _astar = new()
     {
@@ -80,24 +86,25 @@ public partial class PieceBattle : Node2D
         _pieceDetail = GetNode<PieceDetail>("%PieceDetail");
         _sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
         _gameLevelLabel = GetNode<Label>("%GameLevelLabel");
+        _actionPieceName = GetNode<Label>("%ActionPieceName");
+        _pieceAction = GetNode<Label>("%PieceAction");
+        _actionEffect = GetNode<Label>("%ActionEffect");
+        _lastActionPieceName = GetNode<Label>("%LastActionPieceName");
+        _lastPieceAction = GetNode<Label>("%LastPieceAction");
+        _lastActionEffect = GetNode<Label>("%LastActionEffect");
 
         _pieceMoveTimer.Autostart = true;
         _pieceMoveTimer.WaitTime = PieceMoveTime;
         _pieceMoveTimer.Timeout += OnPieceMoveTimerTimeout;
 
         UpdateLevelLabel();
+        UpdateActionInfo("", "", false);
+        UpdateLastActionInfo("", "", "");
 
         _isRefreshing = false;
         #region test
         var tileMap = IsometricTileMap.Instance();
-        for (var x = 0; x < 10; x++)
-        {
-            for (var y = 0; y < 10; y++)
-            {
-                tileMap.SetCell((int)Layer.Ground, new Vector2I(x, y), IsometricTileMap.TileSetId, IsometricTileMap.DefaultTileAtlas);
-            }
-        }
-        Initialize(tileMap);
+        MapInitialize(tileMap);
         AddEnemyByFloor();
         var player = PlayerBattle.Instance();
         player.BattleCards = new BattleCards()
@@ -130,6 +137,63 @@ public partial class PieceBattle : Node2D
         #endregion
     }
 
+    public void MapInitialize(IsometricTileMap tileMap)
+    {
+        var floor = SaveData.Floor;
+        var mapInfo = GameData.mapInfo[floor];
+        var availableCells = mapInfo.AvailableCells;
+        var cellsOutOfMap = mapInfo.CellsOutOfMap;
+        var cellsOut = CellsOutProcess(cellsOutOfMap);
+        var cellsOutLeft = cellsOut[0];
+        var cellsOutRight = cellsOut[1];
+
+        for (int i = availableCells[0].X; i < availableCells[1].X; i++)
+        {
+            for (int j = availableCells[0].Y; j < availableCells[1].Y; j++)
+            {
+                if (IsOutOfMap(new Vector2I(i, j), cellsOutLeft, cellsOutRight))
+                {
+                    continue;
+                }
+                else
+                {
+                    tileMap.SetCell((int)Layer.Ground, new Vector2I(i, j), IsometricTileMap.TileSetId, IsometricTileMap.DefaultTileAtlas);
+                }
+            }
+        }
+
+        Initialize(tileMap);
+    }
+
+    public List<List<Vector2I>> CellsOutProcess(List<Vector2I> cells)
+    {
+        var cellLeft = new List<Vector2I>();
+        var cellRight = new List<Vector2I>();
+        var cellsOut = new List<List<Vector2I>>();
+        var cellsCount = cells.Count / 2;
+        for (int i = 0; i < cellsCount; i++)
+        {
+            cellLeft.Add(cells[2 * i]);
+            cellRight.Add(cells[2 * i + 1]);
+        }
+        cellsOut.Add(cellLeft);
+        cellsOut.Add(cellRight);
+        return cellsOut;
+    }
+
+    public bool IsOutOfMap(Vector2I cell, List<Vector2I> cellsLeft, List<Vector2I> cellsRight)
+    {
+        var count = cellsLeft.Count;
+        for (int i = 0; i < count; i++)
+        {
+            if (cell.X >= cellsLeft[i].X && cell.X <= cellsRight[i].X && cell.Y >= cellsLeft[i].Y && cell.Y <= cellsRight[i].Y)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public override void _Process(double delta)
     {
         TileMap.UpdateSelectedTile();
@@ -146,6 +210,33 @@ public partial class PieceBattle : Node2D
         {
             _pieceDetail.Update(null);
         }
+    }
+
+    public void UpdateActionInfo(string action, string effect, bool refreshLastLabel = true)
+    {
+        if (CurrentPiece == null)
+        {
+            _actionPieceName.Text = "";
+            _pieceAction.Text = action;
+            _actionEffect.Text = effect;
+            return;
+        }
+        if (refreshLastLabel)
+        {
+            int colonIndex = _actionPieceName.Text.IndexOf(':');
+            string result = _actionPieceName.Text.Substring(colonIndex + 1).Trim();
+            UpdateLastActionInfo(result, _pieceAction.Text, _actionEffect.Text);
+        }
+        _actionPieceName.Text = $"{Tr("T_CURRENT_ROUND")} : " + CurrentPiece.PieceName;
+        _pieceAction.Text = action;
+        _actionEffect.Text = effect;
+    }
+
+    public void UpdateLastActionInfo(string name, string action, string effect)
+    {
+        _lastActionPieceName.Text = $"{Tr("T_LAST_ROUND")} : " + name;
+        _lastPieceAction.Text = action;
+        _lastActionEffect.Text = effect;
     }
 
     public void UpdateLevelLabel()
@@ -200,6 +291,8 @@ public partial class PieceBattle : Node2D
         Enemies.Add(enemy);
         Pieces.Add(enemy);
         enemy.PieceDeath += HandlePieceDeath;
+        if (enemy is Slime slime)
+            slime.SlimeAction += UpdateActionInfo;
     }
 
     public void AddParty(PartyType partyType)

@@ -126,17 +126,27 @@ public partial class BattleManager : Node
                                     case CardAttack cardAttack:
                                         if (cardAttack.TakePartyCost(CurrentPiece as BattleParty))
                                         {
-                                            cardAttack.TakeEffect(target);
+                                            var cardInfo = cardAttack.TakeEffect(target);
                                             CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                            PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
                                             CardBattle.RemoveCard(cardAttack);
+                                        }
+                                        else
+                                        {
+                                            PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_ATTACK")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
                                         }
                                         break;
                                     case CardDefense cardDefense:
                                         if (cardDefense.TakePartyCost(CurrentPiece as BattleParty))
                                         {
-                                            cardDefense.TakeEffect(target);
+                                            var cardInfo = cardDefense.TakeEffect(target);
                                             CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                            PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
                                             CardBattle.RemoveCard(cardDefense);
+                                        }
+                                        else
+                                        {
+                                            PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_DEFENSE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
                                         }
                                         break;
                                     case CardSpecial cardSpecial:
@@ -146,15 +156,25 @@ public partial class BattleManager : Node
                                                 case CardCure cardCure:
                                                     if (cardCure.TakePartyCost(CurrentPiece as BattleParty))
                                                     {
-                                                        cardCure.TakeEffect(target);
+                                                        var cardInfo = cardCure.TakeEffect(target);
                                                         CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_CURE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
                                                     }
                                                     break;
                                                 default:
                                                     if (cardSpecial.TakePartyCost(CurrentPiece as BattleParty))
                                                     {
-                                                        cardSpecial.TakeEffect(target);
+                                                        var cardInfo = cardSpecial.TakeEffect(target);
                                                         CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_SPECIAL")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
                                                     }
                                                     break;
                                             }
@@ -164,9 +184,14 @@ public partial class BattleManager : Node
                                     case CardItem cardItem:
                                         if (cardItem.TakePartyCost(CurrentPiece as BattleParty))
                                         {
-                                            cardItem.TakeEffect(target);
+                                            var cardInfo = cardItem.TakeEffect(target);
                                             CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                            PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
                                             CardBattle.RemoveCard(cardItem);
+                                        }
+                                        else
+                                        {
+                                            PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_I_ECS")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
                                         }
                                         break;
                                 }
@@ -185,6 +210,7 @@ public partial class BattleManager : Node
                             GD.Print("Not enough energy");
                             CardBattle.OperatingCard = null;
                             CardBattle.ExitPreviewCard();
+                            PieceBattle.UpdateActionInfo($"{Tr("T_ENERGY_NOT_ENOUGH")}", "");
                         }
                     }
                 }
@@ -208,6 +234,7 @@ public partial class BattleManager : Node
         {
             battleParty.Energy = battleParty.EnergyMax;
             CurrentPiece = battleParty;
+            PieceBattle.UpdateActionInfo("", "");
             GD.Print($"{CurrentPiece.PieceName} Turn");
             CardBattle.ShowUI();
             CardBattle.IsMoving = true;
@@ -219,6 +246,7 @@ public partial class BattleManager : Node
         else if (battlePiece is BattleEnemy battleEnemy)
         {
             CurrentPiece = battleEnemy;
+            PieceBattle.UpdateActionInfo("", "");
             GD.Print($"{CurrentPiece.PieceName} Turn");
             CardBattle.HideUI();
             CardBattle.BattleCards = BattleCards.Empty;
