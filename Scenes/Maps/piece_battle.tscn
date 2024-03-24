@@ -31,9 +31,10 @@ offset_bottom = 224.0
 
 [node name="GameLevelLabel" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 263.0
+visibility_layer = 513
+offset_left = 5.0
 offset_top = 16.0
-offset_right = 375.0
+offset_right = 117.0
 offset_bottom = 32.0
 pivot_offset = Vector2(56, 0)
 text = "GAME_LEVEL"

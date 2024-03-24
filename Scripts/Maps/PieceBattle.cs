@@ -153,7 +153,7 @@ public partial class PieceBattle : Node2D
 
     public void UpdateLevelLabel()
     {
-        _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")}: {SaveData.GameRecord.Floor}";
+        _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")}: {SaveData.Floor}";
     }
     public void Initialize(IsometricTileMap tileMap)
     {
@@ -171,7 +171,7 @@ public partial class PieceBattle : Node2D
 
     public void AddEnemyByFloor()
     {
-        var floor = SaveData.GameRecord.Floor;
+        var floor = SaveData.Floor;
         var enemyCountDic = GameData.enemyInfo[floor].EnemyCountDic;
         foreach (var enemyInfo in enemyCountDic)
         {
@@ -596,6 +596,7 @@ public partial class PieceBattle : Node2D
         else if (battlePiece is BattleEnemy && Enemies.Count == 1)
         {
             GD.Print("Game Win");
+            SaveData.Floor++;
             _sceneSwitcher.PushScene(SceneSwitcher.GameWin);
         }
     }

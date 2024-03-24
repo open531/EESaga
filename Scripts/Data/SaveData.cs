@@ -17,12 +17,8 @@ public partial class SaveData : Node
         Agility = 10,
     };
 
-    public static GameRecord GameRecord { get; set; } = new()
-    {
-        Floor = 0,
-    };
     public static List<BattleParty> Parties { get; set; }
-    public int Floor { get; set; }
+    public static int Floor { get; set; } = 0;
 
     public void Save(string filename)
     {
@@ -33,10 +29,4 @@ public partial class SaveData : Node
             GD.PrintErr("Error saving data to file.");
         }
     }
-}
-
-public struct GameRecord
-{
-    public List<BattleParty> Parties;
-    public int Floor;
 }
