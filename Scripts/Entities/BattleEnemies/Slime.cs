@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public partial class Slime : BattleEnemy
 {
-    [Signal] public delegate void SlimeActionEventHandler(string actionInfo, string actionEffect);
+    [Signal] public delegate void SlimeActionEventHandler(string actionInfo, string actionEffect,bool refreshLastLabel);
     public static new Slime Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/slime.tscn").Instantiate<Slime>();
 
     public override void _Ready()
@@ -48,9 +48,9 @@ public partial class Slime : BattleEnemy
         if (deathInfo)
         {
             damageInfo += $"{battleParty.PieceName}{Tr("T_DECEASED")}\n";
-        } 
+        }
         GD.Print($"{PieceName}攻击了{battleParty.PieceName}");
-        EmitSignal(SignalName.SlimeAction, actionInfo, damageInfo);
+        EmitSignal(SignalName.SlimeAction, actionInfo, damageInfo, true);
     }
 
     public override void Defend(BattleEnemy battleEnemy)

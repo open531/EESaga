@@ -25,9 +25,7 @@ wait_time = 0.5
 [node name="PieceDetail" parent="CanvasLayer" instance=ExtResource("3_wory3")]
 unique_name_in_owner = true
 offset_left = 5.0
-offset_top = 180.0
 offset_right = 213.0
-offset_bottom = 224.0
 
 [node name="GameLevelLabel" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -39,26 +37,50 @@ offset_bottom = 21.0
 pivot_offset = Vector2(56, 0)
 text = "GAME_LEVEL"
 
-[node name="ActionPieceName" type="Label" parent="CanvasLayer"]
+[node name="LastActionPieceName" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
 offset_left = 5.0
 offset_top = 25.0
 offset_right = 45.0
 offset_bottom = 41.0
-text = "Action Piece Name"
+text = "Last Action Piece Name"
 
-[node name="PieceAction" type="Label" parent="CanvasLayer"]
+[node name="LastPieceAction" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
 offset_left = 5.0
 offset_top = 45.0
 offset_right = 45.0
 offset_bottom = 61.0
-text = "Piece Action"
+text = "Last Piece Action"
 
-[node name="ActionEffect" type="Label" parent="CanvasLayer"]
+[node name="LastActionEffect" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
 offset_left = 5.0
 offset_top = 65.0
 offset_right = 45.0
 offset_bottom = 81.0
+text = "Last Action Effect"
+
+[node name="ActionPieceName" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 5.0
+offset_top = 125.0
+offset_right = 141.0
+offset_bottom = 141.0
+text = "Action Piece Name"
+
+[node name="PieceAction" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 5.0
+offset_top = 145.0
+offset_right = 101.0
+offset_bottom = 161.0
+text = "Piece Action"
+
+[node name="ActionEffect" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 5.0
+offset_top = 165.0
+offset_right = 109.0
+offset_bottom = 181.0
 text = "Action Effect"

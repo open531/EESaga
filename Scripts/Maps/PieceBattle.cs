@@ -60,6 +60,9 @@ public partial class PieceBattle : Node2D
     private Label _actionPieceName;
     private Label _pieceAction;
     private Label _actionEffect;
+    private Label _lastActionPieceName;
+    private Label _lastPieceAction;
+    private Label _lastActionEffect;
 
     private AStarGrid2D _astar = new()
     {
@@ -86,13 +89,17 @@ public partial class PieceBattle : Node2D
         _actionPieceName = GetNode<Label>("%ActionPieceName");
         _pieceAction = GetNode<Label>("%PieceAction");
         _actionEffect = GetNode<Label>("%ActionEffect");
+        _lastActionPieceName = GetNode<Label>("%LastActionPieceName");
+        _lastPieceAction = GetNode<Label>("%LastPieceAction");
+        _lastActionEffect = GetNode<Label>("%LastActionEffect");
 
         _pieceMoveTimer.Autostart = true;
         _pieceMoveTimer.WaitTime = PieceMoveTime;
         _pieceMoveTimer.Timeout += OnPieceMoveTimerTimeout;
 
         UpdateLevelLabel();
-        UpdateActionInfo("", "");
+        UpdateActionInfo("", "", false);
+        UpdateLastActionInfo("", "", "");
 
         _isRefreshing = false;
         #region test
@@ -205,7 +212,7 @@ public partial class PieceBattle : Node2D
         }
     }
 
-    public void UpdateActionInfo(string action, string effect)
+    public void UpdateActionInfo(string action, string effect, bool refreshLastLabel = true)
     {
         if (CurrentPiece == null)
         {
@@ -214,9 +221,22 @@ public partial class PieceBattle : Node2D
             _actionEffect.Text = effect;
             return;
         }
-        _actionPieceName.Text = CurrentPiece.PieceName;
+        if (refreshLastLabel)
+        {
+            int colonIndex = _actionPieceName.Text.IndexOf(':');
+            string result = _actionPieceName.Text.Substring(colonIndex + 1).Trim();
+            UpdateLastActionInfo(result, _pieceAction.Text, _actionEffect.Text);
+        }
+        _actionPieceName.Text = $"{Tr("T_CURRENT_ROUND")} : " + CurrentPiece.PieceName;
         _pieceAction.Text = action;
         _actionEffect.Text = effect;
+    }
+
+    public void UpdateLastActionInfo(string name, string action, string effect)
+    {
+        _lastActionPieceName.Text = $"{Tr("T_LAST_ROUND")} : " + name;
+        _lastPieceAction.Text = action;
+        _lastActionEffect.Text = effect;
     }
 
     public void UpdateLevelLabel()
