@@ -17,3 +17,8 @@ CARD_ENERGY,能量,能量,Energy,エネルギー
 PIECE_HEALTH,生命,生命,Health,体力
 PIECE_SHIELD,护盾,護盾,Shield,シールド
 GAME_LEVEL,当前关卡,當前關卡,Current level,現在のレベル
+T_REDUCE,减少,減少,Reduce,減少
+T_LOST,损失,損失,Lost,損失
+T_DECEASED,已死亡,已死亡,Deceased,死亡済み
+T_ATTACK,攻击,攻擊,Attack,攻撃
+T_USE,使用,使用, Use,使用
