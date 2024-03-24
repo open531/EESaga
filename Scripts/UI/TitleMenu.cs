@@ -13,6 +13,7 @@ public partial class TitleMenu : CanvasLayer
     private Button _optionButton;
     private Button _quitButton;
 
+    private LoadMenu _loadMenu;
     private OptionMenu _optionMenu;
 
     public static TitleMenu Instance() => GD.Load<PackedScene>("res://Scenes/UI/title_menu.tscn").Instantiate<TitleMenu>();
@@ -27,9 +28,11 @@ public partial class TitleMenu : CanvasLayer
         _optionButton = GetNode<Button>("%OptionButton");
         _quitButton = GetNode<Button>("%QuitButton");
 
+        _loadMenu = GetNode<LoadMenu>("LoadMenu");
         _optionMenu = GetNode<OptionMenu>("OptionMenu");
 
         _playButton.Pressed += OnPlayButtonPressed;
+        _loadButton.Pressed += OnLoadButtonPressed;
         _optionButton.Pressed += OnOptionButtonPressed;
         _quitButton.Pressed += OnQuitButtonPressed;
 
@@ -41,6 +44,12 @@ public partial class TitleMenu : CanvasLayer
     private void OnPlayButtonPressed()
     {
         _sceneSwitcher.PushScene(SceneSwitcher.BattleManagerScene);
+    }
+
+    private void OnLoadButtonPressed()
+    {
+        _loadMenu.PopupCentered();
+        _loadMenu.UpdateSaveData();
     }
 
     private void OnOptionButtonPressed()

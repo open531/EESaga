@@ -1,15 +1,25 @@
-[gd_scene format=3 uid="uid://d0vbi4ip83v2m"]
+[gd_scene load_steps=2 format=3 uid="uid://d0vbi4ip83v2m"]
+
+[ext_resource type="Script" path="res://Scripts/UI/LoadMenu.cs" id="1_crp63"]
 
 [node name="LoadMenu" type="PopupPanel"]
-size = Vector2i(400, 300)
+title = "UI_LOAD"
+position = Vector2i(0, 36)
+size = Vector2i(368, 248)
 visible = true
+borderless = false
+script = ExtResource("1_crp63")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 396.0
-offset_bottom = 296.0
+offset_right = 364.0
+offset_bottom = 244.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-custom_minimum_size = Vector2(400, 300)
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

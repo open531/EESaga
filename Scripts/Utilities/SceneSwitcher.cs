@@ -22,11 +22,11 @@ public partial class SceneSwitcher : Node
     public override void _Ready()
     {
         MainScene = GetNodeOrNull<Main>("/root/Main");
-        MainScene.GamePause += OnGamePause;
-        MainScene.GameResume += OnGameResume;
         AddChild(_timer);
         if (MainScene != null)
         {
+            MainScene.GamePause += OnGamePause;
+            MainScene.GameResume += OnGameResume;
             PushScene(TitleMenuScene);
         }
     }

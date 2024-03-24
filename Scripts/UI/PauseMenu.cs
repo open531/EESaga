@@ -11,7 +11,9 @@ public partial class PauseMenu : CanvasLayer
     private Button _optionButton;
     private Button _quitButton;
 
-    private PopupPanel _optionMenu;
+    private LoadMenu _loadMenu;
+    private SaveMenu _saveMenu;
+    private OptionMenu _optionMenu;
 
     [Signal] public delegate void GameResumeEventHandler();
 
@@ -26,13 +28,15 @@ public partial class PauseMenu : CanvasLayer
         _optionButton = GetNode<Button>("%OptionButton");
         _quitButton = GetNode<Button>("%QuitButton");
 
-        _optionMenu = GetNode<PopupPanel>("OptionMenu");
+        _loadMenu = GetNode<LoadMenu>("LoadMenu");
+        _saveMenu = GetNode<SaveMenu>("SaveMenu");
+        _optionMenu = GetNode<OptionMenu>("OptionMenu");
 
         _resumeButton.Pressed += OnResumeButtonPressed;
+        _loadButton.Pressed += OnLoadButtonPressed;
+        _saveButton.Pressed += OnSaveButtonPressed;
         _optionButton.Pressed += OnOptionButtonPressed;
         _quitButton.Pressed += OnQuitButtonPressed;
-
-        _optionMenu.Hide();
 
         _marginContainer.Position = new Vector2(0, 360 - _marginContainer.Size.Y);
     }
@@ -41,6 +45,18 @@ public partial class PauseMenu : CanvasLayer
     {
         GetTree().Paused = false;
         EmitSignal(SignalName.GameResume);
+    }
+
+    private void OnLoadButtonPressed()
+    {
+        _loadMenu.PopupCentered();
+        _loadMenu.UpdateSaveData();
+    }
+
+    private void OnSaveButtonPressed()
+    {
+        _saveMenu.PopupCentered();
+        _saveMenu.UpdateSaveData();
     }
 
     private void OnOptionButtonPressed()
