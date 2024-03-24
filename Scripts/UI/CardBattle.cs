@@ -245,13 +245,12 @@ public partial class CardBattle : CanvasLayer
     public void RemoveCard(Card card)
     {
         if (!_hand.GetChildren().Contains(card)) return;
-        var newCard = Card.Instance();
+        var newCard = CardFactory.CreateCard(card.CardInfo);
         var previewCard = GetNodeOrNull("PreviewCard");
         if (OperatingCard == card) OperatingCard = null;
         if (SelectedCard == card) SelectedCard = null;
         previewCard?.QueueFree();
         newCard.Name = "RemovedCard";
-        newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
@@ -273,13 +272,12 @@ public partial class CardBattle : CanvasLayer
     {
         if (index < 0 || index >= _hand.GetChildCount()) return;
         var card = _hand.GetChild(index) as Card;
-        var newCard = Card.Instance();
+        var newCard = CardFactory.CreateCard(card.CardInfo);
         var previewCard = GetNodeOrNull("PreviewCard");
         if (OperatingCard == card) OperatingCard = null;
         if (SelectedCard == card) SelectedCard = null;
         previewCard?.QueueFree();
         newCard.Name = "RemovedCard";
-        newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
@@ -306,9 +304,8 @@ public partial class CardBattle : CanvasLayer
             previewCard.Parent.Visible = true;
             previewCard.Free();
         }
-        var newCard = Card.Instance();
+        var newCard = CardFactory.CreateCard(card.CardInfo);
         newCard.Name = "PreviewCard";
-        newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position + _hand.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;
