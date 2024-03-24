@@ -66,9 +66,8 @@ public partial class CardSelection : Panel
             previewCard.Parent.Visible = true;
             previewCard.Free();
         }
-        var newCard = Card.Instance();
+        var newCard = CardFactory.CreateCard(card.CardInfo);
         newCard.Name = "PreviewCard";
-        newCard.SetCard(card.CardType, card.CardName, card.CardDescription, card.CardCost, card.CardTarget, card.CardRange);
         newCard.Position = card.Position;
         newCard.Rotation = card.Rotation;
         newCard.Scale = card.Scale;

@@ -35,7 +35,7 @@ public struct EnemyInfo
     public Dictionary<EnemyType, int> EnemyCountDic { get; set; }
     public EnemyInfo(List<EnemyType> enemyTypes, List<int> enemyCount)
     {
-        EnemyCountDic = new Dictionary<EnemyType, int>();
+        EnemyCountDic = [];
         for (int i = 0; i < enemyTypes.Count; i++)
         {
             EnemyCountDic.Add(enemyTypes[i], enemyCount[i]);

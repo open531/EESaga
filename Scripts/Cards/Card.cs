@@ -57,16 +57,6 @@ public partial class Card : Control, ICard
         CardRange = cardInfo.CardRange;
     }
 
-    public virtual void SetCard(CardType cardType, string cardName, string cardDescription, int cardCost, CardTarget cardTarget, int cardRange)
-    {
-        CardType = cardType;
-        CardName = cardName;
-        CardDescription = cardDescription;
-        CardCost = cardCost;
-        CardTarget = cardTarget;
-        CardRange = cardRange;
-    }
-
     public virtual List<string> TakeEffect(List<BattlePiece> battlePieces) { return new List<string>(); }
 
     public virtual bool TakePartyCost(BattleParty battleParty)

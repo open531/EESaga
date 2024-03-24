@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dl77x3n82bjh0"]
+[gd_scene load_steps=7 format=3 uid="uid://dl77x3n82bjh0"]
 
 [ext_resource type="Script" path="res://Scripts/UI/PauseMenu.cs" id="1_lkjvu"]
 [ext_resource type="PackedScene" uid="uid://b5mm4eu50dcgl" path="res://Scenes/UI/option_menu.tscn" id="2_am47h"]
+[ext_resource type="PackedScene" uid="uid://d0vbi4ip83v2m" path="res://Scenes/UI/load_menu.tscn" id="2_r7cch"]
+[ext_resource type="PackedScene" uid="uid://cswty8jpn3tac" path="res://Scenes/UI/save_menu.tscn" id="3_fi6t5"]
 
 [sub_resource type="Gradient" id="Gradient_x7kgn"]
 offsets = PackedFloat32Array(0, 0.987013)
@@ -68,6 +70,12 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "UI_QUIT"
 alignment = 0
+
+[node name="LoadMenu" parent="." instance=ExtResource("2_r7cch")]
+visible = false
+
+[node name="SaveMenu" parent="." instance=ExtResource("3_fi6t5")]
+visible = false
 
 [node name="OptionMenu" parent="." instance=ExtResource("2_am47h")]
 visible = false

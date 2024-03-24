@@ -6,8 +6,6 @@ using static Data.OptionData;
 
 public partial class OptionMenu : PopupPanel
 {
-    private GameOptions _gameOptions;
-
     private TabContainer _tabContainer;
 
     private TabBar _gameTab;
@@ -29,8 +27,6 @@ public partial class OptionMenu : PopupPanel
 
     public override void _Ready()
     {
-        _gameOptions = GetNode<GameOptions>("/root/GameOptions");
-
         _tabContainer = GetNode<TabContainer>("TabContainer");
 
         _gameTab = GetNode<TabBar>("TabContainer/OP_GAME");
@@ -50,16 +46,16 @@ public partial class OptionMenu : PopupPanel
 
         _tabContainer.CurrentTab = 0;
 
-        _languageButton.Selected = (int)_gameOptions.GameLanguage;
-        _displayModeButton.Selected = (int)_gameOptions.VideoDisplayMode;
-        _resolutionButton.Selected = (int)_gameOptions.VideoResolution;
-        _frameRateButton.Selected = (int)_gameOptions.VideoFrameRate;
-        _vSyncButton.ButtonPressed = _gameOptions.VideoVSync;
-        _displayFpsButton.ButtonPressed = _gameOptions.VideoDisplayFps;
-        _volumeSlider.Value = _gameOptions.AudioVolume;
-        _musicSlider.Value = _gameOptions.AudioMusic;
-        _soundSlider.Value = _gameOptions.AudioSound;
-        _voiceSlider.Value = _gameOptions.AudioVoice;
+        _languageButton.Selected = (int)GameOptions.GameLanguage;
+        _displayModeButton.Selected = (int)GameOptions.VideoDisplayMode;
+        _resolutionButton.Selected = (int)GameOptions.VideoResolution;
+        _frameRateButton.Selected = (int)GameOptions.VideoFrameRate;
+        _vSyncButton.ButtonPressed = GameOptions.VideoVSync;
+        _displayFpsButton.ButtonPressed = GameOptions.VideoDisplayFps;
+        _volumeSlider.Value = GameOptions.AudioVolume;
+        _musicSlider.Value = GameOptions.AudioMusic;
+        _soundSlider.Value = GameOptions.AudioSound;
+        _voiceSlider.Value = GameOptions.AudioVoice;
 
         _languageButton.ItemSelected += OnLanguageButtonItemSelected;
         _displayModeButton.ItemSelected += OnDisplayModeButtonItemSelected;
@@ -113,25 +109,25 @@ public partial class OptionMenu : PopupPanel
     #region Game
     private void OnLanguageButtonItemSelected(long id)
     {
-        _gameOptions.GameLanguage = (Language)_languageButton.Selected;
-        _gameOptions.ApplyOptions();
-        _gameOptions.SaveOptions();
+        GameOptions.GameLanguage = (Language)_languageButton.Selected;
+        GameOptions.ApplyOptions();
+        GameOptions.SaveOptions();
     }
     #endregion
 
     #region Video
     private void OnDisplayModeButtonItemSelected(long id)
     {
-        _gameOptions.VideoDisplayMode = (DisplayMode)_displayModeButton.Selected;
-        if (_gameOptions.VideoDisplayMode == DisplayMode.Windowed)
+        GameOptions.VideoDisplayMode = (DisplayMode)_displayModeButton.Selected;
+        if (GameOptions.VideoDisplayMode == DisplayMode.Windowed)
         {
-            _gameOptions.VideoResolution = Resolution._1280x720;
-            _resolutionButton.Selected = (int)_gameOptions.VideoResolution;
+            GameOptions.VideoResolution = Resolution._1280x720;
+            _resolutionButton.Selected = (int)GameOptions.VideoResolution;
             _resolutionButton.Disabled = false;
         }
         else
         {
-            _gameOptions.VideoResolution = DisplayServer.ScreenGetSize().X switch
+            GameOptions.VideoResolution = DisplayServer.ScreenGetSize().X switch
             {
                 var x when x >= 2560 => Resolution._2560x1440,
                 var x when x >= 1920 => Resolution._1920x1080,
@@ -144,69 +140,69 @@ public partial class OptionMenu : PopupPanel
                 var x when x >= 640 => Resolution._640x360,
                 _ => Resolution._640x360,
             };
-            _resolutionButton.Selected = (int)_gameOptions.VideoResolution;
+            _resolutionButton.Selected = (int)GameOptions.VideoResolution;
             _resolutionButton.Disabled = true;
         }
-        _gameOptions.ApplyOptions();
-        _gameOptions.SaveOptions();
+        GameOptions.ApplyOptions();
+        GameOptions.SaveOptions();
     }
 
     private void OnResolutionButtonItemSelected(long id)
     {
-        _gameOptions.VideoResolution = (Resolution)_resolutionButton.Selected;
-        _gameOptions.ApplyOptions();
-        _gameOptions.SaveOptions();
+        GameOptions.VideoResolution = (Resolution)_resolutionButton.Selected;
+        GameOptions.ApplyOptions();
+        GameOptions.SaveOptions();
     }
 
     private void OnFrameRateButtonItemSelected(long id)
     {
-        _gameOptions.VideoFrameRate = (FrameRate)_frameRateButton.Selected;
-        _gameOptions.ApplyOptions();
-        _gameOptions.SaveOptions();
+        GameOptions.VideoFrameRate = (FrameRate)_frameRateButton.Selected;
+        GameOptions.ApplyOptions();
+        GameOptions.SaveOptions();
     }
 
     private void OnVSyncButtonPressed()
     {
-        _gameOptions.VideoVSync = _vSyncButton.ButtonPressed;
-        _gameOptions.ApplyOptions();
-        _gameOptions.SaveOptions();
+        GameOptions.VideoVSync = _vSyncButton.ButtonPressed;
+        GameOptions.ApplyOptions();
+        GameOptions.SaveOptions();
     }
 
     private void OnDisplayFpsButtonPressed()
     {
-        _gameOptions.VideoDisplayFps = _displayFpsButton.ButtonPressed;
-        _gameOptions.ApplyOptions();
-        _gameOptions.SaveOptions();
+        GameOptions.VideoDisplayFps = _displayFpsButton.ButtonPressed;
+        GameOptions.ApplyOptions();
+        GameOptions.SaveOptions();
     }
     #endregion
 
     #region Audio
     private void OnVolumeSliderValueChanged(double value)
     {
-        _gameOptions.AudioVolume = (int)value;
-        _gameOptions.ApplyOptions();
-        _gameOptions.SaveOptions();
+        GameOptions.AudioVolume = (int)value;
+        GameOptions.ApplyOptions();
+        GameOptions.SaveOptions();
     }
 
     private void OnMusicSliderValueChanged(double value)
     {
-        _gameOptions.AudioMusic = (int)value;
-        _gameOptions.ApplyOptions();
-        _gameOptions.SaveOptions();
+        GameOptions.AudioMusic = (int)value;
+        GameOptions.ApplyOptions();
+        GameOptions.SaveOptions();
     }
 
     private void OnSoundSliderValueChanged(double value)
     {
-        _gameOptions.AudioSound = (int)value;
-        _gameOptions.ApplyOptions();
-        _gameOptions.SaveOptions();
+        GameOptions.AudioSound = (int)value;
+        GameOptions.ApplyOptions();
+        GameOptions.SaveOptions();
     }
 
     private void OnVoiceSliderValueChanged(double value)
     {
-        _gameOptions.AudioVoice = (int)value;
-        _gameOptions.ApplyOptions();
-        _gameOptions.SaveOptions();
+        GameOptions.AudioVoice = (int)value;
+        GameOptions.ApplyOptions();
+        GameOptions.SaveOptions();
     }
     #endregion
 }
