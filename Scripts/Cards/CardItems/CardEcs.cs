@@ -12,7 +12,7 @@ public partial class CardEcs : CardItem
     public override List<string> TakeEffect(List<BattlePiece> battlePieces)
     {
         var effectInfo = new List<string>();
-        var actionInfo = new string($"{Tr("T_USE")}{Tr("C_I_ECS")}\n");
+        var actionInfo = new string($"{Tr("T_USE")} {Tr("C_I_ECS")}\n");
         var cardInfo = new string($"{Tr("T_GET")} {CardNum} {Tr("T_CARD")}\n");
         EmitSignal(SignalName.EcsGetCards);
         effectInfo.Add(actionInfo);
