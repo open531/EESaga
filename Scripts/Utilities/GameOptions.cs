@@ -12,16 +12,16 @@ public partial class GameOptions : Node
     public static Resource Cursor { get; set; }
     public static Resource CursorGreen { get; set; }
     public static Resource CursorRed { get; set; }
-    public Language GameLanguage { get; set; }
-    public DisplayMode VideoDisplayMode { get; set; }
-    public Resolution VideoResolution { get; set; }
-    public FrameRate VideoFrameRate { get; set; }
-    public bool VideoVSync { get; set; }
-    public bool VideoDisplayFps { get; set; }
-    public int AudioVolume { get; set; }
-    public int AudioMusic { get; set; }
-    public int AudioSound { get; set; }
-    public int AudioVoice { get; set; }
+    public static Language GameLanguage { get; set; }
+    public static DisplayMode VideoDisplayMode { get; set; }
+    public static Resolution VideoResolution { get; set; }
+    public static FrameRate VideoFrameRate { get; set; }
+    public static bool VideoVSync { get; set; }
+    public static bool VideoDisplayFps { get; set; }
+    public static int AudioVolume { get; set; }
+    public static int AudioMusic { get; set; }
+    public static int AudioSound { get; set; }
+    public static int AudioVoice { get; set; }
 
     public override void _Ready()
     {
@@ -39,7 +39,7 @@ public partial class GameOptions : Node
         ApplyOptions();
     }
 
-    public void ApplyOptions()
+    public static void ApplyOptions()
     {
         TranslationServer.SetLocale(GameLanguage switch
         {
@@ -94,7 +94,7 @@ public partial class GameOptions : Node
         DisplayServer.WindowSetVsyncMode(VideoVSync ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
     }
 
-    public void SaveOptions()
+    public static void SaveOptions()
     {
         var optionsFile = new ConfigFile();
         optionsFile.SetValue("Game", "Language", (int)GameLanguage);
@@ -114,7 +114,7 @@ public partial class GameOptions : Node
         }
     }
 
-    public bool LoadOptions()
+    public static bool LoadOptions()
     {
         var optionsFile = new ConfigFile();
         var error = optionsFile.Load("user://options.cfg");
@@ -138,7 +138,7 @@ public partial class GameOptions : Node
         return true;
     }
 
-    public void GenerateOptions()
+    public static void GenerateOptions()
     {
         GameLanguage = OS.GetLocale() switch
         {

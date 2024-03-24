@@ -22,7 +22,7 @@ public partial class DebugInfo : Control
 
     public override void _Process(double delta)
     {
-        if (_gameOptions.VideoDisplayFps)
+        if (GameOptions.VideoDisplayFps)
         {
             Visible = true;
             _fpsLabel.Text = $"FPS: {Engine.GetFramesPerSecond()}";
