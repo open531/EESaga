@@ -22,3 +22,5 @@ T_LOST,损失,損失,Lost,損失
 T_DECEASED,已死亡,已死亡,Deceased,死亡済み
 T_ATTACK,攻击,攻擊,Attack,攻撃
 T_USE,使用,使用, Use,使用
+T_CURRENT_ROUND,当前回合,當前回合,Current round,現在のラウンド
+T_LAST_ROUND,上一回合,上一回合,Previous round,前のラウンド
