@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.Maps;
 
 using Cards;
+using EESaga.Scripts.Data;
 using EESaga.Scripts.Managers;
 using EESaga.Scripts.UI;
 using EESaga.Scripts.Utilities;
@@ -58,6 +59,7 @@ public partial class PieceBattle : Node2D
     private Camera2D _camera;
     private PieceDetail _pieceDetail;
     public SceneSwitcher _sceneSwitcher;
+    private Label _gameLevelLabel;
 
     private AStarGrid2D _astar = new()
     {
@@ -80,10 +82,13 @@ public partial class PieceBattle : Node2D
         _camera = GetNode<Camera2D>("Camera2D");
         _pieceDetail = GetNode<PieceDetail>("%PieceDetail");
         _sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
+        _gameLevelLabel = GetNode<Label>("%GameLevelLabel");
 
         _pieceMoveTimer.Autostart = true;
         _pieceMoveTimer.WaitTime = PieceMoveTime;
         _pieceMoveTimer.Timeout += OnPieceMoveTimerTimeout;
+
+        UpdateLevelLabel();
 
         _isRefreshing = false;
         #region test
@@ -96,12 +101,7 @@ public partial class PieceBattle : Node2D
             }
         }
         Initialize(tileMap);
-        AddEnemy(EnemyType.Slime);
-        AddEnemy(EnemyType.Slime);
-        AddEnemy(EnemyType.Slime);
-        AddEnemy(EnemyType.Slime);
-        AddEnemy(EnemyType.Slime);
-        AddEnemy(EnemyType.Slime);
+        AddEnemyByFloor();
         var player = PlayerBattle.Instance();
         player.BattleCards = new BattleCards()
         {
@@ -151,6 +151,10 @@ public partial class PieceBattle : Node2D
         }
     }
 
+    public void UpdateLevelLabel()
+    {
+        _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")}: {SaveData.GameRecord.Floor}";
+    }
     public void Initialize(IsometricTileMap tileMap)
     {
         TileMap.CopyFrom(tileMap);
@@ -163,6 +167,21 @@ public partial class PieceBattle : Node2D
             new Vector2(24 * (rectCenter.X - rectCenter.Y) + 12,
             12 * (rectCenter.X + rectCenter.Y) + 40);
         _camera.Enabled = true;
+    }
+
+    public void AddEnemyByFloor()
+    {
+        var floor = SaveData.GameRecord.Floor;
+        var enemyCountDic = GameData.enemyInfo[floor].EnemyCountDic;
+        foreach (var enemyInfo in enemyCountDic)
+        {
+            var eneType = enemyInfo.Key;
+            var eneCount = enemyInfo.Value;
+            for (int i = 0; i < eneCount; i++)
+            {
+                AddEnemy(eneType);
+            }
+        }
     }
 
     public void AddEnemy(EnemyType enemyType)

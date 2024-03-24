@@ -16,3 +16,4 @@ GAME_WIN,你赢了,你贏了,You Win,あなたが勝ちます
 CARD_ENERGY,能量,能量,Energy,エネルギー
 PIECE_HEALTH,生命,生命,Health,体力
 PIECE_SHIELD,护盾,護盾,Shield,シールド
+GAME_LEVEL,当前关卡,當前關卡,Current level,現在のレベル
