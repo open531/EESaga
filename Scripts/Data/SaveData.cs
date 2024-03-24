@@ -16,8 +16,9 @@ public partial class SaveData : Node
         Energy = 4,
         Agility = 10,
     };
+
     public static List<BattleParty> Parties { get; set; }
-    public int Floor { get; set; }
+    public static int Floor { get; set; } = 0;
 
     public void Save(string filename)
     {
