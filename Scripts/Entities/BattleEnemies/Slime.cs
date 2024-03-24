@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public partial class Slime : BattleEnemy
 {
-    [Signal] public delegate void SlimeActionEventHandler(string actionInfo, string actionEffect,bool refreshLastLabel);
+    [Signal] public delegate void SlimeActionEventHandler(string actionInfo, string actionEffect, bool refreshLastLabel);
     public static new Slime Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/slime.tscn").Instantiate<Slime>();
 
     public override void _Ready()
@@ -35,15 +35,9 @@ public partial class Slime : BattleEnemy
         deathInfo = battleParty.CheckDeath();
         foreach (var damage in damageList)
         {
-            if (damage[0] == 0)
-                damageInfo += $"{Tr(battleParty.PieceName)}{Tr("PIECE_HEALTH")}{Tr("T_REDUCE")}{damage[1]}\n" +
-                    $"{battleParty.PieceName}{Tr("PIECE_HEALTH")} : {damage[2]}\n";
-            else
-            {
-                damageInfo += $"{battleParty.PieceName}{Tr("PIECE_SHIELD")}{Tr("T_LOST")}{damage[0]}\n" +
-                    $"{Tr(battleParty.PieceName)}{Tr("PIECE_HEALTH")}{Tr("T_REDUCE")}{damage[1]}\n" +
-                    $"{battleParty.PieceName}{Tr("PIECE_HEALTH")} : {damage[2]}\n";
-            }
+            damageInfo += damage[0] == 0 ? "" : $"{battleParty.PieceName}{Tr("PIECE_SHIELD")}{Tr("T_LOST")}{damage[0]}\n";
+            damageInfo += damage[1] == 0 ? "" : $"{Tr(battleParty.PieceName)}{Tr("PIECE_HEALTH")}{Tr("T_REDUCE")}{damage[1]}\n";
+            damageInfo += damage[1] == 0 && damage[0] == 0 ? $"{Tr("T_NO_EFFECT")}\n" : $"{battleParty.PieceName}{Tr("PIECE_HEALTH")} : {damage[2]}\n";
         }
         if (deathInfo)
         {

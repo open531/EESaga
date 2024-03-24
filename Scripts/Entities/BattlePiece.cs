@@ -100,17 +100,18 @@ public partial class BattlePiece : Area2D, IBattlePiece
             Shield -= damage;
             GD.Print($"{PieceName}损失了{damage}点护盾值");
             GD.Print($"{PieceName}当前生命值为{Health}");
-            return new List<int> { 0, damage, Health };
+            return new List<int> { damage, 0, Health };
         }
         else
         {
+            var shieldCopy = Shield;
             damage -= Shield;
             Shield = 0;
             Health -= damage;
-            GD.Print($"{PieceName}损失了{Shield}点护盾值");
+            GD.Print($"{PieceName}损失了{shieldCopy}点护盾值");
             GD.Print($"{PieceName}损失了{damage}点生命值");
             GD.Print($"{PieceName}当前生命值为{Health}");
-            return new List<int> { Shield, damage, Health };
+            return new List<int> { shieldCopy, damage, Health };
         }
     }
 

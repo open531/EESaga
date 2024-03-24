@@ -24,8 +24,10 @@ wait_time = 0.5
 
 [node name="PieceDetail" parent="CanvasLayer" instance=ExtResource("3_wory3")]
 unique_name_in_owner = true
-offset_left = 5.0
-offset_right = 213.0
+offset_left = 424.0
+offset_top = 144.0
+offset_right = 632.0
+offset_bottom = 188.0
 
 [node name="GameLevelLabel" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -47,6 +49,7 @@ text = "Last Action Piece Name"
 
 [node name="LastPieceAction" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
+self_modulate = Color(1, 1, 0, 1)
 offset_left = 5.0
 offset_top = 45.0
 offset_right = 45.0
@@ -55,6 +58,7 @@ text = "Last Piece Action"
 
 [node name="LastActionEffect" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
+self_modulate = Color(1, 0.647059, 0, 1)
 offset_left = 5.0
 offset_top = 65.0
 offset_right = 45.0
@@ -63,24 +67,27 @@ text = "Last Action Effect"
 
 [node name="ActionPieceName" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
+self_modulate = Color(0, 1, 1, 1)
 offset_left = 5.0
-offset_top = 125.0
+offset_top = 165.0
 offset_right = 141.0
-offset_bottom = 141.0
+offset_bottom = 181.0
 text = "Action Piece Name"
 
 [node name="PieceAction" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
+self_modulate = Color(0, 0.807843, 0.819608, 1)
 offset_left = 5.0
-offset_top = 145.0
+offset_top = 185.0
 offset_right = 101.0
-offset_bottom = 161.0
+offset_bottom = 201.0
 text = "Piece Action"
 
 [node name="ActionEffect" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
+self_modulate = Color(0.529412, 0.807843, 0.921569, 1)
 offset_left = 5.0
-offset_top = 165.0
+offset_top = 205.0
 offset_right = 109.0
-offset_bottom = 181.0
+offset_bottom = 221.0
 text = "Action Effect"

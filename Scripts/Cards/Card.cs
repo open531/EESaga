@@ -67,7 +67,7 @@ public partial class Card : Control, ICard
         CardRange = cardRange;
     }
 
-    public virtual void TakeEffect(List<BattlePiece> battlePieces) { }
+    public virtual List<string> TakeEffect(List<BattlePiece> battlePieces) { return new List<string>(); }
 
     public virtual bool TakePartyCost(BattleParty battleParty)
     {

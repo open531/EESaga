@@ -18,19 +18,25 @@ offset_bottom = 36.0
 
 [node name="PieceName" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
+self_modulate = Color(1, 0.411765, 0.705882, 1)
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Piece Name"
+horizontal_alignment = 2
 autowrap_mode = 3
 
 [node name="PieceHealth" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
+self_modulate = Color(1, 0.843137, 0, 1)
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Piece Health"
+horizontal_alignment = 2
 autowrap_mode = 3
 
 [node name="PieceShield" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
+self_modulate = Color(1, 0.270588, 0, 1)
 layout_mode = 2
 text = "Piece Shield"
+horizontal_alignment = 2

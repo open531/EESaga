@@ -87,8 +87,10 @@ text = "99"
 label_settings = SubResource("LabelSettings_mc6gi")
 
 [node name="CardDetail" parent="." instance=ExtResource("2_avj3s")]
-offset_left = 5.0
-offset_right = 213.0
+offset_left = 426.0
+offset_top = 206.0
+offset_right = 634.0
+offset_bottom = 250.0
 
 [node name="EnergyLabel" type="Label" parent="."]
 anchors_preset = 3
