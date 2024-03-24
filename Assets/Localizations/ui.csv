@@ -24,3 +24,9 @@ T_ATTACK,攻击,攻擊,Attack,攻撃
 T_USE,使用,使用, Use,使用
 T_CURRENT_ROUND,当前回合,當前回合,Current round,現在のラウンド
 T_LAST_ROUND,上一回合,上一回合,Previous round,前のラウンド
+T_NO_EFFRECT,无效,無效, Invalid,無効
+T_INCREASE,增加, 增加, Increase,増加
+T_RESTORE,恢复,恢復,Restore,復元
+T_ENERGY_NOT_ENOUGH,能量不足,能量不足,Insufficient Energy,エネルギー不足
+T_CARD,卡牌,卡牌, Card,カード
+T_GET,得到,得到,Get, 得る
