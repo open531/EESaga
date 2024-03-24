@@ -33,9 +33,32 @@ offset_bottom = 224.0
 unique_name_in_owner = true
 visibility_layer = 513
 offset_left = 5.0
-offset_top = 16.0
+offset_top = 5.0
 offset_right = 117.0
-offset_bottom = 32.0
+offset_bottom = 21.0
 pivot_offset = Vector2(56, 0)
 text = "GAME_LEVEL"
-horizontal_alignment = 1
+
+[node name="ActionPieceName" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 5.0
+offset_top = 25.0
+offset_right = 45.0
+offset_bottom = 41.0
+text = "Action Piece Name"
+
+[node name="PieceAction" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 5.0
+offset_top = 45.0
+offset_right = 45.0
+offset_bottom = 61.0
+text = "Piece Action"
+
+[node name="ActionEffect" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 5.0
+offset_top = 65.0
+offset_right = 45.0
+offset_bottom = 81.0
+text = "Action Effect"

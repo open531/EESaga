@@ -208,6 +208,7 @@ public partial class BattleManager : Node
         {
             battleParty.Energy = battleParty.EnergyMax;
             CurrentPiece = battleParty;
+            //PieceBattle.UpdateActionInfo("", "");
             GD.Print($"{CurrentPiece.PieceName} Turn");
             CardBattle.ShowUI();
             CardBattle.IsMoving = true;
@@ -219,6 +220,7 @@ public partial class BattleManager : Node
         else if (battlePiece is BattleEnemy battleEnemy)
         {
             CurrentPiece = battleEnemy;
+            //PieceBattle.UpdateActionInfo("", "");
             GD.Print($"{CurrentPiece.PieceName} Turn");
             CardBattle.HideUI();
             CardBattle.BattleCards = BattleCards.Empty;

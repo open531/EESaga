@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.Entities;
 
 using Godot;
+using System.Collections.Generic;
 
 public partial class BattlePiece : Area2D, IBattlePiece
 {
@@ -92,13 +93,14 @@ public partial class BattlePiece : Area2D, IBattlePiece
         IsMoving = false;
     }
 
-    public virtual void BeAttacked(int damage)
+    public virtual List<int> BeAttacked(int damage)
     {
         if (Shield >= damage)
         {
             Shield -= damage;
             GD.Print($"{PieceName}损失了{damage}点护盾值");
             GD.Print($"{PieceName}当前生命值为{Health}");
+            return new List<int> { 0, damage, Health };
         }
         else
         {
@@ -108,15 +110,18 @@ public partial class BattlePiece : Area2D, IBattlePiece
             GD.Print($"{PieceName}损失了{Shield}点护盾值");
             GD.Print($"{PieceName}损失了{damage}点生命值");
             GD.Print($"{PieceName}当前生命值为{Health}");
+            return new List<int> { Shield, damage, Health };
         }
     }
 
-    public virtual void CheckDeath()
+    public virtual bool CheckDeath()
     {
         if (Health == 0)
         {
             GD.Print($"{PieceName} is dead.");
             EmitSignal(SignalName.PieceDeath, this);
+            return true;
         }
+        return false;
     }
 }
