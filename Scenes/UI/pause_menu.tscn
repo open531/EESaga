@@ -11,23 +11,16 @@ colors = PackedColorArray(0, 0, 0, 0.752941, 0, 0, 0, 0.121569)
 gradient = SubResource("Gradient_x7kgn")
 width = 216
 
-[node name="PauseMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 2
 script = ExtResource("1_lkjvu")
 
 [node name="Background" type="TextureRect" parent="."]
-layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
 texture = SubResource("GradientTexture1D_lt03d")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
 offset_top = 96.0
 offset_right = 216.0
 offset_bottom = 360.0
@@ -49,7 +42,7 @@ text = "TITLE_PAUSED"
 [node name="ResumeButton" type="Button" parent="MarginContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "UI_START"
+text = "UI_RESUME"
 alignment = 0
 
 [node name="LoadButton" type="Button" parent="MarginContainer/GridContainer"]

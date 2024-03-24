@@ -23,7 +23,7 @@ public partial class GameWin : Control
 
     private void OnGameNextButtonPressed()
     {
-        _sceneSwitcher.PushScene(SceneSwitcher.BattleManager);
+        _sceneSwitcher.PushScene(SceneSwitcher.BattleManagerScene);
     }
     private void OnGameQuitButtonPressed()
     {

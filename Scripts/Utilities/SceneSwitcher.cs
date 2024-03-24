@@ -7,24 +7,27 @@ using UI;
 
 public partial class SceneSwitcher : Node
 {
-    public Node Main { get; set; }
+    public Main MainScene { get; set; }
     public Stack<Node> Scenes { get; } = new();
     public Node? CurrentScene;
+    public bool AllowPause => CurrentScene is not TitleMenu;
 
     private Timer _timer = new();
 
-    public static TitleMenu TitleMenu => TitleMenu.Instance();
-    public static BattleManager BattleManager => BattleManager.Instance();
-    public static GameOver GameOver => GameOver.Instance();
-    public static GameWin GameWin => GameWin.Instance();
+    public static TitleMenu TitleMenuScene => TitleMenu.Instance();
+    public static BattleManager BattleManagerScene => BattleManager.Instance();
+    public static GameOver GameOverScene => GameOver.Instance();
+    public static GameWin GameWinScene => GameWin.Instance();
 
     public override void _Ready()
     {
-        Main = GetNodeOrNull<Node>("/root/Main");
+        MainScene = GetNodeOrNull<Main>("/root/Main");
+        MainScene.GamePause += OnGamePause;
+        MainScene.GameResume += OnGameResume;
         AddChild(_timer);
-        if (Main != null)
+        if (MainScene != null)
         {
-            PushScene(TitleMenu);
+            PushScene(TitleMenuScene);
         }
     }
 
@@ -34,14 +37,14 @@ public partial class SceneSwitcher : Node
         if (CurrentScene != null)
         {
             GD.Print($"Removing {CurrentScene.Name}");
-            Main.RemoveChild(CurrentScene);
+            MainScene.RemoveChild(CurrentScene);
             GD.Print($"Removed {CurrentScene.Name}");
 
         }
         if (newScene != null)
         {
             GD.Print($"Adding {newScene.Name}");
-            Main.AddChild(newScene);
+            MainScene.AddChild(newScene);
             GD.Print($"Added {newScene.Name}");
         }
         Scenes.Push(newScene);
@@ -60,17 +63,35 @@ public partial class SceneSwitcher : Node
         {
             var scene = Scenes.Pop();
             GD.Print($"Popping {scene.Name}");
-            Main.RemoveChild(scene);
+            MainScene.RemoveChild(scene);
             scene.Free();
         }
         if (Scenes.Count > 0)
         {
-            Main.AddChild(Scenes.Peek());
+            MainScene.AddChild(Scenes.Peek());
             CurrentScene = Scenes.Peek();
         }
         else
         {
             CurrentScene = null;
+        }
+    }
+
+    private void OnGamePause()
+    {
+        if (CurrentScene is BattleManager battleManager)
+        {
+            battleManager.PieceBattle._pieceDetail.Hide();
+            battleManager.CardBattle.Hide();
+        }
+    }
+
+    private void OnGameResume()
+    {
+        if (CurrentScene is BattleManager battleManager)
+        {
+            battleManager.PieceBattle._pieceDetail.Show();
+            battleManager.CardBattle.Show();
         }
     }
 }
