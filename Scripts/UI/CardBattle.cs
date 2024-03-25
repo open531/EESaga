@@ -2,6 +2,7 @@ namespace EESaga.Scripts.UI;
 
 using Cards;
 using Cards.CardItems;
+using EESaga.Scripts.Maps;
 using Entities.BattleParties;
 using Godot;
 using Managers;
@@ -386,6 +387,13 @@ public partial class CardBattle : CanvasLayer
 
     private void OnEndTurnButtonPressed()
     {
+        if (BattleManager.CurrentPiece.IsMoving == true)
+        {
+            return;
+        }
+        //#region test
+        //BattleManager.PieceBattle.PreCheckGameOver(BattleManager.Enemies[0]);
+        //#endregion
         if (_hand.GetChildren().Count > 0)
         {
             var cards = _hand.GetChildren();
