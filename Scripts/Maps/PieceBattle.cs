@@ -63,6 +63,14 @@ public partial class PieceBattle : Node2D
     private Label _lastActionPieceName;
     private Label _lastPieceAction;
     private Label _lastActionEffect;
+    private StateBar _playerStateBar;
+    private StateBar _partyOneStateBar;
+    private StateBar _partyTwoStateBar;
+    private StateBar _partyThreeStateBar;
+
+    private List<StateBar> _stateBarList;
+
+    private int rank;
 
     private AStarGrid2D _astar = new()
     {
@@ -92,6 +100,25 @@ public partial class PieceBattle : Node2D
         _lastActionPieceName = GetNode<Label>("%LastActionPieceName");
         _lastPieceAction = GetNode<Label>("%LastPieceAction");
         _lastActionEffect = GetNode<Label>("%LastActionEffect");
+        _playerStateBar = GetNode<StateBar>("%PlayerStateBar");
+        _partyOneStateBar = GetNode<StateBar>("%PartyOneStateBar");
+        _partyTwoStateBar = GetNode<StateBar>("%PartyTwoStateBar");
+        _partyThreeStateBar = GetNode<StateBar>("%PartyThreeStateBar");
+
+        _playerStateBar.Visible = false;
+        _partyOneStateBar.Visible = false;
+        _partyTwoStateBar.Visible = false;
+        _partyThreeStateBar.Visible = false;
+
+        rank = 0;
+
+        _stateBarList = new List<StateBar>
+        {
+            _playerStateBar,
+            _partyOneStateBar,
+            _partyTwoStateBar,
+            _partyThreeStateBar,
+        };
 
         _pieceMoveTimer.Autostart = true;
         _pieceMoveTimer.WaitTime = PieceMoveTime;
@@ -134,6 +161,7 @@ public partial class PieceBattle : Node2D
             ],
         };
         AddParty(player);
+        _playerStateBar.Initialize(player, rank);
         #endregion
     }
 
@@ -230,6 +258,11 @@ public partial class PieceBattle : Node2D
         _actionPieceName.Text = $"{Tr("T_CURRENT_ROUND")} : " + CurrentPiece.PieceName;
         _pieceAction.Text = action;
         _actionEffect.Text = effect;
+        foreach (var party in Parties)
+        {
+            var index = Parties.IndexOf(party);
+            _stateBarList[index].Update(party);
+        }
     }
 
     public void UpdateLastActionInfo(string name, string action, string effect)

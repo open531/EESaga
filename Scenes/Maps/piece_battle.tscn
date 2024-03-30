@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://2knbl6nuc0ca"]
+[gd_scene load_steps=5 format=3 uid="uid://2knbl6nuc0ca"]
 
 [ext_resource type="Script" path="res://Scripts/Maps/PieceBattle.cs" id="1_dycyo"]
 [ext_resource type="PackedScene" uid="uid://35ry4gujareg" path="res://Scenes/Maps/isometric_tile_map.tscn" id="2_6f3ci"]
 [ext_resource type="PackedScene" uid="uid://bha4dqxuyyijh" path="res://Scenes/UI/piece_detail.tscn" id="3_wory3"]
+[ext_resource type="PackedScene" uid="uid://cwigp1ukfac65" path="res://Scenes/UI/state_bar.tscn" id="4_ps2vp"]
 
 [node name="PieceBattle" type="Node2D"]
 script = ExtResource("1_dycyo")
@@ -25,9 +26,9 @@ wait_time = 0.5
 [node name="PieceDetail" parent="CanvasLayer" instance=ExtResource("3_wory3")]
 unique_name_in_owner = true
 offset_left = 424.0
-offset_top = 144.0
+offset_top = 152.0
 offset_right = 632.0
-offset_bottom = 188.0
+offset_bottom = 196.0
 
 [node name="GameLevelLabel" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -91,3 +92,19 @@ offset_top = 205.0
 offset_right = 109.0
 offset_bottom = 221.0
 text = "Action Effect"
+
+[node name="PlayerStateBar" parent="CanvasLayer" instance=ExtResource("4_ps2vp")]
+unique_name_in_owner = true
+position = Vector2(536, 8)
+
+[node name="PartyOneStateBar" parent="CanvasLayer" instance=ExtResource("4_ps2vp")]
+unique_name_in_owner = true
+position = Vector2(536, 40)
+
+[node name="PartyTwoStateBar" parent="CanvasLayer" instance=ExtResource("4_ps2vp")]
+unique_name_in_owner = true
+position = Vector2(536, 72)
+
+[node name="PartyThreeStateBar" parent="CanvasLayer" instance=ExtResource("4_ps2vp")]
+unique_name_in_owner = true
+position = Vector2(536, 104)
