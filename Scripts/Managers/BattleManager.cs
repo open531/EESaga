@@ -203,6 +203,8 @@ public partial class BattleManager : Node
                                     }
                                 }
                             }
+                            var index = Parties.IndexOf(currentParty);
+                            PieceBattle._stateBarList[index].UpdateStateBar(currentParty);
                         }
                         else
                         {
@@ -232,6 +234,8 @@ public partial class BattleManager : Node
         if (battlePiece is BattleParty battleParty)
         {
             battleParty.Energy = battleParty.EnergyMax;
+            var index = Parties.IndexOf(battleParty);
+            PieceBattle._stateBarList[index].UpdateStateBar(battleParty);
             CurrentPiece = battleParty;
             PieceBattle.UpdateActionInfo("", "");
             GD.Print($"{CurrentPiece.PieceName} Turn");

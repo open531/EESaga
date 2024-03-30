@@ -18,14 +18,6 @@ public partial class StateBar : Node2D
         "res://Assets/Textures/PlayerHead4.png",
     };
 
-    private List<string> _deadPartiesTexturePath = new List<string>
-    {
-        "res://Assets/Textures/PlayerHead.png",
-        "res://Assets/Textures/PlayerHeadDead2.png",
-        "res://Assets/Textures/PlayerHeadDead3.png",
-        "res://Assets/Textures/PlayerHeadDead4.png",
-    };
-
     public static StateBar Instance() => GD.Load<PackedScene>("res://Scenes/UI/state_bar.tscn").Instantiate<StateBar>();
 
     public override void _Ready()
@@ -46,21 +38,21 @@ public partial class StateBar : Node2D
         }
         this.Visible = true;
         _playerHeadRect.Texture.ResourcePath = _livePartiesTexturePath[rank];
-        _healthBar.MaxValue = party.HealthMax;
-        _healthBar.Value = party.HealthMax;
-        _energyBar.MaxValue = party.EnergyMax;
-        _energyBar.Value = party.EnergyMax;
+        _healthBar.MaxValue = 100;
+        _healthBar.Value = GetValue(party.HealthMax, party.Health);
+        _energyBar.MaxValue = 100;
+        _energyBar.Value = GetValue(party.EnergyMax, party.Energy);
     }
 
-    public void Update(BattleParty party)
+    public void UpdateStateBar(BattleParty party)
     {
-        if(party == null)
+        if (party == null)
         {
             this.Visible = false;
             return;
         }
-        _healthBar.Value = party.Health;
-        _energyBar.Value = party.Energy;
+        _healthBar.Value = GetValue(party.HealthMax, party.Health);
+        _energyBar.Value = GetValue(party.EnergyMax, party.Energy);
     }
 
     public void Death(BattleParty party, int rank)
@@ -70,7 +62,12 @@ public partial class StateBar : Node2D
             this.Visible = false;
             return;
         }
-        _playerHeadRect.Texture.ResourcePath = _deadPartiesTexturePath[rank];
-        _healthBar.Value = 0;
+        _healthBar.Value = GetValue(party.HealthMax, 0);
+    }
+
+    private float GetValue(int max, int value)
+    {
+        var floatValue = (float)value;
+        return floatValue / max * 80 + 20;
     }
 }

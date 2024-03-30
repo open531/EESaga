@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwigp1ukfac65"]
+[gd_scene load_steps=7 format=3 uid="uid://cwigp1ukfac65"]
 
 [ext_resource type="Texture2D" uid="uid://d3kq4nuj8h5r6" path="res://Assets/Textures/player_head.png" id="1_6m456"]
 [ext_resource type="Script" path="res://Scripts/UI/StateBar.cs" id="1_ij7cg"]
+[ext_resource type="Texture2D" uid="uid://c8scqff2nwvxm" path="res://Assets/Textures/health_bar_side.png" id="3_4ol78"]
+[ext_resource type="Texture2D" uid="uid://du41a4x4r07lh" path="res://Assets/Textures/health_bar_side_progress.png" id="4_kf4kj"]
+[ext_resource type="Texture2D" uid="uid://d1q5lht257yih" path="res://Assets/Textures/energy_bar_side.png" id="5_eehva"]
+[ext_resource type="Texture2D" uid="uid://b4xug7ysnju7g" path="res://Assets/Textures/energy_bar_side_progress.png" id="6_smvu8"]
 
 [node name="StateBar" type="Node2D"]
 script = ExtResource("1_ij7cg")
@@ -26,6 +30,9 @@ offset_left = 26.0
 offset_top = 4.0
 offset_right = 92.0
 offset_bottom = 10.0
+value = 100.0
+texture_under = ExtResource("3_4ol78")
+texture_progress = ExtResource("4_kf4kj")
 
 [node name="EnergyBar" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
@@ -33,3 +40,6 @@ offset_left = 26.0
 offset_top = 14.0
 offset_right = 92.0
 offset_bottom = 20.0
+value = 100.0
+texture_under = ExtResource("5_eehva")
+texture_progress = ExtResource("6_smvu8")
