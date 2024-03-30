@@ -13,9 +13,33 @@ public partial class IsometricTileMap : TileMap
     /// </summary>
     public List<Vector2I> AvailableCells = [];
 
+    public static List<Vector2I> ColorList = new()
+    {
+        new Vector2I(0, 0),
+        new Vector2I(1, 0),
+        new Vector2I(2, 0),
+        new Vector2I(3, 0),
+        new Vector2I(4, 0),
+        new Vector2I(5, 0),
+        new Vector2I(6, 0),
+        new Vector2I(7, 0),
+        new Vector2I(8, 0),
+        new Vector2I(9, 0),
+        new Vector2I(10, 0),
+    };
+
     public const int TileSetId = 0;
     public static Vector2I BoundaryAtlas = new(0, 0);
     public static Vector2I DefaultTileAtlas = new(1, 0);
+    public static Vector2I BlackAtlas = new(2, 0);
+    public static Vector2I GreyAtlas = new(3, 0);
+    public static Vector2I PurpleAtlas = new(4, 0);
+    public static Vector2I GreenAtlas = new(5, 0);
+    public static Vector2I LittlePurpleAtlas = new(6, 0);
+    public static Vector2I OrangeAtlas = new(7, 0);
+    public static Vector2I LittleBlueAtlas = new(8, 0);
+    public static Vector2I RedAtlas = new(9, 0);
+    public static Vector2I YellowAtlas = new(10, 0);
     public const int TileSetAdvancedId = 1;
     public const int TileSelectedId = 999;
     public static Vector2I TileSelectedAtlas = new(0, 0);
