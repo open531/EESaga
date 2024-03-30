@@ -68,7 +68,7 @@ public partial class PieceBattle : Node2D
     private StateBar _partyTwoStateBar;
     private StateBar _partyThreeStateBar;
 
-    private List<StateBar> _stateBarList;
+    public List<StateBar> _stateBarList;
 
     private int rank;
 
@@ -263,7 +263,7 @@ public partial class PieceBattle : Node2D
         foreach (var party in Parties)
         {
             var index = Parties.IndexOf(party);
-            _stateBarList[index].Update(party);
+            _stateBarList[index].UpdateStateBar(party);
         }
     }
 
