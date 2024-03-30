@@ -168,6 +168,8 @@ public partial class PieceBattle : Node2D
     public void MapInitialize(IsometricTileMap tileMap)
     {
         var floor = SaveData.Floor;
+        var colorRank = (floor + 1) / 20 + 2;
+        var color = IsometricTileMap.ColorList[colorRank];
         var mapInfo = GameData.mapInfo[floor];
         var availableCells = mapInfo.AvailableCells;
         var cellsOutOfMap = mapInfo.CellsOutOfMap;
@@ -185,7 +187,7 @@ public partial class PieceBattle : Node2D
                 }
                 else
                 {
-                    tileMap.SetCell((int)Layer.Ground, new Vector2I(i, j), IsometricTileMap.TileSetId, IsometricTileMap.DefaultTileAtlas);
+                    tileMap.SetCell((int)Layer.Ground, new Vector2I(i, j), IsometricTileMap.TileSetId, color);
                 }
             }
         }
@@ -274,7 +276,7 @@ public partial class PieceBattle : Node2D
 
     public void UpdateLevelLabel()
     {
-        _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")}: {SaveData.Floor}";
+        _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")}: {SaveData.Floor + 1}";
     }
     public void Initialize(IsometricTileMap tileMap)
     {
