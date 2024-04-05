@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.Entities.BattleParties;
 
 using Data;
+using EESaga.Scripts.Cards;
 using Godot;
 
 public partial class PlayerBattle : BattleParty
@@ -19,5 +20,16 @@ public partial class PlayerBattle : BattleParty
         Energy = SaveData.Player.Energy;
         EnergyMax = SaveData.Player.EnergyMax;
         Agility = SaveData.Player.Agility;
+    }
+
+    public void Initialize(Player player)
+    {
+        PartyName = player.PlayerName;
+        HealthMax = player.HealthMax;
+        Health = player.Health;
+        EnergyMax = player.EnergyMax;
+        Energy = player.Energy;
+        Agility = player.Agility;
+        BattleCards = player.BattleCards;
     }
 }

@@ -129,40 +129,13 @@ public partial class PieceBattle : Node2D
         UpdateLastActionInfo("", "", "");
 
         _isRefreshing = false;
-        #region test
         var tileMap = IsometricTileMap.Instance();
         MapInitialize(tileMap);
         AddEnemyByFloor();
         var player = PlayerBattle.Instance();
-        player.BattleCards = new BattleCards()
-        {
-            DeckCards =
-            [
-                CardData.CAStrike,
-                CardData.CDDefend,
-                CardData.CSStruggle,
-                CardData.CIECS,
-                CardData.CAStrike,
-                CardData.CAStrike,
-                CardData.CAStrike,
-                CardData.CAStrike,
-                CardData.CSCure,
-                CardData.CSCure,
-                CardData.CSCure,
-                CardData.CSCure,
-            ],
-            HandCards = [],
-            DiscardCards =
-            [
-                CardData.CAStrike,
-                CardData.CDDefend,
-                CardData.CSStruggle,
-                CardData.CIECS,
-            ],
-        };
+        player.Initialize(SaveData.Player);
         AddParty(player);
-        _playerStateBar.Initialize(player, rank);
-        #endregion
+        _playerStateBar.Initialize(player, 0);
     }
 
     public void MapInitialize(IsometricTileMap tileMap)
