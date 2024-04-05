@@ -1,5 +1,6 @@
-﻿namespace EESaga.Scripts.Entities;
+namespace EESaga.Scripts.Entities;
 
+using EESaga.Scripts.Cards;
 using Godot;
 using UI;
 using Utilities;
@@ -92,5 +93,12 @@ public partial class Player : CharacterBody2D
         }
         Velocity = direction * Speed;
         MoveAndSlide();
+    }
+
+    public void AddBattleCards(CardInfo card, int num)
+    {
+        for (int i = 0; i < num; i++)
+            BattleCards.DeckCards.Add(card);
+        BattleCards.DiscardCards.Add(card);
     }
 }

@@ -13,7 +13,7 @@ public partial class StateBar : Node2D
     private List<string> _livePartiesTexturePath = new List<string>
     {
         "res://Assets/Textures/PlayerHead.png",
-        "res://Assets/Textures/PlayerHead2.png",
+        "res://Assets/Textures/PlayerHead.png",
         "res://Assets/Textures/PlayerHead3.png",
         "res://Assets/Textures/PlayerHead4.png",
     };

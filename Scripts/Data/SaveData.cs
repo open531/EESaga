@@ -19,7 +19,29 @@ public partial class SaveData : Node
         Agility = 10,
         BattleCards = new()
         {
-            DeckCards = [CardData.CAStrike, CardData.CAStrike, CardData.CAStrike, CardData.CDDefend, CardData.CDDefend, CardData.CDDefend],
+            DeckCards =
+            [
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CSStruggle,
+                CardData.CIECS,
+                CardData.CAStrike,
+                CardData.CAStrike,
+                CardData.CAStrike,
+                CardData.CAStrike,
+                CardData.CSCure,
+                CardData.CSCure,
+                CardData.CSCure,
+                CardData.CSCure,
+            ],
+            HandCards = [],
+            DiscardCards =
+            [
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CSStruggle,
+                CardData.CIECS,
+            ]
         },
     };
 
