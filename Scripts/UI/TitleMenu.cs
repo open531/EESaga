@@ -6,7 +6,6 @@ using Utilities;
 public partial class TitleMenu : CanvasLayer
 {
     private SceneSwitcher _sceneSwitcher;
-
     private MarginContainer _marginContainer;
     private Button _playButton;
     private Button _loadButton;
@@ -43,7 +42,7 @@ public partial class TitleMenu : CanvasLayer
 
     private void OnPlayButtonPressed()
     {
-        _sceneSwitcher.PushScene(SceneSwitcher.BattleManagerScene);
+        _sceneSwitcher.PushScene(SceneSwitcher.NameInputPanelScene);
     }
 
     private void OnLoadButtonPressed()

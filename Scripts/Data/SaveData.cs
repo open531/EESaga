@@ -11,7 +11,7 @@ public partial class SaveData : Node
 {
     public static Player Player { get; set; } = new()
     {
-        PlayerName = "MAX",
+        PlayerName = "Yang Zhang",
         HealthMax = 100,
         Health = 100,
         EnergyMax = 4,
@@ -19,8 +19,14 @@ public partial class SaveData : Node
         Agility = 10,
         BattleCards = new()
         {
-            DeckCards = [CardData.CAStrike, CardData.CAStrike, CardData.CAStrike, CardData.CDDefend, CardData.CDDefend, CardData.CDDefend],
-        },
+            DeckCards =
+            [
+                CardData.CDDefend,
+                CardData.CSStruggle,
+            ],
+            HandCards = [],
+            DiscardCards =[]
+        }
     };
 
     public static Array<BattleParty> Parties { get; set; } = [];
