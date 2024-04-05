@@ -99,6 +99,5 @@ public partial class Player : CharacterBody2D
     {
         for (int i = 0; i < num; i++)
             BattleCards.DeckCards.Add(card);
-        BattleCards.DiscardCards.Add(card);
     }
 }
