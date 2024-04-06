@@ -22,7 +22,17 @@ public partial class SaveData : Node
             DeckCards =
             [
                 CardData.CDDefend,
-                CardData.CSStruggle,
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CAStrike,
             ],
             HandCards = [],
             DiscardCards =[]
