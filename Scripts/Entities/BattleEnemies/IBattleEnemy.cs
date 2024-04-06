@@ -13,4 +13,9 @@ public enum EnemyType
 {
     Null,
     Slime,
+    CapacityGreen,
+    CapacityCylinder,
+    Chip,
+    FourierLeaf,
+    PerceptronKun,
 }

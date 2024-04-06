@@ -285,6 +285,11 @@ public partial class PieceBattle : Node2D
         var enemy = enemyType switch
         {
             EnemyType.Slime => Slime.Instance(),
+            EnemyType.CapacityGreen => CapacityGreen.Instance(),
+            EnemyType.CapacityCylinder => CapacityCylinder.Instance(),
+            EnemyType.Chip => Chip.Instance(),
+            EnemyType.FourierLeaf => FourierLeaf.Instance(),
+            EnemyType.PerceptronKun => PerceptronKun.Instance(),
             _ => BattleEnemy.Instance(),
         };
         _enemies.AddChild(enemy);
@@ -301,6 +306,16 @@ public partial class PieceBattle : Node2D
         enemy.PieceDeath += HandlePieceDeath;
         if (enemy is Slime slime)
             slime.SlimeAction += UpdateActionInfo;
+        else if (enemy is CapacityGreen capacityGreen)
+            capacityGreen.CapacityGreenAction += UpdateActionInfo;
+        else if (enemy is CapacityCylinder capacityCylinder)
+            capacityCylinder.CapacityCylinderAction += UpdateActionInfo;
+        else if (enemy is Chip chip)
+            chip.ChipAction += UpdateActionInfo;
+        else if (enemy is FourierLeaf fourierLeaf)
+            fourierLeaf.FourierLeafAction += UpdateActionInfo;
+        else if (enemy is PerceptronKun perceptronKun)
+            perceptronKun.PerceptronKunAction += UpdateActionInfo;
     }
 
     public void AddParty(PartyType partyType)
