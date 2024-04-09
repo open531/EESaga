@@ -215,16 +215,16 @@ public partial class BattleManager : Node
                                                         PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_CURE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
                                                     }
                                                     break;
-                                                case CardStruggle cardStruggle:
-                                                    if (cardStruggle.TakePartyCost(CurrentPiece as BattleParty))
+                                                case CardSurvive cardSurvive:
+                                                    if (cardSurvive.TakePartyCost(CurrentPiece as BattleParty))
                                                     {
-                                                        var cardInfo = cardStruggle.TakeEffect(target);
+                                                        var cardInfo = cardSurvive.TakeEffect(target);
                                                         CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
                                                         PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
                                                     }
                                                     else
                                                     {
-                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_S_STRUGGLE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_S_SURVIVE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
                                                     }
                                                     break;
                                                 case CardAttackByDefense cardAttackByDefense:
@@ -240,6 +240,21 @@ public partial class BattleManager : Node
                                                         PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_S_SHIELD_STRIKE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
                                                     }
                                                     break;
+                                                case CardFury cardFury:
+                                                    if (cardFury.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        var cardInfo = cardFury.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_S_FURY")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                    }
+                                                    break;
+                                                case CardStruggle cardStruggle:
+                                                    PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_S_STRUGGLE")}\n", $"{Tr("T_STRUGGLE")}");
+                                                    break;
                                                 default:
                                                     if (cardSpecial.TakePartyCost(CurrentPiece as BattleParty))
                                                     {
@@ -254,7 +269,19 @@ public partial class BattleManager : Node
                                                     break;
                                             }
                                         }
-                                        CardBattle.RemoveCard(cardSpecial);
+                                        if (cardSpecial is CardStruggle)
+                                        {
+                                            var previewCard = CardBattle.GetNodeOrNull("PreviewCard") as Card;
+                                            if (previewCard != null)
+                                            {
+                                                CardBattle.OperatingCard = null;
+                                                CardBattle.ExitPreviewCard();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            CardBattle.RemoveCard(cardSpecial);
+                                        }
                                         break;
                                     case CardItem cardItem:
                                         if (cardItem.TakePartyCost(CurrentPiece as BattleParty))

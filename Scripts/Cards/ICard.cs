@@ -49,6 +49,7 @@ public enum CardDefenseType
 public enum CardItemType
 {
     General,
+    UST,
     Ecs,
 }
 public enum CardSpecialType
@@ -56,7 +57,9 @@ public enum CardSpecialType
     General,
     Cure,
     Struggle,
+    Survive,
     AttackByDefense,
+    Fury,
 }
 
 public class CardInfo(
@@ -106,8 +109,11 @@ public static class CardData
     public static CardInfo CADoubleBeat = new(CardType.Attack, "C_A_DOUBLE_BEAT", "C_A_DOUBLE_BEAT_DESC", 1, CardTarget.Enemy, 1, attackDamage: 4, attackTimes: 2, attackType: CardAttackType.DoubleBeat);
     public static CardInfo CDDefend = new(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 1, CardTarget.Self, defenseValue: 3);
     public static CardInfo CDConsolidate = new(CardType.Defense, "C_D_CONSOLIDATE", "C_D_CONSOLIDATE_DESC", 1, CardTarget.Self, defenseValue: 0, defenseType: CardDefenseType.Consolidate);
-    public static CardInfo CSStruggle = new(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Struggle);
+    public static CardInfo CSSurvive = new(CardType.Special, "C_S_SURVIVE", "C_S_SURVIVE_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Survive);
+    public static CardInfo CSStruggle = new(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 0, CardTarget.Self, specialType: CardSpecialType.Struggle);
     public static CardInfo CSShieldStrike = new(CardType.Special, "C_S_SHIELD_STRIKE", "C_S_SHIELD_STRIKE_DESC", 1, CardTarget.Enemy, specialType: CardSpecialType.AttackByDefense);
     public static CardInfo CIECS = new(CardType.Item, "C_I_ECS", "C_I_ECS_DESC", 1, CardTarget.Self, itemType: CardItemType.Ecs);
+    public static CardInfo CIUST = new(CardType.Item, "C_I_UST", "C_I_UST_DESC", 1, CardTarget.Self, itemType: CardItemType.UST);
     public static CardInfo CSCure = new(CardType.Special, "C_S_CURE", "C_S_CURE_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Cure);
+    public static CardInfo CSFury = new(CardType.Special, "C_S_FURY", "C_S_FURY_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Fury);
 }

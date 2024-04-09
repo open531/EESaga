@@ -230,6 +230,12 @@ public partial class CardBattle : CanvasLayer
         {
             cardEcs.EcsGetCards += () => BattleManager.PrepareCards(cardEcs.CardNum, true);
         }
+        else if (cardNode is CardUST cardUST)
+        {
+            var piece = BattleManager.CurrentPiece as BattleParty;
+            var num = piece.BattleCards.HandCards.Count;
+            cardUST.USTGetCards += () => BattleManager.PrepareCards(cardUST.CardNumMAX - num + 1, true);
+        }
         cardNode.InitializeCard(card);
         cardNode.Position = _deck.Position - _hand.Position;
         cardNode.Scale = Vector2.Zero;

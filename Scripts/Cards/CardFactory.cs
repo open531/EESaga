@@ -25,13 +25,16 @@ public static class CardFactory
             CardType.Special => cardInfo.SpecialType switch
             {
                 CardSpecialType.Cure => CardCure.Instance(),
-                CardSpecialType.Struggle => CardStruggle.Instance(),
+                CardSpecialType.Survive => CardSurvive.Instance(),    
                 CardSpecialType.AttackByDefense => CardAttackByDefense.Instance(),
+                CardSpecialType.Fury => CardFury.Instance(),
+                CardSpecialType.Struggle => CardStruggle.Instance(),
                 _ => CardSpecial.Instance(),
             },
             CardType.Item => cardInfo.ItemType switch
             {
                 CardItemType.Ecs => CardEcs.Instance(),
+                CardItemType.UST => CardUST.Instance(),
                 _ => Card.Instance(),
             },
             _ => Card.Instance(),
