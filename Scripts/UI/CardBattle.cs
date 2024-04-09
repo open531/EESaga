@@ -232,9 +232,12 @@ public partial class CardBattle : CanvasLayer
         }
         else if (cardNode is CardUST cardUST)
         {
-            var piece = BattleManager.CurrentPiece as BattleParty;
-            var num = piece.BattleCards.HandCards.Count;
-            cardUST.USTGetCards += () => BattleManager.PrepareCards(cardUST.CardNumMAX - num + 1, true);
+            cardUST.USTGetCards += () => {
+                var piece = BattleManager.CurrentPiece as BattleParty;
+                var num = piece.BattleCards.HandCards.Count;
+                var numAppend = cardUST.CardNumMAX - num + 1;
+                BattleManager.PrepareCards(numAppend, true);
+                };
         }
         cardNode.InitializeCard(card);
         cardNode.Position = _deck.Position - _hand.Position;

@@ -7,6 +7,18 @@ using Utilities;
 
 public partial class Player : CharacterBody2D
 {
+    public int AttackCardNum;
+    public int BashCardNum;
+    public int DoubleBeatCardNum;
+    public int DefendCardNum;
+    public int ConsolidateCardNum;
+    public int EcsCardNum;
+    public int FuryCardNum;
+    public int USTCardNum;
+    public int ShieldStrikeCardNum;
+    public int SurviveCardNum;
+    public int StruggleCardNum;
+    public int CureCardNum;
     public string PlayerName { get; set; }
     public float Speed { get; set; } = 120.0f;
     public int Level { get; set; }
@@ -98,6 +110,20 @@ public partial class Player : CharacterBody2D
     public void AddBattleCards(CardInfo card, int num)
     {
         for (int i = 0; i < num; i++)
+        {
             BattleCards.DeckCards.Add(card);
+        }
+        if (card == CardData.CAStrike) AttackCardNum += num;
+        else if (card == CardData.CABash) BashCardNum += num;
+        else if (card == CardData.CADoubleBeat) DoubleBeatCardNum += num;
+        else if (card == CardData.CDDefend) DefendCardNum += num;
+        else if (card == CardData.CDConsolidate) ConsolidateCardNum += num;
+        else if (card == CardData.CSFury) FuryCardNum += num;
+        else if (card == CardData.CIUST) USTCardNum += num;
+        else if (card == CardData.CSShieldStrike) ShieldStrikeCardNum += num;
+        else if (card == CardData.CSSurvive) SurviveCardNum += num;
+        else if (card == CardData.CSStruggle) StruggleCardNum += num;
+        else if (card == CardData.CSCure) CureCardNum += num;
+        else if (card == CardData.CIECS) EcsCardNum += num;
     }
 }
