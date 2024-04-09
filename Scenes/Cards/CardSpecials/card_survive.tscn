@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccv3hivfbny21"]
+
+[ext_resource type="PackedScene" uid="uid://cnfndd2kaj2qd" path="res://Scenes/Cards/CardSpecials/card_special.tscn" id="1_poenx"]
+[ext_resource type="Script" path="res://Scripts/Cards/CardSpecials/CardSurvive.cs" id="2_ghiuw"]
+[ext_resource type="Texture2D" uid="uid://cgbgaqk0gg1ri" path="res://Assets/Textures/Cards/shield.png" id="3_0ow6c"]
+
+[node name="CardSurvive" instance=ExtResource("1_poenx")]
+script = ExtResource("2_ghiuw")
+
+[node name="Image" parent="." index="1"]
+texture = ExtResource("3_0ow6c")
