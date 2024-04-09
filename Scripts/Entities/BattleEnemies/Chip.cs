@@ -12,7 +12,7 @@ public partial class Chip : BattleEnemy
     public override void _Ready()
     {
         base._Ready();
-        PieceName = "Chip";
+        PieceName = "E_CHIP";
         HealthMax = 10;
         Health = HealthMax;
         Agility = 1;

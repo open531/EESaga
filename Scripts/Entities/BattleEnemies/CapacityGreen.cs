@@ -12,7 +12,7 @@ public partial class CapacityGreen : BattleEnemy
     public override void _Ready()
     {
         base._Ready();
-        PieceName = "Green Capacity";
+        PieceName = "E_CAPACITYGREEN";
         HealthMax = 10;
         Health = HealthMax;
         Agility = 1;

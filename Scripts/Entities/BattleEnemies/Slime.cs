@@ -12,7 +12,7 @@ public partial class Slime : BattleEnemy
     public override void _Ready()
     {
         base._Ready();
-        PieceName = "SLIME";
+        PieceName = "E_SLIME";
         HealthMax = 10;
         Health = HealthMax;
         Agility = 1;

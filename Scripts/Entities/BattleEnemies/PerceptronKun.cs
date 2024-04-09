@@ -12,7 +12,7 @@ public partial class PerceptronKun : BattleEnemy
     public override void _Ready()
     {
         base._Ready();
-        PieceName = "Perceptron Kun";
+        PieceName = "E_PERCEPTIONKUN";
         HealthMax = 10;
         Health = HealthMax;
         Agility = 1;
