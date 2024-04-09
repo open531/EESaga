@@ -1,4 +1,4 @@
-﻿namespace EESaga.Scripts.Cards;
+namespace EESaga.Scripts.Cards;
 
 using Cards.CardAttacks;
 using Cards.CardDefenses;
@@ -11,12 +11,22 @@ public static class CardFactory
     {
         Card card = cardInfo.CardType switch
         {
-            CardType.Attack => CardAttack.Instance(),
-            CardType.Defense => CardDefense.Instance(),
+            CardType.Attack => cardInfo.AttackType switch
+            {
+                CardAttackType.Bash => CardBash.Instance(),
+                CardAttackType.DoubleBeat => CardDoubleBeat.Instance(),
+                _ => CardAttack.Instance(),
+            },
+            CardType.Defense => cardInfo.DefenseType switch
+            {
+                CardDefenseType.Consolidate => CardConsolidate.Instance(),
+                _ => CardDefense.Instance(),
+            },
             CardType.Special => cardInfo.SpecialType switch
             {
                 CardSpecialType.Cure => CardCure.Instance(),
                 CardSpecialType.Struggle => CardStruggle.Instance(),
+                CardSpecialType.AttackByDefense => CardAttackByDefense.Instance(),
                 _ => CardSpecial.Instance(),
             },
             CardType.Item => cardInfo.ItemType switch

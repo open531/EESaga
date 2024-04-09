@@ -9,8 +9,8 @@ public static class GameData
     #region EnemyInfo
     public static List<EnemyInfo> enemyInfo = [
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime,EnemyType.CapacityGreen,EnemyType.Chip,EnemyType.CapacityCylinder,EnemyType.PerceptronKun,EnemyType.FourierLeaf},
-                        new List<int> { 1,1,1,1,1,1}
+                        new List<EnemyType> { EnemyType.Slime},
+                        new List<int> { 1}
                                          ),
         new EnemyInfo(
                         new List<EnemyType> {EnemyType.Slime},

@@ -1,6 +1,7 @@
 keys,zh_CN,zh_TW,en,ja
 CARD_NULL,无,無,Null,無
 CARD_ATTACK,攻击,攻擊,Attack,攻撃
+CARD_DOUBLE_BEAT,双重打击,雙重打擊,Double strike,ダブルストライク
 CARD_DEFENSE,防御,防禦,Defense,防御
 CARD_SPECIAL,技能,技能,Special,特殊
 CARD_ITEM,物品,物品,Item,アイテム
@@ -8,11 +9,17 @@ C_A_STRIKE,打击,打擊,Strike,打ち込む
 C_A_STRIKE_DESC,造成6点伤害,造成6點傷害,Deal 6 damage,ダメージ6を与える
 C_A_BASH,痛击,痛擊,Bash,打ち据える
 C_A_BASH_DESC,造成6点伤害并使目标1回合无法行动,造成6點傷害並使目標1回合無法行動,Deal 6 damage and stun the target for 1 turns,ダメージ6を与え、1ターン行動不能にする
+C_A_DOUBLE_BEAT,双重打击,雙重打擊,Double strike,ダブルストライク
+C_A_DOUBLE_BEAT_DESC,造成8点伤害两次,造成8點傷害兩次,Deal 8 points of damage twice,8ポイントのダメージを2回与える
 C_D_DEFEND,防御,防禦,Defend,守る
 C_D_DEFEND_DESC,获得3点护盾,獲得3點護盾,Get 3 shield,シールド3を得る
+C_D_CONSOLIDATE,巩固,鞏固,Consolidate,強化
+C_D_CONSOLIDATE_DESC,将当前护盾值翻倍,將當前護盾值翻倍,Double the current shield value,現在のシールド値を倍増する
 C_S_STRUGGLE,挣扎,掙扎,Struggle,もがく
 C_S_STRUGGLE_DESC,失去5点生命值，获得20点护盾,失去5點生命值，獲得20點護盾,Lose 5 HP and get 20 shield,HPを5失い、シールド20を得る
 C_I_ECS,电子电路,電子電路,Electronic Circuits,電子回路
 C_I_ECS_DESC,抽取两张卡牌,抽取兩張卡牌,Draw 2 cards,カードを2枚引く
 C_S_CURE,治疗,治療,Cure,治療
 C_S_CURE_DESC,恢复已损失生命值的1/3,恢復已損失生命值的1/3,Recover 1/3 of lost HP,失ったHPの1/3を回復する
+C_S_SHIELD_STRIKE,盾击,盾擊,Shield Strike,シールドストライク
+C_S_SHIELD_STRIKE_DESC,造成护盾值伤害,造成護盾值傷害,Inflict shield damage,シールドダメージを与える

@@ -4,7 +4,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Scripts\Cards\CardAttacks\" />
+    <Folder Include="Scripts\Cards\s\" />
     <Folder Include="Scripts\Cards\CardDefenses\" />
   </ItemGroup>
 </Project>

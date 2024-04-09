@@ -7,6 +7,7 @@ using Utilities;
 
 public partial class BattleEnemy : BattlePiece, IBattleEnemy
 {
+    public int SleepTurns { get; set; }
     public int AttackDamage { get; set; }
     public int AttackTimes { get; set; }
     public static new BattleEnemy Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/battle_enemy.tscn").Instantiate<BattleEnemy>();
@@ -23,5 +24,6 @@ public partial class BattleEnemy : BattlePiece, IBattleEnemy
         MoveRange = enemy.MoveRange;
         AttackDamage = enemy.AttackDamage;
         AttackTimes = enemy.AttackTimes;
+        SleepTurns = 0;
     }
 }

@@ -1,7 +1,6 @@
 namespace EESaga.Scripts.Managers;
 
 using Cards;
-using Cards.CardAttacks;
 using Cards.CardDefenses;
 using Cards.CardItems;
 using Cards.CardSpecials;
@@ -14,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UI;
 using Utilities;
+using EESaga.Scripts.Cards.CardAttacks;
+using System;
 
 public partial class BattleManager : Node
 {
@@ -123,30 +124,80 @@ public partial class BattleManager : Node
                                 switch (card)
                                 {
                                     case CardAttack cardAttack:
-                                        if (cardAttack.TakePartyCost(CurrentPiece as BattleParty))
                                         {
-                                            var cardInfo = cardAttack.TakeEffect(target);
-                                            CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
-                                            PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
-                                            CardBattle.RemoveCard(cardAttack);
+                                            switch (card)
+                                            {
+                                                default:
+                                                    if (cardAttack.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        var cardInfo = cardAttack.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_ATTACK")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                    }
+                                                    break;
+                                                case CardBash cardBash:
+                                                    if (cardBash.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        var cardInfo = cardBash.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_A_BASH")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                    }
+                                                    break;
+                                                case CardDoubleBeat cardDoubleBeat:
+                                                    if (cardDoubleBeat.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        var cardInfo = cardDoubleBeat.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_DOUBLE_BEAT")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                    }
+                                                    break;
+                                            }
                                         }
-                                        else
-                                        {
-                                            PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_ATTACK")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
-                                        }
+                                        CardBattle.RemoveCard(cardAttack);
                                         break;
                                     case CardDefense cardDefense:
-                                        if (cardDefense.TakePartyCost(CurrentPiece as BattleParty))
                                         {
-                                            var cardInfo = cardDefense.TakeEffect(target);
-                                            CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
-                                            PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
-                                            CardBattle.RemoveCard(cardDefense);
+                                            switch (card)
+                                            {
+                                                default:
+                                                    if (cardDefense.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        var cardInfo = cardDefense.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_DEFENSE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                    }
+                                                    break;
+                                                case CardConsolidate cardConsolidate:
+                                                    if (cardConsolidate.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        var cardInfo = cardConsolidate.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_D_CONSOLIDATE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                    }
+                                                    break;
+                                            }
                                         }
-                                        else
-                                        {
-                                            PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_DEFENSE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
-                                        }
+                                        CardBattle.RemoveCard(cardDefense);
                                         break;
                                     case CardSpecial cardSpecial:
                                         {
@@ -162,6 +213,31 @@ public partial class BattleManager : Node
                                                     else
                                                     {
                                                         PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("CARD_CURE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                    }
+                                                    break;
+                                                case CardStruggle cardStruggle:
+                                                    if (cardStruggle.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        var cardInfo = cardStruggle.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_S_STRUGGLE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                    }
+                                                    break;
+                                                case CardAttackByDefense cardAttackByDefense:
+                                                    if (cardAttackByDefense.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        target.Add(CurrentPiece);
+                                                        var cardInfo = cardAttackByDefense.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_S_SHIELD_STRIKE")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
                                                     }
                                                     break;
                                                 default:
@@ -249,6 +325,13 @@ public partial class BattleManager : Node
         else if (battlePiece is BattleEnemy battleEnemy)
         {
             CurrentPiece = battleEnemy;
+            if (battleEnemy.SleepTurns > 0)
+            {
+                GD.Print("SleepTurns");
+                battleEnemy.SleepTurns--;
+                CardBattle.EmitSignal(CardBattle.SignalName.EndTurn);
+                return;
+            }
             PieceBattle.UpdateActionInfo("", "");
             GD.Print($"{CurrentPiece.PieceName} Turn");
             CardBattle.HideUI();
@@ -362,44 +445,44 @@ public partial class BattleManager : Node
         return null;
     }
 
-    public void UseCard(Card card, List<BattlePiece> target)
-    {
-        switch (card)
-        {
-            case CardAttack cardAttack:
-                if (cardAttack.TakePartyCost(CurrentPiece as BattleParty))
-                {
-                    cardAttack.TakeEffect(target);
-                    CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
-                    CardBattle.RemoveCard(cardAttack);
-                }
-                break;
-            case CardDefense cardDefense:
-                if (cardDefense.TakePartyCost(CurrentPiece as BattleParty))
-                {
-                    cardDefense.TakeEffect(target);
-                    CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
-                    CardBattle.RemoveCard(cardDefense);
-                }
-                break;
-            case CardSpecial cardSpecial:
-                if (cardSpecial.TakePartyCost(CurrentPiece as BattleParty))
-                {
-                    cardSpecial.TakeEffect(target);
-                    CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
-                    CardBattle.RemoveCard(cardSpecial);
-                }
-                break;
-            case CardItem cardItem:
-                if (cardItem.TakePartyCost(CurrentPiece as BattleParty))
-                {
-                    cardItem.TakeEffect(target);
-                    CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
-                    CardBattle.RemoveCard(cardItem);
-                }
-                break;
-        }
-    }
+    //public void UseCard(Card card, List<BattlePiece> target)
+    //{
+    //    switch (card)
+    //    {
+    //        case CardAttack cardAttack:
+    //            if (cardAttack.TakePartyCost(CurrentPiece as BattleParty))
+    //            {
+    //                cardAttack.TakeEffect(target);
+    //                CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+    //                CardBattle.RemoveCard(cardAttack);
+    //            }
+    //            break;
+    //        case CardDefense cardDefense:
+    //            if (cardDefense.TakePartyCost(CurrentPiece as BattleParty))
+    //            {
+    //                cardDefense.TakeEffect(target);
+    //                CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+    //                CardBattle.RemoveCard(cardDefense);
+    //            }
+    //            break;
+    //        case CardSpecial cardSpecial:
+    //            if (cardSpecial.TakePartyCost(CurrentPiece as BattleParty))
+    //            {
+    //                cardSpecial.TakeEffect(target);
+    //                CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+    //                CardBattle.RemoveCard(cardSpecial);
+    //            }
+    //            break;
+    //        case CardItem cardItem:
+    //            if (cardItem.TakePartyCost(CurrentPiece as BattleParty))
+    //            {
+    //                cardItem.TakeEffect(target);
+    //                CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+    //                CardBattle.RemoveCard(cardItem);
+    //            }
+    //            break;
+    //    }
+    //}
 
     private void OnCardBattleOperatingCardChanged()
     {
