@@ -710,6 +710,7 @@ public partial class PieceBattle : Node2D
         {
             GD.Print("Game Win");
             SaveData.Floor++;
+            SaveData.Save();
             _sceneSwitcher.PushScene(SceneSwitcher.GameWinScene);
         }
     }
