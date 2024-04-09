@@ -12,7 +12,7 @@ public partial class FourierLeaf : BattleEnemy
     public override void _Ready()
     {
         base._Ready();
-        PieceName = "Fourier Leaf";
+        PieceName = "E_FOURIERLEAF";
         HealthMax = 10;
         Health = HealthMax;
         Agility = 1;

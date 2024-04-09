@@ -1,5 +1,16 @@
 keys,zh_CN,zh_TW,en,ja
-SLIME,史莱姆,史萊姆,Slime,スライム
+E_SLIME,史莱姆,史萊姆,Slime,スライム
+E_BINARYTREE,二叉树,二元樹,Binary tree,バイナリツリー
+E_CAPACITYCYLINDER,圆柱电容器,圓柱電容器,Cylindrical capacitor,円筒型コンデンサ
+E_CAPACITYGREEN,绿色电容器,綠色電容器,Green capacitor,緑色コンデンサ
+E_CHIP,芯片,晶片,Chip,チップ
+E_FOURIERLEAF,傅里叶,傅立葉,Fourieaf,フーリ葉
+E_MAXWHEAT,麦克斯韦,麥克斯韋,Maxwheat,麦スウェル
+E_MONOCRYSTURTLE,单晶龟,單晶龜,Monocrysturtle,単結晶亀
+E_PERCEPTIONKUN,感知鸡,感知雞,Perception chicken,感知キン
+E_PYTHON,蟒蛇,蟒蛇,Python,Python
+E_SHANLOONG,香龙,香龍,Shanloong,シャン竜
+E_SCHRODINGERCAT,薛定谔猫,薛定謝貓,Schrödinger cat,シュレディンガーの猫
 D_1_1,终于做完“万花尺”实验了！,終於做完「萬花尺」實驗了！,"Finally finished the ""Kaleidoscope"" experiment!",「万花尺」実験がやっと終わった！
 D_1_2,赶紧让助教验收一下吧！,趕緊讓助教驗收一下吧！,Let the TA check it out!,助教に早く確認してもらおう！
 D_1_3,助教你好，我做完了实验，请你验收一下！,助教你好，我做完了實驗，請你驗收一下！,"Hello, TA, I have finished the experiment, please check it out!",助教さん、こんにちは、実験が終わったので、確認してください！
