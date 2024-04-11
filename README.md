@@ -31,7 +31,7 @@
 
 ## 设计说明书
 
-**<span lang="zh_cn">《螺母战记》</span>** / **<span lang="zh_tw">《螺母戰記》</span>** / ***<span lang="en">EESaga</span>*** / **<span lang="ja">《螺母戦記》</span>** 是一款由 @open531 自主研发的箱庭世界策略卡牌战棋游戏。游戏发生在一个被称作「螺母楼」的幻想世界，在这里，被十门核心课选中的人将被授予「万花尺」，导引卡牌之力。你将扮演一位名为「大学生」的神秘角色，在螺母楼的攀登中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的绩点——同时，逐步发掘「鱼骨图」的真相。
+**<span lang="zh_cn">《螺母战记》</span>** / **<span lang="zh_tw">《螺母戰記》</span>** / ***<span lang="en">EESaga</span>*** / **<span lang="ja">《螺母戦記》</span>** 是一款由 [@open531](https://github.com/open531) 自主研发的箱庭世界策略卡牌战棋游戏。游戏发生在一个被称作「螺母楼」的幻想世界，在这里，被十门核心课选中的人将被授予「万花尺」，导引卡牌之力。你将扮演一位名为「大学生」的神秘角色，在螺母楼的攀登中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的绩点——同时，逐步发掘「鱼骨图」的真相。
 
 ### 作品名称
 
@@ -66,12 +66,12 @@ BOSS 关卡中，将会遇到最终 BOSS：「西芹」。西芹是螺母楼的�
 
 ### 分工情况
 
-- 企划：@Panxuc
-- 程序：@DuGangfeng @Panxuc
-- 美术：@j-huang22 @Panxuc
-- 关卡设计：@DuGangfeng
-- 人物设计：@j-huang22
-- 卡牌设计：@j-huang22
+- 企划：[@Panxuc](https://github.com/Panxuc)
+- 程序：[@DuGangfeng](https://github.com/DuGangfeng) [@Panxuc](https://github.com/Panxuc)
+- 美术：[@j-huang22](https://github.com/j-huang22) [@Panxuc](https://github.com/Panxuc)
+- 关卡设计：[@DuGangfeng](https://github.com/DuGangfeng)
+- 人物设计：[@j-huang22](https://github.com/j-huang22)
+- 卡牌设计：[@j-huang22](https://github.com/j-huang22)
 
 ## 使用说明
 
