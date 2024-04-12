@@ -33,3 +33,17 @@ T_GET,得到,得到,Get,得る
 T_ENERGY,能量,能量,Energy,エネルギー
 T_STRUGGLE,挣扎吧,掙扎吧,Struggle on,
 T_NOW,现在有,現在有,Currently have,現在持っています
+TOP_OF_LUOMU,罗姆之巅,羅姆之巔,The Summit of Rom,ロムの頂上
+T_LEVE,层,層,Layer,レイヤー
+T_PD,程序设计,程式設計,Program Design,プログラムデザイン
+T_EC,电子电路,電子電路,Electronic Circuit,電子回路
+T_DA,数据算法,數據算法,Data Algorithm,データアルゴリズム
+T_DL,数字逻辑,數字邏輯,Digital Logic,デジタルロジック
+T_PR,概率随机,概率隨機,Probability Random,確率ランダム
+T_SS,信号系统,信號系統,Signal System,信号システム
+T_EW,电磁场波,電磁場波,Electromagnetic Wave,電磁波
+T_CN,通信网络,通信網絡,Communication Network,通信ネットワーク
+T_MP,媒体认知,媒體認知,Media Perception,メディア認識
+T_SSP,固体物理,固體物理,Solid State Physics,固体物理
+GAME_END,鱼骨守护者被击败了,魚骨守護者被擊敗了,The Fishbone Guardian has been defeated,魚の骨の守護者が打ち負かされました
+GAME_END_2,你成功了！,你成功了！,you succeeded!,成功しました！

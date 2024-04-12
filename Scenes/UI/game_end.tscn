@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://cowphe5dkr48a"]
+
+[ext_resource type="Script" path="res://Scripts/UI/GameEnd.cs" id="1_2jg4m"]
+
+[node name="GameEnd" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2jg4m")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(16.04, 9.2)
+color = Color(0.388235, 0.501961, 0.533333, 1)
+
+[node name="GameWinTitle" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 48.0
+offset_top = 66.0
+offset_right = 248.0
+offset_bottom = 86.0
+scale = Vector2(2.72, 2.561)
+text = "GAME_END"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="GameQuitButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 266.0
+offset_top = 240.0
+offset_right = 370.0
+offset_bottom = 264.0
+text = "GAME_QUIT"
+
+[node name="GameWinTitle2" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 56.0
+offset_top = 122.0
+offset_right = 256.0
+offset_bottom = 142.0
+scale = Vector2(2.72, 2.561)
+text = "GAME_END_2"
+horizontal_alignment = 1
+autowrap_mode = 3

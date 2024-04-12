@@ -12,65 +12,35 @@ public static class GameData
         #region 程序设计
 
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<EnemyType> {EnemyType.Python},
             new List<int> { 1}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<EnemyType> { EnemyType.Python},
             new List<int> { 2}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<EnemyType> { EnemyType.Python},
             new List<int> { 3}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<EnemyType> { EnemyType.Python},
             new List<int> { 4}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<EnemyType> { EnemyType.Python},
             new List<int> { 5}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<EnemyType> { EnemyType.Python},
             new List<int> { 6}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<EnemyType> { EnemyType.Python},
             new List<int> { 7}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<EnemyType> { EnemyType.Python},
             new List<int> { 8}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<EnemyType> { EnemyType.Python},
             new List<int> { 9}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<EnemyType> { EnemyType.Python},
             new List<int> { 10}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 11}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 12}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 13}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 14}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 15}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 16}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 17}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 18}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 19}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 20}),
 
         #endregion
 
@@ -105,39 +75,41 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
             new List<int> { 5,5}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
-            new List<int> { 5,6}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
-            new List<int> { 6,6}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
-            new List<int> { 6,7}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
-            new List<int> { 7,7}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
-            new List<int> { 7,8}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
-            new List<int> { 8,8}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
-            new List<int> { 8,9}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
-            new List<int> { 9,9}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
-            new List<int> { 9,10}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
-            new List<int> { 10,10}),
+        
         #endregion
 
         #region 数据算法
+
+        new EnemyInfo(
+            new List<EnemyType> {EnemyType.Python},
+            new List<int> { 1}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Python},
+            new List<int> { 2}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Python},
+            new List<int> { 3}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Python},
+            new List<int> { 4}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Python},
+            new List<int> { 5}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Python},
+            new List<int> { 6}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Python},
+            new List<int> { 7}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Python},
+            new List<int> { 8}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Python},
+            new List<int> { 9}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Python},
+            new List<int> { 10}),
 
         #endregion
 
@@ -172,36 +144,7 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.Chip},
             new List<int> { 10}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 11}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 12}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 13}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 14}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 15}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 16}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 17}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 18}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 19}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 20}),
+        
         #endregion
 
         #region 概率随机
@@ -235,36 +178,7 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.Chip},
             new List<int> { 10}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 11}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 12}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 13}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 14}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 15}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 16}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 17}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 18}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 19}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
-            new List<int> { 20}),
+
         #endregion
 
         #region 信号系统
@@ -298,36 +212,7 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.FourierLeaf},
             new List<int> { 10}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 11}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 12}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 13}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 14}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 15}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 16}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 17}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 18}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 19}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 20}),
+        
         #endregion
 
         #region 电磁场波
@@ -362,36 +247,6 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.FourierLeaf},
             new List<int> { 10}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 11}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 12}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 13}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 14}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 15}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 16}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 17}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 18}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 19}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 20}),
 
         #endregion
 
@@ -427,37 +282,7 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.FourierLeaf},
             new List<int> { 10}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 11}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 12}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 13}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 14}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 15}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 16}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 17}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 18}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 19}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
-            new List<int> { 20}),
-
+       
         #endregion
 
         #region 媒体认知
@@ -492,36 +317,6 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.PerceptronKun},
             new List<int> { 10}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 11}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 12}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 13}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 14}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 15}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 16}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 17}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 18}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 19}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 20}),
 
         #endregion
 
@@ -557,37 +352,14 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.PerceptronKun},
             new List<int> { 10}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 11}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 12}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 13}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 14}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 15}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 16}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 17}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 18}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 19}),
-        new EnemyInfo(
-            new List<EnemyType> { EnemyType.PerceptronKun},
-            new List<int> { 20}),
 
+        #endregion
+
+        #region 紫荆之巅
+
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Slime},
+            new List<int> { 1})
         #endregion
     ];
     #endregion
@@ -1082,6 +854,7 @@ new MapInfo(
                         new Vector2I(0,5),new Vector2I(1,5),
                         new Vector2I(0,6),new Vector2I(1,6)}
     ),
+    // 罗姆之巅
     new MapInfo(
         new List<Vector2I>{new Vector2I(0,0),new Vector2I(10,10)},
         new List<Vector2I>{
