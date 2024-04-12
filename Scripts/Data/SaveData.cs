@@ -31,19 +31,23 @@ public partial class SaveData : Node
         StruggleCardNum = 0,
         CureCardNum = 0,
         CarRushCardNum = 0,
-        CodeBoomNum = 8,
+        CodeBoomNum = 0,
         Dancing = true,
         BattleCards = new()
         {
             DeckCards = [
-                CardData.CSCodeBoom,
-                CardData.CSCodeBoom,
-                CardData.CSCodeBoom,
-                CardData.CSCodeBoom,
-                CardData.CSCodeBoom,
-                CardData.CSCodeBoom,
-                CardData.CSCodeBoom,
-                CardData.CSCodeBoom,
+                CardData.CAStrike,
+                CardData.CAStrike,
+                CardData.CAStrike,
+                CardData.CAStrike,
+                CardData.CAStrike,
+                CardData.CAStrike,
+                CardData.CDDefend,
+                CardData.CDDefend,
+                CardData.CDDefend,
+                CardData.CDDefend,
+                CardData.CDDefend,
+                CardData.CDDefend,
                 ],
             HandCards = [],
             DiscardCards = []
@@ -72,6 +76,8 @@ public partial class SaveData : Node
         SurviveCardNum = 0,
         StruggleCardNum = 0,
         CureCardNum = 0,
+        CarRushCardNum = 0,
+        CodeBoomNum = 0,
         Dancing = false,
         BattleCards = new()
         {
@@ -116,6 +122,8 @@ public partial class SaveData : Node
         SurviveCardNum = 0,
         StruggleCardNum = 0,
         CureCardNum = 0,
+        CarRushCardNum = 0,
+        CodeBoomNum = 0,
         Dancing = false,
         BattleCards = new()
         {
@@ -160,6 +168,8 @@ public partial class SaveData : Node
         SurviveCardNum = 0,
         StruggleCardNum = 0,
         CureCardNum = 0,
+        CarRushCardNum = 0,
+        CodeBoomNum = 0,
         Dancing = false,
         BattleCards = new()
         {
@@ -207,6 +217,8 @@ public partial class SaveData : Node
         optionsFile.SetValue("Player", "Agility", Player.Agility);
         optionsFile.SetValue("Player", "Floor", Floor);
         optionsFile.SetValue("Player", "Dancing", Player.Dancing);
+        optionsFile.SetValue("Player", "CarRushCardNum", Player.CarRushCardNum);
+        optionsFile.SetValue("Player", "CodeBoomNum", Player.CodeBoomNum);
         #endregion
 
         #region Coder
@@ -228,6 +240,8 @@ public partial class SaveData : Node
         optionsFile.SetValue("Coder", "Agility", Coder.Agility);
         optionsFile.SetValue("Coder", "Floor", Floor);
         optionsFile.SetValue("Coder", "Dancing", Coder.Dancing);
+        optionsFile.SetValue("Coder", "CarRushCardNum", Player.CarRushCardNum);
+        optionsFile.SetValue("Coder", "CodeBoomNum", Player.CodeBoomNum);
         #endregion
 
         #region Hardware Warrior
@@ -249,6 +263,8 @@ public partial class SaveData : Node
         optionsFile.SetValue("HardwareWarrior", "Agility", HardwareWarrior.Agility);
         optionsFile.SetValue("HardwareWarrior", "Floor", Floor);
         optionsFile.SetValue("HardwareWarrior", "Dancing", HardwareWarrior.Dancing);
+        optionsFile.SetValue("HardwareWarrior", "CarRushCardNum", Player.CarRushCardNum);
+        optionsFile.SetValue("HardwareWarrior", "CodeBoomNum", Player.CodeBoomNum);
         #endregion
 
         #region Signal Master
@@ -270,6 +286,8 @@ public partial class SaveData : Node
         optionsFile.SetValue("SignalMaster", "Agility", SignalMaster.Agility);
         optionsFile.SetValue("SignalMaster", "Floor", Floor);
         optionsFile.SetValue("SignalMaster", "Dancing", SignalMaster.Dancing);
+        optionsFile.SetValue("SignalMaster", "CarRushCardNum", Player.CarRushCardNum);
+        optionsFile.SetValue("SignalMaster", "CodeBoomNum", Player.CodeBoomNum);
         #endregion
         var error = optionsFile.Save("user://" + filename + ".save");
         if (error != Error.Ok)
@@ -300,6 +318,8 @@ public partial class SaveData : Node
         var SurviveCardNum = optionsFile.GetValue("Player", "SurviveCardNum", 0).AsInt32();
         var StruggleCardNum = optionsFile.GetValue("Player", "StruggleCardNum", 0).AsInt32();
         var CureCardNum = optionsFile.GetValue("Player", "CureCardNum", 0).AsInt32();
+        var CarRushCardNum = optionsFile.GetValue("Player", "CarRushCardNum", 0).AsInt32();
+        var CodeBoomNum = optionsFile.GetValue("Player", "CodeBoomNum", 0).AsInt32();
         Floor = optionsFile.GetValue("Player", "Floor", 0).AsInt32();
         Player.PlayerName = optionsFile.GetValue("Player", "PlayerName", "").ToString();
         Player.HealthMax = optionsFile.GetValue("Player", "HealthMax", 100).AsInt32();
@@ -319,6 +339,9 @@ public partial class SaveData : Node
         Player.AddBattleCards(CardData.CSSurvive, SurviveCardNum);
         Player.AddBattleCards(CardData.CSStruggle, StruggleCardNum);
         Player.AddBattleCards(CardData.CSCure, CureCardNum);
+        Player.AddBattleCards(CardData.CSCarRush, CarRushCardNum);
+        Player.AddBattleCards(CardData.CSCodeBoom, CodeBoomNum);
+
         #endregion
 
         #region Coder
@@ -335,6 +358,8 @@ public partial class SaveData : Node
         StruggleCardNum = optionsFile.GetValue("Coder", "StruggleCardNum", 0).AsInt32();
         CureCardNum = optionsFile.GetValue("Coder", "CureCardNum", 0).AsInt32();
         Floor = optionsFile.GetValue("Coder", "Floor", 0).AsInt32();
+        CureCardNum = optionsFile.GetValue("Coder", "CureCardNum", 0).AsInt32();
+        CarRushCardNum = optionsFile.GetValue("Coder", "CarRushCardNum", 0).AsInt32();
         Coder.PlayerName = optionsFile.GetValue("Coder", "PlayerName", "").ToString();
         Coder.HealthMax = optionsFile.GetValue("Coder", "HealthMax", 100).AsInt32();
         Coder.EnergyMax = optionsFile.GetValue("Coder", "EnergyMax", 4).AsInt32();
@@ -353,6 +378,8 @@ public partial class SaveData : Node
         Coder.AddBattleCards(CardData.CSSurvive, SurviveCardNum);
         Coder.AddBattleCards(CardData.CSStruggle, StruggleCardNum);
         Coder.AddBattleCards(CardData.CSCure, CureCardNum);
+        Coder.AddBattleCards(CardData.CSCarRush, CarRushCardNum);
+        Coder.AddBattleCards(CardData.CSCodeBoom, CodeBoomNum);
         #endregion
 
         #region Hardware Warrior
@@ -369,11 +396,15 @@ public partial class SaveData : Node
         StruggleCardNum = optionsFile.GetValue("HardwareWarrior", "StruggleCardNum", 0).AsInt32();
         CureCardNum = optionsFile.GetValue("HardwareWarrior", "CureCardNum", 0).AsInt32();
         Floor = optionsFile.GetValue("HardwareWarrior", "Floor", 0).AsInt32();
+        CureCardNum = optionsFile.GetValue("HardwareWarrior", "CureCardNum", 0).AsInt32();
+        CarRushCardNum = optionsFile.GetValue("HardwareWarrior", "CarRushCardNum", 0).AsInt32();
         HardwareWarrior.PlayerName = optionsFile.GetValue("HardwareWarrior", "PlayerName", "").ToString();
         HardwareWarrior.HealthMax = optionsFile.GetValue("HardwareWarrior", "HealthMax", 100).AsInt32();
         HardwareWarrior.EnergyMax = optionsFile.GetValue("HardwareWarrior", "EnergyMax", 4).AsInt32();
         HardwareWarrior.Agility = optionsFile.GetValue("HardwareWarrior", "Agility", 10).AsInt32();
         HardwareWarrior.Dancing = optionsFile.GetValue("HardwareWarrior", "Dancing", false).AsBool();
+        HardwareWarrior.CarRushCardNum = optionsFile.GetValue("HardwareWarrior", "CarRushCardNum", 0).AsInt32();
+        HardwareWarrior.CodeBoomNum = optionsFile.GetValue("HardwareWarrior", "CodeBoomNum", 0).AsInt32();
         HardwareWarrior.BattleCards.DeckCards = [];
         HardwareWarrior.AddBattleCards(CardData.CAStrike, AttackCardNum);
         HardwareWarrior.AddBattleCards(CardData.CABash, BashCardNum);
@@ -387,6 +418,8 @@ public partial class SaveData : Node
         HardwareWarrior.AddBattleCards(CardData.CSSurvive, SurviveCardNum);
         HardwareWarrior.AddBattleCards(CardData.CSStruggle, StruggleCardNum);
         HardwareWarrior.AddBattleCards(CardData.CSCure, CureCardNum);
+        HardwareWarrior.AddBattleCards(CardData.CSCarRush, CarRushCardNum);
+        HardwareWarrior.AddBattleCards(CardData.CSCodeBoom, CodeBoomNum);
         #endregion
 
         #region Signal Master
@@ -402,7 +435,10 @@ public partial class SaveData : Node
         SurviveCardNum = optionsFile.GetValue("SignalMaster", "SurviveCardNum", 0).AsInt32();
         StruggleCardNum = optionsFile.GetValue("SignalMaster", "StruggleCardNum", 0).AsInt32();
         CureCardNum = optionsFile.GetValue("SignalMaster", "CureCardNum", 0).AsInt32();
+        CarRushCardNum = optionsFile.GetValue("SignalMaster", "CarRushCardNum", 0).AsInt32();
         Floor = optionsFile.GetValue("SignalMaster", "Floor", 0).AsInt32();
+        CureCardNum = optionsFile.GetValue("SignalMaster", "CureCardNum", 0).AsInt32();
+        CarRushCardNum = optionsFile.GetValue("SignalMaster", "CarRushCardNum", 0).AsInt32();
         SignalMaster.PlayerName = optionsFile.GetValue("SignalMaster", "PlayerName", "").ToString();
         SignalMaster.HealthMax = optionsFile.GetValue("SignalMaster", "HealthMax", 100).AsInt32();
         SignalMaster.EnergyMax = optionsFile.GetValue("SignalMaster", "EnergyMax", 4).AsInt32();
@@ -421,6 +457,8 @@ public partial class SaveData : Node
         SignalMaster.AddBattleCards(CardData.CSSurvive, SurviveCardNum);
         SignalMaster.AddBattleCards(CardData.CSStruggle, StruggleCardNum);
         SignalMaster.AddBattleCards(CardData.CSCure, CureCardNum);
+        SignalMaster.AddBattleCards(CardData.CSCarRush, CarRushCardNum);
+        SignalMaster.AddBattleCards(CardData.CSCodeBoom, CodeBoomNum);
         #endregion
     }
 }
