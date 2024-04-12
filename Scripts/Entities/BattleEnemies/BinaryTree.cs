@@ -13,12 +13,12 @@ public partial class BinaryTree : BattleEnemy
     {
         base._Ready();
         PieceName = "E_BINARYTREE";
-        HealthMax = 10;
+        HealthMax = 20;
         Health = HealthMax;
         Agility = 1;
         MoveRange = 3;
         AttackTimes = 1;
-        AttackDamage = 10;
+        AttackDamage = 18;
         Shield = 0;
     }
 

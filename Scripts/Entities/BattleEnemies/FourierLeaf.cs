@@ -13,7 +13,7 @@ public partial class FourierLeaf : BattleEnemy
     {
         base._Ready();
         PieceName = "E_FOURIERLEAF";
-        HealthMax = 35;
+        HealthMax = 45;
         Health = HealthMax;
         Agility = 1;
         MoveRange = 3;

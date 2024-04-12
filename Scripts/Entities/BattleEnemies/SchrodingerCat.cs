@@ -13,12 +13,12 @@ public partial class SchrodingerCat : BattleEnemy
     {
         base._Ready();
         PieceName = "E_SCHRODINGERCAT";
-        HealthMax = 10;
+        HealthMax = 30;
         Health = HealthMax;
         Agility = 1;
         MoveRange = 3;
         AttackTimes = 1;
-        AttackDamage = 10;
+        AttackDamage = 25;
         Shield = 0;
     }
 
