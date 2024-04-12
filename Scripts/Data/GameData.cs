@@ -8,81 +8,588 @@ public static class GameData
 {
     #region EnemyInfo
     public static List<EnemyInfo> enemyInfo = [
+
+        #region 程序设计
+
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 1}),
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 5}),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 2}),
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 3}),
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 1}),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 4}),
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 5}),
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 1}),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 6}),
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 7}),
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 1}),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 8}),
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 9}),
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 1}),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 10}),
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 11}),
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 1}),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 12}),
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 13}),
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 1}),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 14}),
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 15}),
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 16}),
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 1}),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 17}),
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 18}),
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 1}),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 19}),
         new EnemyInfo(
-                        new List<EnemyType> { EnemyType.Slime},
-                        new List<int> { 1}
-                                         ),
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 20}),
+
+        #endregion
+
+        #region 电子电路
         new EnemyInfo(
-                        new List<EnemyType> {EnemyType.Slime},
-                        new List<int> { 1})
-        ];
+            new List<EnemyType>{EnemyType.CapacityCylinder},
+            new List<int>{1}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 1, 1}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 1, 2}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 2, 2}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 2, 3}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 3, 3}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 3, 4}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 4, 4}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 4,5}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 5,5}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 5,6}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 6,6}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 6,7}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 7,7}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 7,8}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 8,8}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 8,9}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 9,9}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 9,10}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
+            new List<int> { 10,10}),
+        #endregion
+
+        #region 数据算法
+
+        #endregion
+
+        #region 数字逻辑
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 1}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 2}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 3}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 4}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 5}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 6}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 7}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 8}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 9}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 10}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 11}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 12}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 13}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 14}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 15}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 16}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 17}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 18}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 19}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 20}),
+        #endregion
+
+        #region 概率随机
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 1}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 2}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 3}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 4}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 5}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 6}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 7}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 8}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 9}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 10}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 11}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 12}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 13}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 14}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 15}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 16}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 17}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 18}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 19}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.Chip},
+            new List<int> { 20}),
+        #endregion
+
+        #region 信号系统
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 1}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 2}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 3}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 4}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 5}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 6}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 7}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 8}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 9}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 10}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 11}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 12}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 13}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 14}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 15}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 16}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 17}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 18}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 19}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 20}),
+        #endregion
+
+        #region 电磁场波
+
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 1}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 2}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 3}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 4}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 5}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 6}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 7}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 8}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 9}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 10}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 11}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 12}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 13}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 14}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 15}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 16}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 17}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 18}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 19}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 20}),
+
+        #endregion
+
+        #region 通信网络
+
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 1}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 2}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 3}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 4}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 5}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 6}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 7}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 8}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 9}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 10}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 11}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 12}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 13}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 14}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 15}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 16}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 17}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 18}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 19}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<int> { 20}),
+
+        #endregion
+
+        #region 媒体认知
+
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 1}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 2}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 3}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 4}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 5}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 6}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 7}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 8}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 9}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 10}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 11}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 12}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 13}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 14}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 15}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 16}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 17}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 18}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 19}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 20}),
+
+        #endregion
+
+        #region 固体物理
+
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 1}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 2}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 3}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 4}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 5}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 6}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 7}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 8}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 9}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 10}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 11}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 12}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 13}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 14}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 15}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 16}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 17}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 18}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 19}),
+        new EnemyInfo(
+            new List<EnemyType> { EnemyType.PerceptronKun},
+            new List<int> { 20}),
+
+        #endregion
+    ];
     #endregion
 
     #region MapData
@@ -475,18 +982,19 @@ new MapInfo(
                         new Vector2I(8,0),new Vector2I(9,0),
                         new Vector2I(10,5),new Vector2I(10,6),
                         new Vector2I(11,5),new Vector2I(11,6),
-                        new Vector2I(0,7),    new Vector2I(0,8),new Vector2I(1,8),
-    new Vector2I(5,8),new Vector2I(6,8),
-    new Vector2I(5,9),new Vector2I(6,9),
-    new Vector2I(10,8),new Vector2I(11,8),
-    new Vector2I(10,9),new Vector2I(11,9),
-    new Vector2I(3,1),new Vector2I(3,0),
-    new Vector2I(4,1),new Vector2I(4,0),
-    new Vector2I(1,6),new Vector2I(1,7),
-    new Vector2I(2,6),new Vector2I(2,7),
-    new Vector2I(6,10),new Vector2I(6,11),
-    new Vector2I(7,10),new Vector2I(7,11),
-    new Vector2I(11,1),new Vector2I(11,0)}
+                        new Vector2I(0,7),new Vector2I(0,8),
+                        new Vector2I(1,8),
+                        new Vector2I(5,8),new Vector2I(6,8),
+                        new Vector2I(5,9),new Vector2I(6,9),
+                        new Vector2I(10,8),new Vector2I(11,8),
+                        new Vector2I(10,9),new Vector2I(11,9),
+                        new Vector2I(3,1),new Vector2I(3,0),
+                        new Vector2I(4,1),new Vector2I(4,0),
+                        new Vector2I(1,6),new Vector2I(1,7),
+                        new Vector2I(2,6),new Vector2I(2,7),
+                        new Vector2I(6,10),new Vector2I(6,11),
+                        new Vector2I(7,10),new Vector2I(7,11),
+                        new Vector2I(11,1),new Vector2I(11,0)}
 ),
 // 地图 19
 new MapInfo(
@@ -573,6 +1081,15 @@ new MapInfo(
                         new Vector2I(11,1),new Vector2I(11,0),
                         new Vector2I(0,5),new Vector2I(1,5),
                         new Vector2I(0,6),new Vector2I(1,6)}
+    ),
+    new MapInfo(
+        new List<Vector2I>{new Vector2I(0,0),new Vector2I(10,10)},
+        new List<Vector2I>{
+            new Vector2I(0,0),new Vector2I(2,2),
+            new Vector2I(8,8),new Vector2I(10,10),
+            new Vector2I(0,10),new Vector2I(2,8),
+            new Vector2I(8,2),new Vector2I(10,0),
+        }
     )
         ];
     #endregion

@@ -141,9 +141,14 @@ public partial class PieceBattle : Node2D
     public void MapInitialize(IsometricTileMap tileMap)
     {
         var floor = SaveData.Floor;
+        var mapFloor = floor % 20;
+        if (floor == 100)
+        {
+            mapFloor = 20;
+        }
         var colorRank = (floor + 1) / 20 + 2;
         var color = IsometricTileMap.ColorList[colorRank];
-        var mapInfo = GameData.mapInfo[floor];
+        var mapInfo = GameData.mapInfo[mapFloor];
         var availableCells = mapInfo.AvailableCells;
         var cellsOutOfMap = mapInfo.CellsOutOfMap;
         var cellsOut = CellsOutProcess(cellsOutOfMap);
