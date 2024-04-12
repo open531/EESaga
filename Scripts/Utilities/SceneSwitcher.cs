@@ -33,7 +33,7 @@ public partial class SceneSwitcher : Node
         }
     }
 
-    public void PushScene(Node? newScene, bool deleteCurrent = false)
+    public void PushScene(Node? newScene, bool deleteCurrent = true)
     {
         GD.Print($"CurrentScene: {CurrentScene?.Name}, newScene: {newScene?.Name}");
         if (CurrentScene != null)
