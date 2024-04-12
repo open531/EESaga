@@ -67,6 +67,24 @@ public partial class PieceBattle : Node2D
     private StateBar _partyOneStateBar;
     private StateBar _partyTwoStateBar;
     private StateBar _partyThreeStateBar;
+    private TextureRect _backGround;
+
+    private List<string> _backgroundPath = new List<string>(
+        new string[]
+        {
+            "res://Assets/Images/background1.png",
+            "res://Assets/Images/background2.png",
+            "res://Assets/Images/background3.png",
+            "res://Assets/Images/background4.png",
+            "res://Assets/Images/background5.png",
+            "res://Assets/Images/background6.png",
+            "res://Assets/Images/background7.png",
+            "res://Assets/Images/background8.png",
+            "res://Assets/Images/background9.png",
+            "res://Assets/Images/background10.png",
+            "res://Assets/Images/background11.png",
+        }
+    );
 
     public List<StateBar> _stateBarList;
 
@@ -104,6 +122,7 @@ public partial class PieceBattle : Node2D
         _partyOneStateBar = GetNode<StateBar>("%PartyOneStateBar");
         _partyTwoStateBar = GetNode<StateBar>("%PartyTwoStateBar");
         _partyThreeStateBar = GetNode<StateBar>("%PartyThreeStateBar");
+        _backGround = GetNode<TextureRect>("BackGround");
 
         _playerStateBar.Visible = false;
         _partyOneStateBar.Visible = false;
@@ -141,11 +160,16 @@ public partial class PieceBattle : Node2D
     public void MapInitialize(IsometricTileMap tileMap)
     {
         var floor = SaveData.Floor;
+        var pathFloor = SaveData.Floor / 10;
         var mapFloor = floor % 20;
         if (floor == 100)
         {
             mapFloor = 20;
+            pathFloor = 10;
         }
+        GD.Print(pathFloor);
+        Texture2D texture = GD.Load<Texture2D>(_backgroundPath[pathFloor]);
+        _backGround.Texture = texture;
         var colorRank = floor / 10 + 2;
         if (floor == 100)
         {
