@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://bpa3sbr5s1ys4"]
+
+[ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_gwuo2"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/Shanloong.cs" id="2_nlpcl"]
+[ext_resource type="Texture2D" uid="uid://4okgoqke5rn0" path="res://Assets/Textures/shannon_dragon_idle.png" id="3_6jus3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_niney"]
+atlas = ExtResource("3_6jus3")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aelxp"]
+atlas = ExtResource("3_6jus3")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_du5xw"]
+atlas = ExtResource("3_6jus3")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l70ai"]
+atlas = ExtResource("3_6jus3")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d5ht5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_niney")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aelxp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_du5xw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l70ai")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[node name="Shanloong" instance=ExtResource("1_gwuo2")]
+script = ExtResource("2_nlpcl")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_d5ht5")
