@@ -216,6 +216,18 @@ public partial class BattleManager : Node
                                                         PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_S_CAR_RUSH")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
                                                     }
                                                     break;
+                                                case CardCodeBoom cardCodeBoom:
+                                                    if (cardCodeBoom.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        var cardInfo = cardCodeBoom.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_S_CODE_BOOM")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                    }
+                                                    break;  
                                                 case CardCure cardCure:
                                                     if (cardCure.TakePartyCost(CurrentPiece as BattleParty))
                                                     {
@@ -480,6 +492,13 @@ public partial class BattleManager : Node
 
                 }
                 return null;
+            case Cards.CardTarget.Square:
+                if (targetPiece is BattleEnemy enemyss)
+                {
+                    var TargetEnemies = GetCloseEnemy(cell.Value);
+                    return TargetEnemies;
+                }
+                return null;
             case Cards.CardTarget.Ally:
                 if (targetPiece is BattleParty && targetPiece != CurrentPiece)
                 {
@@ -690,6 +709,24 @@ public partial class BattleManager : Node
             enemy.Defend(enemy);
         }
         CardBattle.EmitSignal(CardBattle.SignalName.EndTurn);
+    }
+
+    public List<BattlePiece> GetCloseEnemy(Vector2I target)
+    {
+        var cells = GetNearAccessibleCell(target, partyFight: true);
+        cells.Add(target);
+        var closeEnemies = new List<BattlePiece>();
+        foreach (var cell in cells)
+        {
+            if (PieceBattle.PieceMap.TryGetValue(cell, out BattlePiece value))
+            {
+                if (value is BattleEnemy enemy)
+                {
+                    closeEnemies.Add(enemy);
+                }
+            }
+        }
+        return closeEnemies;
     }
 
     public List<Vector2I> GetNearAccessibleCell(Vector2I dst, bool partyFight = false, bool enemyFight = false, int range = 1)

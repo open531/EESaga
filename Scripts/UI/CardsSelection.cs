@@ -38,7 +38,8 @@ public partial class CardsSelection : Node2D
                 9 => CardData.CIUST,
                 10 => CardData.CSCure,
                 11 => CardData.CSFury,
-                12 => CardData.CSCarRush
+                12 => CardData.CSCarRush,
+                13 => CardData.CSCodeBoom
             };
             _cardsInstance.Add(CardFactory.CreateCard(cardInfo));
             _cardsInfo.Add(cardInfo);
