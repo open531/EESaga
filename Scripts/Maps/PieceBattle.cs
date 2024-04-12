@@ -587,6 +587,20 @@ public partial class PieceBattle : Node2D
                     }
                 }
                 break;
+            case CardTarget.Square:
+                foreach (var cell in usedCells)
+                {
+                    var piece = new BattlePiece();
+                    if (PieceMap.TryGetValue(cell,out piece))
+                    {
+                        if (piece is BattleEnemy)
+                        {
+                            ColorMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
+                            TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                        }
+                    }
+                }
+                break;
             case CardTarget.Ally:
                 foreach (var cell in usedCells)
                 {

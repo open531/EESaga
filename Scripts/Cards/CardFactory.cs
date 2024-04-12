@@ -30,6 +30,7 @@ public static class CardFactory
                 CardSpecialType.Fury => CardFury.Instance(),
                 CardSpecialType.Struggle => CardStruggle.Instance(),
                 CardSpecialType.CarRush => CardCarRush.Instance(),
+                CardSpecialType.CodeBoom => CardCodeBoom.Instance(),
                 _ => CardSpecial.Instance(),
             },
             CardType.Item => cardInfo.ItemType switch

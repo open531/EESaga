@@ -30,6 +30,7 @@ public enum CardTarget
     Enemy,
     Range,
     Straight,
+    Square,
     Ally,
     AllEnemies,
     AllAllies,
@@ -63,6 +64,7 @@ public enum CardSpecialType
     Survive,
     AttackByDefense,
     CarRush,
+    CodeBoom,
     Fury,
 }
 
@@ -121,4 +123,5 @@ public static class CardData
     public static CardInfo CSCure = new(CardType.Special, "C_S_CURE", "C_S_CURE_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Cure);
     public static CardInfo CSFury = new(CardType.Special, "C_S_FURY", "C_S_FURY_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Fury);
     public static CardInfo CSCarRush = new(CardType.Special, "C_S_CAR_RUSH", "C_S_CAR_RUSH_DESC", 1, CardTarget.Straight, specialType: CardSpecialType.CarRush);
+    public static CardInfo CSCodeBoom = new(CardType.Special, "C_S_CODE_BOOM", "C_S_CODE_BOOM_DESC", 1, CardTarget.Square, specialType: CardSpecialType.CodeBoom);
 }
