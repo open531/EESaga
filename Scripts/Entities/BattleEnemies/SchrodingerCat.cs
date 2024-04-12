@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public partial class SchrodingerCat : BattleEnemy
 {
     [Signal] public delegate void SchrodingerCatActionEventHandler(string actionInfo, string actionEffect, bool refreshLastLabel);
-    public static new SchrodingerCat Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/SchrodingerCat.tscn").Instantiate<SchrodingerCat>();
+    public static new SchrodingerCat Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/schrodinger_cat.tscn").Instantiate<SchrodingerCat>();
 
     public override void _Ready()
     {

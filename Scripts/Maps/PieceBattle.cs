@@ -377,12 +377,14 @@ public partial class PieceBattle : Node2D
         var enemy = enemyType switch
         {
             EnemyType.Slime => Slime.Instance(),
+            EnemyType.BinaryTree => BinaryTree.Instance(),
             EnemyType.CapacityGreen => CapacityGreen.Instance(),
             EnemyType.CapacityCylinder => CapacityCylinder.Instance(),
             EnemyType.Chip => Chip.Instance(),
             EnemyType.FourierLeaf => FourierLeaf.Instance(),
             EnemyType.PerceptronKun => PerceptronKun.Instance(),
             EnemyType.Python => Python.Instance(),
+            EnemyType.Shanloong => Shanloong.Instance(),
             _ => BattleEnemy.Instance(),
         };
         _enemies.AddChild(enemy);

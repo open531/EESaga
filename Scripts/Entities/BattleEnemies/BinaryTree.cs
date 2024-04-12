@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public partial class BinaryTree : BattleEnemy
 {
     [Signal] public delegate void BinaryTreeActionEventHandler(string actionInfo, string actionEffect, bool refreshLastLabel);
-    public static new BinaryTree Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/BinaryTree.tscn").Instantiate<BinaryTree>();
+    public static new BinaryTree Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/binary_tree.tscn").Instantiate<BinaryTree>();
 
     public override void _Ready()
     {

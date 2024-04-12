@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public partial class Shanloong : BattleEnemy
 {
     [Signal] public delegate void ShanloongActionEventHandler(string actionInfo, string actionEffect, bool refreshLastLabel);
-    public static new Shanloong Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/Shanloong.tscn").Instantiate<Shanloong>();
+    public static new Shanloong Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/shanloong.tscn").Instantiate<Shanloong>();
 
     public override void _Ready()
     {
