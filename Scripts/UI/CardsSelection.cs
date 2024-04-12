@@ -125,9 +125,6 @@ public partial class CardsSelection : Node2D
             {
                 if (mouseEvent.Pressed)
                 {
-                    GD.Print(_inArea0);
-                    GD.Print(_inArea1);
-                    GD.Print(_inArea2);
                     if (_inArea0)
                     {
                         OnCardSelected(_cardsInfo[0]);
