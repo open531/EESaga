@@ -14,8 +14,8 @@ public partial class StateBar : Node2D
     {
         "res://Assets/Textures/player_head.png",
         "res://Assets/Textures/wizard_head.png",
-        "res://Assets/Textures/PlayerHead3.png",
-        "res://Assets/Textures/PlayerHead4.png",
+        "res://Assets/Textures/knight_head.png",
+        "res://Assets/Textures/priest_head.png",
     };
 
     public static StateBar Instance() => GD.Load<PackedScene>("res://Scenes/UI/state_bar.tscn").Instantiate<StateBar>();
