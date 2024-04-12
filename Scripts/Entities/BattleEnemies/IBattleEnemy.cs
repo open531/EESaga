@@ -18,9 +18,11 @@ public enum EnemyType
     CapacityCylinder,
     Chip,
     CrystalTurtle,
+    Make,
     FourierLeaf,
     PerceptronKun,
     Python,
+    SiliconTurtle,
     SchodingerCat,
     Shanloong,
 }
