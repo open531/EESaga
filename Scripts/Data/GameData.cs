@@ -77,7 +77,7 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.CapacityCylinder, EnemyType.CapacityGreen},
             new List<int> { 5,5}),
-        
+
         #endregion
 
         #region 数据算法
@@ -146,7 +146,7 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.Chip},
             new List<int> { 10}),
-        
+
         #endregion
 
         #region 概率随机
@@ -214,7 +214,7 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.FourierLeaf},
             new List<int> { 10}),
-        
+
         #endregion
 
         #region 电磁场波
@@ -284,7 +284,7 @@ public static class GameData
         new EnemyInfo(
             new List<EnemyType> { EnemyType.FourierLeaf},
             new List<int> { 10}),
-       
+
         #endregion
 
         #region 媒体认知
@@ -871,7 +871,7 @@ new MapInfo(
 
     #region CardSelection
 
-    public static List<CardInfo> CardSelection =
+    public static List<CardsInfo> CardSelection =
         [];
 
     #endregion
@@ -901,11 +901,11 @@ public struct MapInfo
     }
 }
 
-public struct CardInfo
+public struct CardsInfo
 {
     public List<CardType> CardTypes { get; set; }
 
-    public CardInfo(CardType card1, CardType card2, CardType card3)
+    public CardsInfo(CardType card1, CardType card2, CardType card3)
     {
         CardTypes.Add(card1);
         CardTypes.Add(card2);
