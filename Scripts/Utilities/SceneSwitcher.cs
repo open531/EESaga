@@ -15,11 +15,12 @@ public partial class SceneSwitcher : Node
     private Timer _timer = new();
 
     public static TitleMenu TitleMenuScene => TitleMenu.Instance();
+    public static DialogueManager DialogueManagerScene => DialogueManager.Instance();
+    public static NameInputPanel NameInputPanelScene => NameInputPanel.Instance();
     public static BattleManager BattleManagerScene => BattleManager.Instance();
     public static GameOver GameOverScene => GameOver.Instance();
     public static GameWin GameWinScene => GameWin.Instance();
-    public static NameInputPanel NameInputPanelScene => NameInputPanel.Instance();
-    public static GameEnd GameEndScene => GameEnd.Instance();  
+    public static GameEnd GameEndScene => GameEnd.Instance();
 
     public override void _Ready()
     {

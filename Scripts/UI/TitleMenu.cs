@@ -1,6 +1,7 @@
 namespace EESaga.Scripts.UI;
 
 using Godot;
+using Managers;
 using Utilities;
 
 public partial class TitleMenu : CanvasLayer
@@ -42,7 +43,14 @@ public partial class TitleMenu : CanvasLayer
 
     private void OnPlayButtonPressed()
     {
-        _sceneSwitcher.PushScene(SceneSwitcher.NameInputPanelScene);
+        var dialogueManager = DialogueManager.Instance();
+        _sceneSwitcher.PushScene(dialogueManager);
+        dialogueManager.Finished += () => _sceneSwitcher.PushScene(SceneSwitcher.NameInputPanelScene);
+        dialogueManager.ShowMessages(
+        [
+            new DialogueMessage("", "D_1_1"),
+            new DialogueMessage("", "D_1_2"),
+        ]);
     }
 
     private void OnLoadButtonPressed()

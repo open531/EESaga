@@ -10,8 +10,10 @@ font_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0gjuk"]
 
 [node name="NameInputPanel" type="Panel"]
-offset_right = 600.0
-offset_bottom = 320.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 620.0
+offset_bottom = 340.0
 theme_override_styles/panel = ExtResource("1_ydxuv")
 script = ExtResource("2_t10ab")
 
