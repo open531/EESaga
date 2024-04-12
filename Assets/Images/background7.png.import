@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://eutb3ygx5q7e"
-path="res://.godot/imported/blood_to_enegry.png-48c430607a43e5735fc0394af32dbe73.ctex"
+uid="uid://dyxbi2swyelvw"
+path="res://.godot/imported/background7.png-55c8d3ab4a672ccfa23f69f169e04474.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/blood_to_enegry.png"
-dest_files=["res://.godot/imported/blood_to_enegry.png-48c430607a43e5735fc0394af32dbe73.ctex"]
+source_file="res://Assets/Images/background7.png"
+dest_files=["res://.godot/imported/background7.png-55c8d3ab4a672ccfa23f69f169e04474.ctex"]
 
 [params]
 
