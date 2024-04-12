@@ -818,12 +818,12 @@ public partial class PieceBattle : Node2D
             else
             {
                 SaveData.Floor++;
-                SaveData.Save();
-                _sceneSwitcher.PushScene(SceneSwitcher.GameWinScene);
                 CardBattle.ResetCards(SaveData.Player.BattleCards);
                 CardBattle.ResetCards(SaveData.Coder.BattleCards);
                 CardBattle.ResetCards(SaveData.HardwareWarrior.BattleCards);
                 CardBattle.ResetCards(SaveData.SignalMaster.BattleCards);
+                SaveData.Save();
+                _sceneSwitcher.PushScene(SceneSwitcher.CardsSelectionScene);
             }
         }
     }

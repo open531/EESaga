@@ -22,6 +22,8 @@ public partial class SceneSwitcher : Node
     public static GameWin GameWinScene => GameWin.Instance();
     public static GameEnd GameEndScene => GameEnd.Instance();
 
+    public static CardsSelection CardsSelectionScene => CardsSelection.Instance();
+
     public override void _Ready()
     {
         MainScene = GetNodeOrNull<Main>("/root/Main");
