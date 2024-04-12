@@ -13,12 +13,12 @@ public partial class SiliconTurtle : BattleEnemy
     {
         base._Ready();
         PieceName = "E_MONOCRYSTURTLE";
-        HealthMax = 10;
+        HealthMax = 60;
         Health = HealthMax;
         Agility = 1;
         MoveRange = 3;
         AttackTimes = 1;
-        AttackDamage = 10;
+        AttackDamage = 40;
         Shield = 0;
     }
 

@@ -13,7 +13,7 @@ public partial class PerceptronKun : BattleEnemy
     {
         base._Ready();
         PieceName = "E_PERCEPTIONKUN";
-        HealthMax = 45;
+        HealthMax = 50;
         Health = HealthMax;
         Agility = 1;
         MoveRange = 3;
