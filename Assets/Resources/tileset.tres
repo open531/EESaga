@@ -97,6 +97,22 @@ texture_region_size = Vector2i(48, 48)
 10:0/0/physics_layer_1/angular_velocity = 0.0
 10:0/0/physics_layer_2/linear_velocity = Vector2(0, 0)
 10:0/0/physics_layer_2/angular_velocity = 0.0
+11:0/0 = 0
+11:0/0/texture_origin = Vector2i(0, -12)
+11:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+11:0/0/physics_layer_0/angular_velocity = 0.0
+11:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+11:0/0/physics_layer_1/angular_velocity = 0.0
+11:0/0/physics_layer_2/linear_velocity = Vector2(0, 0)
+11:0/0/physics_layer_2/angular_velocity = 0.0
+12:0/0 = 0
+12:0/0/texture_origin = Vector2i(0, -12)
+12:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+12:0/0/physics_layer_0/angular_velocity = 0.0
+12:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+12:0/0/physics_layer_1/angular_velocity = 0.0
+12:0/0/physics_layer_2/linear_velocity = Vector2(0, 0)
+12:0/0/physics_layer_2/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_76wo6"]
 texture = ExtResource("2_kv8un")

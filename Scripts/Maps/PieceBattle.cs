@@ -193,10 +193,6 @@ public partial class PieceBattle : Node2D
         Texture2D texture = GD.Load<Texture2D>(_backgroundPath[pathFloor]);
         _backGround.Texture = texture;
         var colorRank = floor / 10 + 2;
-        if (floor == 100)
-        {
-            colorRank = 11;
-        }
         var color = IsometricTileMap.ColorList[colorRank];
         var mapInfo = GameData.mapInfo[mapFloor];
         var availableCells = mapInfo.AvailableCells;
