@@ -19,6 +19,7 @@ public partial class Player : CharacterBody2D
     public int SurviveCardNum;
     public int StruggleCardNum;
     public int CureCardNum;
+    public int CarRushCardNum;
     public bool Dancing;
     public string PlayerName { get; set; }
     public float Speed { get; set; } = 120.0f;
@@ -126,5 +127,6 @@ public partial class Player : CharacterBody2D
         else if (card == CardData.CSStruggle) StruggleCardNum += num;
         else if (card == CardData.CSCure) CureCardNum += num;
         else if (card == CardData.CIECS) EcsCardNum += num;
+        else if (card == CardData.CSCarRush) CarRushCardNum += num;
     }
 }

@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://cnfndd2kaj2qd" path="res://Scenes/Cards/CardSpecials/card_special.tscn" id="1_keu8w"]
 [ext_resource type="Script" path="res://Scripts/Cards/CardSpecials/CardCodeBoom.cs" id="2_7vaqg"]
-[ext_resource type="Texture2D" uid="uid://jr8pitt55yjk" path="res://Assets/Textures/blood_to_shield.png" id="3_h7n8x"]
+[ext_resource type="Texture2D" uid="uid://bscqpwr5p88wb" path="res://Assets/Textures/Cards/potion_fire.png" id="3_kj4qj"]
 
 [node name="CardCodeBoom" instance=ExtResource("1_keu8w")]
 script = ExtResource("2_7vaqg")
 
 [node name="Image" parent="." index="1"]
-texture = ExtResource("3_h7n8x")
+texture = ExtResource("3_kj4qj")

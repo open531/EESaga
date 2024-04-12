@@ -29,6 +29,7 @@ public static class CardFactory
                 CardSpecialType.AttackByDefense => CardAttackByDefense.Instance(),
                 CardSpecialType.Fury => CardFury.Instance(),
                 CardSpecialType.Struggle => CardStruggle.Instance(),
+                CardSpecialType.CarRush => CardCarRush.Instance(),
                 _ => CardSpecial.Instance(),
             },
             CardType.Item => cardInfo.ItemType switch

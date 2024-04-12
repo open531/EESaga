@@ -18,10 +18,10 @@ public partial class SaveData : Node
         EnergyMax = 4,
         Energy = 4,
         Agility = 10,
-        AttackCardNum = 6,
+        AttackCardNum = 0,
         BashCardNum = 0,
         DoubleBeatCardNum = 0,
-        DefendCardNum = 6,
+        DefendCardNum = 0,
         ConsolidateCardNum = 0,
         EcsCardNum = 0,
         FuryCardNum = 0,
@@ -30,22 +30,19 @@ public partial class SaveData : Node
         SurviveCardNum = 0,
         StruggleCardNum = 0,
         CureCardNum = 0,
+        CarRushCardNum = 8,
         Dancing = true,
         BattleCards = new()
         {
             DeckCards = [
-                CardData.CAStrike,
-                CardData.CAStrike,
-                CardData.CAStrike,
-                CardData.CAStrike,
-                CardData.CAStrike,
-                CardData.CAStrike,
-                CardData.CDDefend,
-                CardData.CDDefend,
-                CardData.CDDefend,
-                CardData.CDDefend,
-                CardData.CDDefend,
-                CardData.CDDefend,
+                CardData.CSCarRush,
+                CardData.CSCarRush,
+                CardData.CSCarRush,
+                CardData.CSCarRush,
+                CardData.CSCarRush,
+                CardData.CSCarRush,
+                CardData.CSCarRush,
+                CardData.CSCarRush,
                 ],
             HandCards = [],
             DiscardCards = []
@@ -74,7 +71,7 @@ public partial class SaveData : Node
         SurviveCardNum = 0,
         StruggleCardNum = 0,
         CureCardNum = 0,
-        Dancing = true,
+        Dancing = false,
         BattleCards = new()
         {
             DeckCards = [
@@ -118,7 +115,7 @@ public partial class SaveData : Node
         SurviveCardNum = 0,
         StruggleCardNum = 0,
         CureCardNum = 0,
-        Dancing = true,
+        Dancing = false,
         BattleCards = new()
         {
             DeckCards = [
@@ -162,7 +159,7 @@ public partial class SaveData : Node
         SurviveCardNum = 0,
         StruggleCardNum = 0,
         CureCardNum = 0,
-        Dancing = true,
+        Dancing = false,
         BattleCards = new()
         {
             DeckCards = [
