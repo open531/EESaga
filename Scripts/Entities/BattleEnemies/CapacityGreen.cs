@@ -16,9 +16,9 @@ public partial class CapacityGreen : BattleEnemy
         HealthMax = 10;
         Health = HealthMax;
         Agility = 1;
-        MoveRange = 3;
-        AttackTimes = 1;
-        AttackDamage = 10;
+        MoveRange = 5;
+        AttackTimes = 2;
+        AttackDamage = 6;
         Shield = 0;
     }
 

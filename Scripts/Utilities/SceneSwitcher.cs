@@ -19,6 +19,7 @@ public partial class SceneSwitcher : Node
     public static GameOver GameOverScene => GameOver.Instance();
     public static GameWin GameWinScene => GameWin.Instance();
     public static NameInputPanel NameInputPanelScene => NameInputPanel.Instance();
+    public static GameEnd GameEndScene => GameEnd.Instance();  
 
     public override void _Ready()
     {

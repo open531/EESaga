@@ -4,21 +4,21 @@ using EESaga.Scripts.Entities.BattleParties;
 using Godot;
 using System.Collections.Generic;
 
-public partial class Chip : BattleEnemy
+public partial class Python : BattleEnemy
 {
-    [Signal] public delegate void ChipActionEventHandler(string actionInfo, string actionEffect, bool refreshLastLabel);
-    public static new Chip Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/chip.tscn").Instantiate<Chip>();
+    [Signal] public delegate void PythonActionEventHandler(string actionInfo, string actionEffect, bool refreshLastLabel);
+    public static new Python Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/python.tscn").Instantiate<Python>();
 
     public override void _Ready()
     {
         base._Ready();
-        PieceName = "E_CHIP";
-        HealthMax = 25;
+        PieceName = "PYTHON";
+        HealthMax = 10;
         Health = HealthMax;
         Agility = 1;
         MoveRange = 3;
         AttackTimes = 1;
-        AttackDamage = 20;
+        AttackDamage = 10;
         Shield = 0;
     }
 
@@ -44,7 +44,7 @@ public partial class Chip : BattleEnemy
             damageInfo += $"{battleParty.PieceName} {Tr("T_DECEASED")}\n";
         }
         GD.Print($"{PieceName}攻击了{battleParty.PieceName}");
-        EmitSignal(SignalName.ChipAction, actionInfo, damageInfo, true);
+        EmitSignal(SignalName.PythonAction, actionInfo, damageInfo, true);
     }
 
     public override void Defend(BattleEnemy battleEnemy)

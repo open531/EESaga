@@ -13,12 +13,12 @@ public partial class CapacityCylinder : BattleEnemy
     {
         base._Ready();
         PieceName = "E_CAPACITYCYLINDER";
-        HealthMax = 10;
+        HealthMax = 15;
         Health = HealthMax;
         Agility = 1;
-        MoveRange = 3;
+        MoveRange = 2;
         AttackTimes = 1;
-        AttackDamage = 10;
+        AttackDamage = 15;
         Shield = 0;
     }
 

@@ -146,7 +146,11 @@ public partial class PieceBattle : Node2D
         {
             mapFloor = 20;
         }
-        var colorRank = (floor + 1) / 20 + 2;
+        var colorRank = floor / 10 + 2;
+        if (floor == 100)
+        {
+            colorRank = 11;
+        }
         var color = IsometricTileMap.ColorList[colorRank];
         var mapInfo = GameData.mapInfo[mapFloor];
         var availableCells = mapInfo.AvailableCells;
@@ -254,7 +258,48 @@ public partial class PieceBattle : Node2D
 
     public void UpdateLevelLabel()
     {
-        _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")}: {SaveData.Floor + 1}";
+        if (SaveData.Floor == 100)
+        {
+            _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("TOP_OF_LUOMU")}";
+        }
+        else
+        {
+            var floor = SaveData.Floor / 10;
+            var label = SaveData.Floor % 10 + 1;
+            switch (floor)
+            {
+                case 0:
+                    _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("T_PD")} {label} {Tr("T_LEVE")}";
+                    break;
+                case 1:
+                    _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("T_EC")} {label} {Tr("T_LEVE")}";
+                    break;
+                case 2:
+                    _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("T_DA")} {label} {Tr("T_LEVE")}";
+                    break;
+                case 3:
+                    _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("T_DL")} {label} {Tr("T_LEVE")}";
+                    break;
+                case 4:
+                    _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("T_PR")} {label} {Tr("T_LEVE")}";
+                    break;
+                case 5:
+                    _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("T_SS")} {label} {Tr("T_LEVE")}";
+                    break;
+                case 6:
+                    _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("T_EW")} {label} {Tr("T_LEVE")}";
+                    break;
+                case 7:
+                    _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("T_CN")} {label} {Tr("T_LEVE")}";
+                    break;
+                case 8:
+                    _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("T_MP")} {label} {Tr("T_LEVE")}";
+                    break;
+                case 9:
+                    _gameLevelLabel.Text = $"{Tr("GAME_LEVEL")} : {Tr("T_SSP")} {label} {Tr("T_LEVE")}";
+                    break;
+            }
+        }
     }
     public void Initialize(IsometricTileMap tileMap)
     {
@@ -295,6 +340,7 @@ public partial class PieceBattle : Node2D
             EnemyType.Chip => Chip.Instance(),
             EnemyType.FourierLeaf => FourierLeaf.Instance(),
             EnemyType.PerceptronKun => PerceptronKun.Instance(),
+            EnemyType.Python => Python.Instance(),
             _ => BattleEnemy.Instance(),
         };
         _enemies.AddChild(enemy);
@@ -321,6 +367,8 @@ public partial class PieceBattle : Node2D
             fourierLeaf.FourierLeafAction += UpdateActionInfo;
         else if (enemy is PerceptronKun perceptronKun)
             perceptronKun.PerceptronKunAction += UpdateActionInfo;
+        else if (enemy is Python python)
+            python.PythonAction += UpdateActionInfo;
     }
 
     public void AddParty(PartyType partyType)
@@ -714,9 +762,16 @@ public partial class PieceBattle : Node2D
         else if (battlePiece is BattleEnemy && Enemies.Count == 1)
         {
             GD.Print("Game Win");
-            SaveData.Floor++;
-            SaveData.Save();
-            _sceneSwitcher.PushScene(SceneSwitcher.GameWinScene);
+            if (SaveData.Floor == 100)
+            {
+                _sceneSwitcher.PushScene(SceneSwitcher.GameEndScene);
+            }
+            else
+            {
+                SaveData.Floor++;
+                SaveData.Save();
+                _sceneSwitcher.PushScene(SceneSwitcher.GameWinScene);
+            }
         }
     }
 

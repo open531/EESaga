@@ -1,4 +1,4 @@
-﻿namespace EESaga.Scripts.Entities.BattleEnemies;
+namespace EESaga.Scripts.Entities.BattleEnemies;
 
 using Godot;
 
@@ -18,4 +18,5 @@ public enum EnemyType
     Chip,
     FourierLeaf,
     PerceptronKun,
+    Python
 }
