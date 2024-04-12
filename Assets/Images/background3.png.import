@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb7oavliuasux"
-path="res://.godot/imported/blood_to_energy.png-0c4de401a8812c29aabb85dc3fcf9cd0.ctex"
+uid="uid://c8tyr6kbx18k1"
+path="res://.godot/imported/background3.png-b9fae673a6ddb47959da09dea42306f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/blood_to_energy.png"
-dest_files=["res://.godot/imported/blood_to_energy.png-0c4de401a8812c29aabb85dc3fcf9cd0.ctex"]
+source_file="res://Assets/Images/background3.png"
+dest_files=["res://.godot/imported/background3.png-b9fae673a6ddb47959da09dea42306f0.ctex"]
 
 [params]
 

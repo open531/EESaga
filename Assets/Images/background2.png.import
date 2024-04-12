@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jr8pitt55yjk"
-path="res://.godot/imported/blood_to_shield.png-1c14132b11119ff9923658e3e052b983.ctex"
+uid="uid://msxkkqwj8wo"
+path="res://.godot/imported/background2.png-f7463582cf3bed074e5e88f2e61636e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/blood_to_shield.png"
-dest_files=["res://.godot/imported/blood_to_shield.png-1c14132b11119ff9923658e3e052b983.ctex"]
+source_file="res://Assets/Images/background2.png"
+dest_files=["res://.godot/imported/background2.png-f7463582cf3bed074e5e88f2e61636e4.ctex"]
 
 [params]
 
