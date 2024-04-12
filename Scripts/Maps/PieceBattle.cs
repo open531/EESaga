@@ -384,7 +384,9 @@ public partial class PieceBattle : Node2D
             EnemyType.FourierLeaf => FourierLeaf.Instance(),
             EnemyType.PerceptronKun => PerceptronKun.Instance(),
             EnemyType.Python => Python.Instance(),
+            EnemyType.SchrodingerCat => SchrodingerCat.Instance(),
             EnemyType.Shanloong => Shanloong.Instance(),
+            EnemyType.SiliconTurtle => SiliconTurtle.Instance(),
             EnemyType.Make => Make.Instance(),
             _ => BattleEnemy.Instance(),
         };
@@ -416,12 +418,14 @@ public partial class PieceBattle : Node2D
             perceptronKun.PerceptronKunAction += UpdateActionInfo;
         else if (enemy is Python python)
             python.PythonAction += UpdateActionInfo;
-        else if(enemy is Make make)
+        else if (enemy is Make make)
             make.MakeAction += UpdateActionInfo;
         else if (enemy is SchrodingerCat schrodingerCat)
             schrodingerCat.SchrodingerCatAction += UpdateActionInfo;
         else if (enemy is Shanloong shanloong)
             shanloong.ShanloongAction += UpdateActionInfo;
+        else if (enemy is SiliconTurtle siliconTurtle)
+            siliconTurtle.SiliconTurtleAction += UpdateActionInfo;
     }
 
     public void AddParty(PartyType partyType)
@@ -590,7 +594,7 @@ public partial class PieceBattle : Node2D
             case CardTarget.Straight:
                 foreach (var enemy in Enemies)
                 {
-                    var cell =  TileMap.LocalToMap(enemy.GlobalPosition);
+                    var cell = TileMap.LocalToMap(enemy.GlobalPosition);
                     if (Mathf.Abs(cell.X - src.X) * Mathf.Abs(cell.Y - src.Y) == 0)
                     {
                         ColorMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
@@ -602,7 +606,7 @@ public partial class PieceBattle : Node2D
                 foreach (var cell in usedCells)
                 {
                     var piece = new BattlePiece();
-                    if (PieceMap.TryGetValue(cell,out piece))
+                    if (PieceMap.TryGetValue(cell, out piece))
                     {
                         if (piece is BattleEnemy)
                         {
@@ -854,26 +858,26 @@ public partial class PieceBattle : Node2D
                 {
                     SaveData.Player.EnergyMax++;
                     SaveData.Player.Energy = SaveData.Player.EnergyMax;
-                    SaveData.Player.HealthMax+=10;
+                    SaveData.Player.HealthMax += 10;
                     SaveData.Player.Health = SaveData.Player.HealthMax;
                     SaveData.Coder.EnergyMax++;
                     SaveData.Coder.Energy = SaveData.Coder.EnergyMax;
-                    SaveData.Coder.HealthMax+=10;
+                    SaveData.Coder.HealthMax += 10;
                     SaveData.Coder.Health = SaveData.Coder.HealthMax;
                     SaveData.HardwareWarrior.EnergyMax++;
                     SaveData.HardwareWarrior.Energy = SaveData.HardwareWarrior.EnergyMax;
-                    SaveData.HardwareWarrior.HealthMax+=10;
+                    SaveData.HardwareWarrior.HealthMax += 10;
                     SaveData.HardwareWarrior.Health = SaveData.HardwareWarrior.HealthMax;
                     SaveData.SignalMaster.EnergyMax++;
                     SaveData.SignalMaster.Energy = SaveData.SignalMaster.EnergyMax;
-                    SaveData.SignalMaster.HealthMax+=10;
+                    SaveData.SignalMaster.HealthMax += 10;
                     SaveData.SignalMaster.Health = SaveData.SignalMaster.HealthMax;
                 }
                 if (SaveData.Floor == 20)
                 {
                     SaveData.Coder.Dancing = true;
                 }
-                if(SaveData.Floor == 40)
+                if (SaveData.Floor == 40)
                 {
                     SaveData.HardwareWarrior.Dancing = true;
                 }
