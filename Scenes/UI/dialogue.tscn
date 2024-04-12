@@ -53,13 +53,9 @@ bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 scroll_following = true
 
-[node name="SpeakerImage" type="TextureRect" parent="Background"]
+[node name="SpeakerImage" type="AnimatedSprite2D" parent="Background"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 4.0
-offset_top = 50.0
-offset_right = 104.0
-offset_bottom = 170.0
+position = Vector2(4, 50)
 
 [node name="TypeTimer" type="Timer" parent="."]
 wait_time = 0.02
