@@ -2,6 +2,8 @@ using EESaga.Scripts.Cards;
 
 namespace EESaga.Scripts.Data;
 
+using EESaga.Scripts.Cards.CardAttacks;
+using EESaga.Scripts.Cards.CardDefenses;
 using EESaga.Scripts.Entities.BattleEnemies;
 using Godot;
 using System.Collections.Generic;
@@ -877,7 +879,23 @@ new MapInfo(
         List<CardInfo> cardTypes = new List<CardInfo>();
         for (int i = 0; i < 3; i++)
         {
-            cardTypes.Add(CardData.CardList[rng.RandiRange(0, CardData.CardList.Count)]);
+            var rngNum = rng.RandiRange(0, 11);
+            var cardInfo = rngNum switch
+            {
+                0 => CardData.CAStrike,
+                1 => CardData.CABash,
+                2 => CardData.CADoubleBeat,
+                3 => CardData.CDDefend,
+                4 => CardData.CDConsolidate,
+                5 => CardData.CSSurvive,
+                6 => CardData.CSStruggle,
+                7 => CardData.CSShieldStrike,
+                8 => CardData.CIECS,
+                9 => CardData.CIUST,
+                10 => CardData.CSCure,
+                11 => CardData.CSFury
+            };
+            cardTypes.Add(cardInfo);
         }
         return new CardsInfo(cardTypes[0], cardTypes[1], cardTypes[2]);
     }
