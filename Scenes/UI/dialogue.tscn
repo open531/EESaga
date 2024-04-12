@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://d6d4ps1ff6c1"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Dialogue.cs" id="1_riw6f"]
+[ext_resource type="Texture2D" uid="uid://bt6q6ai2h15du" path="res://Assets/Textures/oled.png" id="2_6rp2b"]
+[ext_resource type="PackedScene" uid="uid://cjlqamqtykwql" path="res://Scenes/Utilities/dialogue_helper.tscn" id="2_nlek7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_asysl"]
+font_size = 24
+outline_size = 1
+
+[node name="Dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_riw6f")
+
+[node name="Background" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 620.0
+offset_bottom = 340.0
+texture = ExtResource("2_6rp2b")
+patch_margin_left = 10
+patch_margin_top = 40
+patch_margin_right = 10
+patch_margin_bottom = 40
+
+[node name="SpeakerLabel" type="Label" parent="Background"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(480, 24)
+layout_mode = 0
+offset_left = 110.0
+offset_top = 20.0
+offset_right = 590.0
+offset_bottom = 44.0
+text = "Speaker"
+label_settings = SubResource("LabelSettings_asysl")
+
+[node name="DialogueLabel" type="RichTextLabel" parent="Background"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 0
+offset_left = 110.0
+offset_top = 50.0
+offset_right = 530.0
+offset_bottom = 290.0
+theme_override_constants/line_separation = 3
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+scroll_following = true
+
+[node name="SpeakerImage" type="AnimatedSprite2D" parent="Background"]
+unique_name_in_owner = true
+position = Vector2(4, 50)
+
+[node name="TypeTimer" type="Timer" parent="."]
+wait_time = 0.02
+
+[node name="PauseTimer" type="Timer" parent="."]
+
+[node name="DialogueHelper" parent="." instance=ExtResource("2_nlek7")]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckde8pps82y0c"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/BattlePiece.cs" id="1_dalta"]
+[ext_resource type="SpriteFrames" uid="uid://blh7o8ghqmhbt" path="res://Assets/Resources/spriteframes_player.tres" id="2_1jyx4"]
+[ext_resource type="Texture2D" uid="uid://803rts7wlb18" path="res://Assets/Textures/health_bar_under.png" id="3_8bhbt"]
+[ext_resource type="PackedScene" uid="uid://6bchl2tclt34" path="res://Scenes/Utilities/Cameras/camera_host.tscn" id="4_8akg4"]
+[ext_resource type="Texture2D" uid="uid://frvskv4rctv6" path="res://Assets/Textures/health_bar_progress.png" id="4_utgre"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlrbo"]
+size = Vector2(16, 16)
+
+[node name="BattlePiece" type="Area2D"]
+script = ExtResource("1_dalta")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_1jyx4")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_xlrbo")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -15.0
+offset_right = 8.0
+offset_bottom = -13.0
+value = 50.0
+texture_under = ExtResource("3_8bhbt")
+texture_progress = ExtResource("4_utgre")
+
+[node name="CameraHost" parent="." instance=ExtResource("4_8akg4")]

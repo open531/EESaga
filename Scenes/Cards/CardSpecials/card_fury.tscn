@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://u26tur0rao35"]
+
+[ext_resource type="PackedScene" uid="uid://djtn7yfj76bmj" path="res://Scenes/Cards/card.tscn" id="1_qg0t1"]
+[ext_resource type="Script" path="res://Scripts/Cards/CardSpecials/CardFury.cs" id="2_4gbki"]
+[ext_resource type="Texture2D" uid="uid://bri48w0equilg" path="res://Assets/Textures/Cards/card_green.png" id="3_27jlw"]
+[ext_resource type="Texture2D" uid="uid://osj8eni20f0a" path="res://Assets/Textures/Cards/blood_to_energy.png" id="4_rn3or"]
+
+[node name="CardFury" instance=ExtResource("1_qg0t1")]
+script = ExtResource("2_4gbki")
+
+[node name="Background" parent="." index="0"]
+texture = ExtResource("3_27jlw")
+
+[node name="Image" parent="." index="1"]
+texture = ExtResource("4_rn3or")

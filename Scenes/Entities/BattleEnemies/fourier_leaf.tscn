@@ -1,0 +1,73 @@
+[gd_scene load_steps=12 format=3 uid="uid://d2eicuyrqr5gw"]
+
+[ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_v50dw"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/FourierLeaf.cs" id="2_txgcd"]
+[ext_resource type="Texture2D" uid="uid://dag7yh8lsbne4" path="res://Assets/Textures/fourier_leaf_idle.png" id="3_4deol"]
+[ext_resource type="Texture2D" uid="uid://ra8kvgupv4lb" path="res://Assets/Textures/fourier_leaf_move.png" id="4_nmy78"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbx3y"]
+atlas = ExtResource("3_4deol")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8o3t"]
+atlas = ExtResource("3_4deol")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sunm8"]
+atlas = ExtResource("4_nmy78")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1d1o1"]
+atlas = ExtResource("4_nmy78")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_woyeb"]
+atlas = ExtResource("4_nmy78")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivjke"]
+atlas = ExtResource("4_nmy78")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_at8w8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbx3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8o3t")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sunm8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1d1o1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_woyeb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivjke")
+}],
+"loop": true,
+"name": &"move",
+"speed": 4.0
+}]
+
+[node name="FourierLeaf" instance=ExtResource("1_v50dw")]
+script = ExtResource("2_txgcd")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_at8w8")
+animation = &"move"
+frame_progress = 0.149092
+
+[node name="HealthBar" parent="." index="2"]
+offset_top = -16.0
+offset_bottom = -14.0

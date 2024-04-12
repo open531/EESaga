@@ -1,0 +1,50 @@
+keys,zh_CN,zh_TW,en,ja
+TITLE,螺母战记,螺母戰記,EESaga,螺母戦記
+TITLE_PAUSED,游戏暂停,遊戲暫停,Paused,ゲーム一時停止
+UI_START,开始游戏,開始遊戲,Play,スタート
+UI_RESUME,继续游戏,繼續遊戲,Resume,ゲーム再開
+UI_LOAD,载入游戏,載入遊戲,Load,ロード
+UI_SAVE,保存游戏,保存遊戲,Save,セーブ
+UI_OPTION,游戏选项,遊戲選項,Options,オプション
+UI_QUIT,退出游戏,退出遊戲,Quit,ゲーム終了
+END_TURN,结束回合,結束回合,End Turn,ターン終了
+GAME_OVER,你输了,你輸了,Game Over,あなたは失います
+GAME_RESTART,再次游玩,再次遊玩,Game Restart,もう一度プレイ
+GAME_QUIT,退出游戏,退出遊戲,Game Quit,ゲームを終了する
+GAME_NEXT,下一关,下一關,Next Game,次のレベル
+GAME_WIN,你赢了,你贏了,You Win,あなたが勝ちます
+CARD_ENERGY,能量,能量,Energy,エネルギー
+PIECE_HEALTH,生命,生命,Health,体力
+PIECE_SHIELD,护盾,護盾,Shield,シールド
+GAME_LEVEL,当前关卡,當前關卡,Current level,現在のレベル
+T_REDUCE,减少,減少,Reduce,減少
+T_LOST,损失,損失,Lost,損失
+T_DECEASED,已死亡,已死亡,Deceased,死亡済み
+T_ATTACK,攻击,攻擊,Attack,攻撃
+T_USE,使用,使用,Use,使用
+T_CURRENT_ROUND,当前回合,當前回合,Current round,現在のラウンド
+T_LAST_ROUND,上一回合,上一回合,Previous round,前のラウンド
+T_NO_EFFRECT,无效,無效,Invalid,無効
+T_INCREASE,增加,增加,Increase,増加
+T_RESTORE,恢复,恢復,Restore,復元
+T_ENERGY_NOT_ENOUGH,能量不足,能量不足,Insufficient Energy,エネルギー不足
+T_CARD,卡牌,卡牌,Card,カード
+T_GET,得到,得到,Get,得る
+T_ENERGY,能量,能量,Energy,エネルギー
+T_STRUGGLE,挣扎吧,掙扎吧,Struggle on,
+T_NOW,现在有,現在有,Currently have,現在持っています
+TOP_OF_LUOMU,螺母之巅,螺母之巅,The Summit of Nuts,螺母の頂上
+T_LEVE,层,層,Layer,レイヤー
+T_PD,程序设计,程式設計,Program Design,プログラムデザイン
+T_EC,电子电路,電子電路,Electronic Circuit,電子回路
+T_DA,数据算法,數據算法,Data Algorithm,データアルゴリズム
+T_DL,数字逻辑,數字邏輯,Digital Logic,デジタルロジック
+T_PR,概率随机,概率隨機,Probability Random,確率ランダム
+T_SS,信号系统,信號系統,Signal System,信号システム
+T_EW,电磁场波,電磁場波,Electromagnetic Wave,電磁波
+T_CN,通信网络,通信網絡,Communication Network,通信ネットワーク
+T_MP,媒体认知,媒體認知,Media Perception,メディア認識
+T_SSP,固体物理,固體物理,Solid State Physics,固体物理
+GAME_END,鱼骨守护者被击败了,魚骨守護者被擊敗了,The Fishbone Guardian has been defeated,魚の骨の守護者が打ち負かされました
+GAME_END_2,你成功了！,你成功了！,you succeeded!,成功しました！
+T_SELECTION,请选择一张卡牌,請選擇一張卡牌,Please select a card,カードを選んでください

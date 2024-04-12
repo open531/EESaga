@@ -1,5 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
+.vs/
+.vscode/
+.idea/
 
 # User-specific files
 *.rsuser
@@ -394,3 +397,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Godot translations
+*.translation

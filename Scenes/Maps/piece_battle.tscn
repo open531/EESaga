@@ -1,0 +1,129 @@
+[gd_scene load_steps=6 format=3 uid="uid://2knbl6nuc0ca"]
+
+[ext_resource type="Script" path="res://Scripts/Maps/PieceBattle.cs" id="1_dycyo"]
+[ext_resource type="PackedScene" uid="uid://35ry4gujareg" path="res://Scenes/Maps/isometric_tile_map.tscn" id="2_6f3ci"]
+[ext_resource type="PackedScene" uid="uid://bha4dqxuyyijh" path="res://Scenes/UI/piece_detail.tscn" id="3_wory3"]
+[ext_resource type="PackedScene" uid="uid://cwigp1ukfac65" path="res://Scenes/UI/state_bar.tscn" id="4_ps2vp"]
+[ext_resource type="Texture2D" uid="uid://cdgrswu8ynv2c" path="res://Assets/Images/background1.png" id="5_pbp08"]
+
+[node name="PieceBattle" type="Node2D"]
+script = ExtResource("1_dycyo")
+
+[node name="BackGround" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.498039)
+show_behind_parent = true
+z_index = -127
+offset_left = -308.0
+offset_top = -20.0
+offset_right = 332.0
+offset_bottom = 340.0
+texture = ExtResource("5_pbp08")
+
+[node name="TileMap" parent="." instance=ExtResource("2_6f3ci")]
+
+[node name="Enemies" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Parties" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="PieceMoveTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PieceDetail" parent="CanvasLayer" instance=ExtResource("3_wory3")]
+unique_name_in_owner = true
+offset_left = 424.0
+offset_top = 152.0
+offset_right = 632.0
+offset_bottom = 196.0
+
+[node name="GameLevelLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+visibility_layer = 513
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 117.0
+offset_bottom = 21.0
+pivot_offset = Vector2(56, 0)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "GAME_LEVEL"
+
+[node name="LastActionPieceName" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 5.0
+offset_top = 25.0
+offset_right = 45.0
+offset_bottom = 41.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Last Action Piece Name"
+
+[node name="LastPieceAction" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 0, 1)
+offset_left = 5.0
+offset_top = 45.0
+offset_right = 45.0
+offset_bottom = 61.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Last Piece Action"
+
+[node name="LastActionEffect" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+self_modulate = Color(1, 0.647059, 0, 1)
+offset_left = 5.0
+offset_top = 65.0
+offset_right = 45.0
+offset_bottom = 81.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Last Action Effect"
+
+[node name="ActionPieceName" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+self_modulate = Color(0, 1, 1, 1)
+offset_left = 5.0
+offset_top = 165.0
+offset_right = 141.0
+offset_bottom = 181.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Action Piece Name"
+
+[node name="PieceAction" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+self_modulate = Color(0, 0.807843, 0.819608, 1)
+offset_left = 5.0
+offset_top = 185.0
+offset_right = 101.0
+offset_bottom = 201.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Piece Action"
+
+[node name="ActionEffect" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+self_modulate = Color(0.529412, 0.807843, 0.921569, 1)
+offset_left = 5.0
+offset_top = 205.0
+offset_right = 109.0
+offset_bottom = 221.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Action Effect"
+
+[node name="PlayerStateBar" parent="CanvasLayer" instance=ExtResource("4_ps2vp")]
+unique_name_in_owner = true
+position = Vector2(536, 8)
+
+[node name="PartyOneStateBar" parent="CanvasLayer" instance=ExtResource("4_ps2vp")]
+unique_name_in_owner = true
+position = Vector2(536, 40)
+
+[node name="PartyTwoStateBar" parent="CanvasLayer" instance=ExtResource("4_ps2vp")]
+unique_name_in_owner = true
+position = Vector2(536, 72)
+
+[node name="PartyThreeStateBar" parent="CanvasLayer" instance=ExtResource("4_ps2vp")]
+unique_name_in_owner = true
+position = Vector2(536, 104)

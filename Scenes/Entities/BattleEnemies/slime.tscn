@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://drk3x0q8wlqcf"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/Slime.cs" id="1_khosh"]
+[ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_q814s"]
+[ext_resource type="Texture2D" uid="uid://bhsts6u0pd5da" path="res://Assets/Textures/xiqin-idle.png" id="3_nw0yj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4b21"]
+atlas = ExtResource("3_nw0yj")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gn3jg"]
+atlas = ExtResource("3_nw0yj")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o8et"]
+atlas = ExtResource("3_nw0yj")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8rkc"]
+atlas = ExtResource("3_nw0yj")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b6xyc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4b21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gn3jg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0o8et")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8rkc")
+}],
+"loop": true,
+"name": &"move",
+"speed": 3.0
+}]
+
+[node name="Slime" instance=ExtResource("1_q814s")]
+script = ExtResource("1_khosh")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_b6xyc")
+animation = &"move"
+
+[node name="HealthBar" parent="." index="2"]
+offset_top = -3.0
+offset_bottom = -1.0

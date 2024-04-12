@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://df3gph660nmpn"]
+
+[ext_resource type="PackedScene" uid="uid://cdw0m8fa4yrv7" path="res://Scenes/Entities/BattleParties/battle_party.tscn" id="1_1f0xy"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleParties/PlayerBattle.cs" id="1_1gsi3"]
+
+[node name="PlayerBattle" instance=ExtResource("1_1f0xy")]
+script = ExtResource("1_1gsi3")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+frame_progress = 0.102811

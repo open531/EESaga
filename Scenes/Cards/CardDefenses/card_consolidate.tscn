@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dq71ixmq7dxew"]
+
+[ext_resource type="PackedScene" uid="uid://djtn7yfj76bmj" path="res://Scenes/Cards/card.tscn" id="1_1kh1n"]
+[ext_resource type="Script" path="res://Scripts/Cards/CardDefenses/CardConsolidate.cs" id="2_i7jsk"]
+[ext_resource type="Texture2D" uid="uid://fkmfynu6uw17" path="res://Assets/Textures/Cards/card_blue.png" id="3_qi8c8"]
+[ext_resource type="Texture2D" uid="uid://itoosjdy6pmt" path="res://Assets/Textures/Cards/shield_boost.png" id="4_3psq8"]
+
+[node name="CardConsolidate" instance=ExtResource("1_1kh1n")]
+script = ExtResource("2_i7jsk")
+
+[node name="Background" parent="." index="0"]
+texture = ExtResource("3_qi8c8")
+
+[node name="Image" parent="." index="1"]
+texture = ExtResource("4_3psq8")

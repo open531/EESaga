@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdw0m8fa4yrv7"]
+
+[ext_resource type="PackedScene" uid="uid://ckde8pps82y0c" path="res://Scenes/Entities/battle_piece.tscn" id="1_bsyri"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleParties/BattleParty.cs" id="1_v0td5"]
+
+[node name="BattleParty" instance=ExtResource("1_bsyri")]
+script = ExtResource("1_v0td5")

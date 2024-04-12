@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpm8idm41jwfx"]
+
+[ext_resource type="PackedScene" uid="uid://djtn7yfj76bmj" path="res://Scenes/Cards/card.tscn" id="1_tr1s8"]
+[ext_resource type="Script" path="res://Scripts/Cards/CardSpecials/CardStruggle.cs" id="2_3s20i"]
+[ext_resource type="Texture2D" uid="uid://bri48w0equilg" path="res://Assets/Textures/Cards/card_green.png" id="3_ettx5"]
+[ext_resource type="Texture2D" uid="uid://l82bktu37v5h" path="res://Assets/Textures/Cards/struggle_F.png" id="4_y8d76"]
+
+[node name="CardStruggle" instance=ExtResource("1_tr1s8")]
+script = ExtResource("2_3s20i")
+
+[node name="Background" parent="." index="0"]
+texture = ExtResource("3_ettx5")
+
+[node name="Image" parent="." index="1"]
+texture = ExtResource("4_y8d76")

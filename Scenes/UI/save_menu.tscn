@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://cswty8jpn3tac"]
+
+[ext_resource type="Script" path="res://Scripts/UI/SaveMenu.cs" id="1_6037h"]
+
+[node name="SaveMenu" type="PopupPanel"]
+title = "UI_SAVE"
+position = Vector2i(0, 36)
+size = Vector2i(368, 248)
+visible = true
+borderless = false
+script = ExtResource("1_6037h")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 364.0
+offset_bottom = 244.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SaveName" type="LineEdit" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SaveButton" type="Button" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "UI_SAVE"

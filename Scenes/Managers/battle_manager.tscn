@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://u1kg1qux4wiy"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/BattleManager.cs" id="1_x6vbe"]
+[ext_resource type="PackedScene" uid="uid://2knbl6nuc0ca" path="res://Scenes/Maps/piece_battle.tscn" id="2_wdq5o"]
+[ext_resource type="PackedScene" uid="uid://har87ymot8rq" path="res://Scenes/UI/card_battle.tscn" id="3_cup6a"]
+
+[node name="BattleManager" type="Node"]
+script = ExtResource("1_x6vbe")
+
+[node name="PieceBattle" parent="." instance=ExtResource("2_wdq5o")]
+
+[node name="CardBattle" parent="." instance=ExtResource("3_cup6a")]
+
+[node name="DelayTimer" type="Timer" parent="."]
+unique_name_in_owner = true

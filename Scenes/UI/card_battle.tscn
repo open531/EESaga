@@ -1,0 +1,129 @@
+[gd_scene load_steps=10 format=3 uid="uid://har87ymot8rq"]
+
+[ext_resource type="Script" path="res://Scripts/UI/CardBattle.cs" id="1_pg3r3"]
+[ext_resource type="Texture2D" uid="uid://dmfcjyjl8vitj" path="res://Assets/Textures/book_deck.png" id="2_3lluo"]
+[ext_resource type="PackedScene" uid="uid://nr6wkkfm6sr6" path="res://Scenes/UI/card_detail.tscn" id="2_avj3s"]
+[ext_resource type="PackedScene" uid="uid://c88cj1wn6al84" path="res://Scenes/UI/card_viewer.tscn" id="3_ogy6m"]
+[ext_resource type="Texture2D" uid="uid://borjconk6781k" path="res://Assets/Textures/book_discard.png" id="3_ttuks"]
+[ext_resource type="StyleBox" uid="uid://ba4burj6uhd4" path="res://Assets/Resources/panel_paper_white.tres" id="6_l64th"]
+[ext_resource type="StyleBox" uid="uid://c0tddlmch2ff3" path="res://Assets/Resources/panel_paper_yellow.tres" id="7_1pk8w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wexl2"]
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mc6gi"]
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="CardBattle" type="CanvasLayer"]
+script = ExtResource("1_pg3r3")
+
+[node name="Hand" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Deck" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -38.0
+offset_right = 38.0
+offset_bottom = -2.0
+grow_vertical = 0
+
+[node name="TextureButton" type="TextureButton" parent="Deck"]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 36.0
+offset_bottom = 32.0
+texture_normal = ExtResource("2_3lluo")
+
+[node name="Label" type="Label" parent="Deck"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 40.0
+offset_bottom = 36.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "99"
+label_settings = SubResource("LabelSettings_wexl2")
+
+[node name="Discard" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = -38.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TextureButton" type="TextureButton" parent="Discard"]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+texture_normal = ExtResource("3_ttuks")
+
+[node name="Label" type="Label" parent="Discard"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 36.0
+offset_bottom = 36.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "99"
+label_settings = SubResource("LabelSettings_mc6gi")
+
+[node name="CardDetail" parent="." instance=ExtResource("2_avj3s")]
+offset_left = 426.0
+offset_top = 206.0
+offset_right = 634.0
+offset_bottom = 250.0
+
+[node name="EnergyLabel" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -71.0
+offset_right = -9.0
+offset_bottom = -55.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "10/10"
+
+[node name="EndTurnButton" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 256.0
+offset_right = -8.0
+offset_bottom = 280.0
+grow_horizontal = 0
+text = "END_TURN"
+
+[node name="DeckCardViewer" parent="." instance=ExtResource("3_ogy6m")]
+visible = false
+theme_override_styles/panel = ExtResource("6_l64th")
+
+[node name="DiscardCardViewer" parent="." instance=ExtResource("3_ogy6m")]
+visible = false
+theme_override_styles/panel = ExtResource("7_1pk8w")

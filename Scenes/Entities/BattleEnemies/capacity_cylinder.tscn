@@ -1,0 +1,101 @@
+[gd_scene load_steps=16 format=3 uid="uid://cqdhg4hjf041w"]
+
+[ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_tg6uj"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/CapacityCylinder.cs" id="2_acxh3"]
+[ext_resource type="Texture2D" uid="uid://0aionjcox8h6" path="res://Assets/Textures/capacity_cylinder_idle.png" id="3_ec2ly"]
+[ext_resource type="Texture2D" uid="uid://c2loncqqbb2on" path="res://Assets/Textures/capacity_cylinder_move.png" id="4_qgwer"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kmu6"]
+atlas = ExtResource("3_ec2ly")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mr02"]
+atlas = ExtResource("3_ec2ly")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uclcv"]
+atlas = ExtResource("4_qgwer")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7646"]
+atlas = ExtResource("4_qgwer")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51ira"]
+atlas = ExtResource("4_qgwer")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8buf"]
+atlas = ExtResource("4_qgwer")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uemf0"]
+atlas = ExtResource("4_qgwer")
+region = Rect2(64, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47yx6"]
+atlas = ExtResource("4_qgwer")
+region = Rect2(80, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8w4nb"]
+atlas = ExtResource("4_qgwer")
+region = Rect2(96, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thkc0"]
+atlas = ExtResource("4_qgwer")
+region = Rect2(112, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lf8a7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6kmu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mr02")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uclcv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7646")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_51ira")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8buf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uemf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47yx6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8w4nb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thkc0")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
+}]
+
+[node name="CapacityCylinder" instance=ExtResource("1_tg6uj")]
+script = ExtResource("2_acxh3")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_lf8a7")
+animation = &"move"
+frame_progress = 0.0857605
+
+[node name="HealthBar" parent="." index="2"]
+offset_top = -16.0
+offset_bottom = -14.0

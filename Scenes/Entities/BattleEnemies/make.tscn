@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://dr81wg0x0yaxd"]
+
+[ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_fyslg"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/Make.cs" id="2_au5q4"]
+[ext_resource type="Texture2D" uid="uid://blk153s8rirb3" path="res://Assets/Textures/wheat.png" id="3_3xnyh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shik8"]
+atlas = ExtResource("3_3xnyh")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtqqh"]
+atlas = ExtResource("3_3xnyh")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8kywx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shik8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtqqh")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[node name="Make" instance=ExtResource("1_fyslg")]
+script = ExtResource("2_au5q4")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_8kywx")
+animation = &"move"
+
+[node name="HealthBar" parent="." index="2"]
+offset_top = -16.0
+offset_bottom = -14.0

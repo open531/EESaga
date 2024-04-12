@@ -1,0 +1,17 @@
+keys,zh_CN,zh_TW,en,ja
+OP_GAME,游戏,遊戲,Game,ゲーム
+OP_G_LANGUAGE,语言,語言,Language,言語
+OP_VIDEO,视频,視頻,Video,ビデオ
+OP_V_DISPLAY,显示模式,顯示模式,Display Mode,表示モード
+OP_V_D_WINDOWED,窗口,視窗,Windowed,ウィンドウ
+OP_V_D_BORDERLESS,无边框,無邊框,Borderless,ボーダーレス
+OP_V_D_FULLSCREEN,全屏,全螢幕,Fullscreen,フルスクリーン
+OP_V_RESOLUTION,分辨率,分辨率,Resolution,解像度
+OP_V_FRAMERATE,帧率,幀率,Framerate,フレームレート
+OP_V_VSYNC,垂直同步,垂直同步,VSync,VSync
+OP_V_DISPLAYFPS,显示帧率,顯示幀率,Display FPS,FPSを表示
+OP_AUDIO,音频,音頻,Audio,オーディオ
+OP_A_VOLUME,音量,音量,Volume,音量
+OP_A_MUSIC,音乐,音樂,Music,音楽
+OP_A_SOUND,音效,音效,Sound,効果音
+OP_A_VOICE,语音,語音,Voice,ボイス

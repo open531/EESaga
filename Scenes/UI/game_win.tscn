@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgu2gdx5nd0pd"]
+
+[ext_resource type="Script" path="res://Scripts/UI/GameWin.cs" id="1_j0v2t"]
+
+[node name="GameWin" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j0v2t")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(16.04, 9.2)
+color = Color(0.388235, 0.501961, 0.533333, 1)
+
+[node name="GameWinTitle" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 220.0
+offset_top = 93.0
+offset_right = 292.0
+offset_bottom = 109.0
+scale = Vector2(2.72, 2.561)
+text = "GAME_WIN"
+horizontal_alignment = 1
+
+[node name="GameNextButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 147.0
+offset_top = 180.0
+offset_right = 251.0
+offset_bottom = 204.0
+text = "GAME_NEXT"
+
+[node name="GameQuitButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 389.0
+offset_top = 180.0
+offset_right = 493.0
+offset_bottom = 204.0
+text = "GAME_QUIT"

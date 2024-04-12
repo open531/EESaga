@@ -1,0 +1,100 @@
+[gd_scene load_steps=16 format=3 uid="uid://d0law42s2jegq"]
+
+[ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_oc3vg"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/CapacityGreen.cs" id="2_0cokr"]
+[ext_resource type="Texture2D" uid="uid://co54fql4k62po" path="res://Assets/Textures/capacity_green_idle.png" id="3_gr8d2"]
+[ext_resource type="Texture2D" uid="uid://cwx1pvs12be5w" path="res://Assets/Textures/capacity_green_move.png" id="4_28kqr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdhlm"]
+atlas = ExtResource("3_gr8d2")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thuvr"]
+atlas = ExtResource("3_gr8d2")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8bf8a"]
+atlas = ExtResource("4_28kqr")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4px5n"]
+atlas = ExtResource("4_28kqr")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbldh"]
+atlas = ExtResource("4_28kqr")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbx5o"]
+atlas = ExtResource("4_28kqr")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vuap"]
+atlas = ExtResource("4_28kqr")
+region = Rect2(64, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6npe"]
+atlas = ExtResource("4_28kqr")
+region = Rect2(80, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qxii"]
+atlas = ExtResource("4_28kqr")
+region = Rect2(96, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gky75"]
+atlas = ExtResource("4_28kqr")
+region = Rect2(112, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_runbq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdhlm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thuvr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8bf8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4px5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbldh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbx5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vuap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6npe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qxii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gky75")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
+}]
+
+[node name="CapacityGreen" instance=ExtResource("1_oc3vg")]
+script = ExtResource("2_0cokr")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_runbq")
+frame_progress = 0.90827
+
+[node name="HealthBar" parent="." index="2"]
+offset_top = -16.0
+offset_bottom = -14.0

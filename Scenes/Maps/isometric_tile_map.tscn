@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://35ry4gujareg"]
+
+[ext_resource type="TileSet" uid="uid://fuknck7v2og5" path="res://Assets/Resources/tileset.tres" id="1_3bmaw"]
+[ext_resource type="Script" path="res://Scripts/Maps/IsometricTileMap.cs" id="2_0mf7q"]
+
+[node name="IsometricTileMap" type="TileMap"]
+y_sort_enabled = true
+tile_set = ExtResource("1_3bmaw")
+format = 2
+layer_0/name = "Ground"
+layer_0/y_sort_enabled = true
+layer_1/name = "Obstacle"
+layer_1/y_sort_enabled = true
+layer_1/y_sort_origin = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Mark"
+layer_2/y_sort_enabled = true
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "Cursor"
+layer_3/y_sort_enabled = true
+layer_3/y_sort_origin = 1
+layer_3/tile_data = PackedInt32Array()
+script = ExtResource("2_0mf7q")

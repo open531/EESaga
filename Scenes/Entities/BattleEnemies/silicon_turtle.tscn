@@ -1,0 +1,96 @@
+[gd_scene load_steps=16 format=3 uid="uid://chnb3uw7f2dgb"]
+
+[ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_w3buf"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/SiliconTurtle.cs" id="2_h05hy"]
+[ext_resource type="Texture2D" uid="uid://f5qq5uroxwwt" path="res://Assets/Textures/silicon_turtle_idle.png" id="3_dnktr"]
+[ext_resource type="Texture2D" uid="uid://d1rvkxejxph55" path="res://Assets/Textures/silicon_turtle_move.png" id="4_iuj1h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_limie"]
+atlas = ExtResource("3_dnktr")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrfw5"]
+atlas = ExtResource("3_dnktr")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5fcr"]
+atlas = ExtResource("3_dnktr")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbbvf"]
+atlas = ExtResource("3_dnktr")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdhdj"]
+atlas = ExtResource("3_dnktr")
+region = Rect2(64, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txt58"]
+atlas = ExtResource("3_dnktr")
+region = Rect2(80, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5r63"]
+atlas = ExtResource("4_iuj1h")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6af3"]
+atlas = ExtResource("4_iuj1h")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qunxw"]
+atlas = ExtResource("4_iuj1h")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3a1rp"]
+atlas = ExtResource("4_iuj1h")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gfx8p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_limie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrfw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5fcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbbvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdhdj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txt58")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5r63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6af3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qunxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3a1rp")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[node name="SiliconTurtle" instance=ExtResource("1_w3buf")]
+script = ExtResource("2_h05hy")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_gfx8p")
+animation = &"move"

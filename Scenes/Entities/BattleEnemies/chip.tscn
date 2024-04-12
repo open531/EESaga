@@ -1,0 +1,73 @@
+[gd_scene load_steps=12 format=3 uid="uid://dbeceheen70mv"]
+
+[ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_tbjbh"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/Chip.cs" id="2_uplw1"]
+[ext_resource type="Texture2D" uid="uid://dpyxjpdqaqof0" path="res://Assets/Textures/chip_idle.png" id="3_al10q"]
+[ext_resource type="Texture2D" uid="uid://corqm0vv8s1od" path="res://Assets/Textures/chip_move.png" id="4_d2f5g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ei8hk"]
+atlas = ExtResource("3_al10q")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikp66"]
+atlas = ExtResource("3_al10q")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nueob"]
+atlas = ExtResource("4_d2f5g")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2y180"]
+atlas = ExtResource("4_d2f5g")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5rli"]
+atlas = ExtResource("4_d2f5g")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1nxd"]
+atlas = ExtResource("4_d2f5g")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u1orc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ei8hk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikp66")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nueob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2y180")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5rli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1nxd")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[node name="Chip" instance=ExtResource("1_tbjbh")]
+script = ExtResource("2_uplw1")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_u1orc")
+animation = &"move"
+frame_progress = 0.9515
+
+[node name="HealthBar" parent="." index="2"]
+offset_top = -16.0
+offset_bottom = -14.0
