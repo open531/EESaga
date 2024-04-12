@@ -26,7 +26,7 @@ public partial class IsometricTileMap : TileMap
         new Vector2I(8, 0),
         new Vector2I(9, 0),
         new Vector2I(10, 0),
-        new Vector2I(10, 0),// 罗姆之巅楼层颜色，暂时使用10风格
+        new Vector2I(11, 0),// 罗姆之巅楼层颜色，暂时使用10风格
     };
 
     public const int TileSetId = 0;
