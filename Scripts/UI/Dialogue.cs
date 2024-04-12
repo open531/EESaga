@@ -10,7 +10,7 @@ public partial class Dialogue : Control
 {
     private Label _speakerLabel;
     private RichTextLabel _dialogueLabel;
-    private TextureRect _speakerImage;
+    private AnimatedSprite2D _speakerImage;
     private Timer _typeTimer;
     private Timer _pauseTimer;
     private DialogueHelper _dialogueHelper;
@@ -25,7 +25,7 @@ public partial class Dialogue : Control
     {
         _speakerLabel = GetNode<Label>("%SpeakerLabel");
         _dialogueLabel = GetNode<RichTextLabel>("%DialogueLabel");
-        _speakerImage = GetNode<TextureRect>("%SpeakerImage");
+        _speakerImage = GetNode<AnimatedSprite2D>("%SpeakerImage");
         _typeTimer = GetNode<Timer>("TypeTimer");
         _pauseTimer = GetNode<Timer>("PauseTimer");
         _dialogueHelper = GetNode<DialogueHelper>("DialogueHelper");
@@ -40,7 +40,11 @@ public partial class Dialogue : Control
         _dialogueLabel.Text = _dialogueHelper.ExtractPauses(dialogueMessage.Message);
         _dialogueLabel.VisibleCharacters = 0;
         _speakerLabel.Text = dialogueMessage.Speaker;
-        _speakerImage.Texture = dialogueMessage.SpeakerImage;
+        _speakerImage.SpriteFrames = dialogueMessage.SpeakerImage;
+        if (_speakerImage.SpriteFrames != null)
+        {
+            _speakerImage.Play("move");
+        }
         _typeTimer.Start();
     }
 
@@ -69,9 +73,9 @@ public partial class Dialogue : Control
     }
 }
 
-public struct DialogueMessage(string speaker, string message, Texture2D speakerImage = null)
+public struct DialogueMessage(string speaker, string message, SpriteFrames speakerImage = null)
 {
     public string Speaker { get; set; } = speaker;
     public string Message { get; set; } = message;
-    public Texture2D SpeakerImage { get; set; } = speakerImage;
+    public SpriteFrames SpeakerImage { get; set; } = speakerImage;
 }
