@@ -113,7 +113,7 @@ public static class CardData
     public static CardInfo CAStrike = new(CardType.Attack, "C_A_STRIKE", "C_A_STRIKE_DESC", 1, CardTarget.Enemy, 1, attackDamage: 6, attackTimes: 1);
     public static CardInfo CABash = new(CardType.Attack, "C_A_BASH", "C_A_BASH_DESC", 1, CardTarget.Enemy, 1, attackDamage: 6, attackTimes: 1, attackType: CardAttackType.Bash);
     public static CardInfo CADoubleBeat = new(CardType.Attack, "C_A_DOUBLE_BEAT", "C_A_DOUBLE_BEAT_DESC", 1, CardTarget.Enemy, 1, attackDamage: 4, attackTimes: 2, attackType: CardAttackType.DoubleBeat);
-    public static CardInfo CDDefend = new(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 1, CardTarget.Self, defenseValue: 3);
+    public static CardInfo CDDefend = new(CardType.Defense, "C_D_DEFEND", "C_D_DEFEND_DESC", 1, CardTarget.Self, defenseValue: 10);
     public static CardInfo CDConsolidate = new(CardType.Defense, "C_D_CONSOLIDATE", "C_D_CONSOLIDATE_DESC", 1, CardTarget.Self, defenseValue: 0, defenseType: CardDefenseType.Consolidate);
     public static CardInfo CSSurvive = new(CardType.Special, "C_S_SURVIVE", "C_S_SURVIVE_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Survive);
     public static CardInfo CSStruggle = new(CardType.Special, "C_S_STRUGGLE", "C_S_STRUGGLE_DESC", 0, CardTarget.Self, specialType: CardSpecialType.Struggle);
@@ -122,6 +122,6 @@ public static class CardData
     public static CardInfo CIUST = new(CardType.Item, "C_I_UST", "C_I_UST_DESC", 1, CardTarget.Self, itemType: CardItemType.UST);
     public static CardInfo CSCure = new(CardType.Special, "C_S_CURE", "C_S_CURE_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Cure);
     public static CardInfo CSFury = new(CardType.Special, "C_S_FURY", "C_S_FURY_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Fury);
-    public static CardInfo CSCarRush = new(CardType.Special, "C_S_CAR_RUSH", "C_S_CAR_RUSH_DESC", 1, CardTarget.Straight, specialType: CardSpecialType.CarRush);
-    public static CardInfo CSCodeBoom = new(CardType.Special, "C_S_CODE_BOOM", "C_S_CODE_BOOM_DESC", 1, CardTarget.Square, specialType: CardSpecialType.CodeBoom);
+    public static CardInfo CSCarRush = new(CardType.Special, "C_S_CAR_RUSH", "C_S_CAR_RUSH_DESC", 2, CardTarget.Straight, specialType: CardSpecialType.CarRush);
+    public static CardInfo CSCodeBoom = new(CardType.Special, "C_S_CODE_BOOM", "C_S_CODE_BOOM_DESC", 3, CardTarget.Square, specialType: CardSpecialType.CodeBoom);
 }
