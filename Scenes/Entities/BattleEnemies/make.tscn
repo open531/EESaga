@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://dr81wg0x0yaxd"]
+
+[ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_fyslg"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/Make.cs" id="2_au5q4"]
+[ext_resource type="Texture2D" uid="uid://bdj71auap280b" path="res://Assets/Textures/schrodinger_cat_idle.png" id="3_ibvv1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yipof"]
+atlas = ExtResource("3_ibvv1")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35axp"]
+atlas = ExtResource("3_ibvv1")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wl44r"]
+atlas = ExtResource("3_ibvv1")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_st8wa"]
+atlas = ExtResource("3_ibvv1")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6tqjj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yipof")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35axp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wl44r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_st8wa")
+}],
+"loop": true,
+"name": &"move",
+"speed": 3.0
+}]
+
+[node name="Make" instance=ExtResource("1_fyslg")]
+script = ExtResource("2_au5q4")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_6tqjj")
+animation = &"move"
+
+[node name="HealthBar" parent="." index="2"]
+offset_top = -16.0
+offset_bottom = -14.0

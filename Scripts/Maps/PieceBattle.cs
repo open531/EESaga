@@ -385,6 +385,7 @@ public partial class PieceBattle : Node2D
             EnemyType.PerceptronKun => PerceptronKun.Instance(),
             EnemyType.Python => Python.Instance(),
             EnemyType.Shanloong => Shanloong.Instance(),
+            EnemyType.Make => Make.Instance(),
             _ => BattleEnemy.Instance(),
         };
         _enemies.AddChild(enemy);
@@ -413,6 +414,8 @@ public partial class PieceBattle : Node2D
             perceptronKun.PerceptronKunAction += UpdateActionInfo;
         else if (enemy is Python python)
             python.PythonAction += UpdateActionInfo;
+        else if(enemy is Make make)
+            make.MakeAction += UpdateActionInfo;
     }
 
     public void AddParty(PartyType partyType)
