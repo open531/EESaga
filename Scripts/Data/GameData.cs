@@ -871,8 +871,16 @@ new MapInfo(
 
     #region CardSelection
 
-    public static List<CardsInfo> CardSelection =
-        [];
+    public static CardsInfo RandomCardSelection()
+    {
+        var rng = new RandomNumberGenerator();
+        List<CardInfo> cardTypes = new List<CardInfo>();
+        for (int i = 0; i < 3; i++)
+        {
+            cardTypes.Add(CardData.CardList[rng.RandiRange(0, CardData.CardList.Count)]);
+        }
+        return new CardsInfo(cardTypes[0], cardTypes[1], cardTypes[2]);
+    }
 
     #endregion
 }
@@ -903,9 +911,9 @@ public struct MapInfo
 
 public struct CardsInfo
 {
-    public List<CardType> CardTypes { get; set; }
+    public List<CardInfo> CardTypes { get; set; }
 
-    public CardsInfo(CardType card1, CardType card2, CardType card3)
+    public CardsInfo(CardInfo card1, CardInfo card2, CardInfo card3)
     {
         CardTypes.Add(card1);
         CardTypes.Add(card2);
