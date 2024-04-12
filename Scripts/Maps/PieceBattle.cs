@@ -839,6 +839,38 @@ public partial class PieceBattle : Node2D
             else
             {
                 SaveData.Floor++;
+                if ((SaveData.Floor % 10) == 0)
+                {
+                    SaveData.Player.EnergyMax++;
+                    SaveData.Player.Energy = SaveData.Player.EnergyMax;
+                    SaveData.Player.HealthMax+=10;
+                    SaveData.Player.Health = SaveData.Player.HealthMax;
+                    SaveData.Coder.EnergyMax++;
+                    SaveData.Coder.Energy = SaveData.Coder.EnergyMax;
+                    SaveData.Coder.HealthMax+=10;
+                    SaveData.Coder.Health = SaveData.Coder.HealthMax;
+                    SaveData.HardwareWarrior.EnergyMax++;
+                    SaveData.HardwareWarrior.Energy = SaveData.HardwareWarrior.EnergyMax;
+                    SaveData.HardwareWarrior.HealthMax+=10;
+                    SaveData.HardwareWarrior.Health = SaveData.HardwareWarrior.HealthMax;
+                    SaveData.SignalMaster.EnergyMax++;
+                    SaveData.SignalMaster.Energy = SaveData.SignalMaster.EnergyMax;
+                    SaveData.SignalMaster.HealthMax+=10;
+                    SaveData.SignalMaster.Health = SaveData.SignalMaster.HealthMax;
+                }
+                if (SaveData.Floor == 20)
+                {
+                    SaveData.Coder.Dancing = true;
+                }
+                if(SaveData.Floor == 40)
+                {
+                    SaveData.HardwareWarrior.Dancing = true;
+                }
+
+                if (SaveData.Floor == 60)
+                {
+                    SaveData.SignalMaster.Dancing = true;
+                }
                 CardBattle.ResetCards(SaveData.Player.BattleCards);
                 CardBattle.ResetCards(SaveData.Coder.BattleCards);
                 CardBattle.ResetCards(SaveData.HardwareWarrior.BattleCards);

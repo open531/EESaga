@@ -117,7 +117,7 @@ public partial class CardsSelection : Node2D
             SaveData.SignalMaster.BattleCards.DeckCards.Add(card);
         }
 
-        _sceneSwitcher.PushScene(SceneSwitcher.BattleManagerScene);
+        _sceneSwitcher.PushScene(SceneSwitcher.GameWinScene);
     }
 
     public override void _Input(InputEvent @event)
