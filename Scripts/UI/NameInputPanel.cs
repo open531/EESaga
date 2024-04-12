@@ -1,8 +1,9 @@
 namespace EESaga.Scripts.UI;
 
 using Data;
-using EESaga.Scripts.Utilities;
 using Godot;
+using Managers;
+using Utilities;
 
 public partial class NameInputPanel : Panel
 {
@@ -27,6 +28,15 @@ public partial class NameInputPanel : Panel
     public void OnSubmitButtonPressed()
     {
         SaveData.Player.PlayerName = _nameInput.Text;
-        _sceneSwitcher.PushScene(SceneSwitcher.BattleManagerScene);
+        var dialogueManager = DialogueManager.Instance();
+        _sceneSwitcher.PushScene(dialogueManager);
+        dialogueManager.Finished += () => _sceneSwitcher.PushScene(SceneSwitcher.BattleManagerScene);
+        dialogueManager.ShowMessages(
+        [
+            new DialogueMessage("", "D_2_1"),
+            new DialogueMessage("", "D_2_2"),
+            new DialogueMessage("", "D_2_3"),
+            new DialogueMessage("", "D_2_4"),
+        ]);
     }
 }

@@ -25,7 +25,25 @@ public partial class DialogueManager : Node
     {
         if (@event is InputEventKey keyEvent)
         {
-            if (keyEvent.Keycode == Key.Space)
+            if (keyEvent.Keycode == Key.Space && keyEvent.IsReleased())
+            {
+                if (_isActive && Dialogue.MessageIsFullyVisible)
+                {
+                    if (_dialogueIndex < _dialogueMessages.Count - 1)
+                    {
+                        _dialogueIndex += 1;
+                        ShowCurrent();
+                    }
+                    else
+                    {
+                        Hide();
+                    }
+                }
+            }
+        }
+        else if (@event is InputEventMouseButton mouseEvent)
+        {
+            if (mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.IsReleased())
             {
                 if (_isActive && Dialogue.MessageIsFullyVisible)
                 {
