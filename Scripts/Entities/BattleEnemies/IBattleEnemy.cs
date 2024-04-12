@@ -22,5 +22,6 @@ public enum EnemyType
     PerceptronKun,
     Python,
     SiliconTurtle,
-    Shanloong
+    SchodingerCat,
+    Shanloong,
 }

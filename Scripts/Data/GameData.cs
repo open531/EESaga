@@ -153,34 +153,34 @@ public static class GameData
 
         #region 概率随机
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
+            new List<EnemyType> { EnemyType.SchodingerCat},
             new List<int> { 1}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
+            new List<EnemyType> { EnemyType.SchodingerCat},
             new List<int> { 2}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
+            new List<EnemyType> { EnemyType.SchodingerCat},
             new List<int> { 3}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
+            new List<EnemyType> { EnemyType.SchodingerCat},
             new List<int> { 4}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
+            new List<EnemyType> { EnemyType.SchodingerCat},
             new List<int> { 5}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
+            new List<EnemyType> { EnemyType.SchodingerCat},
             new List<int> { 6}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
+            new List<EnemyType> { EnemyType.SchodingerCat},
             new List<int> { 7}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
+            new List<EnemyType> { EnemyType.SchodingerCat},
             new List<int> { 8}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
+            new List<EnemyType> { EnemyType.SchodingerCat},
             new List<int> { 9}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Chip},
+            new List<EnemyType> { EnemyType.SchodingerCat},
             new List<int> { 10}),
 
         #endregion
