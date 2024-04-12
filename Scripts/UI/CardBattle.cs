@@ -140,13 +140,9 @@ public partial class CardBattle : CanvasLayer
         CardUpdated += OnCardUpdated;
 
         ResetCards(SaveData.Player.BattleCards);
-        if (SaveData.Parties.Count > 0)
-        {
-            foreach (var party in SaveData.Parties)
-            {
-                ResetCards(party.BattleCards);
-            }
-        }
+        ResetCards(SaveData.Coder.BattleCards);
+        ResetCards(SaveData.HardwareWarrior.BattleCards);
+        ResetCards(SaveData.SignalMaster.BattleCards);
     }
 
     public void HideUI()

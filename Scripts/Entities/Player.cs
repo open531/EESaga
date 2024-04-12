@@ -19,6 +19,7 @@ public partial class Player : CharacterBody2D
     public int SurviveCardNum;
     public int StruggleCardNum;
     public int CureCardNum;
+    public bool Dancing;
     public string PlayerName { get; set; }
     public float Speed { get; set; } = 120.0f;
     public int Level { get; set; }

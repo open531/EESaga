@@ -154,6 +154,28 @@ public partial class PieceBattle : Node2D
         player.Initialize(SaveData.Player);
         AddParty(player);
         _playerStateBar.Initialize(player, 0);
+        if (SaveData.Coder.Dancing)
+        {
+            var coder = CoderBattle.Instance();
+            coder.Initialize(SaveData.Coder);
+            AddParty(coder);
+            _partyOneStateBar.Initialize(coder, 1);
+        }
+        if (SaveData.HardwareWarrior.Dancing)
+        {
+            var hardwareWarrior = HardwareWarriorBattle.Instance();
+            hardwareWarrior.Initialize(SaveData.HardwareWarrior);
+            AddParty(hardwareWarrior);
+            _partyTwoStateBar.Initialize(hardwareWarrior, 2);
+        }
+
+        if (SaveData.SignalMaster.Dancing)
+        {
+            var signalMaster = SignalMasterBattle.Instance();
+            signalMaster.Initialize(SaveData.SignalMaster);
+            AddParty(signalMaster);
+            _partyThreeStateBar.Initialize(signalMaster, 3);
+        }
         AddEnemyByFloor();
     }
 
@@ -400,6 +422,9 @@ public partial class PieceBattle : Node2D
         var party = partyType switch
         {
             PartyType.Player => PlayerBattle.Instance(),
+            PartyType.Coder => CoderBattle.Instance(),
+            PartyType.HardwareWarrior => HardwareWarriorBattle.Instance(),
+            PartyType.SignalMaster => SignalMasterBattle.Instance(),
             _ => BattleParty.Instance(),
         };
         _parties.AddChild(party);
@@ -796,13 +821,9 @@ public partial class PieceBattle : Node2D
                 SaveData.Save();
                 _sceneSwitcher.PushScene(SceneSwitcher.GameWinScene);
                 CardBattle.ResetCards(SaveData.Player.BattleCards);
-                if (SaveData.Parties.Count > 0)
-                {
-                    foreach (var party in SaveData.Parties)
-                    {
-                        CardBattle.ResetCards(party.BattleCards);
-                    }
-                }
+                CardBattle.ResetCards(SaveData.Coder.BattleCards);
+                CardBattle.ResetCards(SaveData.HardwareWarrior.BattleCards);
+                CardBattle.ResetCards(SaveData.SignalMaster.BattleCards);
             }
         }
     }

@@ -12,8 +12,8 @@ public partial class StateBar : Node2D
 
     private List<string> _livePartiesTexturePath = new List<string>
     {
-        "res://Assets/Textures/PlayerHead.png",
-        "res://Assets/Textures/PlayerHead.png",
+        "res://Assets/Textures/player_head.png",
+        "res://Assets/Textures/wizard_head.png",
         "res://Assets/Textures/PlayerHead3.png",
         "res://Assets/Textures/PlayerHead4.png",
     };
@@ -29,7 +29,7 @@ public partial class StateBar : Node2D
 
     }
 
-    public void Initialize(BattleParty party, int rank)
+    public void Initialize(BattleParty party,int rank)
     {
         if (party == null)
         {
@@ -37,7 +37,8 @@ public partial class StateBar : Node2D
             return;
         }
         this.Visible = true;
-        _playerHeadRect.Texture.ResourcePath = _livePartiesTexturePath[rank];
+        Texture2D texture = GD.Load<Texture2D>(_livePartiesTexturePath[rank]);
+        _playerHeadRect.Texture = texture;
         _healthBar.MaxValue = 100;
         _healthBar.Value = GetValue(party.HealthMax, party.Health);
         _energyBar.MaxValue = 100;
