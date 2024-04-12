@@ -873,32 +873,6 @@ new MapInfo(
 
     #region CardSelection
 
-    public static CardsInfo RandomCardSelection()
-    {
-        var rng = new RandomNumberGenerator();
-        List<CardInfo> cardTypes = new List<CardInfo>();
-        for (int i = 0; i < 3; i++)
-        {
-            var rngNum = rng.RandiRange(0, 11);
-            var cardInfo = rngNum switch
-            {
-                0 => CardData.CAStrike,
-                1 => CardData.CABash,
-                2 => CardData.CADoubleBeat,
-                3 => CardData.CDDefend,
-                4 => CardData.CDConsolidate,
-                5 => CardData.CSSurvive,
-                6 => CardData.CSStruggle,
-                7 => CardData.CSShieldStrike,
-                8 => CardData.CIECS,
-                9 => CardData.CIUST,
-                10 => CardData.CSCure,
-                11 => CardData.CSFury
-            };
-            cardTypes.Add(cardInfo);
-        }
-        return new CardsInfo(cardTypes[0], cardTypes[1], cardTypes[2]);
-    }
 
     #endregion
 }

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://djtn7yfj76bmj" path="res://Scenes/Cards/card.tscn" id="1_qvrgt"]
 [ext_resource type="Script" path="res://Scripts/Cards/CardAttacks/CardBash.cs" id="2_p7lxo"]
 [ext_resource type="Texture2D" uid="uid://opgke20asuqw" path="res://Assets/Textures/Cards/card_red.png" id="3_n3mt1"]
-[ext_resource type="Texture2D" uid="uid://csqd66qynywex" path="res://Assets/Textures/bash.png" id="4_igqqh"]
+[ext_resource type="Texture2D" uid="uid://ckanax55mlj60" path="res://Assets/Textures/Cards/bash.png" id="4_qvvqh"]
 
 [node name="CardBash" instance=ExtResource("1_qvrgt")]
 script = ExtResource("2_p7lxo")
@@ -12,4 +12,4 @@ script = ExtResource("2_p7lxo")
 texture = ExtResource("3_n3mt1")
 
 [node name="Image" parent="." index="1"]
-texture = ExtResource("4_igqqh")
+texture = ExtResource("4_qvvqh")

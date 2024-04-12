@@ -14,16 +14,33 @@ public partial class CardsSelection : Node2D
 
     public static CardsSelection Instance() => GD.Load<PackedScene>("res://Scenes/UI/cards_selection.tscn").Instantiate<CardsSelection>();
 
-    private List<Control> _cardsInstance;
-    private List<CardInfo> _cardsInfo;
+    private List<Control> _cardsInstance = [];
+    private List<CardInfo> _cardsInfo = [];
 
     public override void _Ready()
     {
         _sceneSwitcher = GetNode<SceneSwitcher>("/root/SceneSwitcher");
-        _cardsInfo = GameData.RandomCardSelection().CardTypes;
-        foreach (var card in _cardsInfo)
+        var rng = new RandomNumberGenerator();
+        for (int i = 0; i < 3; i++)
         {
-            _cardsInstance.Add(CardFactory.CreateCard(card));
+            var rngNum = rng.RandiRange(0, 11);
+            var cardInfo = rngNum switch
+            {
+                0 => CardData.CAStrike,
+                1 => CardData.CABash,
+                2 => CardData.CADoubleBeat,
+                3 => CardData.CDDefend,
+                4 => CardData.CDConsolidate,
+                5 => CardData.CSSurvive,
+                6 => CardData.CSStruggle,
+                7 => CardData.CSShieldStrike,
+                8 => CardData.CIECS,
+                9 => CardData.CIUST,
+                10 => CardData.CSCure,
+                11 => CardData.CSFury
+            };
+            _cardsInstance.Add(CardFactory.CreateCard(cardInfo));
+            _cardsInfo.Add(cardInfo);
         }
 
         for (int i = 0; i < _cardsInstance.Count; i++)
@@ -32,12 +49,15 @@ public partial class CardsSelection : Node2D
         }
 
         _cardsInstance[0].SetPosition(new Vector2(122, 160));
+        _cardsInstance[0].Scale = new Vector2I(2, 2);
         _cardsInstance[0].MouseEntered += OnMouseEnteredArea0;
         _cardsInstance[0].MouseExited += OnMouseExitedArea0;
         _cardsInstance[1].SetPosition(new Vector2(280, 160));
+        _cardsInstance[1].Scale = new Vector2I(2, 2);
         _cardsInstance[1].MouseEntered += OnMouseEnteredArea1;
         _cardsInstance[1].MouseExited += OnMouseExitedArea1;
         _cardsInstance[2].SetPosition(new Vector2(438, 160));
+        _cardsInstance[2].Scale = new Vector2I(2, 2);
         _cardsInstance[2].MouseEntered += OnMouseEnteredArea2;
         _cardsInstance[2].MouseExited += OnMouseExitedArea2;
 
@@ -97,7 +117,7 @@ public partial class CardsSelection : Node2D
         _sceneSwitcher.PushScene(SceneSwitcher.BattleManagerScene);
     }
 
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Input(InputEvent @event)
     {
         if (@event is InputEventMouseButton mouseEvent)
         {
@@ -105,6 +125,9 @@ public partial class CardsSelection : Node2D
             {
                 if (mouseEvent.Pressed)
                 {
+                    GD.Print(_inArea0);
+                    GD.Print(_inArea1);
+                    GD.Print(_inArea2);
                     if (_inArea0)
                     {
                         OnCardSelected(_cardsInfo[0]);
