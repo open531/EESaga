@@ -131,11 +131,11 @@ public partial class PieceBattle : Node2D
         _isRefreshing = false;
         var tileMap = IsometricTileMap.Instance();
         MapInitialize(tileMap);
-        AddEnemyByFloor();
         var player = PlayerBattle.Instance();
         player.Initialize(SaveData.Player);
         AddParty(player);
         _playerStateBar.Initialize(player, 0);
+        AddEnemyByFloor();
     }
 
     public void MapInitialize(IsometricTileMap tileMap)
@@ -771,6 +771,14 @@ public partial class PieceBattle : Node2D
                 SaveData.Floor++;
                 SaveData.Save();
                 _sceneSwitcher.PushScene(SceneSwitcher.GameWinScene);
+                CardBattle.ResetCards(SaveData.Player.BattleCards);
+                if (SaveData.Parties.Count > 0)
+                {
+                    foreach (var party in SaveData.Parties)
+                    {
+                        CardBattle.ResetCards(party.BattleCards);
+                    }
+                }
             }
         }
     }

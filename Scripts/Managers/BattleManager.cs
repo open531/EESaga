@@ -15,6 +15,7 @@ using UI;
 using Utilities;
 using EESaga.Scripts.Cards.CardAttacks;
 using System;
+using EESaga.Scripts.Data;
 
 public partial class BattleManager : Node
 {
@@ -91,7 +92,7 @@ public partial class BattleManager : Node
         CardBattle.BattleManager = this;
         PieceBattle.BattleManager = this;
 
-        TurnTo(Pieces[Pieces.Count - 1]);
+        TurnTo(Pieces[0]);
     }
 
     public override void _UnhandledInput(InputEvent @event)

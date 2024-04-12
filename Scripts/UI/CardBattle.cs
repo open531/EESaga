@@ -2,6 +2,7 @@ namespace EESaga.Scripts.UI;
 
 using Cards;
 using Cards.CardItems;
+using EESaga.Scripts.Data;
 using EESaga.Scripts.Maps;
 using Entities.BattleParties;
 using Godot;
@@ -137,6 +138,15 @@ public partial class CardBattle : CanvasLayer
         _endTurnButton.Pressed += OnEndTurnButtonPressed;
 
         CardUpdated += OnCardUpdated;
+
+        ResetCards(SaveData.Player.BattleCards);
+        if (SaveData.Parties.Count > 0)
+        {
+            foreach (var party in SaveData.Parties)
+            {
+                ResetCards(party.BattleCards);
+            }
+        }
     }
 
     public void HideUI()
@@ -386,6 +396,20 @@ public partial class CardBattle : CanvasLayer
     {
         ExitPreviewCard();
         OperatingCard = null;
+    }
+
+    public static void ResetCards(BattleCards battleCards)
+    {
+        foreach (var card in battleCards.HandCards)
+        {
+            battleCards.DeckCards.Add(card);
+        }
+        foreach (var card in battleCards.DiscardCards)
+        {
+            battleCards.DeckCards.Add(card);
+        }
+        battleCards.HandCards.Clear();
+        battleCards.DiscardCards.Clear();
     }
 
     private void OnCardUpdated()
