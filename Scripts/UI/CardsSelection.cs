@@ -37,7 +37,8 @@ public partial class CardsSelection : Node2D
                 8 => CardData.CIECS,
                 9 => CardData.CIUST,
                 10 => CardData.CSCure,
-                11 => CardData.CSFury
+                11 => CardData.CSFury,
+                12 => CardData.CSCarRush
             };
             _cardsInstance.Add(CardFactory.CreateCard(cardInfo));
             _cardsInfo.Add(cardInfo);
@@ -84,6 +85,7 @@ public partial class CardsSelection : Node2D
             CardType.Special => cardInfo.SpecialType switch
             {
                 CardSpecialType.Cure => CardData.CSCure,
+                CardSpecialType.CarRush => CardData.CSCarRush,
                 CardSpecialType.Survive => CardData.CSSurvive,
                 CardSpecialType.AttackByDefense => CardData.CSShieldStrike,
                 CardSpecialType.Fury => CardData.CSFury,
@@ -98,7 +100,7 @@ public partial class CardsSelection : Node2D
             },
             _ => CardData.CAStrike,
         };
-        SaveData.Player.BattleCards.DeckCards.Add(card);
+        SaveData.Player.AddBattleCards(card, 1);
         if (SaveData.Coder.Dancing)
         {
             SaveData.Coder.BattleCards.DeckCards.Add(card);

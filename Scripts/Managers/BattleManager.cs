@@ -204,6 +204,18 @@ public partial class BattleManager : Node
                                         {
                                             switch (card)
                                             {
+                                                case CardCarRush cardCarRush:
+                                                    if (cardCarRush.TakePartyCost(CurrentPiece as BattleParty))
+                                                    {
+                                                        var cardInfo = cardCarRush.TakeEffect(target);
+                                                        CardBattle.UpdateEnergyLabel(CurrentPiece as BattleParty);
+                                                        PieceBattle.UpdateActionInfo(cardInfo[0], cardInfo[1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        PieceBattle.UpdateActionInfo($"{Tr("T_USE")}{Tr("C_S_CAR_RUSH")}\n", $"{Tr("T_ENERGY_NOT_ENOUGH")}");
+                                                    }
+                                                    break;
                                                 case CardCure cardCure:
                                                     if (cardCure.TakePartyCost(CurrentPiece as BattleParty))
                                                     {
@@ -433,6 +445,41 @@ public partial class BattleManager : Node
                     return [enemy];
                 }
                 return null;
+            case Cards.CardTarget.Straight:
+                if (targetPiece is BattleEnemy enemys)
+                {
+                    var TargetEnemies = new List<BattlePiece>();
+                    var myCell = PieceBattle.TileMap.LocalToMap(CurrentPiece.GlobalPosition);
+                    var dir = GetDirection(myCell, cell.Value);
+                    GD.Print(dir);
+                    if (dir != null)
+                    {
+                        while (true)
+                        {
+                            myCell += dir.Value;
+                            if (!PieceBattle.PieceMap.ContainsKey(myCell))
+                            {
+                                break;
+                            }
+                            if (PieceBattle.TileMap.IsBoundary((int)Layer.Ground, myCell))
+                            {
+                                break;
+                            }
+                            var target = PieceBattle.PieceMap[myCell];
+                            if (target is BattleEnemy)
+                            {
+                                TargetEnemies.Add(target);
+                            }
+                        }
+                        return TargetEnemies;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
             case Cards.CardTarget.Ally:
                 if (targetPiece is BattleParty && targetPiece != CurrentPiece)
                 {
@@ -471,6 +518,38 @@ public partial class BattleManager : Node
                 return Pieces;
         }
         return null;
+    }
+
+    public Vector2I? GetDirection(Vector2I myCell, Vector2I targetCell)
+    {
+        var dif = new Vector2I(targetCell.X - myCell.X, targetCell.Y - myCell.Y);
+        if (dif.X != 0 && dif.Y != 0)
+        {
+            return null;
+        }
+
+        if (dif.X == 0)
+        {
+            if (dif.Y > 0)
+            {
+                return new Vector2I(0, 1);
+            }
+            else
+            {
+                return new Vector2I(0, -1);
+            }
+        }
+        else
+        {
+            if (dif.X > 0)
+            {
+                return new Vector2I(1, 0);
+            }
+            else
+            {
+                return new Vector2I(-1, 0);
+            }
+        }
     }
 
     //public void UseCard(Card card, List<BattlePiece> target)

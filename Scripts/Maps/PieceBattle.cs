@@ -576,6 +576,17 @@ public partial class PieceBattle : Node2D
                     }
                 }
                 break;
+            case CardTarget.Straight:
+                foreach (var enemy in Enemies)
+                {
+                    var cell =  TileMap.LocalToMap(enemy.GlobalPosition);
+                    if (Mathf.Abs(cell.X - src.X) * Mathf.Abs(cell.Y - src.Y) == 0)
+                    {
+                        ColorMap.Add(cell, TileMap.GetCellAtlasCoords((int)Layer.Mark, cell));
+                        TileMap.SetCell((int)Layer.Mark, cell, IsometricTileMap.TileSelectedId, IsometricTileMap.TileAttackAtlas);
+                    }
+                }
+                break;
             case CardTarget.Ally:
                 foreach (var cell in usedCells)
                 {

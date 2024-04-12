@@ -29,6 +29,7 @@ public enum CardTarget
     Self,
     Enemy,
     Range,
+    Straight,
     Ally,
     AllEnemies,
     AllAllies,
@@ -61,6 +62,7 @@ public enum CardSpecialType
     Struggle,
     Survive,
     AttackByDefense,
+    CarRush,
     Fury,
 }
 
@@ -118,5 +120,5 @@ public static class CardData
     public static CardInfo CIUST = new(CardType.Item, "C_I_UST", "C_I_UST_DESC", 1, CardTarget.Self, itemType: CardItemType.UST);
     public static CardInfo CSCure = new(CardType.Special, "C_S_CURE", "C_S_CURE_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Cure);
     public static CardInfo CSFury = new(CardType.Special, "C_S_FURY", "C_S_FURY_DESC", 1, CardTarget.Self, specialType: CardSpecialType.Fury);
-    public static List<CardInfo> CardList = [CAStrike, CABash, CADoubleBeat, CDDefend, CDConsolidate, CSSurvive, CSStruggle, CSShieldStrike, CIECS, CIUST, CSCure, CSFury];
+    public static CardInfo CSCarRush = new(CardType.Special, "C_S_CAR_RUSH", "C_S_CAR_RUSH_DESC", 1, CardTarget.Straight, specialType: CardSpecialType.CarRush);
 }
