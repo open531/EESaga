@@ -29,5 +29,7 @@ C_S_FURY,盛怒,盛怒,Fury,怒り
 C_S_FURY_DESC,失去10点生命值，获得2点能量,失去10點生命值，獲得2點能量,Lose 10 health and gain 2 energy,10ポイントの体力を失い、2ポイントのエネルギーを獲得する
 C_S_CAR_RUSH,小车冲锋,小車衝鋒,Charge forward with the car,車が突進します
 C_S_CAR_RUSH_DESC,使一条线上的敌人受到伤害,使一條線上的敵人受到傷害,Damage enemies on a line,一直線上の敵にダメージを与える
+C_S_CODE_BOOM,秘制佳酿,秘製佳釀,Secret concoction,秘密の名醸
+C_S_CODE_BOOM_DESC,使得3*3范围内的敌人受到伤害,使得3*3範圍的敵人受到傷害,Damage enemies within 3*3 range,3*3の範囲内の敵にダメージを与える
 C_I_UST,独门秘技,獨門秘技,Unique secret technique,独自の秘術
 C_I_UST_DESC,抽牌至6张,抽牌至6張,Draw cards until you have 6 cards,6枚のカードをドローする
