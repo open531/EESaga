@@ -12,7 +12,7 @@ public partial class Python : BattleEnemy
     public override void _Ready()
     {
         base._Ready();
-        PieceName = "PYTHON";
+        PieceName = $"{Tr("E_PYTHON")}";
         HealthMax = 10;
         Health = HealthMax;
         Agility = 1;

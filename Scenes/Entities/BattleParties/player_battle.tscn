@@ -5,3 +5,6 @@
 
 [node name="PlayerBattle" instance=ExtResource("1_1f0xy")]
 script = ExtResource("1_1gsi3")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+frame_progress = 0.102811

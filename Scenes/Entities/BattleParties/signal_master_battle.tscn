@@ -1,0 +1,68 @@
+[gd_scene load_steps=12 format=3 uid="uid://s2t6rv78r85f"]
+
+[ext_resource type="PackedScene" uid="uid://cdw0m8fa4yrv7" path="res://Scenes/Entities/BattleParties/battle_party.tscn" id="1_yfb3e"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleParties/SignalMasterBattle.cs" id="2_a24xl"]
+[ext_resource type="Texture2D" uid="uid://cu5gonh6e2pd" path="res://Assets/Textures/perceptron_kun_idle.png" id="3_b6wyg"]
+[ext_resource type="Texture2D" uid="uid://bfrr4vp2dr585" path="res://Assets/Textures/perceptron_kun_move.png" id="4_e0oow"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_batd0"]
+atlas = ExtResource("3_b6wyg")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2w7a"]
+atlas = ExtResource("3_b6wyg")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2a7ml"]
+atlas = ExtResource("4_e0oow")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ghiv"]
+atlas = ExtResource("4_e0oow")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yudgs"]
+atlas = ExtResource("4_e0oow")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k1w2"]
+atlas = ExtResource("4_e0oow")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qr2qp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_batd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2w7a")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2a7ml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ghiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yudgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k1w2")
+}],
+"loop": true,
+"name": &"move",
+"speed": 2.0
+}]
+
+[node name="SignalMasterBattle" instance=ExtResource("1_yfb3e")]
+script = ExtResource("2_a24xl")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_qr2qp")
+animation = &"move"

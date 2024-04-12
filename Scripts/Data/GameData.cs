@@ -1,3 +1,5 @@
+using EESaga.Scripts.Cards;
+
 namespace EESaga.Scripts.Data;
 
 using EESaga.Scripts.Entities.BattleEnemies;
@@ -866,6 +868,13 @@ new MapInfo(
     )
         ];
     #endregion
+
+    #region CardSelection
+
+    public static List<CardInfo> CardSelection =
+        [];
+
+    #endregion
 }
 
 public struct EnemyInfo
@@ -889,5 +898,17 @@ public struct MapInfo
     {
         AvailableCells = availableCells;
         CellsOutOfMap = cellsOutOfMap;
+    }
+}
+
+public struct CardInfo
+{
+    public List<CardType> CardTypes { get; set; }
+
+    public CardInfo(CardType card1, CardType card2, CardType card3)
+    {
+        CardTypes.Add(card1);
+        CardTypes.Add(card2);
+        CardTypes.Add(card3);
     }
 }

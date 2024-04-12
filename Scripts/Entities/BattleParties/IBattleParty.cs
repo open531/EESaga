@@ -1,4 +1,4 @@
-﻿namespace EESaga.Scripts.Entities.BattleParties;
+namespace EESaga.Scripts.Entities.BattleParties;
 
 using Godot;
 using UI;
@@ -19,4 +19,7 @@ public enum PartyType
 {
     Null,
     Player,
+    Coder,
+    HardwareWarrior,
+    SignalMaster
 }
