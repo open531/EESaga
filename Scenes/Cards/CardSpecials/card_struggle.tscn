@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://djtn7yfj76bmj" path="res://Scenes/Cards/card.tscn" id="1_tr1s8"]
 [ext_resource type="Script" path="res://Scripts/Cards/CardSpecials/CardStruggle.cs" id="2_3s20i"]
 [ext_resource type="Texture2D" uid="uid://bri48w0equilg" path="res://Assets/Textures/Cards/card_green.png" id="3_ettx5"]
-[ext_resource type="Texture2D" uid="uid://jr8pitt55yjk" path="res://Assets/Textures/blood_to_shield.png" id="4_gpsus"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/blood_to_shield.png" id="4_gpsus"]
 
 [node name="CardStruggle" instance=ExtResource("1_tr1s8")]
 script = ExtResource("2_3s20i")
