@@ -384,6 +384,7 @@ public partial class PieceBattle : Node2D
             EnemyType.FourierLeaf => FourierLeaf.Instance(),
             EnemyType.PerceptronKun => PerceptronKun.Instance(),
             EnemyType.Python => Python.Instance(),
+            EnemyType.SchrodingerCat => SchrodingerCat.Instance(),
             EnemyType.Shanloong => Shanloong.Instance(),
             EnemyType.SiliconTurtle => SiliconTurtle.Instance(),
             EnemyType.Make => Make.Instance(),
