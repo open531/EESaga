@@ -17,7 +17,6 @@ public enum EnemyType
     CapacityGreen,
     CapacityCylinder,
     Chip,
-    CrystalTurtle,
     Make,
     FourierLeaf,
     PerceptronKun,
