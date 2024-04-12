@@ -85,34 +85,34 @@ public static class GameData
         #region 数据算法
 
         new EnemyInfo(
-            new List<EnemyType> {EnemyType.Python},
+            new List<EnemyType> {EnemyType.BinaryTree},
             new List<int> { 1}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Python},
+            new List<EnemyType> { EnemyType.BinaryTree},
             new List<int> { 2}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Python},
+            new List<EnemyType> { EnemyType.BinaryTree},
             new List<int> { 3}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Python},
+            new List<EnemyType> { EnemyType.BinaryTree},
             new List<int> { 4}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Python},
+            new List<EnemyType> { EnemyType.BinaryTree},
             new List<int> { 5}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Python},
+            new List<EnemyType> { EnemyType.BinaryTree},
             new List<int> { 6}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Python},
+            new List<EnemyType> { EnemyType.BinaryTree},
             new List<int> { 7}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Python},
+            new List<EnemyType> { EnemyType.BinaryTree},
             new List<int> { 8}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Python},
+            new List<EnemyType> { EnemyType.BinaryTree},
             new List<int> { 9}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.Python},
+            new List<EnemyType> { EnemyType.BinaryTree},
             new List<int> { 10}),
 
         #endregion
@@ -257,34 +257,34 @@ public static class GameData
         #region 通信网络
 
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<EnemyType> { EnemyType.Shanloong},
             new List<int> { 1}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<EnemyType> { EnemyType.Shanloong},
             new List<int> { 2}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<EnemyType> { EnemyType.Shanloong},
             new List<int> { 3}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<EnemyType> { EnemyType.Shanloong},
             new List<int> { 4}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<EnemyType> { EnemyType.Shanloong},
             new List<int> { 5}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<EnemyType> { EnemyType.Shanloong},
             new List<int> { 6}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<EnemyType> { EnemyType.Shanloong},
             new List<int> { 7}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<EnemyType> { EnemyType.Shanloong},
             new List<int> { 8}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<EnemyType> { EnemyType.Shanloong},
             new List<int> { 9}),
         new EnemyInfo(
-            new List<EnemyType> { EnemyType.FourierLeaf},
+            new List<EnemyType> { EnemyType.Shanloong},
             new List<int> { 10}),
 
         #endregion

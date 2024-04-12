@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public partial class SiliconTurtle : BattleEnemy
 {
     [Signal] public delegate void SiliconTurtleActionEventHandler(string actionInfo, string actionEffect, bool refreshLastLabel);
-    public static new SiliconTurtle Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/SiliconTurtle.tscn").Instantiate<SiliconTurtle>();
+    public static new SiliconTurtle Instance() => GD.Load<PackedScene>("res://Scenes/Entities/BattleEnemies/silicon_turtle.tscn").Instantiate<SiliconTurtle>();
 
     public override void _Ready()
     {

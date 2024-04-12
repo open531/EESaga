@@ -13,10 +13,12 @@ public enum EnemyType
 {
     Null,
     Slime,
+    BinaryTree,
     CapacityGreen,
     CapacityCylinder,
     Chip,
     FourierLeaf,
     PerceptronKun,
-    Python
+    Python,
+    Shanloong
 }
