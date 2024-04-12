@@ -20,5 +20,6 @@ public enum EnemyType
     FourierLeaf,
     PerceptronKun,
     Python,
-    Shanloong
+    SchodingerCat,
+    Shanloong,
 }

@@ -401,6 +401,8 @@ public partial class PieceBattle : Node2D
         enemy.PieceDeath += HandlePieceDeath;
         if (enemy is Slime slime)
             slime.SlimeAction += UpdateActionInfo;
+        else if (enemy is BinaryTree binaryTree)
+            binaryTree.BinaryTreeAction += UpdateActionInfo;
         else if (enemy is CapacityGreen capacityGreen)
             capacityGreen.CapacityGreenAction += UpdateActionInfo;
         else if (enemy is CapacityCylinder capacityCylinder)
@@ -413,6 +415,10 @@ public partial class PieceBattle : Node2D
             perceptronKun.PerceptronKunAction += UpdateActionInfo;
         else if (enemy is Python python)
             python.PythonAction += UpdateActionInfo;
+        else if (enemy is SchrodingerCat schrodingerCat)
+            schrodingerCat.SchrodingerCatAction += UpdateActionInfo;
+        else if (enemy is Shanloong shanloong)
+            shanloong.ShanloongAction += UpdateActionInfo;
     }
 
     public void AddParty(PartyType partyType)
