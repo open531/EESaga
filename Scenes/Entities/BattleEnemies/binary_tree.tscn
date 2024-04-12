@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://8rvgctj32ph7"]
+
+[ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_la4l8"]
+[ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/BinaryTree.cs" id="2_2mywo"]
+[ext_resource type="Texture2D" uid="uid://vlfjbm04l8tb" path="res://Assets/Textures/binary_tree_idle.png" id="3_7boio"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gak30"]
+atlas = ExtResource("3_7boio")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73s3i"]
+atlas = ExtResource("3_7boio")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8n7et"]
+atlas = ExtResource("3_7boio")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efnc0"]
+atlas = ExtResource("3_7boio")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hximi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gak30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73s3i")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8n7et")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efnc0")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[node name="BinaryTree" instance=ExtResource("1_la4l8")]
+script = ExtResource("2_2mywo")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_hximi")
+animation = &"move"
