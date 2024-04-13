@@ -52,7 +52,7 @@ public partial class SaveData : Node
     #region Coder
     public static Player Coder { get; set; } = new()
     {
-        PlayerName = "The Coder",
+        PlayerName = "P_CODER",
         HealthMax = 70,
         Health = 70,
         EnergyMax = 4,
@@ -92,7 +92,7 @@ public partial class SaveData : Node
     #region Hardware Warrior
     public static Player HardwareWarrior { get; set; } = new()
     {
-        PlayerName = "Hardware Warrior",
+        PlayerName = "P_HARDWARE",
         HealthMax = 100,
         Health = 100,
         EnergyMax = 4,
@@ -132,7 +132,7 @@ public partial class SaveData : Node
     #region Signal Master
     public static Player SignalMaster { get; set; } = new()
     {
-        PlayerName = "Yang Zhang",
+        PlayerName = "P_SIGNAL",
         HealthMax = 100,
         Health = 100,
         EnergyMax = 4,
