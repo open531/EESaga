@@ -9,6 +9,7 @@ script = ExtResource("1_ioauv")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 unique_name_in_owner = true
+clip_contents = false
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 496.0
