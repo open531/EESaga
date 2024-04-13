@@ -116,7 +116,7 @@ public partial class CardsSelection : Node2D
         {
             SaveData.SignalMaster.BattleCards.DeckCards.Add(card);
         }
-
+        SaveData.Save();
         _sceneSwitcher.PushScene(SceneSwitcher.GameWinScene);
     }
 

@@ -890,7 +890,6 @@ public partial class PieceBattle : Node2D
                 CardBattle.ResetCards(SaveData.Coder.BattleCards);
                 CardBattle.ResetCards(SaveData.HardwareWarrior.BattleCards);
                 CardBattle.ResetCards(SaveData.SignalMaster.BattleCards);
-                SaveData.Save();
                 _sceneSwitcher.PushScene(SceneSwitcher.CardsSelectionScene);
             }
         }
