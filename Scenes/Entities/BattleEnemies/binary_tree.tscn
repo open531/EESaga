@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://8rvgctj32ph7"]
+[gd_scene load_steps=9 format=3 uid="uid://dhb0ir7pmtwrh"]
 
 [ext_resource type="PackedScene" uid="uid://die583u8tgrrl" path="res://Scenes/Entities/BattleEnemies/battle_enemy.tscn" id="1_la4l8"]
 [ext_resource type="Script" path="res://Scripts/Entities/BattleEnemies/BinaryTree.cs" id="2_2mywo"]
-[ext_resource type="Texture2D" uid="uid://vlfjbm04l8tb" path="res://Assets/Textures/binary_tree_idle.png" id="3_7boio"]
+[ext_resource type="Texture2D" uid="uid://c13uc50xnbyv2" path="res://Assets/Textures/binary_tree_idle.png" id="3_7boio"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gak30"]
 atlas = ExtResource("3_7boio")
